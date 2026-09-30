@@ -1,0 +1,527 @@
+/* O Khalm Bébé — finition globale du thème non publié */
+
+/* Header : les pictogrammes restent légers, sans pastille blanche autour. */
+#shopify-section-header-inline .t4s-site-nav__icon,
+#shopify-section-header-inline .t4s-site-nav__icon > a,
+#shopify-section-header-inline .t4s-site-nav__icon > button,
+#shopify-section-header-inline .t4s-site-nav__icon > .t4s-pr,
+#shopify-section-header-inline .t4s-site-nav__icon .t4s-site-nav__icon {
+  background: transparent !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+}
+
+#shopify-section-header-inline .t4s-count-box,
+#shopify-section-header-inline .t4s-site-nav__icon .ssw-counter-fave-menu {
+  background: transparent !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+}
+
+/* Wishlist produit : l'icône reste disponible, mais sans cercle de fond. */
+.t4s-product .t4s-product-btns2 .t4s-pr-wishlist,
+.t4s-product .t4s-product-btns2 [data-replace-wishlist],
+.t4s-product .t4s-product-btns2 [data-replace-wishlist] > a,
+.t4s-product .t4s-product-btns2 .t4s-pr-wishlist > a,
+.template-product .t4s-product-form__buttons .t4s-pr-wishlist {
+  background: transparent !important;
+  border-color: transparent !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+}
+
+.template-product .t4s-product-form__buttons .t4s-pr-wishlist:hover,
+.template-product .t4s-product-form__buttons .t4s-pr-wishlist.is--added {
+  background: transparent !important;
+  border-color: transparent !important;
+}
+
+/* Bestseller : pastille premium commune aux cartes et à la photo produit. */
+.okb-bestseller-badge {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  z-index: 8;
+  display: inline-flex;
+  align-items: center;
+  min-height: 28px;
+  padding: 6px 11px;
+  border-radius: 999px;
+  background: var(--okb-plum, #452f57);
+  color: #fff;
+  font-family: var(--okb-font-body, inherit);
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: .08em;
+  line-height: 1;
+  text-transform: uppercase;
+  box-shadow: 0 4px 14px rgba(34, 24, 44, .12);
+}
+
+.template-product .t4s-product__media-wrapper .okb-bestseller-badge {
+  top: 20px;
+  left: 20px;
+}
+
+.okb-card__badge--bestseller {
+  background: var(--okb-plum, #452f57) !important;
+  color: #fff !important;
+}
+
+/* Finition premium du contenu de la fiche produit. */
+.template-product .t4s-section-main-product .t4s-product__info-container {
+  border-radius: 18px;
+  background: rgba(255, 255, 255, .72);
+  box-shadow: 0 18px 50px rgba(34, 24, 44, .06);
+}
+
+.template-product .t4s-section-main-product .t4s-swatch__option {
+  margin-bottom: 18px;
+}
+
+.template-product .t4s-section-main-product .t4s-swatch__title {
+  color: var(--okb-ink, #22182c);
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+
+/* Variantes Taille : boutons texte uniquement, sans image ni espace réservé. */
+.template-product .t4s-section-main-product .t4s-swatch__option.is-t4s-name__taille .t4s-swatch__item,
+.template-product .t4s-section-main-product .t4s-swatch__option.is-t4s-name__size .t4s-swatch__item {
+  min-height: 48px !important;
+  height: auto !important;
+  padding: 12px 16px !important;
+  justify-content: center !important;
+  border: 1px solid rgba(69, 47, 87, .18) !important;
+  border-radius: 10px !important;
+  background: #fff !important;
+  color: #452f57 !important;
+  font-size: 13px !important;
+  font-weight: 700 !important;
+  text-align: center !important;
+}
+
+.template-product .t4s-section-main-product .t4s-swatch__option.is-t4s-name__taille .t4s-swatch__item.is--selected,
+.template-product .t4s-section-main-product .t4s-swatch__option.is-t4s-name__size .t4s-swatch__item.is--selected {
+  border-color: #452f57 !important;
+  background: #f8e6ee !important;
+  box-shadow: 0 0 0 1px #452f57 !important;
+}
+
+.template-product .t4s-section-main-product .t4s-swatch__option.is-t4s-name__taille .t4s-variant-card-inner,
+.template-product .t4s-section-main-product .t4s-swatch__option.is-t4s-name__size .t4s-variant-card-inner,
+.template-product .t4s-section-main-product .t4s-swatch__option.is-t4s-name__taille .t4s-variant-card-image,
+.template-product .t4s-section-main-product .t4s-swatch__option.is-t4s-name__size .t4s-variant-card-image {
+  display: none !important;
+}
+
+.template-product .t4s-section-main-product .t4s-swatch__option.is-t4s-name__taille .t4s-swatch__item::before,
+.template-product .t4s-section-main-product .t4s-swatch__option.is-t4s-name__size .t4s-swatch__item::before {
+  display: none !important;
+  content: none !important;
+}
+
+/* Recommandations produit : même carte Design 11 que l'accueil et les collections. */
+.template-product .id_product-recommendations .okb-card .t4s-product-inner {
+  height: auto !important;
+  min-height: 0 !important;
+  aspect-ratio: 1 / 1 !important;
+  border: 0 !important;
+  border-radius: var(--okb-card-radius, 12px) !important;
+  background: var(--okb-sand, #f4efe6) !important;
+  box-shadow: none !important;
+}
+
+.template-product .id_product-recommendations .okb-card .t4s-product-img,
+.template-product .id_product-recommendations .okb-card .t4s-product-img.t4s_ratio,
+.template-product .id_product-recommendations .okb-card .t4s-product-main-img {
+  width: 100% !important;
+  height: 100% !important;
+  min-height: 100% !important;
+  padding-top: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+}
+
+.template-product .id_product-recommendations .okb-card .t4s-product-img img,
+.template-product .id_product-recommendations .okb-card .t4s-product-main-img img {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;
+  object-position: center !important;
+}
+
+.template-product .id_product-recommendations .okb-card .t4s-product-info {
+  display: block !important;
+  height: auto !important;
+  margin: 0 !important;
+  padding: 13px 0 0 !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  text-align: left !important;
+}
+
+.template-product .id_product-recommendations .okb-card .t4s-product-info__inner {
+  display: block !important;
+  height: auto !important;
+  margin: 0 !important;
+}
+
+.template-product .id_product-recommendations .okb-card .t4s-product-info__inner > * {
+  margin-bottom: 6px !important;
+}
+
+.template-product .id_product-recommendations .okb-card .t4s-product-info,
+.template-product .id_product-recommendations .okb-card .t4s-product-info__inner,
+.template-product .id_product-recommendations .okb-card .t4s-product-title,
+.template-product .id_product-recommendations .okb-card .t4s-product-title a,
+.template-product .id_product-recommendations .okb-card .t4s-product-price-atc-row,
+.template-product .id_product-recommendations .okb-card .t4s-product-price-wrapper,
+.template-product .id_product-recommendations .okb-card .t4s-product-price {
+  border: 0 !important;
+  box-shadow: none !important;
+}
+
+.template-product .id_product-recommendations .okb-card .t4s-product-info::before,
+.template-product .id_product-recommendations .okb-card .t4s-product-info::after,
+.template-product .id_product-recommendations .okb-card .t4s-product-info__inner::before,
+.template-product .id_product-recommendations .okb-card .t4s-product-info__inner::after,
+.template-product .id_product-recommendations .okb-card .t4s-product-title::before,
+.template-product .id_product-recommendations .okb-card .t4s-product-title::after,
+.template-product .id_product-recommendations .okb-card .t4s-product-title a::before,
+.template-product .id_product-recommendations .okb-card .t4s-product-title a::after {
+  display: none !important;
+  content: none !important;
+  border: 0 !important;
+  background: transparent !important;
+}
+
+.template-product .id_product-recommendations .okb-card .t4s-product-title,
+.template-product .id_product-recommendations .okb-card .t4s-product-title a {
+  display: -webkit-box !important;
+  min-height: 41px !important;
+  max-height: 41px !important;
+  margin: 0 !important;
+  overflow: hidden !important;
+  color: var(--okb-ink, #22182c) !important;
+  font-family: var(--okb-font-body, inherit) !important;
+  font-size: var(--okb-card-fs-title, 15.5px) !important;
+  font-weight: 700 !important;
+  line-height: 1.32 !important;
+  letter-spacing: 0 !important;
+  text-align: left !important;
+  text-transform: none !important;
+  white-space: normal !important;
+  -webkit-box-orient: vertical !important;
+  -webkit-line-clamp: 2 !important;
+}
+
+.template-product .id_product-recommendations .okb-card .t4s-product-title a:hover {
+  color: var(--okb-gold, #c39a3b) !important;
+}
+
+.template-product .id_product-recommendations .okb-card .okb-card__rating {
+  display: flex !important;
+  align-items: center !important;
+  width: fit-content !important;
+  margin-top: 7px !important;
+}
+
+.template-product .id_product-recommendations .okb-card .t4s-product-price-atc-row {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  gap: 10px !important;
+  width: 100% !important;
+  margin: 2px 0 0 !important;
+  padding: 0 !important;
+}
+
+.template-product .id_product-recommendations .okb-card .t4s-product-price-wrapper,
+.template-product .id_product-recommendations .okb-card .t4s-product-atc-wrapper {
+  width: auto !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+.template-product .id_product-recommendations .okb-card .t4s-product-price,
+.template-product .id_product-recommendations .okb-card .t4s-product-price ins {
+  display: flex !important;
+  align-items: baseline !important;
+  gap: 8px !important;
+  margin: 0 !important;
+  color: var(--okb-ink, #22182c) !important;
+  font-family: var(--okb-font-body, inherit) !important;
+  font-size: var(--okb-card-fs-price, 15px) !important;
+  font-weight: 800 !important;
+  line-height: 1.3 !important;
+  text-decoration: none !important;
+}
+
+.template-product .id_product-recommendations .okb-card .t4s-product-price del {
+  display: none !important;
+}
+
+.template-product .id_product-recommendations .okb-card .t4s-product-atc-wrapper .t4s-pr-addtocart {
+  width: var(--okb-card-atc, 34px) !important;
+  height: var(--okb-card-atc, 34px) !important;
+  min-width: var(--okb-card-atc, 34px) !important;
+  min-height: var(--okb-card-atc, 34px) !important;
+  padding: 0 !important;
+  border: 0 !important;
+  border-radius: 50% !important;
+  background: var(--okb-plum, #452f57) !important;
+  color: #fff !important;
+}
+
+.template-product .id_product-recommendations .okb-card .t4s-product-atc-wrapper .t4s-pr-addtocart:hover {
+  background: var(--okb-gold, #c39a3b) !important;
+}
+
+.template-product .id_product-recommendations .okb-card .t4s-product-badge {
+  top: 10px !important;
+  left: 10px !important;
+  right: auto !important;
+}
+
+.template-product .id_product-recommendations .okb-card .t4s-product-btns2 {
+  top: 10px !important;
+  right: 10px !important;
+  bottom: auto !important;
+  left: auto !important;
+}
+
+.template-product .id_product-recommendations .okb-card .t4s-product-btns2 .t4s-pr-item-btn {
+  width: 32px !important;
+  height: 32px !important;
+  border: 0 !important;
+  border-radius: 50% !important;
+  background: #fff !important;
+  box-shadow: 0 1px 5px rgba(34, 24, 44, .12) !important;
+}
+
+@media (max-width: 767px) {
+  .template-product .id_product-recommendations .okb-card .t4s-product-info {
+    padding-top: 10px !important;
+  }
+
+  .template-product .id_product-recommendations .okb-card .t4s-product-title,
+  .template-product .id_product-recommendations .okb-card .t4s-product-title a {
+    font-size: 14px !important;
+  }
+}
+
+/* Sélecteur d'univers : les swatches couleur restent sur une seule ligne
+   sur mobile, sans créer de débordement horizontal de la page. */
+@media (max-width: 620px) {
+  .okb-univers__tabs:has(.okb-univers__tab--nuancier) {
+    grid-auto-flow: column !important;
+    grid-auto-columns: max-content !important;
+    justify-content: center !important;
+    gap: 16px !important;
+    max-width: 100% !important;
+    overflow-x: auto !important;
+    overflow-y: hidden !important;
+    scrollbar-width: none;
+  }
+
+  .okb-univers__tabs:has(.okb-univers__tab--nuancier)::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+@media (max-width: 767px) {
+  .okb-bestseller-badge {
+    top: 11px;
+    left: 11px;
+    min-height: 25px;
+    padding: 5px 9px;
+    font-size: 9px;
+  }
+
+  .template-product .t4s-product__media-wrapper .okb-bestseller-badge {
+    top: 14px;
+    left: 14px;
+  }
+
+  .template-product .t4s-section-main-product .t4s-product__info-container {
+    padding: 22px 18px;
+    border-radius: 14px;
+  }
+}
+
+/* ========================================================================== 
+   18. Ajustements demandes — recommandations, cartes, footer et mobile
+   ========================================================================== */
+
+:root {
+  --okb-store-container: 1160px;
+  --wrapper-mw: 1160px !important;
+}
+
+/* Grille globale : toutes les sections natives suivent la largeur de la
+   boutique, tandis que les composants gardent leurs propres espacements. */
+@media (min-width: 1025px) {
+  .t4s-container {
+    max-width: var(--okb-store-container) !important;
+  }
+
+  .okb-wrap,
+  .okb-club {
+    width: min(var(--okb-store-container), calc(100% - 80px)) !important;
+    max-width: var(--okb-store-container) !important;
+  }
+
+  #shopify-section-header-inline .t4s-header__wrapper > .t4s-container,
+  .t4s-section-footer .t4s-section-inner > .t4s-container,
+  #t4s-footer .t4s-section-bottom-bar .t4s-container {
+    width: min(var(--okb-store-container), calc(100% - 80px)) !important;
+    max-width: var(--okb-store-container) !important;
+    margin-inline: auto !important;
+    padding-inline: 0 !important;
+  }
+}
+
+/* Collections : marge visible et réglable entre le titre et la grille. */
+.okb-collections .okb-collections__title {
+  margin-bottom: 0 !important;
+}
+
+.okb-collections .okb-collections__grid {
+  margin-top: var(--okb-collections-heading-gap, 52px) !important;
+}
+
+/* Le titre des recommandations est centré dans toute la largeur du bloc,
+   y compris lorsque le réglage historique du thème ajoutait une grille. */
+body.template-product .id_product-recommendations .t4s-top-heading,
+body.template-product #MainContent .id_product-recommendations .t4s-top-heading {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 100% !important;
+  max-width: none !important;
+  margin: 0 auto 48px !important;
+  text-align: center !important;
+}
+
+body.template-product .id_product-recommendations .heading-testimonials-star,
+body.template-product #MainContent .id_product-recommendations .heading-testimonials-star {
+  display: block !important;
+  width: 100% !important;
+  text-align: center !important;
+}
+
+body.template-product .id_product-recommendations .t4s-section-title,
+body.template-product .id_product-recommendations .t4s-section-title span,
+body.template-product #MainContent .id_product-recommendations .t4s-section-title,
+body.template-product #MainContent .id_product-recommendations .t4s-section-title span {
+  display: block !important;
+  width: 100% !important;
+  max-width: none !important;
+  margin: 0 auto !important;
+  text-align: center !important;
+  font-family: "NunitoDisplay", "Nunito Display", var(--font-family-1), sans-serif !important;
+  font-size: 36px !important;
+  font-weight: 400 !important;
+  line-height: 1.12 !important;
+  letter-spacing: -0.025em !important;
+  text-transform: none !important;
+}
+
+/* Le bloc recommandations utilise le même rythme et la même largeur que le site. */
+body.template-product .id_product-recommendations .t4s-section-inner,
+body.template-product #MainContent .id_product-recommendations .t4s-section-inner {
+  padding: clamp(56px, 7vw, 88px) 0 !important;
+  background: var(--okb-sand, #f7f5f1) !important;
+}
+
+body.template-product .id_product-recommendations .t4s-container,
+body.template-product #MainContent .id_product-recommendations .t4s-container {
+  width: min(var(--okb-store-container), calc(100% - 80px)) !important;
+  max-width: var(--okb-store-container) !important;
+  padding-inline: 0 !important;
+}
+
+/* Design 11 : rapprocher le prix et la ligne promotionnelle du titre. */
+.okb-card .t4s-product-info__inner > * {
+  margin-bottom: 3px !important;
+}
+
+.okb-card .t4s-product-title,
+.okb-card .t4s-product-title a {
+  margin-bottom: 1px !important;
+}
+
+.okb-card .t4s-product-price-atc-row {
+  margin-top: 0 !important;
+}
+
+.okb-card .okb-card__deal {
+  gap: 7px !important;
+  margin-top: 1px !important;
+}
+
+/* Footer : le logo et le texte partagent le même axe de départ. */
+.t4s-section-footer .t4s-custom-col:first-child .t4s-col-inner {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: flex-start !important;
+}
+
+.t4s-section-footer .t4s-custom-col:first-child .t4s-img-child {
+  display: block !important;
+  margin: 0 0 16px !important;
+  vertical-align: top !important;
+}
+
+.t4s-section-footer .t4s-custom-col:first-child .t4s-text-bl {
+  margin: 0 !important;
+  text-align: left !important;
+}
+
+/* Sur mobile, les conteneurs standards gardent 5 % de marge latérale. */
+@media (max-width: 767px) {
+  .okb-wrap {
+    width: 90% !important;
+    max-width: none !important;
+  }
+
+  .t4s-section-inner > .t4s-container,
+  .t4s-section-inner > .t4s-container-wrap > .t4s-container {
+    width: 90% !important;
+    max-width: none !important;
+    padding-inline: 0 !important;
+  }
+
+  .t4s-section-main-product > .t4s-container,
+  .template-product .t4s-main-product__content {
+    width: 90% !important;
+    max-width: none !important;
+    padding-inline: 0 !important;
+  }
+
+  body.template-product .id_product-recommendations .t4s-top-heading,
+  body.template-product #MainContent .id_product-recommendations .t4s-top-heading {
+    margin-bottom: 36px !important;
+  }
+
+  body.template-product .id_product-recommendations .t4s-section-title,
+  body.template-product .id_product-recommendations .t4s-section-title span,
+  body.template-product #MainContent .id_product-recommendations .t4s-section-title,
+  body.template-product #MainContent .id_product-recommendations .t4s-section-title span {
+    font-size: 36px !important;
+  }
+
+  #shopify-section-header-inline .t4s-header__wrapper > .t4s-container,
+  .t4s-section-footer .t4s-section-inner > .t4s-container,
+  #t4s-footer .t4s-section-bottom-bar .t4s-container {
+    width: 90% !important;
+    max-width: none !important;
+    padding-inline: 0 !important;
+  }
+}

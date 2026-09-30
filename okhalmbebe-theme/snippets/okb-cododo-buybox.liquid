@@ -1,0 +1,45 @@
+{%- comment -%}
+  O Khalm Bébé · Compléments du premier écran (fiche lit cododo)
+  Rendu depuis des blocs « Custom Liquid » de la section produit.
+
+  part: 'intro'  → accroche, texte court et 4 bénéfices avec pictogrammes
+    accroche, texte, b1..b4 (libellés), i1..i4 (pictogrammes, voir okb-cododo-icon)
+  part: 'trust'  → lignes de réassurance sous le bouton d'ajout au panier
+    product (pour l'état du stock), l1..l3 (libellés, précédés d'une coche)
+{%- endcomment -%}
+{{- 'okb-cododo.css' | asset_url | stylesheet_tag -}}
+{%- case part -%}
+  {%- when 'intro' -%}
+    <div class="okb-cd okb-cd-intro">
+      {%- if accroche != blank -%}
+        <p class="okb-cd-intro__lead">{{ accroche }}</p>
+      {%- endif -%}
+      {%- if texte != blank -%}
+        <p class="okb-cd-intro__text">{{ texte }}</p>
+      {%- endif -%}
+      <ul class="okb-cd-intro__list" role="list">
+        {%- if b1 != blank -%}<li>{% render 'okb-cododo-icon', icon: i1 %}<span>{{ b1 }}</span></li>{%- endif -%}
+        {%- if b2 != blank -%}<li>{% render 'okb-cododo-icon', icon: i2 %}<span>{{ b2 }}</span></li>{%- endif -%}
+        {%- if b3 != blank -%}<li>{% render 'okb-cododo-icon', icon: i3 %}<span>{{ b3 }}</span></li>{%- endif -%}
+        {%- if b4 != blank -%}<li>{% render 'okb-cododo-icon', icon: i4 %}<span>{{ b4 }}</span></li>{%- endif -%}
+      </ul>
+    </div>
+
+  {%- when 'trust' -%}
+    {%- liquid
+      assign variante = product.selected_or_first_available_variant
+      assign dispo = false
+      if variante.available
+        assign dispo = true
+      endif
+    -%}
+    <ul class="okb-cd okb-cd-trust" role="list">
+      <li class="okb-cd-trust__stock{% unless dispo %} is-out{% endunless %}">
+        {%- render 'okb-cododo-icon', icon: 'check' -%}
+        <span>{% if dispo %}En stock{% else %}Temporairement épuisé{% endif %}</span>
+      </li>
+      {%- if l1 != blank -%}<li>{% render 'okb-cododo-icon', icon: 'check' %}<span>{{ l1 }}</span></li>{%- endif -%}
+      {%- if l2 != blank -%}<li>{% render 'okb-cododo-icon', icon: 'check' %}<span>{{ l2 }}</span></li>{%- endif -%}
+      {%- if l3 != blank -%}<li>{% render 'okb-cododo-icon', icon: 'check' %}<span>{{ l3 }}</span></li>{%- endif -%}
+    </ul>
+{%- endcase -%}

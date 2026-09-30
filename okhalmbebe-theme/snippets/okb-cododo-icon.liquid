@@ -1,0 +1,78 @@
+{%- comment -%}
+  O Khalm Bébé · Pictogrammes de la fiche lit cododo
+  Une seule famille : grille 24 × 24, trait fin arrondi, monochrome
+  (currentColor, prune par défaut via la feuille okb-cododo.css).
+
+  Utilisation : {% render 'okb-cododo-icon', icon: 'hauteur' %}
+  Paramètre facultatif : class
+{%- endcomment -%}
+{%- liquid
+  case icon
+    when 'hauteur'
+      assign d = 'M12 3.5v17|M8.8 6.7 12 3.5l3.2 3.2|M8.8 17.3 12 20.5l3.2-3.2|M4 8.5h2.6|M4 12h2.6|M4 15.5h2.6|M17.4 8.5H20|M17.4 12H20|M17.4 15.5H20'
+    when 'roue_frein'
+      assign d = 'M13.4 14.2a4.9 4.9 0 1 1-9.8 0 4.9 4.9 0 0 1 9.8 0Z|M10 14.2a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0Z|M8.5 9.3V4.5h3.8|M15.8 15.3h5.2v4.9h-5.2Z|M16.9 15.3v-1.6a1.5 1.5 0 0 1 3 0v1.6'
+    when 'bercement'
+      assign d = 'M4.5 7.5h15v3.2a5.3 5.3 0 0 1-5.3 5.3H9.8a5.3 5.3 0 0 1-5.3-5.3Z|M8 16l-1.4 3.2|M16 16l1.4 3.2|M3.5 19.4c5.6 2.1 11.4 2.1 17 0|M2 4.8c.9-.9 2.1-1.3 3.3-1.3|M22 4.8c-.9-.9-2.1-1.3-3.3-1.3'
+    when 'mode_fixe'
+      assign d = 'M4.5 7.5h15v3.2a5.3 5.3 0 0 1-5.3 5.3H9.8a5.3 5.3 0 0 1-5.3-5.3Z|M8 16v4.5|M16 16v4.5|M5.5 20.5h13'
+    when 'selecteur'
+      assign d = 'M17.5 14a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0Z|M12 14v-3.6|M5.2 7.6A9 9 0 0 1 18.8 7.6|M18.8 7.6l.2-2.7|M18.8 7.6l-2.6-.6'
+    when 'maille'
+      assign d = 'M3.5 4.5h10v15h-10Z|M3.5 9.5h10|M3.5 14.5h10|M6.8 4.5v15|M10.2 4.5v15|M16.5 8.5h3a1.7 1.7 0 1 0-1.7-1.7|M16.5 12h4.5|M16.5 15.5h3a1.7 1.7 0 1 1-1.7 1.7'
+    when 'moustiquaire'
+      assign d = 'M12 3l7.5 2.9v5.6c0 4.5-3.1 7.9-7.5 9.5-4.4-1.6-7.5-5-7.5-9.5V5.9Z|M12 9.6v5|M12 11c-1.4-1.6-3-1.8-3.8-.8|M12 11c1.4-1.6 3-1.8 3.8-.8|M12 13.6l-2 1.6|M12 13.6l2 1.6|M12 9.6l-.9-1.4'
+    when 'panier'
+      assign d = 'M3.5 10h17l-1.7 8.4a2 2 0 0 1-2 1.6H7.2a2 2 0 0 1-2-1.6Z|M8 10l2.6-5.5|M16 10l-2.6-5.5|M9 13v3.8|M12 13v3.8|M15 13v3.8'
+    when 'pliable'
+      assign d = 'M4 20.5h16|M7 20.5 17 8|M17 20.5 7 8|M4.5 8h5|M14.5 8h5|M3 4h4.5|M5.6 2.2 7.5 4 5.6 5.8|M21 4h-4.5|M18.4 2.2 16.5 4l1.9 1.8'
+    when 'compact'
+      assign d = 'M3 12h6.5|M6.5 8.8 9.5 12l-3 3.2|M21 12h-6.5|M17.5 8.8 14.5 12l3 3.2|M12 4v16'
+    when 'transport'
+      assign d = 'M4 9h16v10a1.5 1.5 0 0 1-1.5 1.5h-13A1.5 1.5 0 0 1 4 19Z|M9 9V6.2A1.2 1.2 0 0 1 10.2 5h3.6A1.2 1.2 0 0 1 15 6.2V9|M4 13.5h16'
+    when 'structure'
+      assign d = 'M12 4.2 3.6 19.3h16.8Z|M12 4.2v15.1|M7.8 11.8h8.4|M13.2 4.2a1.2 1.2 0 1 1-2.4 0 1.2 1.2 0 0 1 2.4 0Z|M4.8 19.3a1.2 1.2 0 1 1-2.4 0 1.2 1.2 0 0 1 2.4 0Z|M21.6 19.3a1.2 1.2 0 1 1-2.4 0 1.2 1.2 0 0 1 2.4 0Z'
+    when 'rotation'
+      assign d = 'M20 12a8 8 0 1 1-2.3-5.7|M20 4.2v4.1h-4.1|M13.4 12a1.4 1.4 0 1 1-2.8 0 1.4 1.4 0 0 1 2.8 0Z'
+    when 'frein'
+      assign d = 'M17 14a5 5 0 1 1-10 0 5 5 0 0 1 10 0Z|M13.4 14a1.4 1.4 0 1 1-2.8 0 1.4 1.4 0 0 1 2.8 0Z|M12 9V4h5.5|M15.5 4v2.4|M3.5 21h17'
+    when 'silence'
+      assign d = 'M4 9.5h3.2L11.5 6v12l-4.3-3.5H4Z|M15.5 9.5l5 5|M20.5 9.5l-5 5'
+    when 'acier'
+      assign d = 'M5 4.5h14|M5 19.5h14|M12 4.5v15|M8.5 4.5v1.8|M15.5 4.5v1.8|M8.5 19.5v-1.8|M15.5 19.5v-1.8'
+    when 'raccord'
+      assign d = 'M2.5 9.8h6|M2.5 14.2h6|M15.5 9.8h6|M15.5 14.2h6|M8.5 7.5h7v9h-7Z|M12 10.6v2.8'
+    when 'finition'
+      assign d = 'M12 3.5c3.1 3.9 5.6 7 5.6 10a5.6 5.6 0 0 1-11.2 0c0-3 2.5-6.1 5.6-10Z|M9.6 14.1l1.7 1.7 3.1-3.3'
+    when 'textile'
+      assign d = 'M5 4.5h14V16c-2.2 0-2.2 3.5-4.7 3.5S12 16 9.7 16 7.2 19.5 5 19.5Z|M8.5 8.5h7|M8.5 12h7'
+    when 'demontable'
+      assign d = 'M12 3v7.5|M10 5h4|M10 8h4|M9.5 10.5h5v5h-5Z|M12 15.5V21|M5.5 7.5 3 10l2.5 2.5|M18.5 7.5 21 10l-2.5 2.5'
+    when 'lavable'
+      assign d = 'M3.5 9.5h17l-1.6 9.1a2 2 0 0 1-2 1.7H7.1a2 2 0 0 1-2-1.7Z|M3.5 9.5c1.4-1.3 2.8-1.3 4.2 0s2.8 1.3 4.3 0 2.8-1.3 4.2 0 2.8 1.3 4.3 0|M9 5.5c0-1 .8-2 1.5-2.8.7.8 1.5 1.8 1.5 2.8a1.5 1.5 0 0 1-3 0Z'
+    when 'lune'
+      assign d = 'M19.5 14.8A8 8 0 0 1 9.2 4.5a8 8 0 1 0 10.3 10.3Z'
+    when 'coeur'
+      assign d = 'M12 20s-8.5-5.5-8.5-10.8A4.2 4.2 0 0 1 12 7.6a4.2 4.2 0 0 1 8.5 1.6C20.5 14.5 12 20 12 20Z'
+    when 'livraison'
+      assign d = 'M2.5 6.5h11v10h-11Z|M13.5 10h4.2l3.3 3.3v3.2h-7.5|M8 18a1.8 1.8 0 1 1-3.6 0 1.8 1.8 0 0 1 3.6 0Z|M19 18a1.8 1.8 0 1 1-3.6 0 1.8 1.8 0 0 1 3.6 0Z'
+    when 'cadenas'
+      assign d = 'M5.5 10.5h13v10h-13Z|M8.5 10.5V7.5a3.5 3.5 0 0 1 7 0v3|M12 14.2v2.6'
+    when 'retour'
+      assign d = 'M4 9.5h11a5 5 0 0 1 0 10H9|M7.5 6 4 9.5 7.5 13'
+    when 'stock'
+      assign d = 'M3.5 7.5 12 3.5l8.5 4v9L12 20.5l-8.5-4Z|M3.5 7.5 12 11.5l8.5-4|M12 11.5v9'
+    when 'check'
+      assign d = 'M5 12.5l4.2 4.2L19 7'
+    when 'fleche'
+      assign d = 'M4 12h15|M14 7l5 5-5 5'
+    else
+      assign d = ''
+  endcase
+-%}
+{%- if d != blank -%}
+  <svg class="okb-cd-ico{% if class != blank %} {{ class }}{% endif %}" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+    {%- assign chemins = d | split: '|' -%}
+    {%- for chemin in chemins -%}<path d="{{ chemin }}"/>{%- endfor -%}
+  </svg>
+{%- endif -%}

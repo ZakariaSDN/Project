@@ -1,0 +1,124 @@
+{%- comment -%}
+  OKB · Presse
+  Le filtre image_url de Shopify ne sait pas traiter les SVG : un logo SVG
+  déposé dans un sélecteur d'image ne s'affiche pas. Cette section accepte
+  donc les deux voies — un fichier image classique, ou le nom d'un SVG
+  présent dans Contenu > Fichiers, servi tel quel.
+{%- endcomment -%}
+{%- liquid
+  assign st = section.settings
+  capture style_presse
+    echo '--okb-presse-h: '
+    echo st.logo_h
+    echo 'px; --okb-presse-gap: '
+    echo st.logo_gap
+    echo 'px; --okb-presse-op: '
+    echo st.logo_opacity | divided_by: 100.0
+    echo '; --okb-presse-heading-gap: '
+    echo st.heading_gap
+    echo 'px;'
+  endcapture
+-%}
+
+<div class="okb okb-presse{% if st.grayscale %} okb-presse--gris{% endif %}" style="{{ style_presse }}">
+  <div class="okb-wrap">
+    {%- if st.heading != blank -%}
+      <h2 class="okb-h2">{{ st.heading | escape }}</h2>
+    {%- endif -%}
+
+    {%- if section.blocks.size > 0 -%}
+      <div class="okb-presse__logos">
+        {%- for block in section.blocks -%}
+          {%- liquid
+            assign img = block.settings.image
+            assign fichier = block.settings.file | strip
+            assign legende = block.settings.alt | default: shop.name
+          -%}
+          {%- capture logo -%}
+            {%- if img != blank -%}
+              <img class="okb-presse__logo"
+                   src="{{ img | image_url: width: 400 }}"
+                   srcset="{{ img | image_url: width: 200 }} 200w, {{ img | image_url: width: 400 }} 400w"
+                   sizes="200px"
+                   width="200"
+                   height="{{ st.logo_h }}"
+                   alt="{{ legende | escape }}"
+                   loading="lazy" decoding="async">
+            {%- elsif fichier != blank -%}
+              <img class="okb-presse__logo"
+                   src="{{ fichier | file_url }}"
+                   width="200"
+                   height="{{ st.logo_h }}"
+                   alt="{{ legende | escape }}"
+                   loading="lazy" decoding="async">
+            {%- endif -%}
+          {%- endcapture -%}
+
+          {%- if logo != blank -%}
+            <div class="okb-presse__item" {{ block.shopify_attributes }}>
+              {%- if block.settings.url != blank -%}
+                <a href="{{ block.settings.url }}" rel="noopener">{{ logo }}</a>
+              {%- else -%}
+                {{ logo }}
+              {%- endif -%}
+            </div>
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+    {%- endif -%}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "OKB · Presse",
+  "class": "okb-section okb-section--presse",
+  "settings": [
+    { "type": "text", "id": "heading", "label": "Titre", "default": "Vu dans la presse" },
+    {
+      "type": "range", "id": "heading_gap", "label": "Espace entre le titre et les logos",
+      "min": 12, "max": 120, "step": 4, "unit": "px", "default": 36
+    },
+    { "type": "header", "content": "Logos" },
+    {
+      "type": "range", "id": "logo_h", "label": "Hauteur des logos",
+      "info": "Tous les logos sont ramenés à cette hauteur, quelles que soient leurs dimensions d'origine.",
+      "min": 16, "max": 90, "step": 2, "unit": "px", "default": 34
+    },
+    {
+      "type": "range", "id": "logo_gap", "label": "Espace entre les logos",
+      "min": 20, "max": 140, "step": 4, "unit": "px", "default": 60
+    },
+    {
+      "type": "range", "id": "logo_opacity", "label": "Opacité",
+      "min": 40, "max": 100, "step": 5, "unit": "%", "default": 100
+    },
+    { "type": "checkbox", "id": "grayscale", "label": "Afficher les logos en niveaux de gris", "default": false }
+  ],
+  "blocks": [
+    {
+      "type": "logo",
+      "name": "Logo de presse",
+      "limit": 8,
+      "settings": [
+        {
+          "type": "image_picker", "id": "image", "label": "Logo (PNG, JPG ou WebP)",
+          "info": "Laissez vide si votre logo est un SVG et utilisez le champ ci-dessous."
+        },
+        {
+          "type": "text", "id": "file", "label": "Nom du fichier SVG",
+          "info": "Pour un SVG uniquement. Indiquez le nom exact du fichier tel qu'il apparaît dans Contenu > Fichiers, par exemple neufmois.svg"
+        },
+        { "type": "text", "id": "alt", "label": "Nom du média", "info": "Lu par les lecteurs d'écran et affiché si l'image ne charge pas." },
+        { "type": "url", "id": "url", "label": "Lien vers l'article (facultatif)" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "OKB · Presse",
+      "blocks": [{ "type": "logo" }, { "type": "logo" }, { "type": "logo" }, { "type": "logo" }]
+    }
+  ]
+}
+{% endschema %}

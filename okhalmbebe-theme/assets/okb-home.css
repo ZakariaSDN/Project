@@ -1,0 +1,1692 @@
+/* ==========================================================================
+   0. Valeurs de repli de la charte
+   La section « Reglages O Khalm Bebe » republie ces variables avec les
+   valeurs choisies dans l editeur ; son bloc <style> est rendu apres cette
+   feuille et l emporte donc. Ces valeurs de repli servent aux pages ou la
+   section de reglages n est pas posee : collection, recherche, favoris.
+   ========================================================================== */
+:root {
+  --okb-plum: #452f57;
+  --okb-gold: #aa9666;
+  --okb-lavender: #efeaf5;
+  --okb-sand: #f7f5f1;
+  --okb-ink: #22182c;
+  --okb-muted: #726a75;
+  --okb-line: #e8e4e9;
+  --okb-container: 1160px;
+  --okb-fs-h2: 36px;
+  --okb-fs-h2-mb: 22px;
+  --okb-space-y: 64px;
+  --okb-space-y-mb: 44px;
+  --okb-logo-h: 34px;
+  --okb-font-heading: var(--font-heading-family, inherit);
+  --okb-font-body: var(--font-body-family, inherit);
+}
+/* ==========================================================================
+   O Khalm Bébé — page d'accueil
+   Reprise exacte de la maquette validée : fond blanc, titres centrés,
+   blocs sable arrondis, carrousel produits, mosaïque, bandeau club prune.
+   Les couleurs, la largeur et l'échelle viennent de la section
+   « ① Réglages page d'accueil ».
+   ========================================================================== */
+
+.okb {
+  font-family: var(--okb-font-body);
+  color: var(--okb-ink);
+  font-size: 15px;
+  line-height: 1.6;
+}
+
+.okb *,
+.okb *::before,
+.okb *::after { box-sizing: border-box; }
+
+.okb h1, .okb h2, .okb h3 {
+  margin: 0;
+  font-family: var(--okb-font-heading);
+  color: var(--okb-ink);
+  font-weight: 700;
+  text-wrap: balance;
+}
+
+.okb p { margin: 0; }
+.okb img { display: block; max-width: 100%; }
+.okb a { color: inherit; text-decoration: none; }
+.okb button { font: inherit; color: inherit; cursor: pointer; }
+
+.okb :where(a, button, summary, input):focus-visible {
+  outline: 2px solid var(--okb-gold);
+  outline-offset: 3px;
+  border-radius: 3px;
+}
+
+.okb-wrap {
+  width: min(var(--okb-container, 1160px), calc(100% - var(--okb-gutter, 40px) * 2));
+  margin-inline: auto;
+}
+
+/* Titre de section : centré et mesuré, c'est le rythme de toute la page */
+.okb-h2,
+.okb-h2--sm {
+  text-align: center;
+  font-size: var(--okb-fs-h2, 28px);
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+  font-weight: 700;
+  margin-bottom: 34px;
+}
+
+.okb-eyebrow {
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--okb-gold);
+  margin-bottom: 10px;
+}
+
+.okb-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  background: var(--okb-plum);
+  color: #fff;
+  border: 0;
+  border-radius: 6px;
+  padding: 12px 22px;
+  font-size: 14px;
+  font-weight: 700;
+  transition: background .2s ease;
+}
+.okb-btn:hover { background: var(--okb-plum-light); color: #fff; }
+.okb-btn--light { background: #d9cde3; color: var(--okb-plum); }
+.okb-btn--light:hover { background: #fff; color: var(--okb-plum); }
+
+.okb-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: none;
+  border: 0;
+  padding: 0;
+  font-size: 14px;
+  font-weight: 700;
+  transition: gap .2s ease;
+}
+.okb-link:hover { gap: 16px; }
+
+/* ==========================================================================
+   1. Bannière — ruban de réassurance au-dessus de l'image, copie bas-droite
+   ========================================================================== */
+.okb-hero {
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.okb-hero__ribbon {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: 1fr;
+  background: var(--okb-ribbon-bg, var(--okb-sand));
+  color: var(--okb-ribbon-cl, var(--okb-muted));
+  font-weight: 600;
+  font-size: 11.5px;
+  text-align: center;
+  padding: 9px 12px;
+  gap: 10px;
+}
+
+.okb-hero__picture {
+  position: relative;
+  background: var(--okb-sand);
+  aspect-ratio: 21 / 9;
+  height: auto;
+}
+
+.okb-hero__picture picture { display: block; height: 100%; }
+
+.okb-hero__picture img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 58%;
+}
+
+.okb-hero__picture::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, transparent 34%, rgba(36, 29, 22, .30) 62%, rgba(36, 29, 22, .58));
+}
+
+.okb-hero__copy {
+  position: absolute;
+  z-index: 1;
+  right: clamp(20px, 4vw, 48px);
+  bottom: clamp(20px, 3.5vw, 44px);
+  text-align: right;
+  color: #fff;
+  max-width: 420px;
+}
+.okb-hero__copy .okb-eyebrow { color: #fff; opacity: .85; }
+.okb-hero__copy h1 {
+  color: #fff;
+  font-size: var(--okb-hero-title, 46px);
+  line-height: 1.08;
+  letter-spacing: -0.03em;
+  margin: 0 0 12px;
+}
+.okb-hero__copy p { font-size: 14px; line-height: 1.5; margin-bottom: 20px; }
+
+/* ==========================================================================
+   2. Pourquoi — trois arguments centrés, filet court en dessous
+   ========================================================================== */
+.okb-args { padding: clamp(44px, 5vw, 66px) 0 0; }
+
+.okb-args__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+  gap: var(--okb-args-gap, 30px);
+  max-width: var(--okb-args-max-w, 880px);
+  margin: 0 auto;
+  text-align: center;
+}
+
+.okb-args__icon {
+  display: block;
+  width: var(--okb-args-icon, 26px);
+  height: var(--okb-args-icon, 26px);
+  margin: 0 auto;
+  color: var(--okb-plum);
+}
+.okb-args__icon svg { width: 100%; height: 100%; display: block; }
+
+.okb-args__item h3 { font-size: 14.5px; margin: 14px 0 5px; font-weight: 700; }
+.okb-args__item p { font-size: 13px; color: var(--okb-muted); line-height: 1.5; }
+
+.okb-rule {
+  width: 190px;
+  height: 1px;
+  background: var(--okb-line);
+  margin: clamp(34px, 4vw, 50px) auto 0;
+}
+.okb-rule::after { content: none; }
+
+/* ==========================================================================
+   3. Premier lit — carte sable, produit + texte, onglets en dessous
+   ========================================================================== */
+.okb-univers {
+  background: var(--okb-sand);
+  border-radius: 14px;
+  padding: clamp(26px, 3.4vw, 40px);
+  max-width: min(var(--okb-container, 1160px), var(--okb-univers-max-w, 830px));
+  width: calc(100% - var(--okb-gutter, 40px) * 2);
+  margin: clamp(44px, 5vw, 66px) auto;
+}
+
+.okb-univers__title {
+  text-align: center;
+  font-size: var(--okb-univers-fs-title, 23px);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  margin-bottom: 26px;
+}
+
+.okb-univers__panel {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: clamp(24px, 3vw, 44px);
+  align-items: center;
+  margin-bottom: 28px;
+}
+.okb-univers__panel[hidden] { display: none; }
+
+.okb-univers__media {
+  position: relative;
+  width: 92%;
+  margin: 0 auto;
+}
+
+.okb-univers__media > img,
+.okb-univers__media > svg {
+  width: 100%;
+  height: var(--okb-img-h, auto);
+  aspect-ratio: var(--okb-img-ratio, 1 / 1);
+  object-fit: var(--okb-img-fit, contain);
+  display: block;
+  border-radius: 0;
+}
+
+.okb-univers__panel h3 { font-size: var(--okb-univers-fs-product, 17px); margin: 0 0 6px; }
+.okb-univers__panel p { font-size: var(--okb-univers-fs-text, 13.5px); color: var(--okb-muted); margin-bottom: 12px; }
+.okb-univers__price {
+  font-size: var(--okb-univers-fs-price, 15px);
+  font-weight: 800;
+  color: var(--okb-ink);
+  font-family: var(--okb-font-body);
+  margin: 0 0 16px;
+}
+.okb-univers__compare { font-size: 12px; margin: -10px 0 14px; display: flex; gap: 10px; }
+.okb-univers__compare span { color: var(--okb-muted); text-decoration: line-through; }
+.okb-univers__compare strong { color: var(--okb-gold); }
+.okb-univers__panel .okb-btn,
+.okb-univers__panel .okb-link { margin-top: 0; }
+
+.okb-univers__tabs {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: 1fr;
+  gap: 9px;
+}
+
+.okb-univers__tabs button {
+  background: #fff;
+  border: 1px solid var(--okb-line);
+  border-radius: 7px;
+  padding: 15px 8px;
+  font-size: var(--okb-univers-fs-tabs, 12.5px);
+  font-weight: 700;
+  color: var(--okb-plum);
+  transition: border-color .2s ease, box-shadow .2s ease;
+}
+.okb-univers__tabs button:hover { border-color: var(--okb-gold); }
+.okb-univers__tabs button[aria-selected="true"] {
+  border-color: var(--okb-gold);
+  box-shadow: inset 0 0 0 1px var(--okb-gold);
+}
+.okb-univers__tabs button img { display: block; margin: 0 auto; max-height: 22px; width: auto; }
+
+/* ==========================================================================
+   4. Bloc éditorial — image et texte sur fond sable
+   ========================================================================== */
+.okb-imgtext {
+  display: grid;
+  grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr);
+  gap: clamp(24px, 4vw, 60px);
+  align-items: center;
+  background: var(--okb-imgtext-bg, var(--okb-sand));
+  border-radius: 14px;
+  padding: clamp(18px, 2vw, 22px);
+  max-width: none;
+  margin: 0 auto clamp(44px, 5vw, 66px);
+}
+
+.okb-imgtext--lavender {
+  background: var(--okb-imgtext-bg, var(--okb-lavender));
+  grid-template-columns: minmax(0, 0.72fr) minmax(0, 1fr);
+  padding: clamp(24px, 3vw, 40px);
+}
+
+.okb-imgtext--reverse > .okb-imgtext__media { order: 2; }
+
+.okb-imgtext__media {
+  position: relative;
+  border-radius: 9px;
+  overflow: hidden;
+}
+
+.okb-imgtext__media > img,
+.okb-imgtext__media > svg {
+  width: 100%;
+  height: var(--okb-img-h, auto);
+  aspect-ratio: var(--okb-img-ratio, 4 / 3);
+  object-fit: cover;
+  display: block;
+}
+
+.okb-imgtext__body {
+  width: 100%;
+  min-width: 0;
+  padding-inline: var(--okb-it-padding-x, 15%);
+}
+
+.okb-imgtext__body h2 {
+  font-size: var(--okb-it-fs-heading, 31px);
+  line-height: 1.16;
+  letter-spacing: -0.02em;
+  text-align: left;
+  margin: 0;
+}
+.okb-imgtext--lavender .okb-imgtext__body h2 { font-size: var(--okb-it-fs-heading, 27px); }
+
+.okb-imgtext__body p {
+  color: var(--okb-muted);
+  font-size: var(--okb-it-fs-text, 13.5px);
+  margin: 14px 0 20px;
+  width: 100%;
+  max-width: none;
+  overflow-wrap: anywhere;
+}
+.okb-imgtext__body .okb-link { margin-top: 0; font-size: var(--okb-it-fs-link, 14px); }
+.okb-imgtext__body .okb-eyebrow { font-size: var(--okb-it-fs-eyebrow, 11px); }
+
+/* ==========================================================================
+   5. Mosaïque de collections — trois tuiles puis deux, pastilles centrées
+   ========================================================================== */
+.okb-collections { padding-bottom: clamp(44px, 5vw, 66px); }
+.okb-collections__title { margin-bottom: var(--okb-collections-heading-gap, 34px); }
+
+.okb-collections__grid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 11px;
+}
+
+.okb-collections__card {
+  position: relative;
+  grid-column: span 2;
+  height: var(--okb-card-h, auto);
+  aspect-ratio: var(--okb-card-ratio, 4 / 3);
+  border-radius: 11px;
+  overflow: hidden;
+  background: var(--okb-sand);
+}
+
+.okb-collections__card:nth-child(n + 4) {
+  grid-column: span 3;
+  height: var(--okb-card-h-lg, auto);
+  aspect-ratio: var(--okb-card-ratio-lg, 16 / 9);
+}
+
+.okb-collections__card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform .5s ease;
+}
+.okb-collections__card:hover img { transform: scale(1.04); }
+
+.okb-collections__card > span {
+  position: absolute;
+  left: 50%;
+  bottom: 16px;
+  transform: translateX(-50%);
+  background: var(--okb-plum);
+  color: #fff;
+  border-radius: 6px;
+  padding: 8px 14px;
+  font-size: 12px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+/* ==========================================================================
+   6. Questions fréquentes
+   ========================================================================== */
+.okb-faq {
+  display: grid;
+  grid-template-columns: minmax(0, 0.8fr) minmax(0, 1fr);
+  gap: clamp(28px, 5vw, 70px);
+  margin: 0 auto clamp(44px, 5vw, 66px);
+}
+.okb-faq__intro h2 { text-align: left; font-size: var(--okb-fs-h2, 28px); margin: 0 0 14px; }
+.okb-faq__intro p { color: var(--okb-muted); font-size: 13.5px; }
+.okb-faq__intro .okb-link { margin-top: 18px; }
+
+.okb-faq details { border-top: 1px solid var(--okb-line); padding: 20px 0; }
+.okb-faq details:last-of-type { border-bottom: 1px solid var(--okb-line); }
+.okb-faq summary {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+  list-style: none;
+}
+.okb-faq summary::-webkit-details-marker { display: none; }
+.okb-faq summary::after { content: "+"; font-size: 20px; color: var(--okb-gold); line-height: 1; }
+.okb-faq details[open] summary::after { content: "\2013"; }
+.okb-faq details p { font-size: 13.5px; color: var(--okb-muted); margin-top: 12px; max-width: 58ch; }
+
+/* ==========================================================================
+   7. Club — bandeau prune chevauchant le pied de page
+   ========================================================================== */
+.okb-club {
+  position: relative;
+  z-index: 1;
+  width: min(var(--okb-container, 1160px), calc(100% - var(--okb-gutter, 40px) * 2));
+  margin: 0 auto -34px;
+  background: var(--okb-plum);
+  color: #fff;
+  border-radius: 12px;
+  padding: clamp(22px, 2.6vw, 30px) clamp(22px, 3vw, 34px);
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr);
+  gap: clamp(20px, 3vw, 40px);
+  align-items: center;
+}
+
+.okb-club h2 { color: #fff; font-size: clamp(18px, 2vw, 22px); text-align: left; margin: 0; }
+.okb-club p { font-size: 12.5px; color: #d8cfe0; margin-top: 6px; max-width: 46ch; }
+
+.okb-club__form { display: flex; gap: 8px; flex-wrap: wrap; }
+.okb-club__form input {
+  flex: 1 1 150px;
+  min-width: 0;
+  border: 0;
+  border-radius: 6px;
+  padding: 11px 14px;
+  font: inherit;
+  font-size: 13px;
+  color: var(--okb-ink);
+  background: #fff;
+}
+.okb-club__form .okb-btn {
+  padding: 11px 20px;
+  font-size: 13px;
+  background: #fff;
+  color: var(--okb-plum);
+  box-shadow: 0 6px 18px rgba(34, 24, 44, .18);
+}
+.okb-club__form .okb-btn:hover {
+  background: var(--okb-sand);
+  color: var(--okb-plum);
+}
+
+.okb-club__msg { flex-basis: 100%; font-size: 12px; margin-top: 4px; }
+.okb-club__msg--ok { color: #d8f0d8; }
+.okb-club__msg--ko { color: #ffd7d7; }
+
+.template-index #t4s-footer { padding-top: 68px; }
+
+/* ==========================================================================
+   8. Carte produit — Design 11
+   ========================================================================== */
+.okb-card .t4s-product-inner {
+  border-radius: var(--okb-card-radius, 12px);
+  overflow: hidden;
+  background: var(--okb-sand);
+}
+
+.okb-card .t4s-product-img,
+.okb-card .t4s-product__image { border-radius: 0; }
+
+/* Badges posés sur la photo, alignés en haut à gauche */
+.okb-card__badges {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  z-index: 3;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  max-width: calc(100% - 62px);
+}
+
+.okb-card__badge {
+  display: inline-flex;
+  align-items: center;
+  border-radius: 100px;
+  padding: 5px 11px;
+  font-family: var(--okb-font-body);
+  font-size: var(--okb-card-fs-badge, 11px);
+  font-weight: 700;
+  line-height: 1.2;
+  white-space: nowrap;
+  background: var(--okb-gold);
+  color: #fff;
+  box-shadow: 0 1px 4px rgba(34, 24, 44, .10);
+}
+
+.okb-card__badge--promo,
+.okb-card__badge--exclusif,
+.okb-card__badge--exclusive,
+.okb-card__badge--edition-limitee,
+.okb-card__badge--nouveau,
+.okb-card__badge--nouveaute { background: var(--okb-plum); }
+
+/* Badges Kalles (promo, nouveauté, rupture) : même pastille, posés dessous */
+.okb-card .t4s-product-badge {
+  top: 10px;
+  left: 10px;
+  right: auto;
+  z-index: 2;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: 6px;
+}
+.okb-card .t4s-product-inner:has(.okb-card__badges) .t4s-product-badge { top: 44px; }
+.okb-card .t4s-product-badge > * {
+  border-radius: 100px;
+  padding: 5px 11px;
+  font-size: var(--okb-card-fs-badge, 11px);
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: 0;
+}
+
+/* Cœur en pastille blanche, en haut à droite */
+.okb-card .t4s-product-btns2 {
+  top: 10px;
+  right: 10px;
+  z-index: 3;
+}
+.okb-card .t4s-product-btns2 .t4s-pr-item-btn {
+  background: #fff;
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  display: grid;
+  place-items: center;
+  color: var(--okb-ink);
+  box-shadow: 0 1px 5px rgba(34, 24, 44, .12);
+}
+.okb-card .t4s-product-btns2 .t4s-pr-item-btn:hover { color: var(--okb-gold); }
+
+/* Kalles réserve 24 px pour la note et 1 rem de marge latérale : on reprend la main */
+.okb-card .t4s-product-info { padding: 13px 0 0; }
+.okb-card .t4s-product-info__inner > * { margin-bottom: 6px; }
+.okb-card .t4s-product-info__inner > *:last-child { margin-bottom: 0; }
+.okb-card .t4s-product-title { margin: 0; }
+.okb-card .t4s-product-rating { min-height: 0; }
+.okb-card .t4s-product-rating:empty,
+.okb-card .t4s-product-rating:has(> :empty) { display: none; }
+
+.okb-card .t4s-product-title a {
+  font-family: var(--okb-font-body);
+  font-size: var(--okb-card-fs-title, 15.5px);
+  font-weight: 700;
+  line-height: 1.32;
+  color: var(--okb-ink);
+}
+.okb-card .t4s-product-title a:hover { color: var(--okb-gold); }
+
+/* Note : étoiles pleines au prorata de la note réelle */
+.okb-card__rating {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  margin-top: 7px;
+  text-decoration: none;
+}
+.okb-stars {
+  position: relative;
+  display: inline-block;
+  font-size: var(--okb-card-fs-stars, 13px);
+  line-height: 1;
+  letter-spacing: 1px;
+  white-space: nowrap;
+}
+.okb-stars__vide { color: var(--okb-line); }
+.okb-stars__plein {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: var(--okb-stars, 0%);
+  overflow: hidden;
+  color: var(--okb-gold);
+}
+.okb-card__rating-ct {
+  font-size: var(--okb-card-fs-meta, 12px);
+  color: var(--okb-muted);
+}
+.okb-card .t4s-product-rating:empty { display: none; }
+
+.okb-card .t4s-product-price-atc-row {
+  margin-top: 2px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+/* Bouton d'ajout rapide : rond, prune, plus discret */
+.okb-card {
+  --atc-cl: #fff;
+  --atc-bg-cl: var(--okb-plum);
+  --atc-hover-cl: #fff;
+  --atc-hover-bg-cl: var(--okb-gold);
+}
+.okb-card .t4s-product-atc-wrapper .t4s-pr-addtocart {
+  width: var(--okb-card-atc, 34px);
+  height: var(--okb-card-atc, 34px);
+  min-width: var(--okb-card-atc, 34px);
+  min-height: var(--okb-card-atc, 34px);
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background-color: var(--okb-plum);
+  color: #fff;
+}
+.okb-card .t4s-product-atc-wrapper .t4s-pr-addtocart:hover {
+  background-color: var(--okb-gold);
+  color: #fff;
+}
+.okb-card .t4s-product-atc-wrapper .t4s-svg-pr-icon svg { width: 15px; height: 15px; }
+.okb-card .t4s-product-price {
+  font-family: var(--okb-font-body);
+  font-size: var(--okb-card-fs-price, 15px);
+  font-weight: 800;
+  color: var(--okb-ink);
+}
+.okb-card .t4s-product-price del { display: none; }
+
+.okb-card__deal {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 3px;
+  font-size: var(--okb-card-fs-meta, 12px);
+  line-height: 1.3;
+}
+.okb-card__worth { color: var(--okb-muted); text-decoration: line-through; }
+.okb-card__save { color: var(--okb-gold); font-weight: 700; }
+
+/* ==========================================================================
+   8b. Carrousel de la section produits — barre de progression et lien final
+   ========================================================================== */
+.t4s-flicky-slider:has(.okb-card).t4s-dots-style-fullwidth .flickityt4s-page-dots {
+  width: min(720px, 100%);
+  max-width: min(720px, calc(100% - var(--ts-gutter-x)));
+  margin-top: 30px;
+}
+.t4s-flicky-slider:has(.okb-card).t4s-dots-style-fullwidth .flickityt4s-page-dots .dot {
+  height: 3px;
+  background-color: var(--okb-line);
+}
+.t4s-flicky-slider:has(.okb-card).t4s-dots-style-fullwidth .flickityt4s-page-dots .dot:hover,
+.t4s-flicky-slider:has(.okb-card).t4s-dots-style-fullwidth .flickityt4s-page-dots .dot.is-selected {
+  background-color: var(--okb-ink);
+}
+
+.t4s-section-inner:has(.okb-card) .t4s-prs-footer { margin-top: 24px; }
+.t4s-section-inner:has(.okb-card) .t4s-viewall-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  min-height: 0;
+  padding: 4px 2px;
+  border: 0;
+  background: none !important;
+  font-family: var(--okb-font-body);
+  font-size: var(--okb-card-fs-link, 14px) !important;
+  font-weight: 700 !important;
+  line-height: 1.3;
+  letter-spacing: 0 !important;
+  text-transform: none !important;
+  color: var(--okb-ink) !important;
+}
+.t4s-section-inner:has(.okb-card) .t4s-viewall-btn::before,
+.t4s-section-inner:has(.okb-card) .t4s-viewall-btn::after { content: none; }
+.t4s-section-inner:has(.okb-card) .t4s-viewall-btn:hover { color: var(--okb-gold); }
+.t4s-section-inner:has(.okb-card) .t4s-viewall-btn .t4s-btn-icon {
+  width: 15px;
+  height: 11px;
+  fill: currentColor;
+}
+
+/* ==========================================================================
+   Responsive
+   ========================================================================== */
+@media (max-width: 900px) {
+  .okb-hero__picture { aspect-ratio: 4 / 5; }
+  .okb-hero__picture img { object-position: 45% center; }
+  .okb-hero__picture::after { background: linear-gradient(0deg, rgba(32, 24, 36, .72), transparent 62%); }
+  .okb-hero__copy { left: 20px; right: 20px; text-align: left; max-width: none; }
+  .okb-hero__copy h1 { font-size: var(--okb-hero-title-mb, 32px); }
+  .okb-hero__ribbon { grid-auto-flow: row; }
+  .okb-hero__ribbon span:not(:first-child) { display: none; }
+
+  .okb-univers__panel,
+  .okb-imgtext,
+  .okb-imgtext--lavender,
+  .okb-faq,
+  .okb-club { grid-template-columns: 1fr; }
+
+  .okb-imgtext--reverse > img { order: 0; }
+  .okb-imgtext__body { padding: 4px var(--okb-it-padding-x-mobile, 0%) 14px; }
+  .okb-club { margin-bottom: -26px; }
+}
+
+@media (max-width: 620px) {
+  .okb-args__grid { grid-template-columns: 1fr; gap: 24px; }
+  .okb-collections__grid { grid-template-columns: 1fr 1fr; gap: 8px; }
+  .okb-collections__card,
+  .okb-collections__card:nth-child(n + 4) { grid-column: span 1; aspect-ratio: 1 / 1; }
+  .okb-collections__card:last-child { grid-column: span 2; aspect-ratio: 16 / 9; }
+  .okb-collections__card > span { bottom: 12px; padding: 7px 11px; font-size: 11px; }
+  .okb-univers__panel { grid-template-columns: 1fr; }
+  .okb-univers__tabs { grid-auto-flow: row; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .okb *, .okb *::before, .okb *::after { transition: none !important; }
+}
+
+/* ==========================================================================
+   9. Presse — logos ramenes a une hauteur commune
+   ========================================================================== */
+.okb-presse { padding-bottom: clamp(30px, 4vw, 50px); }
+.okb-presse .okb-h2 { margin-bottom: var(--okb-presse-heading-gap, 34px); }
+
+.okb-presse__logos {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: var(--okb-presse-gap, 60px);
+}
+
+.okb-presse__item { display: flex; align-items: center; }
+
+.okb-presse__logo {
+  height: var(--okb-presse-h, 34px);
+  width: auto;
+  max-width: 190px;
+  object-fit: contain;
+  opacity: var(--okb-presse-op, 1);
+  transition: opacity .2s ease, filter .2s ease;
+}
+
+.okb-presse--gris .okb-presse__logo { filter: grayscale(1); }
+.okb-presse--gris a:hover .okb-presse__logo { filter: grayscale(0); opacity: 1; }
+
+@media (max-width: 620px) {
+  .okb-presse__logos { gap: calc(var(--okb-presse-gap, 60px) * 0.5); }
+  .okb-presse__logo { height: calc(var(--okb-presse-h, 34px) * 0.8); max-width: 130px; }
+}
+
+/* ==========================================================================
+   10. Badges posés sur l'image
+   ========================================================================== */
+.okb-badges {
+  position: absolute;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  max-width: calc(100% - 32px);
+}
+
+.okb-badges--top-left     { top: 16px; left: 16px; align-items: flex-start; }
+.okb-badges--top-right    { top: 16px; right: 16px; align-items: flex-end; }
+.okb-badges--bottom-left  { bottom: 16px; left: 16px; align-items: flex-start; }
+.okb-badges--bottom-right { bottom: 16px; right: 16px; align-items: flex-end; }
+
+.okb-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  border-radius: 100px;
+  padding: 7px 14px;
+  font-size: var(--okb-it-fs-badge, 11.5px);
+  font-weight: 700;
+  line-height: 1.25;
+  letter-spacing: 0.01em;
+  white-space: nowrap;
+  box-shadow: 0 1px 6px rgba(34, 24, 44, .10);
+}
+
+.okb-badge svg { width: 1.15em; height: 1.15em; flex: none; }
+
+.okb-badge--blanc   { background: #fff; color: var(--okb-plum); }
+.okb-badge--prune   { background: var(--okb-plum); color: #fff; }
+.okb-badge--dore    { background: var(--okb-gold); color: #fff; }
+.okb-badge--contour { background: rgba(255, 255, 255, .92); color: var(--okb-plum); box-shadow: inset 0 0 0 1px var(--okb-plum); }
+
+@media (max-width: 620px) {
+  .okb-badges { gap: 6px; top: 12px; left: 12px; }
+  .okb-badge { padding: 6px 11px; white-space: normal; }
+}
+
+/* ==========================================================================
+   11. Pastille ronde posée sur la photo produit
+   ========================================================================== */
+.okb-pastille {
+  position: absolute;
+  z-index: 2;
+  width: var(--okb-pastille-size, 88px);
+  height: var(--okb-pastille-size, 88px);
+  border-radius: 50%;
+  display: grid;
+  place-content: center;
+  text-align: center;
+  padding: 5px;
+  line-height: 1.14;
+  transform: rotate(var(--okb-pastille-rot, 0deg));
+  box-shadow: 0 2px 10px rgba(34, 24, 44, .14);
+}
+
+.okb-pastille em {
+  display: block;
+  font-style: normal;
+  font-size: calc(var(--okb-pastille-size, 88px) * 0.115);
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  opacity: .82;
+  margin-bottom: 2px;
+}
+
+.okb-pastille strong {
+  display: block;
+  font-size: calc(var(--okb-pastille-size, 88px) * 0.145);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  overflow-wrap: normal;
+}
+
+.okb-pastille--prune   { background: var(--okb-plum); color: #fff; }
+.okb-pastille--dore    { background: var(--okb-gold); color: #fff; }
+.okb-pastille--blanc   { background: #fff; color: var(--okb-plum); }
+.okb-pastille--contour { background: #fff; color: var(--okb-plum); box-shadow: inset 0 0 0 1.5px var(--okb-gold), 0 2px 10px rgba(34, 24, 44, .10); }
+
+.okb-pastille--hg { top: 4px; left: 4px; }
+.okb-pastille--hd { top: 4px; right: 4px; }
+.okb-pastille--bg { bottom: 4px; left: 4px; }
+.okb-pastille--bd { bottom: 4px; right: 4px; }
+
+@media (max-width: 620px) {
+  .okb-pastille { width: calc(var(--okb-pastille-size, 88px) * 0.78); height: calc(var(--okb-pastille-size, 88px) * 0.78); }
+  .okb-pastille em { font-size: calc(var(--okb-pastille-size, 88px) * 0.086); }
+  .okb-pastille strong { font-size: calc(var(--okb-pastille-size, 88px) * 0.113); }
+}
+
+/* Titres de section Kalles : top-head.css impose 64 px !important en desktop
+   et 32 px en mobile. On rend la main au reglage « Taille des titres ».
+   ========================================================================== */
+.template-index .t4s-top-heading .t4s-section-title.t4s-title {
+  font-size: var(--okb-fs-h2, 36px) !important;
+  line-height: 1.24 !important;
+  letter-spacing: -0.6px;
+}
+
+@media (max-width: 767px) {
+  .template-index .t4s-top-heading .t4s-section-title.t4s-title {
+    font-size: var(--okb-fs-h2-mb, 22px) !important;
+  }
+}
+
+/* ==========================================================================
+   9. Neutralisation du bloc « premium card » de collection-products.css
+   Ce bloc est annonce pour les designs 1 et 7, mais plusieurs de ses regles
+   ne sont pas limitees a ces designs et debordent sur le Design 11 :
+   bouton + orange 44 px, prix en 24 px Bricolage Grotesque, et surtout
+   margin-top: auto qui pousse le prix en bas et creuse la carte.
+   Tout y est en !important : on reprend la main avec une specificite
+   superieure, sans modifier collection-products.css.
+   ========================================================================== */
+.okb-card .t4s-product-price-atc-row {
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  gap: 10px !important;
+  width: 100% !important;
+  margin-top: 2px !important;
+  padding-top: 0 !important;
+}
+
+.okb-card .t4s-product-atc-wrapper {
+  align-self: auto !important;
+  margin-top: 0 !important;
+}
+
+.okb-card .t4s-product-price-wrapper .t4s-product-price {
+  display: flex !important;
+  align-items: baseline !important;
+  gap: 8px !important;
+  margin: 0 !important;
+  color: var(--okb-ink) !important;
+  font-family: var(--okb-font-body) !important;
+  font-size: var(--okb-card-fs-price, 15px) !important;
+  font-weight: 800 !important;
+  line-height: 1.3 !important;
+}
+
+.okb-card .t4s-product-price-wrapper ins,
+.okb-card .t4s-product-price-wrapper .t4s-current-price {
+  color: var(--okb-ink) !important;
+  font-family: var(--okb-font-body) !important;
+  font-size: var(--okb-card-fs-price, 15px) !important;
+  font-weight: 800 !important;
+  line-height: 1.3 !important;
+  text-decoration: none !important;
+  order: 1 !important;
+}
+
+/* Le prix barre est repris plus bas dans la ligne « Valeur / Economisez » */
+.okb-card .t4s-product-price-wrapper del,
+.okb-card .t4s-product-price-wrapper .t4s-price-del { display: none !important; }
+
+.okb-card .t4s-product-atc-wrapper .t4s-pr-addtocart {
+  background: var(--okb-plum) !important;
+  color: #fff !important;
+  width: var(--okb-card-atc, 34px) !important;
+  height: var(--okb-card-atc, 34px) !important;
+  min-width: var(--okb-card-atc, 34px) !important;
+  min-height: var(--okb-card-atc, 34px) !important;
+  border-radius: 50% !important;
+  padding: 0 !important;
+}
+
+.okb-card .t4s-product-atc-wrapper .t4s-pr-addtocart:hover {
+  background: var(--okb-gold) !important;
+  color: #fff !important;
+}
+
+/* ==========================================================================
+   10. Logo de certification pose sur la photo
+   ========================================================================== */
+.okb-badge-logo {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+}
+
+.okb-logo-cert {
+  display: block;
+  width: var(--okb-cert-size, 76px);
+  height: var(--okb-cert-size, 76px);
+  border-radius: 10px;
+  overflow: hidden;
+  filter: drop-shadow(0 1px 5px rgba(34, 24, 44, .16));
+}
+
+.okb-badge-logo__ref {
+  display: inline-block;
+  max-width: calc(var(--okb-cert-size, 76px) + 60px);
+  padding: 3px 8px;
+  border-radius: 100px;
+  background: rgba(255, 255, 255, .94);
+  color: var(--okb-plum);
+  font-size: calc(var(--okb-it-fs-badge, 11.5px) - 1.5px);
+  font-weight: 700;
+  line-height: 1.25;
+  text-align: center;
+  box-shadow: 0 1px 5px rgba(34, 24, 44, .10);
+}
+
+/* ==========================================================================
+   11. Sceau maison pose sur la photo
+   ========================================================================== */
+.okb-badge-sceau { display: inline-flex; }
+
+.okb-sceau {
+  display: block;
+  width: var(--okb-sceau-size, 82px);
+  height: var(--okb-sceau-size, 82px);
+  filter: drop-shadow(0 2px 8px rgba(34, 24, 44, .18));
+  font-family: var(--okb-font-body);
+}
+
+.okb-sceau__anneau { stroke-width: 1; }
+.okb-sceau__filet { stroke-width: 1; }
+
+.okb-sceau__ligne {
+  font-size: 12.5px;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+}
+
+.okb-sceau__legende {
+  font-size: 7.4px;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+}
+
+.okb-sceau--prune .okb-sceau__fond   { fill: var(--okb-plum); }
+.okb-sceau--prune .okb-sceau__anneau { stroke: var(--okb-gold); }
+.okb-sceau--prune .okb-sceau__filet  { stroke: var(--okb-gold); }
+.okb-sceau--prune .okb-sceau__ico path { fill: var(--okb-gold); }
+.okb-sceau--prune .okb-sceau__ligne,
+.okb-sceau--prune .okb-sceau__legende { fill: #fff; }
+
+.okb-sceau--dore .okb-sceau__fond   { fill: var(--okb-gold); }
+.okb-sceau--dore .okb-sceau__anneau { stroke: rgba(255, 255, 255, .55); }
+.okb-sceau--dore .okb-sceau__filet  { stroke: rgba(255, 255, 255, .55); }
+.okb-sceau--dore .okb-sceau__ico path { fill: #fff; }
+.okb-sceau--dore .okb-sceau__ligne,
+.okb-sceau--dore .okb-sceau__legende { fill: #fff; }
+
+.okb-sceau--creme .okb-sceau__fond   { fill: #fff; }
+.okb-sceau--creme .okb-sceau__anneau { stroke: rgba(69, 47, 87, .28); }
+.okb-sceau--creme .okb-sceau__filet  { stroke: rgba(69, 47, 87, .28); }
+.okb-sceau--creme .okb-sceau__ico path { fill: var(--okb-gold); }
+.okb-sceau--creme .okb-sceau__ligne,
+.okb-sceau--creme .okb-sceau__legende { fill: var(--okb-plum); }
+
+/* Des que la pile contient un logo ou un sceau, on passe en rangee :
+   trois medaillons empiles mangeraient la photo. */
+.okb-badges:has(.okb-badge-logo),
+.okb-badges:has(.okb-badge-sceau) {
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  gap: 10px;
+  max-width: calc(100% - 24px);
+}
+
+/* ==========================================================================
+   12. Onglets en nuancier de couleurs
+   ========================================================================== */
+.okb-univers__tabs:has(.okb-univers__tab--nuancier) {
+  grid-auto-columns: auto;
+  justify-content: center;
+  gap: 24px;
+}
+
+.okb-univers__tabs button.okb-univers__tab--nuancier {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 4px;
+  background: none;
+  border-color: transparent;
+  box-shadow: none;
+}
+
+.okb-univers__pastille-cl {
+  display: block;
+  width: var(--okb-swatch-size, 30px);
+  height: var(--okb-swatch-size, 30px);
+  border-radius: var(--okb-swatch-radius, 50%);
+  background: var(--okb-swatch, var(--okb-line));
+  box-shadow: inset 0 0 0 1px rgba(34, 24, 44, .14);
+  transition: box-shadow .2s ease, transform .2s ease;
+}
+
+.okb-univers__tab-nom {
+  display: block;
+  font-size: var(--okb-univers-fs-tabs, 12.5px);
+  font-weight: 600;
+  line-height: 1.2;
+  color: var(--okb-muted);
+  transition: color .2s ease;
+}
+
+.okb-univers__tabs button.okb-univers__tab--nuancier:hover .okb-univers__pastille-cl {
+  transform: translateY(-1px);
+  box-shadow: inset 0 0 0 1px rgba(34, 24, 44, .14), 0 0 0 2px #fff, 0 0 0 3px var(--okb-line);
+}
+
+.okb-univers__tabs button.okb-univers__tab--nuancier[aria-selected="true"] .okb-univers__pastille-cl {
+  box-shadow: inset 0 0 0 1px rgba(34, 24, 44, .14), 0 0 0 2px #fff, 0 0 0 3.5px var(--okb-gold);
+}
+
+.okb-univers__tabs button.okb-univers__tab--nuancier[aria-selected="true"] .okb-univers__tab-nom {
+  color: var(--okb-plum);
+  font-weight: 800;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .okb-univers__tabs button.okb-univers__tab--nuancier:hover .okb-univers__pastille-cl { transform: none; }
+}
+
+/* ==========================================================================
+   13. Trois colonnes visuel + texte (fiche produit)
+   ========================================================================== */
+.okb-trio { margin: clamp(36px, 4.5vw, 60px) auto; }
+
+.okb-trio__grid {
+  display: grid;
+  grid-template-columns: repeat(var(--okb-trio-cols, 3), minmax(0, 1fr));
+  gap: var(--okb-trio-gap, 22px);
+  max-width: min(var(--okb-container, 1160px), var(--okb-trio-max-w, 1160px));
+  margin-inline: auto;
+}
+
+.okb-trio__media {
+  border-radius: var(--okb-trio-radius, 8px);
+  overflow: hidden;
+  background: var(--okb-sand);
+  margin-bottom: 13px;
+}
+
+.okb-trio__media > img,
+.okb-trio__media > svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: var(--okb-trio-ratio, 4 / 3);
+  object-fit: cover;
+}
+
+.okb-trio__item h3 {
+  font-family: var(--okb-font-body);
+  font-size: var(--okb-trio-fs-title, 14.5px);
+  font-weight: 700;
+  line-height: 1.3;
+  color: var(--okb-ink);
+  margin: 0 0 6px;
+}
+
+.okb-trio__item p {
+  font-size: var(--okb-trio-fs-text, 12.5px);
+  line-height: 1.55;
+  color: var(--okb-muted);
+  margin: 0 0 8px;
+}
+
+.okb-trio__item p:last-child { margin-bottom: 0; }
+.okb-trio__item .okb-link { font-size: var(--okb-trio-fs-text, 12.5px); }
+
+@media (max-width: 900px) {
+  .okb-trio__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 560px) {
+  .okb-trio__grid { grid-template-columns: 1fr; }
+}
+
+/* ==========================================================================
+   14. Fiche produit — remise aux couleurs de la maison
+   assets/main-product.css contient deja un habillage complet de la fiche
+   (172 regles, toutes limitees a .template-product) : fil d Ariane, titre,
+   prix, galerie, vignettes, nuanciers, quantite, bouton d ajout, favoris,
+   stock, livraison, liens. Tout y passe par dix variables, reglees sur la
+   palette creme et moutarde de la boutique precedente. On les redefinit
+   ici avec « body » en tete pour l emporter sur la specificite, sans
+   toucher a main-product.css. Les polices, elles, etaient deja correctes :
+   elles pointent sur --font-family-1 et -2 du theme.
+   ========================================================================== */
+body.template-product {
+  --tgc-product-bg: #ffffff;
+  --tgc-product-surface: #ffffff;
+  --tgc-product-text: var(--okb-ink, #22182c);
+  --tgc-product-heading: var(--okb-ink, #22182c);
+  --tgc-product-accent: var(--okb-plum, #452f57);
+  --tgc-product-accent-dark: #33203f;
+  --tgc-product-border: var(--okb-line, #e8e4e9);
+  --tgc-product-muted: var(--okb-muted, #726a75);
+  --tgc-product-radius: 14px;
+  --tgc-product-radius-sm: 10px;
+  --tgc-product-shadow: 0 14px 40px rgba(69, 47, 87, .07);
+}
+
+/* Rythme vertical des sections OKB ajoutees sous la fiche */
+.template-product .okb-section { margin-block: clamp(28px, 3.6vw, 52px); }
+
+/* ==========================================================================
+   15. Onglets de la fiche produit — panneau sable arrondi
+   Kalles rend ces onglets en accordeon, pilote par des variables de couleur.
+   On les remet a la charte et on pose l ensemble dans un panneau sable,
+   avec un filet entre les entrees plutot que des bordures completes.
+   ========================================================================== */
+.template-product .t4s-type-accordion {
+  --title-cl: var(--okb-ink);
+  --bg-title-cl: transparent;
+  --title-active-cl: var(--okb-plum);
+  --bg-title-active-cl: transparent;
+  --content-cl: var(--okb-muted);
+  --bg-content-cl: transparent;
+  background: var(--okb-sand);
+  border-radius: 14px;
+  padding: 4px clamp(16px, 2.4vw, 30px);
+}
+
+.template-product .t4s-type-accordion > .t4s-tab-wrapper {
+  margin-bottom: 0;
+  border-bottom: 1px solid var(--okb-line);
+}
+.template-product .t4s-type-accordion > .t4s-tab-wrapper:last-child { border-bottom: 0; }
+
+.template-product .t4s-type-accordion .t4s-accor-title {
+  padding: 2px 52px 2px 0;
+  font-family: var(--okb-font-body);
+  font-size: 14.5px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+.template-product .t4s-type-accordion .t4s-accor-text { padding: 16px 0; }
+
+.template-product .t4s-type-accordion .t4s-tab-content {
+  background: transparent;
+  border: 0;
+  padding: 0 0 18px;
+  font-size: 13.5px;
+  line-height: 1.65;
+}
+
+.template-product .t4s-accor-title .t4s-accor-item-nav {
+  width: 40px;
+  height: 40px;
+  background-color: transparent;
+}
+.template-product .t4s-accor-title .t4s-accor-item-nav::before,
+.template-product .t4s-accor-title .t4s-accor-item-nav::after,
+.template-product .t4s-tab-wrapper.t4s-active .t4s-accor-title .t4s-accor-item-nav::before,
+.template-product .t4s-tab-wrapper.t4s-active .t4s-accor-title .t4s-accor-item-nav::after {
+  background-color: var(--okb-plum);
+}
+.template-product .t4s-tab-wrapper.t4s-active .t4s-accor-title .t4s-accor-item-nav { background-color: transparent; }
+
+/* ==========================================================================
+   16. Couleur de texte personnalisee du bloc image et texte
+   ========================================================================== */
+.okb-imgtext__body h2 { color: var(--okb-imgtext-cl, var(--okb-ink)); }
+.okb-imgtext__body p { color: var(--okb-imgtext-cl, var(--okb-muted)); }
+.okb-imgtext__body .okb-eyebrow,
+.okb-imgtext__body .okb-link { color: var(--okb-imgtext-cl, inherit); }
+
+/* ==========================================================================
+   17. Titres de section hors accueil
+   top-head.css impose 64 px !important en desktop. On rend la main au
+   reglage « Taille des titres » sur la fiche produit, la collection et la
+   recherche, comme deja fait sur l accueil.
+   ========================================================================== */
+.template-product .t4s-top-heading .t4s-section-title.t4s-title,
+.template-collection .t4s-top-heading .t4s-section-title.t4s-title,
+.template-search .t4s-top-heading .t4s-section-title.t4s-title {
+  font-family: var(--okb-font-heading) !important;
+  font-size: var(--okb-fs-h2, 36px) !important;
+  font-weight: 700 !important;
+  line-height: 1.24 !important;
+  letter-spacing: -0.6px;
+  color: var(--okb-ink);
+}
+
+@media (max-width: 767px) {
+  .template-product .t4s-top-heading .t4s-section-title.t4s-title,
+  .template-collection .t4s-top-heading .t4s-section-title.t4s-title,
+  .template-search .t4s-top-heading .t4s-section-title.t4s-title {
+    font-size: var(--okb-fs-h2-mb, 22px) !important;
+  }
+}
+
+/* ==========================================================================
+   18. Boutons OKB et footer inferieur
+   Les boutons des sections Image et texte et Selecteur d'univers reprennent
+   exactement le traitement du bouton de la banniere d'accueil.
+   ========================================================================== */
+.okb-imgtext__body .okb-btn,
+.okb-univers__panel .okb-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  min-height: 46px;
+  background: var(--okb-plum);
+  color: #fff;
+  border: 0;
+  border-radius: 6px;
+  padding: 12px 22px;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1.4;
+  text-decoration: none;
+  transition: background .2s ease, transform .2s ease;
+}
+
+.okb-imgtext__body .okb-btn:hover,
+.okb-univers__panel .okb-btn:hover {
+  background: var(--okb-plum-light, #5c3f73);
+  color: #fff;
+  transform: translateY(-1px);
+}
+
+.t4s-section-bottom-bar .t4s-bottom-bar > .t4s-custom-col,
+.t4s-section-bottom-bar .t4s-bottom-bar > .t4s-custom-col > .t4s-col-inner {
+  text-align: center !important;
+}
+
+.t4s-section-bottom-bar .t4s-coppy-right,
+.t4s-section-bottom-bar .t4s-payment-footer-svg {
+  width: 100%;
+  margin-inline: auto;
+  text-align: center !important;
+}
+
+.t4s-section-bottom-bar .t4s-coppy-right { margin-bottom: 8px; }
+
+.t4s-section-bottom-bar .t4s-payment-footer-svg {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+
+/* ==========================================================================
+   19. Page FAQ - version chartee, sans modifier son contenu
+   ========================================================================== */
+.template-page .okb-faq-page {
+  max-width: 960px;
+  margin-inline: auto;
+  color: var(--okb-ink);
+}
+
+.template-page .okb-faq-page > .t4s-top-heading {
+  margin-bottom: 34px;
+}
+
+.template-page .okb-faq-page .t4s-section-title.t4s-title {
+  color: var(--okb-ink) !important;
+  font-family: var(--okb-font-heading) !important;
+  font-size: 36px !important;
+  font-weight: 700 !important;
+  line-height: 1.2 !important;
+  letter-spacing: -0.02em;
+}
+
+.template-page .okb-faq-page .t4s-tabs {
+  display: grid;
+  gap: 12px;
+  background: transparent;
+}
+
+.template-page .okb-faq-page .t4s-tab-wrapper {
+  overflow: hidden;
+  margin-bottom: 0;
+  border: 1px solid var(--okb-line) !important;
+  border-radius: 14px;
+  background: var(--okb-sand);
+  box-shadow: 0 8px 24px rgba(69, 47, 87, .05);
+}
+
+.template-page .okb-faq-page .t4s-accor-title {
+  min-height: 62px;
+  padding: 16px 54px 16px 20px;
+  background: transparent !important;
+  color: var(--okb-ink) !important;
+  font-family: var(--okb-font-body);
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 1.35;
+  text-decoration: none;
+}
+
+.template-page .okb-faq-page .t4s-accor-title:hover,
+.template-page .okb-faq-page .t4s-tab-wrapper.t4s-active .t4s-accor-title {
+  background: rgba(69, 47, 87, .05) !important;
+  color: var(--okb-plum) !important;
+}
+
+.template-page .okb-faq-page .t4s-accor-item-nav {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background-color: var(--okb-plum) !important;
+  color: #fff !important;
+  transition: background-color .2s ease, transform .2s ease;
+}
+
+.template-page .okb-faq-page .t4s-accor-title .t4s-accor-item-nav::before,
+.template-page .okb-faq-page .t4s-accor-title .t4s-accor-item-nav::after {
+  background-color: #fff !important;
+  transform: translate(-50%, -50%) !important;
+}
+
+.template-page .okb-faq-page .t4s-tab-wrapper.t4s-active .t4s-accor-title .t4s-accor-item-nav {
+  background-color: var(--okb-plum) !important;
+}
+
+.template-page .okb-faq-page .t4s-tab-wrapper.t4s-active .t4s-accor-title .t4s-accor-item-nav::before {
+  opacity: 1 !important;
+}
+
+.template-page .okb-faq-page .t4s-tab-wrapper.t4s-active .t4s-accor-title .t4s-accor-item-nav::after {
+  opacity: 0 !important;
+}
+
+.template-page .okb-faq-page .t4s-tab-content {
+  padding: 0 20px 20px !important;
+  background: transparent !important;
+  color: var(--okb-muted) !important;
+  font-size: 14px;
+  line-height: 1.7;
+}
+
+.template-page .okb-faq-page .t4s-tab-content a {
+  color: var(--okb-plum);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+/* ==========================================================================
+   20. Page Qui sommes-nous - traitement de marque scoped au template
+   ========================================================================== */
+body.template-about-us {
+  background: #fff;
+  color: var(--okb-ink);
+}
+
+body.template-about-us #MainContent { overflow: hidden; }
+
+body.template-about-us .t4s-section-heading .header-banner {
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(135deg, var(--okb-lavender), var(--okb-sand)) !important;
+}
+
+body.template-about-us .t4s-section-heading .header-banner::before {
+  background: linear-gradient(135deg, rgba(239, 234, 245, .96), rgba(247, 245, 241, .9));
+  opacity: 1;
+}
+
+body.template-about-us .t4s-section-heading .page-head {
+  position: relative;
+  z-index: 1;
+  padding-top: 78px;
+  padding-bottom: 78px;
+}
+
+body.template-about-us .t4s-section-heading .title-head,
+body.template-about-us .t4s-section-heading .desc-head,
+body.template-about-us .t4s-section-heading .breadcrumbs__item,
+body.template-about-us .t4s-section-heading .breadcrumbs__item a {
+  color: var(--okb-plum) !important;
+  font-family: var(--okb-font-heading) !important;
+  text-shadow: none !important;
+}
+
+body.template-about-us .t4s-section-heading .title-head {
+  font-size: clamp(34px, 4vw, 52px) !important;
+  font-weight: 700 !important;
+  line-height: 1.1 !important;
+  letter-spacing: -0.03em;
+}
+
+body.template-about-us .t4s-section-main .t4s-main-page {
+  width: min(820px, 100%);
+  margin-inline: auto;
+  color: var(--okb-muted);
+  font-family: var(--okb-font-body);
+  font-size: 16px;
+  line-height: 1.8;
+}
+
+body.template-about-us .t4s-section-main .t4s-main-page p {
+  margin: 0 0 18px;
+}
+
+body.template-about-us .t4s-section-main .t4s-main-page p:first-child {
+  margin-bottom: 34px;
+  color: var(--okb-ink);
+  font-size: clamp(18px, 2.1vw, 22px);
+  line-height: 1.55;
+}
+
+body.template-about-us .t4s-section-main .t4s-main-page h2 {
+  margin: 46px 0 18px;
+  color: var(--okb-plum);
+  font-family: var(--okb-font-heading);
+  font-size: clamp(25px, 3vw, 34px);
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+}
+
+body.template-about-us .t4s-section-main .t4s-main-page strong {
+  color: var(--okb-plum);
+  font-weight: 700;
+}
+
+body.template-about-us .t4s-section-main .t4s-main-page a {
+  color: var(--okb-plum);
+  text-decoration: underline;
+  text-decoration-color: var(--okb-gold);
+  text-underline-offset: 3px;
+}
+
+body.template-about-us .t4s-heading-template {
+  position: relative;
+  overflow: hidden;
+  padding-top: 78px;
+  padding-bottom: 78px;
+  background: var(--okb-lavender);
+}
+
+body.template-about-us .t4s-heading-template::before {
+  z-index: 0;
+  background: linear-gradient(135deg, rgba(239, 234, 245, .96), rgba(247, 245, 241, .9)) !important;
+}
+
+body.template-about-us .t4s-heading-template-bg {
+  opacity: .14;
+  filter: saturate(.55);
+}
+
+body.template-about-us .t4s-heading-template .t4s-container {
+  position: relative;
+  z-index: 1;
+}
+
+body.template-about-us .t4s-heading-template-text {
+  color: var(--okb-plum) !important;
+  font-family: var(--okb-font-heading) !important;
+  font-size: clamp(34px, 4vw, 52px) !important;
+  font-weight: 700 !important;
+  line-height: 1.1 !important;
+  letter-spacing: -0.03em;
+  text-shadow: none !important;
+}
+
+body.template-about-us .t4s_nt_se_1652061282d05ea8a5,
+body.template-about-us .t4s_nt_se_1652061282d05ea8a6 {
+  margin-block: 28px;
+  padding-block: 42px;
+  border: 1px solid var(--okb-line);
+  border-radius: 20px;
+  background: var(--okb-sand) !important;
+}
+
+body.template-about-us .t4s_nt_se_1652061282d05ea8a5 .t4s-container,
+body.template-about-us .t4s_nt_se_1652061282d05ea8a6 .t4s-container {
+  padding-inline: clamp(20px, 4vw, 56px);
+}
+
+body.template-about-us .t4s_nt_se_1652061282d05ea8a5 .t4s-text-bl,
+body.template-about-us .t4s_nt_se_1652061282d05ea8a6 .t4s-text-bl {
+  color: var(--okb-muted) !important;
+  font-family: var(--okb-font-body) !important;
+}
+
+body.template-about-us .t4s_nt_se_1652061282d05ea8a5 .t4s-text-bl:first-child,
+body.template-about-us .t4s_nt_se_1652061282d05ea8a6 .t4s-text-bl:first-child {
+  color: var(--okb-plum) !important;
+  font-family: var(--okb-font-heading) !important;
+  font-weight: 700 !important;
+}
+
+body.template-about-us .t4s-block-quote .t4s-section-inner {
+  margin-inline: auto;
+  max-width: var(--okb-container);
+  padding: 52px clamp(24px, 6vw, 90px);
+  border-radius: 20px;
+  background: var(--okb-lavender) !important;
+}
+
+body.template-about-us .t4s-block-quote blockquote {
+  margin: 0;
+  border: 0;
+}
+
+body.template-about-us .t4s-block-quote blockquote p {
+  color: var(--okb-plum);
+  font-family: var(--okb-font-heading);
+  font-size: clamp(22px, 3vw, 34px);
+  font-style: normal;
+  line-height: 1.25;
+  text-align: center;
+}
+
+body.template-about-us .t4s-member-inner {
+  overflow: hidden;
+  border: 1px solid var(--okb-line);
+  border-radius: 18px;
+  background: #fff;
+  box-shadow: 0 8px 24px rgba(69, 47, 87, .06);
+}
+
+body.template-about-us .t4s-member-info::before {
+  background: rgba(69, 47, 87, .08);
+}
+
+body.template-about-us .t4s-member-name {
+  color: var(--okb-plum);
+  font-family: var(--okb-font-heading);
+  font-weight: 700;
+}
+
+@media (max-width: 767px) {
+  .t4s-section-bottom-bar .t4s-coppy-right,
+  .t4s-section-bottom-bar .t4s-payment-footer-svg {
+    justify-content: center;
+    text-align: center !important;
+  }
+
+  .template-page .okb-faq-page .t4s-section-title.t4s-title {
+    font-size: 30px !important;
+  }
+
+  .template-page .okb-faq-page .t4s-accor-title {
+    min-height: 58px;
+    padding: 14px 48px 14px 14px;
+    font-size: 14px;
+  }
+
+  .template-page .okb-faq-page .t4s-accor-item-nav {
+    width: 36px;
+    height: 36px;
+  }
+
+  .template-page .okb-faq-page .t4s-tab-content {
+    padding: 0 14px 16px !important;
+    font-size: 13.5px;
+  }
+
+  body.template-about-us .t4s-heading-template {
+    padding-top: 54px;
+    padding-bottom: 54px;
+  }
+
+  body.template-about-us .t4s-section-heading .page-head {
+    padding-top: 54px;
+    padding-bottom: 54px;
+  }
+
+  body.template-about-us .t4s-section-main .t4s-main-page {
+    width: 90%;
+    font-size: 14px;
+    line-height: 1.7;
+  }
+
+  body.template-about-us .t4s-section-main .t4s-main-page h2 {
+    margin-top: 34px;
+    font-size: 25px;
+  }
+
+  body.template-about-us .t4s_nt_se_1652061282d05ea8a5,
+  body.template-about-us .t4s_nt_se_1652061282d05ea8a6 {
+    width: 90%;
+    margin-inline: auto;
+    padding-block: 26px;
+  }
+
+  body.template-about-us .t4s_nt_se_1652061282d05ea8a5 .t4s-container,
+  body.template-about-us .t4s_nt_se_1652061282d05ea8a6 .t4s-container {
+    padding-inline: 5%;
+  }
+
+  body.template-about-us .t4s-block-quote .t4s-section-inner {
+    width: 90%;
+    padding: 32px 5%;
+  }
+}

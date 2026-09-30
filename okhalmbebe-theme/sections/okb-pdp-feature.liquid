@@ -1,0 +1,210 @@
+{%- comment -%}
+  OKB · Bloc bénéfice (fiche produit)
+  Grande photo + texte, avec en option :
+  - une ligne secondaire (ex. « 3 positions de hauteur • Réglage par boutons »)
+  - des caractéristiques courtes avec pictogramme (blocs « Caractéristique »)
+  - un mini schéma en étapes (blocs « Étape »), ex. Mode fixe → sélecteur → bercement
+  - une note discrète (bloc « Note »)
+  Sans image, un visuel de remplacement est affiché : déposez la photo depuis l'éditeur.
+{%- endcomment -%}
+{{- 'okb-cododo.css' | asset_url | stylesheet_tag -}}
+{%- liquid
+  assign st = section.settings
+  assign img = st.image
+  if st.image_source == 'produit' and product != blank
+    assign rang = st.image_index | minus: 1
+    assign photo = product.images[rang]
+    if photo != blank
+      assign img = photo
+    endif
+  endif
+
+  assign ratio = '4 / 5'
+  case st.image_ratio
+    when '1_1'
+      assign ratio = '1 / 1'
+    when '4_3'
+      assign ratio = '4 / 3'
+    when '3_4'
+      assign ratio = '3 / 4'
+    when '16_9'
+      assign ratio = '16 / 9'
+  endcase
+
+  assign nb_chips = 0
+  assign nb_steps = 0
+  for block in section.blocks
+    case block.type
+      when 'chip'
+        assign nb_chips = nb_chips | plus: 1
+      when 'step'
+        assign nb_steps = nb_steps | plus: 1
+    endcase
+  endfor
+-%}
+
+<div class="okb okb-cd okb-cd-feat okb-cd--{{ st.style }}{% if st.reverse %} okb-cd-feat--reverse{% endif %}" style="--okb-cd-ratio: {{ ratio }}; --okb-cd-chip-cols: {{ st.chip_cols }};">
+  <div class="okb-wrap">
+    <div class="okb-cd-feat__inner">
+      <div class="okb-cd-feat__media">
+        {%- if img != blank -%}
+          <img
+            src="{{ img | image_url: width: 1000 }}"
+            srcset="{{ img | image_url: width: 500 }} 500w, {{ img | image_url: width: 800 }} 800w, {{ img | image_url: width: 1100 }} 1100w, {{ img | image_url: width: 1500 }} 1500w"
+            sizes="(min-width: 990px) 560px, calc(100vw - 32px)"
+            width="{{ img.width }}" height="{{ img.height }}"
+            alt="{{ st.image_alt | default: img.alt | escape }}"
+            loading="lazy" decoding="async">
+        {%- else -%}
+          <div class="okb-cd-ph" role="img" aria-label="{{ st.image_alt | default: st.heading | escape }}">
+            {{- 'lifestyle-2' | placeholder_svg_tag -}}
+          </div>
+        {%- endif -%}
+      </div>
+
+      <div class="okb-cd-feat__body">
+        {%- if st.eyebrow != blank -%}
+          <div class="okb-eyebrow">{{ st.eyebrow | escape }}</div>
+        {%- endif -%}
+        {%- if st.heading != blank -%}
+          <h2 class="okb-cd-feat__title">{{ st.heading | escape }}</h2>
+        {%- endif -%}
+        {%- if st.text != blank -%}
+          <div class="okb-cd-feat__text">{{ st.text }}</div>
+        {%- endif -%}
+        {%- if st.meta != blank -%}
+          <p class="okb-cd-feat__meta">{{ st.meta | escape }}</p>
+        {%- endif -%}
+
+        {%- if nb_steps > 0 -%}
+          <ol class="okb-cd-steps" role="list">
+            {%- assign rang_etape = 0 -%}
+            {%- for block in section.blocks -%}
+              {%- if block.type != 'step' %}{% continue %}{% endif -%}
+              {%- assign rang_etape = rang_etape | plus: 1 -%}
+              {%- if rang_etape > 1 -%}
+                <li class="okb-cd-steps__arrow" aria-hidden="true">{%- render 'okb-cododo-icon', icon: 'fleche' -%}</li>
+              {%- endif -%}
+              <li class="okb-cd-steps__item" {{ block.shopify_attributes }}>
+                <span class="okb-cd-badge">{%- render 'okb-cododo-icon', icon: block.settings.icon -%}</span>
+                <span class="okb-cd-steps__label">{{ block.settings.label | escape }}</span>
+              </li>
+            {%- endfor -%}
+          </ol>
+        {%- endif -%}
+
+        {%- if nb_chips > 0 -%}
+          <ul class="okb-cd-chips okb-cd-chips--{{ st.chip_cols }}" role="list">
+            {%- for block in section.blocks -%}
+              {%- if block.type != 'chip' %}{% continue %}{% endif -%}
+              <li class="okb-cd-chips__item" {{ block.shopify_attributes }}>
+                <span class="okb-cd-badge">{%- render 'okb-cododo-icon', icon: block.settings.icon -%}</span>
+                <span>
+                  {%- if block.settings.title != blank -%}<strong>{{ block.settings.title | escape }}</strong>{%- endif -%}
+                  {%- if block.settings.text != blank -%}<small>{{ block.settings.text | escape }}</small>{%- endif -%}
+                </span>
+              </li>
+            {%- endfor -%}
+          </ul>
+        {%- endif -%}
+
+        {%- for block in section.blocks -%}
+          {%- if block.type == 'note' and block.settings.text != blank -%}
+            <p class="okb-cd-feat__note" {{ block.shopify_attributes }}>{{ block.settings.text | escape }}</p>
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "OKB · Bloc bénéfice produit",
+  "class": "okb-section okb-section--cd-feat",
+  "settings": [
+    { "type": "header", "content": "Visuel" },
+    {
+      "type": "select", "id": "image_source", "label": "Source du visuel",
+      "options": [
+        { "value": "image", "label": "Image que je dépose" },
+        { "value": "produit", "label": "Photo du produit affiché" }
+      ],
+      "default": "image"
+    },
+    {
+      "type": "range", "id": "image_index", "label": "Numéro de la photo du produit",
+      "info": "Utilisé si la source est « Photo du produit ». 1 = première photo de la fiche.",
+      "min": 1, "max": 15, "step": 1, "default": 1
+    },
+    { "type": "image_picker", "id": "image", "label": "Image" },
+    { "type": "text", "id": "image_alt", "label": "Texte alternatif de l'image" },
+    {
+      "type": "select", "id": "image_ratio", "label": "Format d'image",
+      "options": [
+        { "value": "4_5", "label": "Portrait 4:5" },
+        { "value": "3_4", "label": "Portrait 3:4" },
+        { "value": "1_1", "label": "Carré 1:1" },
+        { "value": "4_3", "label": "Paysage 4:3" },
+        { "value": "16_9", "label": "Paysage 16:9" }
+      ],
+      "default": "4_5"
+    },
+    { "type": "checkbox", "id": "reverse", "label": "Placer l'image à droite", "default": false },
+    { "type": "header", "content": "Contenu" },
+    { "type": "text", "id": "eyebrow", "label": "Sur-titre" },
+    { "type": "text", "id": "heading", "label": "Titre" },
+    { "type": "richtext", "id": "text", "label": "Texte" },
+    { "type": "text", "id": "meta", "label": "Ligne secondaire", "info": "Petite ligne sous le texte. Ex. : 3 positions de hauteur • Réglage par boutons de verrouillage" },
+    { "type": "header", "content": "Apparence" },
+    {
+      "type": "select", "id": "style", "label": "Fond",
+      "options": [
+        { "value": "blanc", "label": "Blanc" },
+        { "value": "sable", "label": "Sable" },
+        { "value": "lavande", "label": "Lavande" }
+      ],
+      "default": "sable"
+    },
+    {
+      "type": "select", "id": "chip_cols", "label": "Caractéristiques par ligne (ordinateur)",
+      "options": [
+        { "value": "1", "label": "1" },
+        { "value": "2", "label": "2" },
+        { "value": "3", "label": "3" }
+      ],
+      "default": "2"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "chip",
+      "name": "Caractéristique",
+      "limit": 6,
+      "settings": [
+        { "type": "select", "id": "icon", "label": "Pictogramme", "options": [{"value": "aucun", "label": "Aucun"}, {"value": "hauteur", "label": "Hauteur réglable"}, {"value": "roue_frein", "label": "Roue + frein"}, {"value": "bercement", "label": "Mode bercement"}, {"value": "mode_fixe", "label": "Mode fixe"}, {"value": "selecteur", "label": "Sélecteur"}, {"value": "maille", "label": "Maille respirante"}, {"value": "moustiquaire", "label": "Moustiquaire / protection"}, {"value": "panier", "label": "Panier de rangement"}, {"value": "pliable", "label": "Pliable"}, {"value": "compact", "label": "Compact"}, {"value": "transport", "label": "Rangement / transport"}, {"value": "structure", "label": "Structure triangulaire"}, {"value": "rotation", "label": "Rotation 360°"}, {"value": "frein", "label": "Frein"}, {"value": "silence", "label": "Silencieux"}, {"value": "acier", "label": "Acier"}, {"value": "raccord", "label": "Raccord renforcé"}, {"value": "finition", "label": "Finition / anti-corrosion"}, {"value": "textile", "label": "Textile"}, {"value": "demontable", "label": "Démontable"}, {"value": "lavable", "label": "Lavable"}, {"value": "lune", "label": "Lune / nuit"}, {"value": "coeur", "label": "Cœur"}, {"value": "livraison", "label": "Livraison"}, {"value": "cadenas", "label": "Paiement sécurisé"}, {"value": "retour", "label": "Retour"}, {"value": "stock", "label": "Colis / stock"}, {"value": "check", "label": "Coche"}], "default": "check" },
+        { "type": "text", "id": "title", "label": "Titre" },
+        { "type": "text", "id": "text", "label": "Sous-texte" }
+      ]
+    },
+    {
+      "type": "step",
+      "name": "Étape",
+      "limit": 4,
+      "settings": [
+        { "type": "select", "id": "icon", "label": "Pictogramme", "options": [{"value": "aucun", "label": "Aucun"}, {"value": "hauteur", "label": "Hauteur réglable"}, {"value": "roue_frein", "label": "Roue + frein"}, {"value": "bercement", "label": "Mode bercement"}, {"value": "mode_fixe", "label": "Mode fixe"}, {"value": "selecteur", "label": "Sélecteur"}, {"value": "maille", "label": "Maille respirante"}, {"value": "moustiquaire", "label": "Moustiquaire / protection"}, {"value": "panier", "label": "Panier de rangement"}, {"value": "pliable", "label": "Pliable"}, {"value": "compact", "label": "Compact"}, {"value": "transport", "label": "Rangement / transport"}, {"value": "structure", "label": "Structure triangulaire"}, {"value": "rotation", "label": "Rotation 360°"}, {"value": "frein", "label": "Frein"}, {"value": "silence", "label": "Silencieux"}, {"value": "acier", "label": "Acier"}, {"value": "raccord", "label": "Raccord renforcé"}, {"value": "finition", "label": "Finition / anti-corrosion"}, {"value": "textile", "label": "Textile"}, {"value": "demontable", "label": "Démontable"}, {"value": "lavable", "label": "Lavable"}, {"value": "lune", "label": "Lune / nuit"}, {"value": "coeur", "label": "Cœur"}, {"value": "livraison", "label": "Livraison"}, {"value": "cadenas", "label": "Paiement sécurisé"}, {"value": "retour", "label": "Retour"}, {"value": "stock", "label": "Colis / stock"}, {"value": "check", "label": "Coche"}], "default": "check" },
+        { "type": "text", "id": "label", "label": "Libellé" }
+      ]
+    },
+    {
+      "type": "note",
+      "name": "Note",
+      "limit": 2,
+      "settings": [
+        { "type": "text", "id": "text", "label": "Texte" }
+      ]
+    }
+  ],
+  "presets": [{ "name": "OKB · Bloc bénéfice produit" }]
+}
+{% endschema %}

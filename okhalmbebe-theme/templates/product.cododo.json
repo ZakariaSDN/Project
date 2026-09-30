@@ -1,0 +1,885 @@
+{
+  "sections": {
+    "okb_styles_pr": {
+      "type": "okb-styles",
+      "settings": {
+        "color_plum": "#452f57",
+        "color_gold": "#aa9666",
+        "color_lavender": "#efeaf5",
+        "color_sand": "#f7f5f1",
+        "color_ink": "#120918",
+        "color_muted": "#120918",
+        "color_line": "#e8e4e9",
+        "font_heading": "nunito_sans_n7",
+        "font_body": "nunito_sans_n4",
+        "container_width": 1160,
+        "fs_section": 36,
+        "fs_section_mb": 22,
+        "space_y": 64,
+        "space_y_mb": 44,
+        "logo_press_h": 34,
+        "apply_to_products": false,
+        "product_radius": 10,
+        "custom_css": ""
+      }
+    },
+    "main": {
+      "type": "main-product",
+      "blocks": {
+        "title": {
+          "type": "title",
+          "settings": {
+            "txt_tr_pr": "none",
+            "fnt_df_pr": "1",
+            "size_pr": 33,
+            "fw_pr": 700,
+            "lh_pr": 36,
+            "ls_pr": 0,
+            "pr_title_color": "#22182c"
+          }
+        },
+        "loox_reviews_loox_rating_hNbwLC": {
+          "type": "shopify://apps/loox-reviews/blocks/loox-rating/5c3b337f-fd14-4df5-b1d6-80ec13e6e28e",
+          "settings": {
+            "contentSize": 16,
+            "pattern": "",
+            "hideText": false,
+            "alignment": "",
+            "layout": "",
+            "textColor": "",
+            "starColor": "#aa9666",
+            "showAllReviews": false,
+            "looxOpenFloatingWidget": false,
+            "emptyRatingWidget": true
+          }
+        },
+        "price_review": {
+          "type": "price_review",
+          "settings": {
+            "price": "0",
+            "type_sale": "2",
+            "tax_ship": false,
+            "rating": true,
+            "review_liquid": "",
+            "size_price_pr": 32,
+            "fw_price_pr": 500,
+            "price_color": "#22182c",
+            "price_sale_color": "#aa9666"
+          }
+        },
+        "form": {
+          "type": "form",
+          "settings": {
+            "selector_mode": "block",
+            "color_mode": "variant_image",
+            "enable_fit_ratio_img": true,
+            "color_size": "exlarge",
+            "show_qty": true,
+            "enable_wishlist": true,
+            "enable_compare": false,
+            "btn_atc_full": true,
+            "pr_btn_round": 0,
+            "ani": "none",
+            "time": 6,
+            "btn_txt": "3",
+            "btn_icon": false,
+            "button_style": "default",
+            "button_color": "primary",
+            "button_effect": "sweep-to-top",
+            "wishlist_color": "#222222",
+            "wishlist_color_hover": "#222222",
+            "wishlist_color_active": "#222222",
+            "compare_color": "#222222",
+            "compare_color_hover": "#ebc837",
+            "compare_color_active": "#222222",
+            "show_dynamic_checkout": false,
+            "btn_txt2": "3",
+            "button_color_payment": "primary",
+            "show_gift_card_recipient": false,
+            "product_list": [],
+            "show_product_current": true,
+            "qty_val": "0",
+            "advance_label": "Choose style",
+            "advance_pr_list": []
+          }
+        },
+        "img_qVeyxV": {
+          "type": "img",
+          "settings": {
+            "al": "center",
+            "mess": "",
+            "size": 16,
+            "source": "1",
+            "wimg": 60,
+            "svg": "apple_pay,google_pay,master,paypal,visa",
+            "height": 34
+          }
+        },
+        "okb_cd_intro": {
+          "type": "custom_liquid",
+          "settings": {
+            "custom_liquid": "{% render 'okb-cododo-buybox', part: 'intro',\n  accroche: 'Gardez bébé près de vous, de la nuit à la sieste.',\n  texte: 'Réglable en hauteur, mobile et pliable, ce berceau accompagne bébé dans son propre espace de repos, près de votre lit comme dans les autres pièces de la maison.',\n  i1: 'hauteur', b1: '3 hauteurs réglables',\n  i2: 'roue_frein', b2: 'Roulettes 360° avec freins',\n  i3: 'bercement', b3: 'Mode fixe ou bercement',\n  i4: 'pliable', b4: 'Pliable + grand rangement'\n%}"
+          }
+        },
+        "okb_cd_trust": {
+          "type": "custom_liquid",
+          "settings": {
+            "custom_liquid": "{% render 'okb-cododo-buybox', part: 'trust', product: product,\n  l1: 'Livraison offerte dès 150 €',\n  l2: 'Paiement sécurisé',\n  l3: 'Retour sous 14 jours'\n%}"
+          }
+        }
+      },
+      "block_order": [
+        "title",
+        "okb_cd_intro",
+        "price_review",
+        "loox_reviews_loox_rating_hNbwLC",
+        "form",
+        "okb_cd_trust",
+        "img_qVeyxV"
+      ],
+      "custom_css": [],
+      "settings": {
+        "pr_layout": "default",
+        "enable_sticky_info": true,
+        "media_layout": "thumbnails_bottom",
+        "media_size": "medium",
+        "thumb_lr_size": "medium",
+        "image_ratio": "ratio1_1",
+        "image_size": "cover",
+        "image_position": "8",
+        "main_click": "pswp",
+        "zoom_tp": "inner",
+        "enable_zoom_icon": true,
+        "enable_zoom_click_mb": true,
+        "enable_video_looping": false,
+        "enable_video_muting": true,
+        "enable_video_autoplaying": true,
+        "eff": "slide",
+        "nav_btn": true,
+        "btn_vi": "always",
+        "btn_owl": "simple",
+        "btn_shape": "none",
+        "btn_cl": "primary",
+        "btn_size": "medium",
+        "btn_hidden_mobile": true,
+        "nav_dot": false,
+        "dot_owl": "elessi",
+        "dots_cl": "primary",
+        "dots_round": false,
+        "dots_space": 20,
+        "dots_hidden_mobile": false,
+        "tabs_design": "accordion",
+        "tabs_design_mb": "accordion",
+        "tabs_position": "inner",
+        "enable_first_tab": false,
+        "tabs_layout_fix": "full",
+        "bg": "rgba(0,0,0,0)",
+        "bg_mb": "#ffffff",
+        "product_list": [],
+        "tgc_fbt_enable": true,
+        "tgc_fbt_eyebrow": "COMPLÉTEZ SON COIN NUIT",
+        "tgc_fbt_title": "Produits fréquemment achetés ensemble",
+        "tgc_fbt_intro": "<p>Les essentiels qui s’associent naturellement à ce produit.</p>",
+        "tgc_fbt_total_label": "Prix de la routine",
+        "tgc_fbt_button_label": "Ajouter la sélection au panier",
+        "tgc_fbt_show_quickview": true,
+        "tgc_fbt_bg": "#f7f5f1",
+        "tgc_fbt_panel_bg": "#ffffff",
+        "tgc_fbt_summary_bg": "#452f57",
+        "tgc_fbt_text": "#22182c",
+        "tgc_fbt_muted": "#726a75",
+        "tgc_fbt_accent": "#452f57",
+        "tgc_fbt_accent_text": "#ffffff",
+        "tgc_fbt_border": "#e8e4e9",
+        "tgc_fbt_radius": 16,
+        "tgc_fbt_image_radius": 14,
+        "tgc_fbt_image_size": 130,
+        "tgc_fbt_heading_size": 36,
+        "tgc_fbt_heading_size_mb": 30,
+        "tgc_fbt_pad_top": 72,
+        "tgc_fbt_pad_bottom": 72,
+        "tgc_fbt_pad_top_mb": 48,
+        "tgc_fbt_pad_bottom_mb": 48,
+        "sticky_mode": "2",
+        "sticky_show": "2",
+        "sticky_layout_mb": "minimal",
+        "enable_select": true,
+        "ani": "t4s-ani-shake",
+        "time": 3
+      }
+    },
+    "okb_cd_reassurance": {
+      "type": "okb-pdp-reassurance",
+      "settings": {
+        "heading": "",
+        "style": "sable"
+      },
+      "blocks": {
+        "b1": {
+          "type": "item",
+          "settings": {
+            "icon": "hauteur",
+            "title": "3 niveaux de hauteur",
+            "text": "S’adapte plus facilement à votre environnement."
+          }
+        },
+        "b2": {
+          "type": "item",
+          "settings": {
+            "icon": "roue_frein",
+            "title": "Roues 360° avec freins",
+            "text": "Facile à déplacer puis à immobiliser."
+          }
+        },
+        "b3": {
+          "type": "item",
+          "settings": {
+            "icon": "bercement",
+            "title": "Mode bercement",
+            "text": "Passez du mode fixe à un balancement doux."
+          }
+        },
+        "b4": {
+          "type": "item",
+          "settings": {
+            "icon": "moustiquaire",
+            "title": "Moustiquaire intégrée",
+            "text": "Une protection pratique contre les moustiques et petits insectes."
+          }
+        }
+      },
+      "block_order": [
+        "b1",
+        "b2",
+        "b3",
+        "b4"
+      ]
+    },
+    "okb_cd_nuit": {
+      "type": "okb-pdp-feature",
+      "settings": {
+        "image_source": "image",
+        "image_index": 1,
+        "image_alt": "Berceau cododo O Khalm Bébé placé contre le lit parental",
+        "image_ratio": "4_5",
+        "reverse": false,
+        "eyebrow": "La nuit",
+        "heading": "Tout près de vous pendant la nuit",
+        "text": "<p>Grâce à ses <strong>trois niveaux de hauteur</strong>, le berceau peut être positionné à proximité de votre lit tout en laissant bébé dans son propre espace de repos. Une configuration pratique lors des réveils nocturnes, des biberons ou de l’allaitement.</p>",
+        "meta": "3 positions de hauteur • Réglage par boutons de verrouillage",
+        "style": "sable",
+        "chip_cols": "2"
+      }
+    },
+    "okb_cd_mobilite": {
+      "type": "okb-pdp-feature",
+      "settings": {
+        "image_source": "image",
+        "image_index": 1,
+        "image_alt": "Berceau cododo sur roulettes dans le salon",
+        "image_ratio": "4_5",
+        "reverse": true,
+        "eyebrow": "Chambre → salon",
+        "heading": "La nuit dans votre chambre. La sieste dans le salon.",
+        "text": "<p>Les <strong>roulettes multidirectionnelles à 360°</strong> permettent de déplacer facilement le berceau d’une pièce à l’autre. Une fois à la bonne place, <strong>les freins</strong> permettent de l’immobiliser.</p>",
+        "meta": "",
+        "style": "blanc",
+        "chip_cols": "2"
+      },
+      "blocks": {
+        "b1": {
+          "type": "chip",
+          "settings": {
+            "icon": "rotation",
+            "title": "360°",
+            "text": "Rotation multidirectionnelle"
+          }
+        },
+        "b2": {
+          "type": "chip",
+          "settings": {
+            "icon": "frein",
+            "title": "Freins intégrés",
+            "text": "Pour immobiliser le berceau"
+          }
+        },
+        "b3": {
+          "type": "note",
+          "settings": {
+            "text": "Roulement annoncé silencieux par le fabricant."
+          }
+        }
+      },
+      "block_order": [
+        "b1",
+        "b2",
+        "b3"
+      ]
+    },
+    "okb_cd_bercement": {
+      "type": "okb-pdp-feature",
+      "settings": {
+        "image_source": "image",
+        "image_index": 1,
+        "image_alt": "Sélecteur latéral du mode bercement",
+        "image_ratio": "4_5",
+        "reverse": false,
+        "eyebrow": "Mode fixe ou bercement",
+        "heading": "Un berceau fixe quand vous le souhaitez, un bercement doux quand vous en avez besoin",
+        "text": "<p>Un <strong>sélecteur latéral</strong> permet de passer du mode fixe au mode bercement. Activez le mouvement lorsque vous souhaitez bercer doucement bébé, puis revenez au mode fixe en quelques gestes.</p>",
+        "meta": "",
+        "style": "lavande",
+        "chip_cols": "2"
+      },
+      "blocks": {
+        "b1": {
+          "type": "step",
+          "settings": {
+            "icon": "mode_fixe",
+            "label": "Mode fixe"
+          }
+        },
+        "b2": {
+          "type": "step",
+          "settings": {
+            "icon": "selecteur",
+            "label": "Tourner le sélecteur"
+          }
+        },
+        "b3": {
+          "type": "step",
+          "settings": {
+            "icon": "bercement",
+            "label": "Mode bercement"
+          }
+        }
+      },
+      "block_order": [
+        "b1",
+        "b2",
+        "b3"
+      ]
+    },
+    "okb_cd_confort": {
+      "type": "okb-pdp-cards",
+      "settings": {
+        "eyebrow": "Au quotidien",
+        "heading": "Pensé pour le confort du quotidien"
+      },
+      "blocks": {
+        "b1": {
+          "type": "card",
+          "settings": {
+            "image_source": "image",
+            "image_index": 1,
+            "image_alt": "Panneaux en maille respirante du berceau",
+            "icon": "maille",
+            "label": "Maille respirante",
+            "title": "Vous le voyez. L’air continue de circuler.",
+            "text": "<p>Les larges panneaux en maille favorisent la circulation de l’air tout en vous permettant de garder facilement un œil sur bébé.</p>"
+          }
+        },
+        "b2": {
+          "type": "card",
+          "settings": {
+            "image_source": "image",
+            "image_index": 1,
+            "image_alt": "Moustiquaire intégrée déployée sur le berceau",
+            "icon": "moustiquaire",
+            "label": "Moustiquaire",
+            "title": "Une moustiquaire déjà intégrée",
+            "text": "<p>Déployez-la lorsque vous en avez besoin pour aider à protéger l’espace de bébé des moustiques et petits insectes. Sa partie plus couvrante aide également à atténuer une lumière directe.</p>"
+          }
+        },
+        "b3": {
+          "type": "card",
+          "settings": {
+            "image_source": "image",
+            "image_index": 1,
+            "image_alt": "Grand panier de rangement sous le berceau",
+            "icon": "panier",
+            "label": "Panier",
+            "title": "Les essentiels juste en dessous",
+            "text": "<p>Couches, langes, pyjama de rechange et petits accessoires restent organisés dans le grand panier inférieur, toujours à portée de main.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "b1",
+        "b2",
+        "b3"
+      ]
+    },
+    "okb_cd_pliage": {
+      "type": "okb-pdp-feature",
+      "settings": {
+        "image_source": "image",
+        "image_index": 1,
+        "image_alt": "Berceau cododo replié",
+        "image_ratio": "4_5",
+        "reverse": true,
+        "eyebrow": "Rangement",
+        "heading": "Plié lorsque vous avez besoin de place",
+        "text": "<p>Le berceau peut être replié afin de réduire son encombrement lorsqu’il n’est pas utilisé. Pratique pour le rangement à la maison ou lors de déplacements ponctuels.</p>",
+        "meta": "",
+        "style": "sable",
+        "chip_cols": "3"
+      },
+      "blocks": {
+        "b1": {
+          "type": "chip",
+          "settings": {
+            "icon": "pliable",
+            "title": "Pliable",
+            "text": ""
+          }
+        },
+        "b2": {
+          "type": "chip",
+          "settings": {
+            "icon": "compact",
+            "title": "Compact une fois replié",
+            "text": ""
+          }
+        },
+        "b3": {
+          "type": "chip",
+          "settings": {
+            "icon": "transport",
+            "title": "Plus simple à ranger et transporter",
+            "text": ""
+          }
+        }
+      },
+      "block_order": [
+        "b1",
+        "b2",
+        "b3"
+      ]
+    },
+    "okb_cd_structure": {
+      "type": "okb-pdp-feature",
+      "settings": {
+        "image_source": "image",
+        "image_index": 1,
+        "image_alt": "Gros plan sur la structure et les raccords du berceau",
+        "image_ratio": "4_5",
+        "reverse": false,
+        "eyebrow": "Qualité & structure",
+        "heading": "Une structure conçue pour rester stable",
+        "text": "<p>Le châssis associe une <strong>structure en acier carbone</strong>, des tubes robustes, des connexions renforcées et une <strong>base triangulaire élargie</strong> pensée pour offrir une bonne stabilité au quotidien.</p>",
+        "meta": "",
+        "style": "blanc",
+        "chip_cols": "2"
+      },
+      "blocks": {
+        "b1": {
+          "type": "chip",
+          "settings": {
+            "icon": "acier",
+            "title": "Acier carbone",
+            "text": "Structure principale"
+          }
+        },
+        "b2": {
+          "type": "chip",
+          "settings": {
+            "icon": "structure",
+            "title": "Base triangulaire",
+            "text": "Conception élargie"
+          }
+        },
+        "b3": {
+          "type": "chip",
+          "settings": {
+            "icon": "raccord",
+            "title": "Raccords renforcés",
+            "text": "Assemblage robuste"
+          }
+        },
+        "b4": {
+          "type": "chip",
+          "settings": {
+            "icon": "finition",
+            "title": "Finition mate",
+            "text": "Conception annoncée résistante à la corrosion"
+          }
+        }
+      },
+      "block_order": [
+        "b1",
+        "b2",
+        "b3",
+        "b4"
+      ]
+    },
+    "okb_cd_entretien": {
+      "type": "okb-pdp-feature",
+      "settings": {
+        "image_source": "image",
+        "image_index": 1,
+        "image_alt": "Gros plan sur la matière textile du berceau",
+        "image_ratio": "1_1",
+        "reverse": true,
+        "eyebrow": "Entretien",
+        "heading": "Pensé aussi pour les petits accidents du quotidien",
+        "text": "<p>Le berceau utilise un revêtement en <strong>fibre polyester</strong> avec des zones en maille respirante et certaines parties en conception double couche. Les éléments textiles sont annoncés par le fabricant comme <strong>démontables et lavables</strong>.</p>",
+        "meta": "",
+        "style": "lavande",
+        "chip_cols": "3"
+      },
+      "blocks": {
+        "b1": {
+          "type": "chip",
+          "settings": {
+            "icon": "textile",
+            "title": "Polyester",
+            "text": ""
+          }
+        },
+        "b2": {
+          "type": "chip",
+          "settings": {
+            "icon": "demontable",
+            "title": "Textiles démontables",
+            "text": ""
+          }
+        },
+        "b3": {
+          "type": "chip",
+          "settings": {
+            "icon": "lavable",
+            "title": "Éléments lavables",
+            "text": ""
+          }
+        }
+      },
+      "block_order": [
+        "b1",
+        "b2",
+        "b3"
+      ]
+    },
+    "okb_cd_specs": {
+      "type": "okb-pdp-specs",
+      "settings": {
+        "eyebrow": "Fiche technique",
+        "heading": "Toutes les caractéristiques en un coup d’œil",
+        "footnote": "Informations indiquées par le fabricant. Respectez la notice et les limites d’utilisation du produit."
+      },
+      "blocks": {
+        "b1": {
+          "type": "group",
+          "settings": {
+            "icon": "hauteur",
+            "title": "Dimensions & utilisation",
+            "lines": "Dimensions indiquées : 94 × 52 cm\nÂge indiqué par le fabricant : 0–24 mois\nHauteur : réglable sur 3 niveaux\nUtilisation : berceau indépendant ou placé à proximité du lit parental\nMode fixe : oui\nMode bercement : oui\nInclinaison mécanique : jusqu’à environ 5° selon configuration"
+          }
+        },
+        "b2": {
+          "type": "group",
+          "settings": {
+            "icon": "structure",
+            "title": "Structure & mobilité",
+            "lines": "Structure : acier carbone\nBase : structure triangulaire élargie\nRoulettes : pivotantes à 360°\nFreins : oui\nRoulement : annoncé silencieux par le fabricant\nPliage : oui"
+          }
+        },
+        "b3": {
+          "type": "group",
+          "settings": {
+            "icon": "textile",
+            "title": "Textile & accessoires",
+            "lines": "Revêtement : fibre polyester\nParois : maille respirante\nDouble couche : présente sur certaines zones\nMoustiquaire : intégrée\nRangement : grand panier inférieur\nEntretien : textiles annoncés démontables et lavables"
+          }
+        },
+        "b4": {
+          "type": "group",
+          "settings": {
+            "icon": "lune",
+            "title": "Matelas",
+            "lines": "Matelas : à confirmer selon la configuration choisie"
+          }
+        }
+      },
+      "block_order": [
+        "b1",
+        "b2",
+        "b3",
+        "b4"
+      ]
+    },
+    "okb_cd_accordeons": {
+      "type": "okb-pdp-accordions",
+      "settings": {
+        "heading": ""
+      },
+      "blocks": {
+        "b1": {
+          "type": "item",
+          "settings": {
+            "icon": "aucun",
+            "title": "Description",
+            "content": "<p>Le lit cododo O Khalm Bébé garde bébé tout près de vous, dans son propre espace de repos. Réglable sur trois hauteurs, il se place à côté du lit parental ou s’utilise comme berceau indépendant.</p><p>Monté sur des roulettes pivotantes à 360° avec freins, il vous suit de la chambre au salon. Un sélecteur latéral permet de passer du mode fixe au mode bercement.</p><p>Parois en maille respirante, moustiquaire intégrée, grand panier de rangement et structure pliable : l’essentiel pour les nuits comme pour les siestes.</p>",
+            "use_description": false,
+            "open": false
+          }
+        },
+        "b2": {
+          "type": "item",
+          "settings": {
+            "icon": "aucun",
+            "title": "Pourquoi choisir ce produit ?",
+            "content": "<ul><li><strong>Bébé tout près de vous</strong> grâce aux 3 hauteurs réglables</li><li><strong>Mobile</strong> : roulettes 360° et freins pour passer d’une pièce à l’autre</li><li><strong>Deux usages</strong> : mode fixe ou bercement doux</li><li><strong>Maille respirante</strong> pour garder un œil sur bébé</li><li><strong>Moustiquaire intégrée</strong>, prête à être déployée</li><li><strong>Grand panier</strong> pour les essentiels de la nuit</li><li><strong>Pliable</strong> pour gagner de la place</li></ul>",
+            "use_description": false,
+            "open": false
+          }
+        },
+        "b3": {
+          "type": "item",
+          "settings": {
+            "icon": "aucun",
+            "title": "Spécifications",
+            "content": "<ul><li><strong>Dimensions indiquées :</strong> 94 × 52 cm</li><li><strong>Âge indiqué par le fabricant :</strong> 0–24 mois</li><li><strong>Hauteur :</strong> 3 niveaux</li><li><strong>Structure :</strong> acier carbone, base triangulaire élargie</li><li><strong>Roulettes :</strong> pivotantes à 360° avec freins</li><li><strong>Modes :</strong> fixe ou bercement (inclinaison jusqu’à environ 5° selon configuration)</li><li><strong>Revêtement :</strong> fibre polyester, parois en maille respirante</li><li><strong>Accessoires intégrés :</strong> moustiquaire, grand panier inférieur</li><li><strong>Pliable :</strong> oui</li></ul>",
+            "use_description": false,
+            "open": false
+          }
+        },
+        "b4": {
+          "type": "item",
+          "settings": {
+            "icon": "aucun",
+            "title": "Entretien & utilisation",
+            "content": "<p><strong>Hauteur :</strong> choisissez l’un des trois niveaux puis vérifiez que les boutons de verrouillage sont bien enclenchés.</p><p><strong>Freins :</strong> une fois le berceau à sa place, bloquez les freins des roulettes avant d’y installer bébé.</p><p><strong>Mode bercement :</strong> tournez le sélecteur latéral pour passer du mode fixe au mode bercement, puis revenez au mode fixe de la même façon.</p><p><strong>Pliage :</strong> repliez le berceau en suivant les étapes de la notice fournie.</p><p><strong>Nettoyage :</strong> retirez les éléments textiles démontables et lavez-les en suivant les indications de leur étiquette.</p><p>Respectez toujours la notice du fabricant et les limites d’utilisation prévues pour le produit.</p>",
+            "use_description": false,
+            "open": false
+          }
+        },
+        "b5": {
+          "type": "item",
+          "settings": {
+            "icon": "aucun",
+            "title": "Contenu du colis",
+            "content": "<p>À compléter une fois le contenu exact confirmé avec le fournisseur.</p>",
+            "use_description": false,
+            "open": false
+          },
+          "disabled": true
+        }
+      },
+      "block_order": [
+        "b1",
+        "b2",
+        "b3",
+        "b4",
+        "b5"
+      ]
+    },
+    "okb_cd_faq": {
+      "type": "okb-faq",
+      "settings": {
+        "eyebrow": "Questions fréquentes",
+        "heading": "<p>Tout ce que vous voulez savoir avant de l’adopter</p>",
+        "text": "<p>Une autre question ? Notre équipe vous répond avec plaisir.</p>",
+        "link_label": "",
+        "link": "",
+        "enable_schema_markup": true
+      },
+      "blocks": {
+        "b1": {
+          "type": "question",
+          "settings": {
+            "question": "Le berceau peut-il être placé près du lit parental ?",
+            "answer": "<p>Oui. Ses trois niveaux de hauteur permettent d’adapter plus facilement sa position à proximité du lit. Il reste toutefois un berceau indépendant, sauf indication contraire confirmée par le fabricant.</p>",
+            "open": false
+          }
+        },
+        "b2": {
+          "type": "question",
+          "settings": {
+            "question": "Les roulettes ont-elles des freins ?",
+            "answer": "<p>Oui, les roulettes sont pivotantes à 360° et disposent d’un système de frein.</p>",
+            "open": false
+          }
+        },
+        "b3": {
+          "type": "question",
+          "settings": {
+            "question": "Peut-on utiliser le berceau sans le mode bercement ?",
+            "answer": "<p>Oui. Il peut être utilisé en mode fixe ou en mode bercement.</p>",
+            "open": false
+          }
+        },
+        "b4": {
+          "type": "question",
+          "settings": {
+            "question": "Le produit est-il pliable ?",
+            "answer": "<p>Oui, sa conception permet de réduire son encombrement pour faciliter son rangement.</p>",
+            "open": false
+          }
+        },
+        "b5": {
+          "type": "question",
+          "settings": {
+            "question": "Les textiles peuvent-ils être lavés ?",
+            "answer": "<p>Le fabricant indique que les éléments textiles sont démontables et lavables.</p>",
+            "open": false
+          }
+        },
+        "b6": {
+          "type": "question",
+          "settings": {
+            "question": "La moustiquaire est-elle intégrée ?",
+            "answer": "<p>Oui, elle est directement intégrée au berceau.</p>",
+            "open": false
+          }
+        },
+        "b7": {
+          "type": "question",
+          "settings": {
+            "question": "Jusqu’à quel âge peut-il être utilisé ?",
+            "answer": "<p>Le fabricant indique une utilisation de 0 à 24 mois. Il faut toutefois respecter la notice et les limites d’utilisation prévues pour le produit.</p>",
+            "open": false
+          }
+        },
+        "b8": {
+          "type": "question",
+          "settings": {
+            "question": "Le matelas est-il fourni ?",
+            "answer": "<p>À compléter une fois ce point confirmé avec le fournisseur.</p>",
+            "open": false
+          },
+          "disabled": true
+        }
+      },
+      "block_order": [
+        "b1",
+        "b2",
+        "b3",
+        "b4",
+        "b5",
+        "b6",
+        "b7",
+        "b8"
+      ]
+    },
+    "okb_cd_avis_titre": {
+      "type": "okb-pdp-reviews-head",
+      "settings": {
+        "eyebrow": "Avis vérifiés",
+        "heading": "Ce qu’en disent les parents"
+      }
+    },
+    "okb_cd_avis": {
+      "type": "apps",
+      "blocks": {
+        "loox_reviews_loox_dynamic_section_nWqQif": {
+          "type": "shopify://apps/loox-reviews/blocks/loox-dynamic-section/5c3b337f-fd14-4df5-b1d6-80ec13e6e28e",
+          "settings": {
+            "reviews_to_display": "",
+            "default_tab": "automatic",
+            "only_photos": false,
+            "aggregated": false,
+            "limit": 8,
+            "hide_thumbnails": false,
+            "maxwidth": 1080,
+            "is_sample": true
+          }
+        }
+      },
+      "block_order": [
+        "loox_reviews_loox_dynamic_section_nWqQif"
+      ],
+      "settings": {
+        "include_margins": true
+      }
+    },
+    "product-recommendations": {
+      "type": "product-recommendations",
+      "custom_css": [],
+      "settings": {
+        "show": true,
+        "design_heading": "1",
+        "heading_align": "t4s-text-center",
+        "top_heading": "Vous pourriez aussi aimer",
+        "icon_heading": "las la-gem",
+        "top_subheading": "",
+        "tophead_mb": 48,
+        "product_des": "11",
+        "show_vendor": false,
+        "use_cdt": false,
+        "limit": 8,
+        "display_type": "3",
+        "image_ratio": "ratio1_1",
+        "image_size": "cover",
+        "image_position": "8",
+        "content_align": "default",
+        "col_dk": "4",
+        "col_tb": "3",
+        "col_mb": "2",
+        "space_h_item": "20",
+        "space_v_item": "30",
+        "space_h_item_mb": "10",
+        "space_v_item_mb": "20",
+        "layout_des": "2",
+        "loop": true,
+        "au_time": 0,
+        "au_hover": true,
+        "nav_btn": false,
+        "btn_vi": "1",
+        "btn_owl": "outline",
+        "btn_shape": "round",
+        "btn_cl": "dark",
+        "btn_size": "small",
+        "btn_hidden_mobile": true,
+        "nav_dot": false,
+        "dot_owl": "elessi",
+        "dots_cl": "primary",
+        "dots_round": true,
+        "dots_space": 10,
+        "dots_hidden_mobile": false,
+        "layout": "t4s-container-wrap",
+        "cl_bg": "#ffffff",
+        "cl_bg_gradient": "",
+        "mg": "",
+        "pd": "",
+        "mg_tb": "",
+        "pd_tb": "",
+        "mg_mb": "",
+        "pd_mb": ""
+      }
+    },
+    "okb_club": {
+      "type": "okb-club",
+      "name": "OKB · Bandeau newsletter",
+      "settings": {
+        "heading": "Entrez dans notre petit univers",
+        "text": "Les nouveautés et les petites attentions O Khalm Bébé. Désinscription possible à tout moment.",
+        "show_first_name": true,
+        "placeholder_name": "Prénom",
+        "placeholder": "Adresse e-mail",
+        "button_label": "Je m’inscris",
+        "success_text": "Merci, votre inscription est bien enregistrée.",
+        "customer_tag": "newsletter"
+      }
+    }
+  },
+  "order": [
+    "okb_styles_pr",
+    "main",
+    "okb_cd_reassurance",
+    "okb_cd_nuit",
+    "okb_cd_mobilite",
+    "okb_cd_bercement",
+    "okb_cd_confort",
+    "okb_cd_pliage",
+    "okb_cd_structure",
+    "okb_cd_entretien",
+    "okb_cd_specs",
+    "okb_cd_accordeons",
+    "okb_cd_faq",
+    "okb_cd_avis_titre",
+    "okb_cd_avis",
+    "product-recommendations",
+    "okb_club"
+  ]
+}

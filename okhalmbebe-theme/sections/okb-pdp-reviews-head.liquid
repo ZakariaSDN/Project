@@ -1,0 +1,57 @@
+{%- comment -%}
+  OKB · En-tête des avis (fiche produit)
+  Affiche la note moyenne et le nombre d'avis du produit (champs Loox,
+  sinon champs d'avis standard Shopify) juste au-dessus du widget d'avis.
+  Masqué automatiquement si le produit n'a pas encore d'avis.
+{%- endcomment -%}
+{{- 'okb-cododo.css' | asset_url | stylesheet_tag -}}
+{%- liquid
+  assign st = section.settings
+  assign note = product.metafields.loox.avg_rating.value | default: product.metafields.loox.avg_rating
+  assign nombre = product.metafields.loox.num_reviews.value | default: product.metafields.loox.num_reviews
+  if note == blank
+    assign note = product.metafields.reviews.rating.value.rating
+  endif
+  if nombre == blank
+    assign nombre = product.metafields.reviews.rating_count.value | default: product.metafields.reviews.rating_count
+  endif
+  assign note_num = note | plus: 0
+  assign note_txt = note_num | round: 1 | append: '' | replace: '.', ','
+  assign pleines = note_num | round
+-%}
+
+{%- if note_num > 0 -%}
+  <div class="okb okb-cd okb-cd-revhead">
+    <div class="okb-wrap">
+      {%- if st.eyebrow != blank -%}
+        <div class="okb-eyebrow okb-cd-center">{{ st.eyebrow | escape }}</div>
+      {%- endif -%}
+      {%- if st.heading != blank -%}
+        <h2 class="okb-h2">{{ st.heading | escape }}</h2>
+      {%- endif -%}
+      <p class="okb-cd-revhead__score">
+        <span class="okb-cd-stars" aria-hidden="true">
+          {%- for i in (1..5) -%}
+            <svg viewBox="0 0 24 24" width="20" height="20" class="{% if i > pleines %}is-empty{% endif %}"><path d="M12 3.2l2.7 5.6 6.1.8-4.5 4.2 1.1 6.1L12 17l-5.4 2.9 1.1-6.1-4.5-4.2 6.1-.8Z"/></svg>
+          {%- endfor -%}
+        </span>
+        <strong>{{ note_txt }}/5</strong>
+        {%- if nombre != blank %}<span class="okb-cd-revhead__count">— {{ nombre }} avis</span>{% endif -%}
+        <span class="okb-cd-sr">Note moyenne de {{ note_txt }} sur 5{% if nombre != blank %}, basée sur {{ nombre }} avis{% endif %}.</span>
+      </p>
+    </div>
+  </div>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "OKB · En-tête des avis",
+  "class": "okb-section okb-section--cd-revhead",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Sur-titre", "default": "Avis vérifiés" },
+    { "type": "text", "id": "heading", "label": "Titre", "default": "Ce qu’en disent les parents" },
+    { "type": "paragraph", "content": "La note et le nombre d'avis sont lus automatiquement sur le produit (Loox). Placez cette section juste au-dessus de la section d'application Loox." }
+  ],
+  "presets": [{ "name": "OKB · En-tête des avis" }]
+}
+{% endschema %}

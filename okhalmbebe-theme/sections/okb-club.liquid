@@ -1,0 +1,89 @@
+{%- liquid
+  assign st = section.settings
+  assign uid = section.id | replace: '_', '-'
+  assign form_id = 'okb-club-form-' | append: uid
+-%}
+
+<div class="okb">
+  <div class="okb-club" id="okb-club-{{ uid }}">
+    <div>
+      {%- if st.heading != blank -%}
+        <h2>{{ st.heading | escape }}</h2>
+      {%- endif -%}
+      {%- if st.text != blank -%}
+        <p>{{ st.text | escape }}</p>
+      {%- endif -%}
+    </div>
+
+    {%- form 'customer', id: form_id, class: 'okb-club__form' -%}
+      <input type="hidden" name="contact[tags]" value="{{ st.customer_tag | default: 'newsletter' | escape }}">
+
+      {%- if st.show_first_name -%}
+        <label class="visually-hidden" for="okb-club-prenom-{{ uid }}">
+          {{ st.placeholder_name | default: 'Prénom' | escape }}
+        </label>
+        <input
+          id="okb-club-prenom-{{ uid }}"
+          type="text"
+          name="contact[first_name]"
+          value="{{ form.first_name }}"
+          placeholder="{{ st.placeholder_name | default: 'Prénom' | escape }}"
+          autocomplete="given-name">
+      {%- endif -%}
+
+      <label class="visually-hidden" for="okb-club-email-{{ uid }}">
+        {{ st.placeholder | default: 'Adresse e-mail' | escape }}
+      </label>
+      <input
+        id="okb-club-email-{{ uid }}"
+        type="email"
+        name="contact[email]"
+        value="{{ form.email }}"
+        placeholder="{{ st.placeholder | default: 'Adresse e-mail' | escape }}"
+        autocomplete="email"
+        required
+        aria-required="true"
+        {% if form.errors %}aria-invalid="true" aria-describedby="okb-club-error-{{ uid }}"{% endif %}>
+
+      <button type="submit" class="okb-btn okb-btn--light">
+        {{ st.button_label | default: 'Je m’inscris' | escape }}
+      </button>
+
+      {%- if form.posted_successfully? -%}
+        <p class="okb-club__msg okb-club__msg--ok" role="status">
+          {{ st.success_text | default: 'Merci, votre inscription est bien enregistrée.' | escape }}
+        </p>
+      {%- elsif form.errors -%}
+        <p class="okb-club__msg okb-club__msg--ko" id="okb-club-error-{{ uid }}" role="alert">
+          {{ form.errors.translated_fields.email | capitalize }} {{ form.errors.messages.email }}
+        </p>
+      {%- endif -%}
+    {%- endform -%}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "OKB · Bandeau newsletter",
+  "class": "okb-section okb-section--club",
+  "settings": [
+    { "type": "text", "id": "heading", "label": "Titre", "default": "Entrez dans notre petit univers" },
+    { "type": "text", "id": "text", "label": "Texte", "default": "Les nouveautés et les petites attentions O Khalm Bébé. Désinscription possible à tout moment." },
+    { "type": "checkbox", "id": "show_first_name", "label": "Demander le prénom", "default": true },
+    { "type": "text", "id": "placeholder_name", "label": "Champ prénom", "default": "Prénom" },
+    { "type": "text", "id": "placeholder", "label": "Champ e-mail", "default": "Adresse e-mail" },
+    { "type": "text", "id": "button_label", "label": "Texte du bouton", "default": "Je m’inscris" },
+    { "type": "text", "id": "success_text", "label": "Message de confirmation", "default": "Merci, votre inscription est bien enregistrée." },
+    {
+      "type": "text", "id": "customer_tag", "label": "Étiquette client ajoutée",
+      "info": "Permet de retrouver les inscrits dans Clients > Filtrer par étiquette.",
+      "default": "newsletter"
+    },
+    {
+      "type": "paragraph",
+      "content": "Les inscriptions arrivent dans Shopify > Clients. Vérifiez vos réglages de consentement marketing avant d'envoyer des campagnes."
+    }
+  ],
+  "presets": [{ "name": "OKB · Bandeau newsletter" }]
+}
+{% endschema %}

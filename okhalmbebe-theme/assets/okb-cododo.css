@@ -1,0 +1,554 @@
+/* ==========================================================================
+   O Khalm Bébé — sections de la fiche « Lit cododo »
+   S'appuie sur les variables de la charte publiées par la section
+   « ① Réglages O Khalm Bébé » (okb-styles) et sur okb-home.css
+   (.okb, .okb-wrap, .okb-h2, .okb-eyebrow).
+   ========================================================================== */
+
+.okb-cd {
+  --okb-cd-radius: 14px;
+  --okb-cd-radius-sm: 10px;
+  --okb-cd-badge-bg: var(--okb-lavender, #efeaf5);
+  --okb-cd-icon: var(--okb-plum, #452f57);
+  --okb-cd-text-2: var(--okb-muted, #726a75);
+}
+
+.okb-cd-center { text-align: center; }
+.okb-cd-sr {
+  position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+  overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0;
+}
+
+.okb-cd-ico { width: 24px; height: 24px; flex: none; display: block; }
+
+/* Pastille ronde qui porte les pictogrammes */
+.okb-cd-badge {
+  display: inline-grid;
+  place-items: center;
+  flex: none;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: var(--okb-cd-badge-bg);
+  color: var(--okb-cd-icon);
+}
+.okb-cd-badge .okb-cd-ico { width: 22px; height: 22px; }
+.okb-cd-badge--sm { width: 34px; height: 34px; }
+.okb-cd-badge--sm .okb-cd-ico { width: 18px; height: 18px; }
+
+/* Visuel de remplacement tant qu'aucune photo n'est déposée */
+.okb-cd-ph {
+  width: 100%;
+  height: 100%;
+  background: var(--okb-lavender, #efeaf5);
+  display: grid;
+  place-items: center;
+}
+.okb-cd-ph svg { width: 70%; height: 70%; fill: rgba(69, 47, 87, .18); }
+
+/* ==========================================================================
+   1. Premier écran — accroche, 4 bénéfices, réassurance sous le bouton
+   ========================================================================== */
+.t4s-pr__custom-liquid .okb-cd-intro { margin: 2px 0 6px; }
+
+.okb-cd-intro__lead {
+  margin: 0 0 6px;
+  font-family: var(--okb-font-heading, inherit);
+  font-size: 18px;
+  line-height: 1.35;
+  font-weight: 700;
+  color: var(--okb-plum, #452f57);
+}
+.okb-cd-intro__text {
+  margin: 0 0 16px;
+  font-size: 14.5px;
+  line-height: 1.6;
+  color: var(--okb-cd-text-2);
+}
+
+.okb-cd-intro__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px 14px;
+}
+.okb-cd-intro__list li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0;
+  padding: 10px 12px;
+  border-radius: var(--okb-cd-radius-sm);
+  background: var(--okb-sand, #f7f5f1);
+  font-size: 13.5px;
+  line-height: 1.3;
+  font-weight: 700;
+  color: var(--okb-ink, #22182c);
+}
+.okb-cd-intro__list li::before { display: none !important; }
+.okb-cd-intro__list .okb-cd-ico { width: 22px; height: 22px; color: var(--okb-plum, #452f57); }
+
+.okb-cd-trust {
+  list-style: none;
+  margin: 12px 0 4px;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 18px;
+}
+.okb-cd-trust li {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin: 0;
+  font-size: 13px;
+  line-height: 1.4;
+  color: var(--okb-cd-text-2);
+}
+.okb-cd-trust li::before { display: none !important; }
+.okb-cd-trust .okb-cd-ico { width: 16px; height: 16px; color: var(--okb-gold, #aa9666); stroke-width: 2.2; }
+.okb-cd-trust .okb-cd-trust__stock { color: #2f7a4f; font-weight: 700; }
+.okb-cd-trust .okb-cd-trust__stock .okb-cd-ico { color: #2f7a4f; }
+.okb-cd-trust .okb-cd-trust__stock.is-out,
+.okb-cd-trust .okb-cd-trust__stock.is-out .okb-cd-ico { color: var(--okb-cd-text-2); }
+
+/* ==========================================================================
+   2. Bandeau de réassurance
+   ========================================================================== */
+.okb-cd .okb-cd-reas__heading {
+  text-align: center;
+  font-size: calc(var(--okb-fs-h2, 32px) * .7);
+  margin-bottom: 22px;
+}
+.okb-cd-reas__grid {
+  list-style: none;
+  margin: 0;
+  padding: clamp(20px, 2.6vw, 30px) clamp(18px, 2.6vw, 34px);
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: clamp(16px, 2.4vw, 32px);
+  border-radius: var(--okb-cd-radius);
+  background: var(--okb-sand, #f7f5f1);
+}
+.okb-cd--lavande .okb-cd-reas__grid { background: var(--okb-lavender, #efeaf5); }
+.okb-cd--lavande .okb-cd-reas__grid .okb-cd-badge { background: #fff; }
+.okb-cd--blanc .okb-cd-reas__grid { background: #fff; border: 1px solid var(--okb-line, #e8e4e9); }
+
+.okb-cd-reas__item {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  margin: 0;
+}
+.okb-cd-reas__item::before { display: none !important; }
+.okb-cd .okb-cd-reas__item h3 {
+  font-size: 15px;
+  line-height: 1.3;
+  margin: 2px 0 4px;
+}
+.okb-cd-reas__item p {
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--okb-cd-text-2);
+}
+
+/* ==========================================================================
+   3. Bloc bénéfice — photo + texte
+   ========================================================================== */
+.okb-cd-feat__inner {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: clamp(26px, 4.5vw, 72px);
+  align-items: center;
+  border-radius: var(--okb-cd-radius);
+}
+.okb-cd--sable .okb-cd-feat__inner { background: var(--okb-sand, #f7f5f1); padding: clamp(16px, 2vw, 24px); }
+.okb-cd--lavande .okb-cd-feat__inner { background: var(--okb-lavender, #efeaf5); padding: clamp(16px, 2vw, 24px); }
+.okb-cd--lavande .okb-cd-badge { background: #fff; }
+
+.okb-cd-feat--reverse .okb-cd-feat__media { order: 2; }
+
+.okb-cd-feat__media {
+  position: relative;
+  border-radius: var(--okb-cd-radius-sm);
+  overflow: hidden;
+  aspect-ratio: var(--okb-cd-ratio, 4 / 5);
+}
+.okb-cd-feat__media > img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.okb-cd-feat__body { padding-inline: clamp(0px, 3vw, 40px) clamp(0px, 2vw, 24px); }
+.okb-cd-feat--reverse .okb-cd-feat__body { padding-inline: clamp(0px, 2vw, 24px) clamp(0px, 3vw, 40px); }
+
+.okb-cd .okb-cd-feat__title {
+  font-size: calc(var(--okb-fs-h2, 36px) * .9);
+  line-height: 1.16;
+  letter-spacing: -0.02em;
+  margin: 0 0 16px;
+}
+.okb-cd-feat__text,
+.okb-cd-feat__text p {
+  font-size: 15.5px;
+  line-height: 1.7;
+  color: var(--okb-cd-text-2);
+}
+.okb-cd-feat__text p + p { margin-top: 10px; }
+.okb-cd-feat__text strong { color: var(--okb-ink, #22182c); }
+
+.okb-cd .okb-cd-feat__meta {
+  display: inline-block;
+  margin-top: 18px;
+  padding: 7px 14px;
+  border-radius: 999px;
+  background: #fff;
+  border: 1px solid var(--okb-line, #e8e4e9);
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--okb-plum, #452f57);
+}
+.okb-cd--blanc .okb-cd .okb-cd-feat__meta { background: var(--okb-lavender, #efeaf5); border-color: transparent; }
+
+.okb-cd .okb-cd-feat__note {
+  margin-top: 16px;
+  font-size: 12.5px;
+  font-style: italic;
+  color: var(--okb-cd-text-2);
+}
+
+/* Caractéristiques courtes */
+.okb-cd-chips {
+  list-style: none;
+  margin: 22px 0 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(var(--okb-cd-chip-cols, 2), minmax(0, 1fr));
+  gap: 12px;
+}
+.okb-cd-chips__item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 0;
+  padding: 12px 14px;
+  border-radius: var(--okb-cd-radius-sm);
+  background: #fff;
+  border: 1px solid var(--okb-line, #e8e4e9);
+}
+.okb-cd-chips__item::before { display: none !important; }
+.okb-cd--blanc .okb-cd-chips__item { background: var(--okb-sand, #f7f5f1); border-color: transparent; }
+.okb-cd-chips__item .okb-cd-badge { width: 40px; height: 40px; }
+.okb-cd-chips__item strong {
+  display: block;
+  font-size: 14.5px;
+  line-height: 1.3;
+  color: var(--okb-ink, #22182c);
+}
+.okb-cd-chips__item small {
+  display: block;
+  margin-top: 2px;
+  font-size: 12.5px;
+  line-height: 1.4;
+  color: var(--okb-cd-text-2);
+}
+
+.okb-cd-chips--3 .okb-cd-chips__item {
+  flex-direction: column;
+  justify-content: flex-start;
+  text-align: center;
+  gap: 8px;
+  padding: 14px 10px;
+}
+.okb-cd-chips__item > span:last-child { min-width: 0; }
+
+/* Mini schéma en étapes */
+.okb-cd-steps {
+  list-style: none;
+  margin: 24px 0 0;
+  padding: 0;
+  display: flex;
+  align-items: stretch;
+  gap: 10px;
+}
+.okb-cd-steps li { margin: 0; }
+.okb-cd-steps li::before { display: none !important; }
+.okb-cd-steps__item {
+  flex: 1 1 0;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  padding: 16px 10px;
+  border-radius: var(--okb-cd-radius-sm);
+  background: #fff;
+  border: 1px solid var(--okb-line, #e8e4e9);
+  text-align: center;
+}
+.okb-cd--blanc .okb-cd-steps__item { background: var(--okb-sand, #f7f5f1); border-color: transparent; }
+.okb-cd-steps__label {
+  font-size: 13px;
+  line-height: 1.3;
+  font-weight: 700;
+  color: var(--okb-ink, #22182c);
+}
+.okb-cd-steps__arrow { flex: none; align-self: center; color: var(--okb-gold, #aa9666); }
+.okb-cd-steps__arrow .okb-cd-ico { width: 22px; height: 22px; }
+
+/* ==========================================================================
+   4. Cartes confort
+   ========================================================================== */
+.okb-cd-cards__grid {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(14px, 2vw, 24px);
+}
+.okb-cd-card {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  border-radius: var(--okb-cd-radius);
+  background: var(--okb-sand, #f7f5f1);
+}
+.okb-cd-card::before { display: none !important; }
+.okb-cd-card__media { aspect-ratio: 4 / 3; overflow: hidden; }
+.okb-cd-card__media > img { width: 100%; height: 100%; object-fit: cover; }
+.okb-cd-card__body { padding: 20px 22px 24px; }
+.okb-cd-card__tag {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 12px;
+  font-size: 11px;
+  letter-spacing: .14em;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--okb-gold, #aa9666);
+}
+.okb-cd-card__tag .okb-cd-badge { background: #fff; }
+.okb-cd .okb-cd-card h3 {
+  font-size: 19px;
+  line-height: 1.25;
+  margin: 0 0 8px;
+}
+.okb-cd-card__text,
+.okb-cd-card__text p {
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--okb-cd-text-2);
+}
+
+/* ==========================================================================
+   5. Caractéristiques complètes
+   ========================================================================== */
+.okb-cd-specs__panel {
+  border-radius: var(--okb-cd-radius);
+  background: var(--okb-sand, #f7f5f1);
+  padding: clamp(28px, 4vw, 52px) clamp(18px, 4vw, 52px);
+}
+.okb-cd .okb-h2 { margin-bottom: 30px; }
+.okb-cd-specs__panel .okb-h2 { margin-bottom: 28px; }
+.okb-cd-specs__grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px clamp(18px, 3vw, 36px);
+  align-items: start;
+}
+.okb-cd-specs__group {
+  background: #fff;
+  border-radius: var(--okb-cd-radius-sm);
+  padding: 18px 20px 8px;
+}
+.okb-cd .okb-cd-specs__title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 16px;
+  margin: 0 0 6px;
+  color: var(--okb-plum, #452f57) !important;
+}
+.okb-cd-specs__title .okb-cd-ico { width: 22px; height: 22px; }
+.okb-cd-specs dl { margin: 0; }
+.okb-cd-specs__row {
+  display: grid;
+  grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr);
+  gap: 14px;
+  padding: 11px 0;
+  border-bottom: 1px solid var(--okb-line, #e8e4e9);
+}
+.okb-cd-specs__row:last-child { border-bottom: 0; }
+.okb-cd-specs dt {
+  font-size: 13.5px;
+  color: var(--okb-cd-text-2);
+}
+.okb-cd-specs dd {
+  margin: 0;
+  font-size: 13.5px;
+  font-weight: 700;
+  color: var(--okb-ink, #22182c);
+}
+.okb-cd .okb-cd-specs__foot {
+  margin-top: 18px;
+  text-align: center;
+  font-size: 12.5px;
+  color: var(--okb-cd-text-2);
+}
+
+/* ==========================================================================
+   6. Accordéons
+   ========================================================================== */
+.okb-cd-acc__list {
+  max-width: 860px;
+  margin-inline: auto;
+  border-radius: var(--okb-cd-radius);
+  background: #fff;
+  border: 1px solid var(--okb-line, #e8e4e9);
+  padding: 0 clamp(16px, 2.6vw, 30px);
+}
+.okb-cd-acc__item + .okb-cd-acc__item { border-top: 1px solid var(--okb-line, #e8e4e9); }
+.okb-cd-acc__item summary {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 18px 0;
+  cursor: pointer;
+  list-style: none;
+  font-size: 15.5px;
+  font-weight: 700;
+  color: var(--okb-ink, #22182c);
+}
+.okb-cd-acc__item summary::-webkit-details-marker { display: none; }
+.okb-cd-acc__label { flex: 1 1 auto; }
+.okb-cd-acc__sign {
+  position: relative;
+  flex: none;
+  width: 14px;
+  height: 14px;
+}
+.okb-cd-acc__sign::before,
+.okb-cd-acc__sign::after {
+  content: "";
+  position: absolute;
+  inset: 6px 0 auto;
+  height: 2px;
+  border-radius: 2px;
+  background: var(--okb-plum, #452f57);
+  transition: transform .2s ease;
+}
+.okb-cd-acc__sign::after { transform: rotate(90deg); }
+.okb-cd-acc__item[open] .okb-cd-acc__sign::after { transform: rotate(0deg); }
+.okb-cd-acc__content {
+  padding: 0 0 20px;
+  font-size: 14.5px;
+  line-height: 1.7;
+  color: var(--okb-cd-text-2);
+}
+.okb-cd-acc__content p + p,
+.okb-cd-acc__content ul + p,
+.okb-cd-acc__content p + ul { margin-top: 10px; }
+.okb-cd-acc__content ul { margin: 0; padding-left: 18px; }
+.okb-cd-acc__content li { margin: 4px 0; }
+.okb-cd-acc__content strong { color: var(--okb-ink, #22182c); }
+
+/* ==========================================================================
+   7. En-tête des avis
+   ========================================================================== */
+.okb-section--cd-revhead { margin-bottom: 0 !important; }
+.okb-cd.okb-cd-revhead .okb-h2 { margin-bottom: 12px; }
+.okb-cd-revhead__score {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-size: 16px;
+  color: var(--okb-ink, #22182c);
+}
+.okb-cd-stars { display: inline-flex; gap: 2px; }
+.okb-cd-stars svg { fill: var(--okb-gold, #aa9666); }
+.okb-cd-stars svg.is-empty { fill: var(--okb-line, #e8e4e9); }
+.okb-cd-revhead__count { color: var(--okb-cd-text-2); }
+
+/* ==========================================================================
+   Responsive
+   ========================================================================== */
+@media (max-width: 989px) {
+  .okb-cd-reas__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .okb-cd-feat__inner { grid-template-columns: 1fr; }
+  .okb-cd-feat--reverse .okb-cd-feat__media { order: 0; }
+  .okb-cd-feat__body,
+  .okb-cd-feat--reverse .okb-cd-feat__body { padding: 4px 4px 12px; }
+  .okb-cd-specs__grid { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 749px) {
+  .okb-cd { --okb-gutter: 16px; }
+  .okb-cd-intro__lead { font-size: 16.5px; }
+  .okb-cd-intro__list { gap: 8px; }
+  .okb-cd-intro__list li { padding: 9px 10px; font-size: 12.5px; gap: 8px; }
+  .okb-cd-intro__list .okb-cd-ico { width: 20px; height: 20px; }
+
+  .okb-cd-reas__grid { padding: 18px 16px; gap: 18px 12px; }
+  .okb-cd-reas__item { flex-direction: column; gap: 10px; }
+  .okb-cd-reas__item .okb-cd-badge { width: 40px; height: 40px; }
+  .okb-cd .okb-cd-reas__item h3 { font-size: 14px; margin: 0 0 3px; }
+  .okb-cd-reas__item p { font-size: 12.5px; }
+
+  .okb-cd .okb-h2 { font-size: var(--okb-fs-h2-mb, 22px); margin-bottom: 22px; }
+  .okb-cd .okb-cd-feat__title { font-size: var(--okb-fs-h2-mb, 22px); }
+  .okb-cd-feat__text,
+  .okb-cd-feat__text p { font-size: 14.5px; }
+  .okb-cd-feat__media { aspect-ratio: 4 / 3; }
+  .okb-cd-chips { grid-template-columns: 1fr 1fr; gap: 8px; }
+  .okb-cd-chips--3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .okb-cd-chips--1 { grid-template-columns: 1fr; }
+  .okb-cd-chips__item { padding: 10px; gap: 8px; }
+  .okb-cd-chips__item .okb-cd-badge { width: 34px; height: 34px; }
+  .okb-cd-chips__item .okb-cd-badge .okb-cd-ico { width: 18px; height: 18px; }
+  .okb-cd-chips__item strong { font-size: 13px; }
+  .okb-cd-chips__item small { font-size: 11.5px; }
+  .okb-cd-steps { gap: 4px; }
+  .okb-cd-steps__item { padding: 12px 6px; }
+  .okb-cd-steps__label { font-size: 12px; }
+  .okb-cd-steps__arrow .okb-cd-ico { width: 16px; height: 16px; }
+
+  /* Cartes : défilement horizontal pour limiter la hauteur de page */
+  .okb-cd-cards .okb-wrap { width: 100%; }
+  .okb-cd-cards .okb-h2,
+  .okb-cd-cards .okb-eyebrow { padding-inline: 16px; }
+  .okb-cd-cards__grid {
+    grid-template-columns: none;
+    grid-auto-flow: column;
+    grid-auto-columns: 82%;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    padding: 0 16px 6px;
+    scroll-padding-inline: 16px;
+    scrollbar-width: none;
+  }
+  .okb-cd-cards__grid::-webkit-scrollbar { display: none; }
+  .okb-cd-card { scroll-snap-align: start; }
+  .okb-cd-card__body { padding: 16px 16px 20px; }
+  .okb-cd .okb-cd-card h3 { font-size: 17px; }
+
+  .okb-cd-specs__panel { padding: 24px 14px; }
+  .okb-cd-specs__group { padding: 14px 14px 4px; }
+  .okb-cd-specs__row { gap: 10px; padding: 10px 0; }
+  .okb-cd-specs dt,
+  .okb-cd-specs dd { font-size: 13px; }
+
+  .okb-cd-acc__item summary { font-size: 14.5px; padding: 16px 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .okb-cd-acc__sign::before,
+  .okb-cd-acc__sign::after { transition: none; }
+}
