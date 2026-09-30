@@ -65,3 +65,12 @@ Le thème a été importé depuis une autre boutique, mais **son contenu n'a pas
 ## Comment appliquer
 
 Le thème en ligne (MAIN) ne peut pas être modifié directement par l'API. Les corrections sont à appliquer sur **une copie non publiée** du thème, à prévisualiser, puis à publier depuis *Boutique en ligne → Thèmes*.
+
+## Incident de déploiement (30/09, 03:20)
+
+La première copie corrigée (`#189740908924`) a été publiée, mais Shopify était encore en train de dupliquer le thème quand les corrections ont été envoyées : la fin de la duplication (02:48:08) a **réécrit 6 des 7 fichiers corrigés avec leur version d'origine** (seul `templates/product.json` a gardé la correction). Le script « ATC INSTANT v3 » est donc resté en ligne et le blocage a continué.
+
+Correctif : les 7 fichiers ont été renvoyés sur le thème `#189740810620`, renommé « ✅ couleursafran – CORRIGÉ (à publier) ». Vérification faite **après** la fin du traitement (`processing: false`) : les 7 empreintes MD5 correspondent au commit `11423e6`, et les autres fichiers contrôlés sont identiques à la version testée.
+Le thème `#189740908924` a été renommé « ⚠️ ancien – contient le bug (ne pas utiliser) ».
+
+Test local (Chromium, vrai Liquid rendu, vrais JS/CSS, Swiper 11.0.7 identique à celui du thème, produit à 100 variantes, images 1600 px, processeur ralenti ×4) : ancienne version → navigateur figé ; version corrigée → page réactive au chargement, au défilement et aux changements de variante.
