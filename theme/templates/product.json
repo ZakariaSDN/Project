@@ -18,7 +18,7 @@
       ],
       "name": "t:sections.custom-liquid.presets.name",
       "settings": {
-        "content": "{% assign promo_text = product.metafields.custom.promo | to_string | strip %}\n{% if promo_text != '' %}\n  <!-- Afficher le texte du méta, avec retours à la ligne -->\n  <div class=\"promo-badge\">{{ promo_text | newline_to_br }}</div>\n{% endif %}",
+        "content": "{% assign promo_text = product.metafields.custom.promo.value | strip %}\n{% if promo_text != '' %}\n  <!-- Afficher le texte du méta, avec retours à la ligne -->\n  <div class=\"promo-badge\">{{ promo_text | newline_to_br }}</div>\n{% endif %}",
         "color_scheme": "",
         "content_alignment": "center",
         "top_space_desktop": 10,
@@ -663,7 +663,7 @@
         "spot_PWjVcV": {
           "type": "spot",
           "settings": {
-            "product": "{{ product }}",
+            "product": "",
             "spot_size": 40,
             "horizontal": 85,
             "vertical": 52,

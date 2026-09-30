@@ -121,7 +121,7 @@
         <p class="variant-swatches-text">{{ 'products.product.product_variants' | t }}</p>
         <div class="select-variant-box">
           <select class="form-control" name="id" form="{{ product_form_id }}">
-            {%- for variant in product.options_with_values -%}
+            {%- for variant in product.variants -%}
               <option
                 {% if variant == product.selected_or_first_available_variant %}
                   selected="selected"

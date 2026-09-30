@@ -1,0 +1,56 @@
+# Audit de la boutique Shopify « couleursafran » – 30/09/2026
+
+Boutique analysée : `couleursafran-rs0qngin.myshopify.com` (plan **Development**, protégée par mot de passe).
+Thème en ligne : **couleursafran** (`#189740810620`, thème personnalisé). Le dossier `theme/` contient une copie complète du thème ; le premier commit est l'état d'origine, le second contient les corrections.
+
+> ⚠️ Cette boutique a été créée le 30/09/2026 à 02:08 UTC (produits importés à 02:08, thème importé à 02:31).
+> Si votre vraie boutique est une autre adresse, les corrections du thème s'appliquent de la même façon, mais la partie « Contenu manquant » ne concerne que cette boutique.
+
+---
+
+## 1. Page produit – bugs trouvés et corrigés dans le code
+
+| # | Problème | Effet pour le client | Fichier | Statut |
+|---|----------|----------------------|---------|--------|
+| 1 | Le CSS « coverflow » rendait **toutes les images invisibles** (`opacity: 0`) tant que Swiper (235 Ko) et `theme.js` (118 Ko) n'étaient pas chargés et exécutés. | La galerie reste **vide / blanche** pendant le chargement, surtout sur mobile → « ça ne charge pas ». | `sections/main-product-section.liquid` | ✅ Corrigé : la 1re image s'affiche immédiatement ; les autres ne sont masquées qu'après l'initialisation du slider. |
+| 2 | La 1re image produit était en `loading="lazy"`. | L'image principale (élément le plus grand) démarre en retard (mauvais LCP / Core Web Vitals). | `snippets/media-gallery.liquid` | ✅ Corrigé : `loading="eager"` + `fetchpriority="high"` sur la 1re image uniquement. |
+| 3 | Script « ATC INSTANT v3 » : réactivait **de force** le bouton « Ajouter au panier » (y compris pour une variante épuisée), en rafales de 12 passages toutes les 120 ms à chaque changement + un `MutationObserver`, et un CSS forçant l'affichage des boutons avec `!important`. Il combattait le JavaScript du thème. | Boutons qui clignotent/changent de libellé, clics possibles sur une variante épuisée, page qui « rame » quand on change d'option. | `sections/main-product-section.liquid` | ✅ Supprimé ; la vraie cause (textes anglais) est corrigée en #4. |
+| 4 | Le sélecteur de variantes écrivait en dur **« Add to Cart », « Soldout », « Unavailable »** (anglais) dans le bouton. | Texte anglais sur une boutique française (c'est ce que le script #3 essayait de masquer). | `assets/theme.js` | ✅ Corrigé : utilise les traductions du thème (« Ajouter au panier », « Épuisé », « Indisponible »). |
+| 5 | `variantStrings.unavailable` pointait vers la traduction « Épuisé ». | Mauvais message pour une combinaison inexistante. | `snippets/theme-variables.liquid` | ✅ Corrigé (« Indisponible »). |
+| 6 | Barre produit collante (sticky) : l'identifiant du prix ne correspondait pas à celui attendu par le JS. | Le prix de la barre collante **ne se met pas à jour** quand on change de variante (ex. Douceur de linge 20 € / 22 €). | `snippets/sticky-product.liquid`, `assets/theme.js` | ✅ Corrigé. |
+| 7 | Barre sticky : la variante sélectionnée n'était jamais marquée « active » (variable `option` inexistante). | Aucune option sélectionnée visuellement dans la barre collante. | `snippets/sticky-product.liquid` | ✅ Corrigé. |
+| 8 | `featured-product.css` chargé **2 fois**. | CSS téléchargé/analysé en double. | `sections/main-product-section.liquid` | ✅ Corrigé. |
+| 9 | Sélecteur sans JavaScript (`<noscript>`) : bouclait sur les options au lieu des variantes. | Liste de variantes vide/invalide sans JS. | `snippets/product-variants.liquid` | ✅ Corrigé. |
+| 10 | Badge promo : filtre Liquid inexistant `to_string`. | Risque d'erreur Liquid en haut de la page produit. | `templates/product.json` | ✅ Corrigé (`.value`). |
+| 11 | Section « Hot spots » : produit réglé sur le texte `{{ product }}` (pas un vrai produit). | Point chaud cassé / vide. | `templates/product.json` | ✅ Réinitialisé (à re-choisir dans l'éditeur si besoin). |
+
+## 2. Ensemble du site – corrigé dans le code
+
+| Problème | Effet | Fichier | Statut |
+|----------|-------|---------|--------|
+| **Toutes les feuilles de style chargées 2 fois** sur chaque page (8 fichiers : `base.css`, `theme.css`, `swiper.css`…). | Rendu plus lent sur toutes les pages. | `snippets/theme-variables.liquid` | ✅ Corrigé (ordre de cascade conservé → aucun changement visuel). |
+| `model-viewer-ui.css` (3D) chargé sur toutes les pages produit alors qu'aucun produit n'a de modèle 3D (la section le charge déjà quand c'est nécessaire). | Requête inutile. | `snippets/theme-variables.liquid` | ✅ Supprimé. |
+| Barre « livraison offerte » : `shipping_rate` vide → division par zéro. | Calcul faux (barre à 100 %). | `assets/theme.js` | ✅ Protégé. |
+| `const shippingStatus ={{ settings.show_shipping }};` : si le réglage est vide, erreur de syntaxe JS qui casse `window.routes` → ajout au panier cassé. | Risque de panne totale du panier. | `snippets/theme-variables.liquid` | ✅ Sécurisé (`| json`). |
+
+## 3. Contenu manquant dans cette boutique (à faire dans l'admin Shopify – non modifié)
+
+Le thème a été importé depuis une autre boutique, mais **son contenu n'a pas suivi** :
+
+- **Collections** : il n'existe qu'une seule collection (« Home page »). Le thème et ses 16 modèles `collection.*.json` renvoient vers : `nos-diffuseurs-de-parfum`, `nos-bougies-de-parfum`, `nos-eaux-de-parfum`, `eaux-de-toilette`, `nos-parfums-d-interieur`, `nos-parfums-de-peau`, `nos-coffrets-et-bons-cadeaux`, `nos-coffrets-cadeaux`, `recharge-diffuseur-parfum`, `collection-french-riviera`, `nouveautes`, `nos-offres-speciales`, `coups-de-coeur`, `👗-douceur-de-linge`, `🎟-bons-cadeaux`, `🌿-eaux-de-parfum` → **liens en 404 et sections vides** sur l'accueil et la page produit.
+- **Pages** : seule « Contact » existe. Manquent : `qui-sommes-nous`, `professionnels`, `personnalisation`, `espace-revendeurs`, `entreprise-ce` (+ modèles `faq`, `livraison-retours`, `notre-histoire`).
+- **Menus** : « Main menu » est le menu par défaut en anglais (Home / Catalog / Contact). Les menus `menu-pied-de-page` et `lien-externe` utilisés par le thème n'existent pas.
+- **Métachamps / métaobjets** : aucune définition. Les accordéons **« Détails de la senteur »** et **« Pictogrammes »** de la page produit (`custom.senteur`, `custom.pictogrammes`) et le badge promo (`custom.promo`) restent donc **vides/masqués**.
+- **Applications** : Judge.me (avis) et Avada SEO ne sont pas installées ; leurs extraits restent dans le thème mais n'affichent rien.
+- **Stock** : aucun produit ne suit le stock (tous « disponibles », quantité 0). Normal si vous ne gérez pas le stock, sinon à configurer.
+- **Réglage thème** : `shipping_rate` / `shipping_text` vides → la barre « livraison offerte » du panier est désactivée.
+
+## 4. Points signalés, non modifiés (risque faible)
+
+- `sections/ss-scrolling-announcement-bar-2.liquid` pèse 152 Ko ; `photoswipe.js` + `vimeo-player.js` sont chargés sur toutes les pages.
+- `snippets/cart-drawer.liquid` ligne ~607 : un `</div>` en trop dans la branche « panier non vide » (signalé par Theme Check), à vérifier visuellement.
+- 5 extraits orphelins (`booster-seo`, `avada-defer-css`, `icons`, `image`, `carousal-arrows`) et filtres `img_url` obsolètes.
+
+## Comment appliquer
+
+Le thème en ligne (MAIN) ne peut pas être modifié directement par l'API. Les corrections sont à appliquer sur **une copie non publiée** du thème, à prévisualiser, puis à publier depuis *Boutique en ligne → Thèmes*.

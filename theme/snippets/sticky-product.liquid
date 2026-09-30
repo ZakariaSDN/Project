@@ -22,7 +22,7 @@
     <div class="product-cart-sticky-info">
       <span class="product-cart-sticky-title font-heading">{{ product.title | escape }}</span>
       <div
-        id="sticky-price-{{ section.id }}-sticky"
+        id="price-{{ section.id }}-sticky"
         class="product-price-wrapper no-js-hidden"
         role="status"
         data-sticky-main-price
@@ -84,7 +84,7 @@
                           assign swatch_value = null
                         endif
                       -%}
-                      <li class="swatches-list-item  {% if option.selected_value == valueSticky %}active{% endif %}">
+                      <li class="swatches-list-item  {% if optionSticky.selected_value == valueSticky %}active{% endif %}">
                         <span>
                           <input
                             type="radio"

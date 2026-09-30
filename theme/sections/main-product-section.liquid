@@ -1,6 +1,5 @@
 
 {{ 'featured-product.css' | asset_url | stylesheet_tag: preload: true }}
-{{ 'featured-product.css' | asset_url | stylesheet_tag }}
 {{ 'photoswipe.css' | asset_url | stylesheet_tag }}
 {%- assign unique_3d_model = product.media | where: 'media_type', 'model' | first -%}
 {%- if unique_3d_model -%}
@@ -489,15 +488,18 @@
   overflow: hidden !important;
 }
 
-#product-media-gallery-{{ section.id }}.slider-coverflow .swiper-slide{
-  opacity: 0 !important;
-  pointer-events: none !important;
+/* Avant l'initialisation de Swiper : afficher la 1re image (sinon galerie vide pendant le chargement du JS) */
+#product-media-gallery-{{ section.id }}.slider-coverflow .product-gallery-slider:not(.swiper-initialized) .swiper-wrapper{
+  flex-wrap: nowrap !important;
+}
+#product-media-gallery-{{ section.id }}.slider-coverflow .product-gallery-slider:not(.swiper-initialized) .swiper-slide:not(:first-child){
+  display: none !important;
 }
 
-#product-media-gallery-{{ section.id }}.slider-coverflow .swiper-slide-active,
-#product-media-gallery-{{ section.id }}.slider-coverflow .swiper-slide-duplicate-active{
-  opacity: 1 !important;
-  pointer-events: auto !important;
+/* Après l'initialisation : seule la slide active est visible */
+#product-media-gallery-{{ section.id }}.slider-coverflow .swiper-initialized .swiper-slide:not(.swiper-slide-active){
+  opacity: 0 !important;
+  pointer-events: none !important;
 }
 </style>
 <script type="application/json" id="ProductJSON-{{ product.id }}">
@@ -742,132 +744,6 @@
   // (laisse ton code plus haut qui fait: if (last) renderAll(last); et écoute les events custom)
 })();
 </script>  <!-- ← FIN de ton script variante -->
-<!-- ===== CSS Pare-feu ATC + Acheter maintenant ===== -->
-<style>
-  /* Afficher l'ATC ET "Acheter maintenant" quoi qu'il arrive */
-  #shopify-section-{{ section.id }} .product-form__buttons,
-  #shopify-section-{{ section.id }} .product-form__submit,
-  #shopify-section-{{ section.id }} .shopify-payment-button,
-  #shopify-section-{{ section.id }} .shopify-payment-button__button,
-  #shopify-section-{{ section.id }} .shopify-payment-button [role="button"]{
-    display: inline-flex !important;
-    visibility: visible !important;
-    pointer-events: auto !important;
-    opacity: 1 !important;
-    width: 100%;
-  }
-</style>
-<!-- ===== ATC INSTANT v3 — forcer "Ajouter au panier" (sans freeze) ===== -->
-<script>
-(() => {
-  try {
-    const sec = document.getElementById('shopify-section-{{ section.id }}');
-    if (!sec) return;
-    const ATC_SEL  = '.product-form__submit, button[name="add"], button[type="submit"][name="add"], [data-add-to-cart]';
-    const PAY_WRAP = '.shopify-payment-button';
-    const PAY_BTN  = '.shopify-payment-button__button, .shopify-payment-button button, .shopify-payment-button [role="button"]';
-    // Libellé FR initial (fallback si vide)
-    const firstBtn = sec.querySelector(ATC_SEL);
-    const DEFAULT_FR =
-      (firstBtn && (firstBtn.getAttribute('data-default-text') || firstBtn.textContent || '')).trim() ||
-      'Ajouter au panier';
-    const SOLD_FR = 'En rupture de stock';
-    const UNAV_FR = 'Indisponible';
-    function forceEnable(form){
-      const idEl = form.querySelector('[name="id"]');
-      const variantId = idEl && idEl.value;
-      if (!variantId) return;
-      form.removeAttribute('inert');
-      form.removeAttribute('aria-busy');
-      form.classList.remove('is-loading','loading');
-      form.querySelectorAll('fieldset[disabled]').forEach(fs => fs.removeAttribute('disabled'));
-      const btns = form.querySelectorAll(ATC_SEL + ',' + PAY_BTN);
-      btns.forEach(b => {
-        b.disabled = false;
-        b.removeAttribute('disabled');
-        b.removeAttribute('aria-disabled');
-        b.classList.remove('disabled','is-disabled','loading','is-loading');
-        b.style.pointerEvents = 'auto';
-        b.style.opacity = '';
-        b.style.display = '';
-        b.style.visibility = 'visible';
-      });
-      const payWrap = form.querySelector(PAY_WRAP);
-      if (payWrap) {
-        payWrap.removeAttribute('hidden');
-        payWrap.removeAttribute('aria-hidden');
-        payWrap.style.display = '';
-        payWrap.style.visibility = 'visible';
-        payWrap.style.opacity = '1';
-        payWrap.style.pointerEvents = 'auto';
-      }
-    }
-    const looksEnglish = (txt='') => {
-      const t = (txt || '').trim().toLowerCase();
-      return !t || t === 'add to cart' || t.includes('add to ') || t.includes('add to card');
-    };
-    function setBtnLabel(btn, label){
-      // mettre le texte visible (sans toucher aux attributes tant que pas nécessaire)
-      btn.setAttribute('aria-label', label);
-      const nodes = [
-        btn.querySelector('[data-default-text]'),
-        btn.querySelector('[data-add-to-cart-text]'),
-        btn.querySelector('[data-text]'),
-        btn.querySelector('[data-button-text]'),
-        btn.querySelector('.text'),
-        btn.querySelector('.btn__text'),
-        btn.querySelector('span')
-      ].filter(Boolean);
-      let changed = false;
-      if (nodes.length) {
-        nodes.forEach(n => { if (looksEnglish(n.textContent)) { n.textContent = label; changed = true; } });
-      } else {
-        if (looksEnglish(btn.textContent)) { btn.textContent = label; changed = true; }
-      }
-      // on complète les data-* UNE FOIS seulement (pas d’obs sur attributes → pas de boucle)
-      if (changed) {
-        btn.setAttribute('data-default-text', label);
-        btn.setAttribute('data-add-to-cart-text', label);
-        btn.setAttribute('data-sold-out-text', SOLD_FR);
-        btn.setAttribute('data-unavailable-text', UNAV_FR);
-      }
-    }
-    function forceLabels(form){
-      form.querySelectorAll(ATC_SEL).forEach(btn => setBtnLabel(btn, DEFAULT_FR));
-    }
-    function kick(form){
-      // tout de suite…
-      forceEnable(form); forceLabels(form);
-      // …et quelques rafales pour contrer le JS du thème
-      let n = 0;
-      const t = setInterval(() => {
-        forceEnable(form); forceLabels(form);
-        if (++n >= 12) clearInterval(t); // ~1,4s
-      }, 120);
-    }
-    const forms = Array.from(sec.querySelectorAll('form[action*="/cart/add"]'));
-    if (!forms.length) return;
-    forms.forEach(form => {
-      // OBSERVER SÛR : pas d’attributs → impossible de boucler
-      const mo = new MutationObserver(() => { forceLabels(form); });
-      mo.observe(form, { subtree:true, childList:true, characterData:true });
-      // changements de variante (multi-thèmes)
-      ['variant:change','variant:changed','product:variant-change','theme:variant:change','desert:variant-change']
-        .forEach(evt => document.addEventListener(evt, () => kick(form), { passive:true }));
-      // changement des options
-      form.addEventListener('change', () => kick(form), true);
-      // (re)chargement de section / page
-      ['DOMContentLoaded','load','shopify:section:load','shopify:section:select']
-        .forEach(evt => window.addEventListener(evt, () => kick(form), { passive:true }));
-      // premier passage
-      kick(form);
-    });
-  } catch (e) {
-    console.error('ATC FR v3 error', e);
-  }
-})();
-</script>
-<!-- ===== FIN ATC INSTANT v3 ===== -->
 <script type="application/ld+json">
 {
   "@context": "http://schema.org/",

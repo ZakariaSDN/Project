@@ -45,7 +45,8 @@
                 featured_media.preview_image
                 | image_url: width: 1946
                 | image_tag:
-                  loading: lazy,
+                  loading: 'eager',
+                  fetchpriority: 'high',
                   sizes: '100vw',
                   widths: '246, 493, 600, 713, 823, 990, 1100, 1206, 1346, 1426, 1646, 1946'
               }}
@@ -74,6 +75,14 @@
         {% endif %}
         {% for media in product.media %}
           {% unless media.id == current_variant.featured_media.id %}
+            {%- liquid
+              assign media_loading = 'lazy'
+              assign media_priority = 'auto'
+              if current_variant.featured_media == null and forloop.first
+                assign media_loading = 'eager'
+                assign media_priority = 'high'
+              endif
+            -%}
             {% case media.media_type %}
               {% when 'image' %}
                 <div id="product-media-{{ media.id }}" class="swiper-slide" data-product-media>
@@ -85,7 +94,8 @@
                       media.preview_image
                       | image_url: width: 1946
                       | image_tag:
-                        loading: lazy,
+                        loading: media_loading,
+                        fetchpriority: media_priority,
                         sizes: '100vw',
                         widths: '246, 493, 600, 713, 823, 990, 1100, 1206, 1346, 1426, 1646, 1946'
                     }}

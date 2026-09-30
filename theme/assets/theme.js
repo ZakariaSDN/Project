@@ -306,6 +306,7 @@ function fetchConfig(type = "json") {
 }
 
 function shippingBarProgress(totalprice) {
+  if (!(Number(currencyRate) > 0)) return;
   if (currencyRate != null && shippingStatus == true) {
     let shippingText = "";
     let currencyConvertRate = Math.round(
@@ -1277,7 +1278,7 @@ class VariantSelector extends HTMLElement {
             this.updatePickupAvailability();
 
             if (!this.currentVariant) {
-                this.toggleAddButton(true, "Unavailable", true);
+                this.toggleAddButton(true, window.variantStrings.unavailable, true);
                 this.setUnavailable();
             } else {
                 this.updateMedia();
@@ -1917,7 +1918,7 @@ class VariantSelector extends HTMLElement {
           if (sku) sku.classList.remove("hidden");
         });
 
-        this.toggleAddButton(!this.currentVariant.available, this.currentVariant.available ? null : "Soldout");
+        this.toggleAddButton(!this.currentVariant.available, this.currentVariant.available ? null : window.variantStrings.soldOut);
       });
   }
 
@@ -1945,9 +1946,9 @@ class VariantSelector extends HTMLElement {
     } else {
       addButton.removeAttribute("aria-disabled");
       addButton.removeAttribute("disabled");
-      addButtonText.textContent = "Add to Cart";
+      addButtonText.textContent = window.variantStrings.addToCart;
       if (stickyButtonText) {
-        stickyButtonText.textContent = "Add to Cart";
+        stickyButtonText.textContent = window.variantStrings.addToCart;
       }
     }
 
@@ -1961,7 +1962,7 @@ class VariantSelector extends HTMLElement {
     const addButton = button?.querySelector('[name="add"]');
     const price = document.getElementById(`price-${this.dataset.section}`);
     const price_fixed = document.getElementById(
-      `sticky-price-${this.dataset.section}`
+      `price-${this.dataset.section}-sticky`
     );
     const inventory = document.getElementById(
       `Inventory-${this.dataset.section}`
@@ -1969,7 +1970,7 @@ class VariantSelector extends HTMLElement {
     const sku = document.getElementById(`Sku-${this.dataset.section}`);
 
     if (!addButton) return;
-    this.toggleAddButton(true, "Unavailable");
+    this.toggleAddButton(true, window.variantStrings.unavailable);
     if (price) price.classList.add("hidden");
     if (price_fixed) price_fixed.classList.add("hidden");
     if (inventory) inventory.classList.add("hidden");
