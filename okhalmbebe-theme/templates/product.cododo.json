@@ -1,3 +1,12 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "okb_styles_pr": {
@@ -38,19 +47,10 @@
             "pr_title_color": "#22182c"
           }
         },
-        "loox_reviews_loox_rating_hNbwLC": {
-          "type": "shopify://apps/loox-reviews/blocks/loox-rating/5c3b337f-fd14-4df5-b1d6-80ec13e6e28e",
+        "okb_cd_intro": {
+          "type": "custom_liquid",
           "settings": {
-            "contentSize": 16,
-            "pattern": "",
-            "hideText": false,
-            "alignment": "",
-            "layout": "",
-            "textColor": "",
-            "starColor": "#aa9666",
-            "showAllReviews": false,
-            "looxOpenFloatingWidget": false,
-            "emptyRatingWidget": true
+            "custom_liquid": "{% render 'okb-cododo-buybox', part: 'intro',\n  accroche: 'Gardez bébé près de vous, de la nuit à la sieste.',\n  texte: 'Réglable en hauteur, mobile et pliable, ce berceau accompagne bébé dans son propre espace de repos, près de votre lit comme dans les autres pièces de la maison.',\n  i1: 'hauteur', b1: '3 hauteurs réglables',\n  i2: 'roue_frein', b2: 'Roulettes 360° avec freins',\n  i3: 'bercement', b3: 'Mode fixe ou bercement',\n  i4: 'pliable', b4: 'Pliable + grand rangement'\n%}"
           }
         },
         "price_review": {
@@ -65,6 +65,21 @@
             "fw_price_pr": 500,
             "price_color": "#22182c",
             "price_sale_color": "#aa9666"
+          }
+        },
+        "loox_reviews_loox_rating_hNbwLC": {
+          "type": "shopify://apps/loox-reviews/blocks/loox-rating/5c3b337f-fd14-4df5-b1d6-80ec13e6e28e",
+          "settings": {
+            "contentSize": 16,
+            "pattern": "",
+            "hideText": false,
+            "alignment": "",
+            "layout": "",
+            "textColor": "",
+            "starColor": "#aa9666",
+            "showAllReviews": false,
+            "looxOpenFloatingWidget": false,
+            "emptyRatingWidget": true
           }
         },
         "form": {
@@ -103,6 +118,12 @@
             "advance_pr_list": []
           }
         },
+        "okb_cd_trust": {
+          "type": "custom_liquid",
+          "settings": {
+            "custom_liquid": "{% render 'okb-cododo-buybox', part: 'trust', product: product,\n  l1: 'Livraison offerte dès 150 €',\n  l2: 'Paiement sécurisé',\n  l3: 'Retour sous 14 jours'\n%}"
+          }
+        },
         "img_qVeyxV": {
           "type": "img",
           "settings": {
@@ -113,18 +134,6 @@
             "wimg": 60,
             "svg": "apple_pay,google_pay,master,paypal,visa",
             "height": 34
-          }
-        },
-        "okb_cd_intro": {
-          "type": "custom_liquid",
-          "settings": {
-            "custom_liquid": "{% render 'okb-cododo-buybox', part: 'intro',\n  accroche: 'Gardez bébé près de vous, de la nuit à la sieste.',\n  texte: 'Réglable en hauteur, mobile et pliable, ce berceau accompagne bébé dans son propre espace de repos, près de votre lit comme dans les autres pièces de la maison.',\n  i1: 'hauteur', b1: '3 hauteurs réglables',\n  i2: 'roue_frein', b2: 'Roulettes 360° avec freins',\n  i3: 'bercement', b3: 'Mode fixe ou bercement',\n  i4: 'pliable', b4: 'Pliable + grand rangement'\n%}"
-          }
-        },
-        "okb_cd_trust": {
-          "type": "custom_liquid",
-          "settings": {
-            "custom_liquid": "{% render 'okb-cododo-buybox', part: 'trust', product: product,\n  l1: 'Livraison offerte dès 150 €',\n  l2: 'Paiement sécurisé',\n  l3: 'Retour sous 14 jours'\n%}"
           }
         }
       },
@@ -210,10 +219,6 @@
     },
     "okb_cd_reassurance": {
       "type": "okb-pdp-reassurance",
-      "settings": {
-        "heading": "",
-        "style": "sable"
-      },
       "blocks": {
         "b1": {
           "type": "item",
@@ -253,15 +258,20 @@
         "b2",
         "b3",
         "b4"
-      ]
+      ],
+      "settings": {
+        "heading": "",
+        "style": "sable"
+      }
     },
     "okb_cd_nuit": {
       "type": "okb-pdp-feature",
       "settings": {
         "image_source": "image",
         "image_index": 1,
+        "image": "shopify://shop_images/dsqds.webp",
         "image_alt": "Berceau cododo O Khalm Bébé placé contre le lit parental",
-        "image_ratio": "4_5",
+        "image_ratio": "1_1",
         "reverse": false,
         "eyebrow": "La nuit",
         "heading": "Tout près de vous pendant la nuit",
@@ -273,19 +283,6 @@
     },
     "okb_cd_mobilite": {
       "type": "okb-pdp-feature",
-      "settings": {
-        "image_source": "image",
-        "image_index": 1,
-        "image_alt": "Berceau cododo sur roulettes dans le salon",
-        "image_ratio": "4_5",
-        "reverse": true,
-        "eyebrow": "Chambre → salon",
-        "heading": "La nuit dans votre chambre. La sieste dans le salon.",
-        "text": "<p>Les <strong>roulettes multidirectionnelles à 360°</strong> permettent de déplacer facilement le berceau d’une pièce à l’autre. Une fois à la bonne place, <strong>les freins</strong> permettent de l’immobiliser.</p>",
-        "meta": "",
-        "style": "blanc",
-        "chip_cols": "2"
-      },
       "blocks": {
         "b1": {
           "type": "chip",
@@ -306,7 +303,7 @@
         "b3": {
           "type": "note",
           "settings": {
-            "text": "Roulement annoncé silencieux par le fabricant."
+            "text": "Roulement silencieux."
           }
         }
       },
@@ -314,23 +311,24 @@
         "b1",
         "b2",
         "b3"
-      ]
-    },
-    "okb_cd_bercement": {
-      "type": "okb-pdp-feature",
+      ],
       "settings": {
         "image_source": "image",
         "image_index": 1,
-        "image_alt": "Sélecteur latéral du mode bercement",
-        "image_ratio": "4_5",
-        "reverse": false,
-        "eyebrow": "Mode fixe ou bercement",
-        "heading": "Un berceau fixe quand vous le souhaitez, un bercement doux quand vous en avez besoin",
-        "text": "<p>Un <strong>sélecteur latéral</strong> permet de passer du mode fixe au mode bercement. Activez le mouvement lorsque vous souhaitez bercer doucement bébé, puis revenez au mode fixe en quelques gestes.</p>",
+        "image": "shopify://shop_images/Image_ChatGPT_30_sept._2026_10_52_06.png",
+        "image_alt": "Berceau cododo sur roulettes dans le salon",
+        "image_ratio": "1_1",
+        "reverse": true,
+        "eyebrow": "Chambre → salon",
+        "heading": "La nuit dans votre chambre. La sieste dans le salon.",
+        "text": "<p>Les <strong>roulettes multidirectionnelles à 360°</strong> permettent de déplacer facilement le berceau d’une pièce à l’autre. Une fois à la bonne place, <strong>les freins</strong> permettent de l’immobiliser.</p>",
         "meta": "",
-        "style": "lavande",
+        "style": "blanc",
         "chip_cols": "2"
-      },
+      }
+    },
+    "okb_cd_bercement": {
+      "type": "okb-pdp-feature",
       "blocks": {
         "b1": {
           "type": "step",
@@ -358,20 +356,31 @@
         "b1",
         "b2",
         "b3"
-      ]
+      ],
+      "settings": {
+        "image_source": "image",
+        "image_index": 1,
+        "image": "shopify://shop_images/csc.png",
+        "image_alt": "Sélecteur latéral du mode bercement",
+        "image_ratio": "1_1",
+        "reverse": false,
+        "eyebrow": "Mode fixe ou bercement",
+        "heading": "Un berceau fixe quand vous le souhaitez, un bercement doux quand vous en avez besoin",
+        "text": "<p>Un <strong>sélecteur latéral</strong> permet de passer du mode fixe au mode bercement. Activez le mouvement lorsque vous souhaitez bercer doucement bébé, puis revenez au mode fixe en quelques gestes.</p>",
+        "meta": "",
+        "style": "lavande",
+        "chip_cols": "2"
+      }
     },
     "okb_cd_confort": {
       "type": "okb-pdp-cards",
-      "settings": {
-        "eyebrow": "Au quotidien",
-        "heading": "Pensé pour le confort du quotidien"
-      },
       "blocks": {
         "b1": {
           "type": "card",
           "settings": {
             "image_source": "image",
             "image_index": 1,
+            "image": "shopify://shop_images/Design_sans_titre_87.png",
             "image_alt": "Panneaux en maille respirante du berceau",
             "icon": "maille",
             "label": "Maille respirante",
@@ -384,6 +393,7 @@
           "settings": {
             "image_source": "image",
             "image_index": 1,
+            "image": "shopify://shop_images/Design_sans_titre_88.png",
             "image_alt": "Moustiquaire intégrée déployée sur le berceau",
             "icon": "moustiquaire",
             "label": "Moustiquaire",
@@ -396,6 +406,7 @@
           "settings": {
             "image_source": "image",
             "image_index": 1,
+            "image": "shopify://shop_images/qfsf.png",
             "image_alt": "Grand panier de rangement sous le berceau",
             "icon": "panier",
             "label": "Panier",
@@ -408,23 +419,14 @@
         "b1",
         "b2",
         "b3"
-      ]
+      ],
+      "settings": {
+        "eyebrow": "Au quotidien",
+        "heading": "Pensé pour le confort du quotidien"
+      }
     },
     "okb_cd_pliage": {
       "type": "okb-pdp-feature",
-      "settings": {
-        "image_source": "image",
-        "image_index": 1,
-        "image_alt": "Berceau cododo replié",
-        "image_ratio": "4_5",
-        "reverse": true,
-        "eyebrow": "Rangement",
-        "heading": "Plié lorsque vous avez besoin de place",
-        "text": "<p>Le berceau peut être replié afin de réduire son encombrement lorsqu’il n’est pas utilisé. Pratique pour le rangement à la maison ou lors de déplacements ponctuels.</p>",
-        "meta": "",
-        "style": "sable",
-        "chip_cols": "3"
-      },
       "blocks": {
         "b1": {
           "type": "chip",
@@ -455,23 +457,24 @@
         "b1",
         "b2",
         "b3"
-      ]
-    },
-    "okb_cd_structure": {
-      "type": "okb-pdp-feature",
+      ],
       "settings": {
         "image_source": "image",
         "image_index": 1,
-        "image_alt": "Gros plan sur la structure et les raccords du berceau",
-        "image_ratio": "4_5",
-        "reverse": false,
-        "eyebrow": "Qualité & structure",
-        "heading": "Une structure conçue pour rester stable",
-        "text": "<p>Le châssis associe une <strong>structure en acier carbone</strong>, des tubes robustes, des connexions renforcées et une <strong>base triangulaire élargie</strong> pensée pour offrir une bonne stabilité au quotidien.</p>",
+        "image": "shopify://shop_images/gjklj.png",
+        "image_alt": "Berceau cododo replié",
+        "image_ratio": "1_1",
+        "reverse": true,
+        "eyebrow": "Rangement",
+        "heading": "Plié lorsque vous avez besoin de place",
+        "text": "<p>Le berceau peut être replié afin de réduire son encombrement lorsqu’il n’est pas utilisé. Pratique pour le rangement à la maison ou lors de déplacements ponctuels.</p>",
         "meta": "",
-        "style": "blanc",
-        "chip_cols": "2"
-      },
+        "style": "sable",
+        "chip_cols": "3"
+      }
+    },
+    "okb_cd_structure": {
+      "type": "okb-pdp-feature",
       "blocks": {
         "b1": {
           "type": "chip",
@@ -502,7 +505,7 @@
           "settings": {
             "icon": "finition",
             "title": "Finition mate",
-            "text": "Conception annoncée résistante à la corrosion"
+            "text": "Résistante à la corrosion"
           }
         }
       },
@@ -511,23 +514,24 @@
         "b2",
         "b3",
         "b4"
-      ]
-    },
-    "okb_cd_entretien": {
-      "type": "okb-pdp-feature",
+      ],
       "settings": {
         "image_source": "image",
         "image_index": 1,
-        "image_alt": "Gros plan sur la matière textile du berceau",
+        "image": "shopify://shop_images/Une_structure_concue_pour_rester_stable.png",
+        "image_alt": "Gros plan sur la structure et les raccords du berceau",
         "image_ratio": "1_1",
-        "reverse": true,
-        "eyebrow": "Entretien",
-        "heading": "Pensé aussi pour les petits accidents du quotidien",
-        "text": "<p>Le berceau utilise un revêtement en <strong>fibre polyester</strong> avec des zones en maille respirante et certaines parties en conception double couche. Les éléments textiles sont annoncés par le fabricant comme <strong>démontables et lavables</strong>.</p>",
+        "reverse": false,
+        "eyebrow": "Qualité & structure",
+        "heading": "Une structure conçue pour rester stable",
+        "text": "<p>Le châssis associe une <strong>structure en acier carbone</strong>, des tubes robustes, des connexions renforcées et une <strong>base triangulaire élargie</strong> pensée pour offrir une bonne stabilité au quotidien.</p>",
         "meta": "",
-        "style": "lavande",
-        "chip_cols": "3"
-      },
+        "style": "blanc",
+        "chip_cols": "2"
+      }
+    },
+    "okb_cd_entretien": {
+      "type": "okb-pdp-feature",
       "blocks": {
         "b1": {
           "type": "chip",
@@ -558,22 +562,31 @@
         "b1",
         "b2",
         "b3"
-      ]
+      ],
+      "settings": {
+        "image_source": "image",
+        "image_index": 1,
+        "image": "shopify://shop_images/Design_sans_titre_89.png",
+        "image_alt": "Gros plan sur la matière textile du berceau",
+        "image_ratio": "1_1",
+        "reverse": true,
+        "eyebrow": "Entretien",
+        "heading": "Pensé aussi pour les petits accidents du quotidien",
+        "text": "<p>Le berceau utilise un revêtement en <strong>fibre polyester</strong> avec des zones en maille respirante et certaines parties en conception double couche. Les éléments textiles sont <strong>démontables et lavables</strong>.</p>",
+        "meta": "",
+        "style": "lavande",
+        "chip_cols": "3"
+      }
     },
     "okb_cd_specs": {
       "type": "okb-pdp-specs",
-      "settings": {
-        "eyebrow": "Fiche technique",
-        "heading": "Toutes les caractéristiques en un coup d’œil",
-        "footnote": "Informations indiquées par le fabricant. Respectez la notice et les limites d’utilisation du produit."
-      },
       "blocks": {
         "b1": {
           "type": "group",
           "settings": {
             "icon": "hauteur",
             "title": "Dimensions & utilisation",
-            "lines": "Dimensions indiquées : 94 × 52 cm\nÂge indiqué par le fabricant : 0–24 mois\nHauteur : réglable sur 3 niveaux\nUtilisation : berceau indépendant ou placé à proximité du lit parental\nMode fixe : oui\nMode bercement : oui\nInclinaison mécanique : jusqu’à environ 5° selon configuration"
+            "lines": "Dimensions : 94 × 52 cm\nÂge : 0–24 mois\nHauteur : réglable sur 3 niveaux\nUtilisation : berceau indépendant ou placé à proximité du lit parental\nMode fixe : oui\nMode bercement : oui\nInclinaison mécanique : jusqu’à environ 5° selon configuration"
           }
         },
         "b2": {
@@ -581,7 +594,7 @@
           "settings": {
             "icon": "structure",
             "title": "Structure & mobilité",
-            "lines": "Structure : acier carbone\nBase : structure triangulaire élargie\nRoulettes : pivotantes à 360°\nFreins : oui\nRoulement : annoncé silencieux par le fabricant\nPliage : oui"
+            "lines": "Structure : acier carbone\nBase : structure triangulaire élargie\nRoulettes : pivotantes à 360°\nFreins : oui\nRoulement : silencieux\nPliage : oui"
           }
         },
         "b3": {
@@ -589,30 +602,23 @@
           "settings": {
             "icon": "textile",
             "title": "Textile & accessoires",
-            "lines": "Revêtement : fibre polyester\nParois : maille respirante\nDouble couche : présente sur certaines zones\nMoustiquaire : intégrée\nRangement : grand panier inférieur\nEntretien : textiles annoncés démontables et lavables"
-          }
-        },
-        "b4": {
-          "type": "group",
-          "settings": {
-            "icon": "lune",
-            "title": "Matelas",
-            "lines": "Matelas : à confirmer selon la configuration choisie"
+            "lines": "Revêtement : fibre polyester\nParois : maille respirante\nDouble couche : présente sur certaines zones\nMoustiquaire : intégrée\nRangement : grand panier inférieur\nEntretien : textiles démontables et lavables"
           }
         }
       },
       "block_order": [
         "b1",
         "b2",
-        "b3",
-        "b4"
-      ]
+        "b3"
+      ],
+      "settings": {
+        "eyebrow": "Fiche technique",
+        "heading": "Toutes les caractéristiques en un coup d’œil",
+        "footnote": ""
+      }
     },
     "okb_cd_accordeons": {
       "type": "okb-pdp-accordions",
-      "settings": {
-        "heading": ""
-      },
       "blocks": {
         "b1": {
           "type": "item",
@@ -639,7 +645,7 @@
           "settings": {
             "icon": "aucun",
             "title": "Spécifications",
-            "content": "<ul><li><strong>Dimensions indiquées :</strong> 94 × 52 cm</li><li><strong>Âge indiqué par le fabricant :</strong> 0–24 mois</li><li><strong>Hauteur :</strong> 3 niveaux</li><li><strong>Structure :</strong> acier carbone, base triangulaire élargie</li><li><strong>Roulettes :</strong> pivotantes à 360° avec freins</li><li><strong>Modes :</strong> fixe ou bercement (inclinaison jusqu’à environ 5° selon configuration)</li><li><strong>Revêtement :</strong> fibre polyester, parois en maille respirante</li><li><strong>Accessoires intégrés :</strong> moustiquaire, grand panier inférieur</li><li><strong>Pliable :</strong> oui</li></ul>",
+            "content": "<ul><li><strong>Dimensions :</strong> 94 × 52 cm</li><li><strong>Âge :</strong> 0–24 mois</li><li><strong>Hauteur :</strong> 3 niveaux</li><li><strong>Structure :</strong> acier carbone, base triangulaire élargie</li><li><strong>Roulettes :</strong> pivotantes à 360° avec freins</li><li><strong>Modes :</strong> fixe ou bercement (inclinaison jusqu’à environ 5° selon configuration)</li><li><strong>Revêtement :</strong> fibre polyester, parois en maille respirante</li><li><strong>Accessoires intégrés :</strong> moustiquaire, grand panier inférieur</li><li><strong>Pliable :</strong> oui</li></ul>",
             "use_description": false,
             "open": false
           }
@@ -649,21 +655,21 @@
           "settings": {
             "icon": "aucun",
             "title": "Entretien & utilisation",
-            "content": "<p><strong>Hauteur :</strong> choisissez l’un des trois niveaux puis vérifiez que les boutons de verrouillage sont bien enclenchés.</p><p><strong>Freins :</strong> une fois le berceau à sa place, bloquez les freins des roulettes avant d’y installer bébé.</p><p><strong>Mode bercement :</strong> tournez le sélecteur latéral pour passer du mode fixe au mode bercement, puis revenez au mode fixe de la même façon.</p><p><strong>Pliage :</strong> repliez le berceau en suivant les étapes de la notice fournie.</p><p><strong>Nettoyage :</strong> retirez les éléments textiles démontables et lavez-les en suivant les indications de leur étiquette.</p><p>Respectez toujours la notice du fabricant et les limites d’utilisation prévues pour le produit.</p>",
+            "content": "<p><strong>Hauteur :</strong> choisissez l’un des trois niveaux puis vérifiez que les boutons de verrouillage sont bien enclenchés.</p><p><strong>Freins :</strong> une fois le berceau à sa place, bloquez les freins des roulettes avant d’y installer bébé.</p><p><strong>Mode bercement :</strong> tournez le sélecteur latéral pour passer du mode fixe au mode bercement, puis revenez au mode fixe de la même façon.</p><p><strong>Pliage :</strong> repliez le berceau en suivant les étapes de la notice fournie.</p><p><strong>Nettoyage :</strong> retirez les éléments textiles démontables et lavez-les en suivant les indications de leur étiquette.</p>",
             "use_description": false,
             "open": false
           }
         },
         "b5": {
           "type": "item",
+          "disabled": true,
           "settings": {
             "icon": "aucun",
             "title": "Contenu du colis",
             "content": "<p>À compléter une fois le contenu exact confirmé avec le fournisseur.</p>",
             "use_description": false,
             "open": false
-          },
-          "disabled": true
+          }
         }
       },
       "block_order": [
@@ -672,24 +678,20 @@
         "b3",
         "b4",
         "b5"
-      ]
+      ],
+      "disabled": true,
+      "settings": {
+        "heading": ""
+      }
     },
     "okb_cd_faq": {
       "type": "okb-faq",
-      "settings": {
-        "eyebrow": "Questions fréquentes",
-        "heading": "<p>Tout ce que vous voulez savoir avant de l’adopter</p>",
-        "text": "<p>Une autre question ? Notre équipe vous répond avec plaisir.</p>",
-        "link_label": "",
-        "link": "",
-        "enable_schema_markup": true
-      },
       "blocks": {
         "b1": {
           "type": "question",
           "settings": {
             "question": "Le berceau peut-il être placé près du lit parental ?",
-            "answer": "<p>Oui. Ses trois niveaux de hauteur permettent d’adapter plus facilement sa position à proximité du lit. Il reste toutefois un berceau indépendant, sauf indication contraire confirmée par le fabricant.</p>",
+            "answer": "<p>Oui. Ses trois niveaux de hauteur permettent d’adapter plus facilement sa position à proximité du lit. Bébé y dispose de son propre espace de couchage.</p>",
             "open": false
           }
         },
@@ -721,7 +723,7 @@
           "type": "question",
           "settings": {
             "question": "Les textiles peuvent-ils être lavés ?",
-            "answer": "<p>Le fabricant indique que les éléments textiles sont démontables et lavables.</p>",
+            "answer": "<p>Oui, les éléments textiles sont démontables et lavables.</p>",
             "open": false
           }
         },
@@ -737,18 +739,18 @@
           "type": "question",
           "settings": {
             "question": "Jusqu’à quel âge peut-il être utilisé ?",
-            "answer": "<p>Le fabricant indique une utilisation de 0 à 24 mois. Il faut toutefois respecter la notice et les limites d’utilisation prévues pour le produit.</p>",
+            "answer": "<p>Le berceau s’utilise de 0 à 24 mois.</p>",
             "open": false
           }
         },
         "b8": {
           "type": "question",
+          "disabled": true,
           "settings": {
             "question": "Le matelas est-il fourni ?",
             "answer": "<p>À compléter une fois ce point confirmé avec le fournisseur.</p>",
             "open": false
-          },
-          "disabled": true
+          }
         }
       },
       "block_order": [
@@ -760,7 +762,15 @@
         "b6",
         "b7",
         "b8"
-      ]
+      ],
+      "settings": {
+        "eyebrow": "Questions fréquentes",
+        "heading": "<p>Tout ce que vous voulez savoir avant de l’adopter</p>",
+        "text": "<p>Une autre question ? Notre équipe vous répond avec plaisir.</p>",
+        "link_label": "",
+        "link": "",
+        "enable_schema_markup": true
+      }
     },
     "okb_cd_avis_titre": {
       "type": "okb-pdp-reviews-head",

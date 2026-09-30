@@ -33,7 +33,7 @@ Caractéristiques → Accordéons → FAQ → Avis → Produits complémentaires
 ## Points à compléter
 
 - **Photos** : chaque bloc affiche un visuel de remplacement lavande tant qu'aucune image n'est déposée.
-- **Matelas** : ligne « à confirmer » dans les caractéristiques ; question FAQ et accordéon « Contenu du colis »
+- **Matelas** : retiré des caractéristiques ; question FAQ et accordéon « Contenu du colis »
   ajoutés mais **masqués** (à activer une fois l'information confirmée).
 - **Premier écran** : les textes de l'accroche, des 4 bénéfices et des lignes de réassurance sont modifiables
   dans les blocs « Custom Liquid » de la section produit.
