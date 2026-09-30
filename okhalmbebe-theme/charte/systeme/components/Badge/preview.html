@@ -1,0 +1,28 @@
+<!-- @dsCard group="Contenu" height=90 -->
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<title>Badge</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;700&display=swap">
+<style>
+  *{box-sizing:border-box}
+  html,body{margin:0;background:var(--white);color:var(--ink);font-family:var(--font-sans);font-size:15px;line-height:1.6}
+  .wrap{padding:20px}
+  p{margin:0}
+  h2,h3{margin:0;font-family:var(--font-sans);color:var(--ink);font-weight:700}
+  ul{list-style:none;margin:0;padding:0}
+  .badge{display:inline-grid;place-items:center;flex:none;width:44px;height:44px;border-radius:var(--radius-pill);background:var(--lavender);color:var(--plum)}
+  .badge.sm{width:34px;height:34px}.badge.sm .ico{width:18px;height:18px}
+  .eyebrow{font-size:11px;letter-spacing:.16em;font-weight:700;text-transform:uppercase;color:var(--gold)}
+.row{display:flex;gap:10px;flex-wrap:wrap;padding:10px;background:var(--sand);border-radius:var(--radius-md)}
+  .b{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:6px 12px;border-radius:5px}
+  .plum{background:var(--plum);color:var(--white)}.gold{background:var(--gold);color:var(--white)}
+  .line{border:1px solid var(--plum);color:var(--plum);background:var(--white)}.white{background:var(--white);color:var(--ink)}</style>
+</head>
+<body>
+<div class="wrap">
+<div class="row"><span class="b plum">Bestseller</span><span class="b gold">Promo</span><span class="b line">Nouveau</span><span class="b white">En stock</span></div>
+</div>
+</body>
+</html>

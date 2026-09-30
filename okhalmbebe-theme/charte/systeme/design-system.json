@@ -1,0 +1,238 @@
+{
+  "v": 3,
+  "layout": "files",
+  "createdOnFiles": {
+    "v": 1,
+    "at": "2026-09-30T08:28:31Z"
+  },
+  "title": "O Khalm Bébé",
+  "namespace": "OKB",
+  "libraries": [],
+  "sections": {},
+  "groups": [
+    "Pictogrammes"
+  ],
+  "assetGroups": {
+    "Pictogrammes": {
+      "name": "Pictogrammes",
+      "tile": "s",
+      "order": [
+        "hauteur.svg",
+        "roue_frein.svg",
+        "bercement.svg",
+        "mode_fixe.svg",
+        "selecteur.svg",
+        "maille.svg",
+        "moustiquaire.svg",
+        "panier.svg",
+        "pliable.svg",
+        "compact.svg",
+        "transport.svg",
+        "structure.svg",
+        "rotation.svg",
+        "frein.svg",
+        "silence.svg",
+        "acier.svg",
+        "raccord.svg",
+        "finition.svg",
+        "textile.svg",
+        "demontable.svg",
+        "lavable.svg",
+        "lune.svg",
+        "coeur.svg",
+        "livraison.svg",
+        "cadenas.svg",
+        "retour.svg",
+        "stock.svg",
+        "check.svg",
+        "fleche.svg"
+      ],
+      "files": {
+        "hauteur.svg": {
+          "name": "hauteur.svg",
+          "blob": "64bc32dbab1a25244fa6d8e90edec96e",
+          "size": 470,
+          "type": "image/svg+xml"
+        },
+        "roue_frein.svg": {
+          "name": "roue_frein.svg",
+          "blob": "dfbcebb9a7601072b863b261a3b3e30f",
+          "size": 647,
+          "type": "image/svg+xml"
+        },
+        "bercement.svg": {
+          "name": "bercement.svg",
+          "blob": "21d33b3726f257a60cecd3fab3ada681",
+          "size": 473,
+          "type": "image/svg+xml"
+        },
+        "mode_fixe.svg": {
+          "name": "mode_fixe.svg",
+          "blob": "b8d2f29905043f99c04c0a04aaf987f3",
+          "size": 351,
+          "type": "image/svg+xml"
+        },
+        "selecteur.svg": {
+          "name": "selecteur.svg",
+          "blob": "640ca48e95e19f9eb92980f38c6a0124",
+          "size": 392,
+          "type": "image/svg+xml"
+        },
+        "maille.svg": {
+          "name": "maille.svg",
+          "blob": "068ef2328ee74b72d1e9490d44c06f78",
+          "size": 472,
+          "type": "image/svg+xml"
+        },
+        "moustiquaire.svg": {
+          "name": "moustiquaire.svg",
+          "blob": "5dfb1ef8912b792e918f9b99447e6c8a",
+          "size": 579,
+          "type": "image/svg+xml"
+        },
+        "panier.svg": {
+          "name": "panier.svg",
+          "blob": "c873f35d35cb4c5b352a87d2b76e73ff",
+          "size": 405,
+          "type": "image/svg+xml"
+        },
+        "pliable.svg": {
+          "name": "pliable.svg",
+          "blob": "dd5417726c2be8a3be2659aca744f9f4",
+          "size": 461,
+          "type": "image/svg+xml"
+        },
+        "compact.svg": {
+          "name": "compact.svg",
+          "blob": "3486f6d655eb1e8eae4ae2e9a66bd1ba",
+          "size": 347,
+          "type": "image/svg+xml"
+        },
+        "transport.svg": {
+          "name": "transport.svg",
+          "blob": "189044939a89624688dac2a7423425b7",
+          "size": 360,
+          "type": "image/svg+xml"
+        },
+        "structure.svg": {
+          "name": "structure.svg",
+          "blob": "fed97cf03a577f6de12cc48fc0f831a1",
+          "size": 490,
+          "type": "image/svg+xml"
+        },
+        "rotation.svg": {
+          "name": "rotation.svg",
+          "blob": "6e37f078f89a2f77dc46bad5c0f69126",
+          "size": 327,
+          "type": "image/svg+xml"
+        },
+        "frein.svg": {
+          "name": "frein.svg",
+          "blob": "bbf77b626c32958f113f99641485e06d",
+          "size": 392,
+          "type": "image/svg+xml"
+        },
+        "silence.svg": {
+          "name": "silence.svg",
+          "blob": "c080f414bfe1bcc111fd0b9de1798695",
+          "size": 297,
+          "type": "image/svg+xml"
+        },
+        "acier.svg": {
+          "name": "acier.svg",
+          "blob": "bff6f391b16aa1ce7a91e423e906d931",
+          "size": 393,
+          "type": "image/svg+xml"
+        },
+        "raccord.svg": {
+          "name": "raccord.svg",
+          "blob": "55c1211004601afe18aa34403be719c3",
+          "size": 364,
+          "type": "image/svg+xml"
+        },
+        "finition.svg": {
+          "name": "finition.svg",
+          "blob": "2da5011d5308885b40b2c1881c5446a9",
+          "size": 314,
+          "type": "image/svg+xml"
+        },
+        "textile.svg": {
+          "name": "textile.svg",
+          "blob": "0e6a0a9b136cb4298c1ba6f3936ab7b7",
+          "size": 322,
+          "type": "image/svg+xml"
+        },
+        "demontable.svg": {
+          "name": "demontable.svg",
+          "blob": "c6d3aabd372594a7fecedf07cc86a9f6",
+          "size": 406,
+          "type": "image/svg+xml"
+        },
+        "lavable.svg": {
+          "name": "lavable.svg",
+          "blob": "88858b7f05243eaf3422eda1b1261188",
+          "size": 429,
+          "type": "image/svg+xml"
+        },
+        "lune.svg": {
+          "name": "lune.svg",
+          "blob": "80a15e278bf86540756aaa160455330f",
+          "size": 251,
+          "type": "image/svg+xml"
+        },
+        "coeur.svg": {
+          "name": "coeur.svg",
+          "blob": "ed43902530d4b63d6967fc2a54de8e05",
+          "size": 292,
+          "type": "image/svg+xml"
+        },
+        "livraison.svg": {
+          "name": "livraison.svg",
+          "blob": "a776c3027115981ec68c323fd4ea85ac",
+          "size": 397,
+          "type": "image/svg+xml"
+        },
+        "cadenas.svg": {
+          "name": "cadenas.svg",
+          "blob": "0e0f3b4e25ac27f7d425b5a1ca4ecc20",
+          "size": 303,
+          "type": "image/svg+xml"
+        },
+        "retour.svg": {
+          "name": "retour.svg",
+          "blob": "60418f174a7c1d3db11d729304412d10",
+          "size": 265,
+          "type": "image/svg+xml"
+        },
+        "stock.svg": {
+          "name": "stock.svg",
+          "blob": "d91208040e0cc70844c4c23f028a885c",
+          "size": 309,
+          "type": "image/svg+xml"
+        },
+        "check.svg": {
+          "name": "check.svg",
+          "blob": "8f4248073960bea1f0e0f093b5e3067f",
+          "size": 222,
+          "type": "image/svg+xml"
+        },
+        "fleche.svg": {
+          "name": "fleche.svg",
+          "blob": "5e2e0dad4f10a317c5ee573891561a92",
+          "size": 241,
+          "type": "image/svg+xml"
+        }
+      }
+    }
+  },
+  "blobs": {},
+  "docs": {
+    "sections": []
+  },
+  "lastChange": {
+    "by": "Claude",
+    "at": "2026-09-30T08:28:31Z",
+    "via": "Claude Code",
+    "note": "Charte de la boutique et de la fiche lit cododo, relevée dans le thème publié."
+  }
+}

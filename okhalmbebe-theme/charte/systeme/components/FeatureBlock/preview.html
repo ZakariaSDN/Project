@@ -1,0 +1,46 @@
+<!-- @dsCard group="Contenu" height=420 subtitle="Sur fond lavande : texte secondaire en encre" -->
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<title>FeatureBlock</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;700&display=swap">
+<style>
+  *{box-sizing:border-box}
+  html,body{margin:0;background:var(--white);color:var(--ink);font-family:var(--font-sans);font-size:15px;line-height:1.6}
+  .wrap{padding:20px}
+  p{margin:0}
+  h2,h3{margin:0;font-family:var(--font-sans);color:var(--ink);font-weight:700}
+  ul{list-style:none;margin:0;padding:0}
+  .badge{display:inline-grid;place-items:center;flex:none;width:44px;height:44px;border-radius:var(--radius-pill);background:var(--lavender);color:var(--plum)}
+  .badge.sm{width:34px;height:34px}.badge.sm .ico{width:18px;height:18px}
+  .eyebrow{font-size:11px;letter-spacing:.16em;font-weight:700;text-transform:uppercase;color:var(--gold)}
+.feat{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1fr);gap:36px;align-items:center;background:var(--lavender);border-radius:var(--radius-lg);padding:20px}
+  .media{aspect-ratio:4/5;border-radius:var(--radius-md);background:var(--lavender-mid)}
+  .feat h2{font-size:28px;line-height:1.16;letter-spacing:-.02em;margin:10px 0 14px;text-wrap:balance}
+  .txt{font-size:15.5px;line-height:1.7;color:var(--ink)}.txt strong{color:var(--ink)}
+  .feat .badge{background:var(--white)}
+  .steps{list-style:none;margin:20px 0 0;padding:0;display:flex;gap:8px;align-items:stretch}
+  .st{flex:1;display:flex;flex-direction:column;align-items:center;gap:8px;padding:14px 8px;border-radius:var(--radius-md);background:var(--white);text-align:center;font-size:12.5px;font-weight:700}
+  .ar{align-self:center;color:var(--gold)}
+  .chips{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px}
+  .chips li{display:flex;gap:10px;align-items:center;padding:10px 12px;border-radius:var(--radius-md);background:var(--white)}
+  .chips strong{display:block;font-size:14px;line-height:1.3}.chips small{display:block;font-size:12px;color:var(--muted)}
+  .note{margin-top:12px;font-size:12.5px;font-style:italic;color:var(--ink)}</style>
+</head>
+<body>
+<div class="wrap">
+<div class="feat">
+  <div class="media" role="img" aria-label="Photo à venir"></div>
+  <div class="body">
+    <div class="eyebrow">Mode fixe ou bercement</div>
+    <h2>Un berceau fixe quand vous le souhaitez, un bercement doux quand vous en avez besoin</h2>
+    <p class="txt">Un <strong>sélecteur latéral</strong> permet de passer du mode fixe au mode bercement.</p>
+    <ol class="steps"><li class="st"><span class="badge"><svg class="ico" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4.5 7.5h15v3.2a5.3 5.3 0 0 1-5.3 5.3H9.8a5.3 5.3 0 0 1-5.3-5.3Z"/><path d="M8 16v4.5"/><path d="M16 16v4.5"/><path d="M5.5 20.5h13"/></svg></span><span>Mode fixe</span></li><li class="ar"><svg class="ico" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h15"/><path d="M14 7l5 5-5 5"/></svg></li><li class="st"><span class="badge"><svg class="ico" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M17.5 14a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0Z"/><path d="M12 14v-3.6"/><path d="M5.2 7.6A9 9 0 0 1 18.8 7.6"/><path d="M18.8 7.6l.2-2.7"/><path d="M18.8 7.6l-2.6-.6"/></svg></span><span>Tourner le sélecteur</span></li><li class="ar"><svg class="ico" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h15"/><path d="M14 7l5 5-5 5"/></svg></li><li class="st"><span class="badge"><svg class="ico" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4.5 7.5h15v3.2a5.3 5.3 0 0 1-5.3 5.3H9.8a5.3 5.3 0 0 1-5.3-5.3Z"/><path d="M8 16l-1.4 3.2"/><path d="M16 16l1.4 3.2"/><path d="M3.5 19.4c5.6 2.1 11.4 2.1 17 0"/><path d="M2 4.8c.9-.9 2.1-1.3 3.3-1.3"/><path d="M22 4.8c-.9-.9-2.1-1.3-3.3-1.3"/></svg></span><span>Mode bercement</span></li></ol>
+    <ul class="chips"><li><span class="badge"><svg class="ico" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 12a8 8 0 1 1-2.3-5.7"/><path d="M20 4.2v4.1h-4.1"/><path d="M13.4 12a1.4 1.4 0 1 1-2.8 0 1.4 1.4 0 0 1 2.8 0Z"/></svg></span><span><strong>360°</strong><small>Rotation multidirectionnelle</small></span></li><li><span class="badge"><svg class="ico" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M17 14a5 5 0 1 1-10 0 5 5 0 0 1 10 0Z"/><path d="M13.4 14a1.4 1.4 0 1 1-2.8 0 1.4 1.4 0 0 1 2.8 0Z"/><path d="M12 9V4h5.5"/><path d="M15.5 4v2.4"/><path d="M3.5 21h17"/></svg></span><span><strong>Freins intégrés</strong><small>Pour immobiliser le berceau</small></span></li></ul>
+    <p class="note">Roulement annoncé silencieux par le fabricant.</p>
+  </div>
+</div>
+</div>
+</body>
+</html>

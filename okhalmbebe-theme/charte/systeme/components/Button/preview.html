@@ -1,0 +1,34 @@
+<!-- @dsCard group="Actions" height=120 -->
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<title>Button</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;700&display=swap">
+<style>
+  *{box-sizing:border-box}
+  html,body{margin:0;background:var(--white);color:var(--ink);font-family:var(--font-sans);font-size:15px;line-height:1.6}
+  .wrap{padding:20px}
+  p{margin:0}
+  h2,h3{margin:0;font-family:var(--font-sans);color:var(--ink);font-weight:700}
+  ul{list-style:none;margin:0;padding:0}
+  .badge{display:inline-grid;place-items:center;flex:none;width:44px;height:44px;border-radius:var(--radius-pill);background:var(--lavender);color:var(--plum)}
+  .badge.sm{width:34px;height:34px}.badge.sm .ico{width:18px;height:18px}
+  .eyebrow{font-size:11px;letter-spacing:.16em;font-weight:700;text-transform:uppercase;color:var(--gold)}
+.row{display:flex;gap:10px;margin-bottom:12px}
+  .btn{flex:1;font:700 14px/1.2 var(--font-sans);border:0;border-radius:var(--radius-sm);padding:14px 22px;background:var(--plum);color:var(--white);cursor:pointer}
+  .btn:hover,.btn.hover{background:var(--plum-light)}
+  .btn:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
+  .btn.light{background:var(--lavender-mid);color:var(--plum)}
+  .qty{border:1px solid var(--line);border-radius:var(--radius-sm);padding:12px 18px;font-weight:700;color:var(--ink-soft)}</style>
+</head>
+<body>
+<div class="wrap">
+<div class="row">
+  <div class="qty" aria-label="Quantité">– 1 +</div>
+  <button class="btn">Ajouter au panier</button>
+</div>
+<div class="row"><button class="btn hover">Survol</button><button class="btn light">Je m’inscris</button></div>
+</div>
+</body>
+</html>

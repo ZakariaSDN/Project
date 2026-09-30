@@ -1,0 +1,37 @@
+<!-- @dsCard group="Contenu" height=290 -->
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<title>Accordion</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;700&display=swap">
+<style>
+  *{box-sizing:border-box}
+  html,body{margin:0;background:var(--white);color:var(--ink);font-family:var(--font-sans);font-size:15px;line-height:1.6}
+  .wrap{padding:20px}
+  p{margin:0}
+  h2,h3{margin:0;font-family:var(--font-sans);color:var(--ink);font-weight:700}
+  ul{list-style:none;margin:0;padding:0}
+  .badge{display:inline-grid;place-items:center;flex:none;width:44px;height:44px;border-radius:var(--radius-pill);background:var(--lavender);color:var(--plum)}
+  .badge.sm{width:34px;height:34px}.badge.sm .ico{width:18px;height:18px}
+  .eyebrow{font-size:11px;letter-spacing:.16em;font-weight:700;text-transform:uppercase;color:var(--gold)}
+.acc{max-width:860px;border:1px solid var(--line);border-radius:var(--radius-lg);padding:0 24px;background:var(--white)}
+  details+details{border-top:1px solid var(--line)}
+  summary{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:18px 0;cursor:pointer;list-style:none;font-size:15.5px;font-weight:700}
+  summary::-webkit-details-marker{display:none}
+  .s{position:relative;width:14px;height:14px;flex:none}
+  .s::before,.s::after{content:"";position:absolute;left:0;right:0;top:6px;height:2px;border-radius:2px;background:var(--plum)}
+  .s::after{transform:rotate(90deg)}details[open] .s::after{transform:none}
+  details p{padding:0 0 18px;font-size:14.5px;color:var(--muted)}
+  summary:focus-visible{outline:2px solid var(--gold);outline-offset:3px}</style>
+</head>
+<body>
+<div class="wrap">
+<div class="acc">
+<details open><summary>Les roulettes ont-elles des freins ?<span class="s"></span></summary><p>Oui, les roulettes sont pivotantes à 360° et disposent d’un système de frein.</p></details>
+<details><summary>Le produit est-il pliable ?<span class="s"></span></summary><p>Oui, sa conception permet de réduire son encombrement.</p></details>
+<details><summary>Entretien &amp; utilisation<span class="s"></span></summary><p>Retirez les éléments textiles démontables et lavez-les selon leur étiquette.</p></details>
+</div>
+</div>
+</body>
+</html>
