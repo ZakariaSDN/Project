@@ -8,6 +8,17 @@ Thème en ligne : **couleursafran** (`#189740810620`, thème personnalisé). Le 
 
 ---
 
+## 0. 🔴 Cause du blocage de Chrome/Edge sur la page produit
+
+Le script « ATC INSTANT v3 » (`sections/main-product-section.liquid`, thème en ligne) observe le formulaire produit avec un `MutationObserver` et **réécrit le texte du bouton dès qu'il « ressemble à de l'anglais »** (`add to cart`).
+Or la langue principale de la boutique est **l'anglais** (`shopLocales` : `en` uniquement) : le bouton affiche « Add to cart ».
+Le script le remplace par… « Add to cart » (sa valeur « par défaut » est lue sur le bouton lui-même). Chaque remplacement déclenche de nouveau l'observateur → **boucle infinie de micro-tâches** : le navigateur ne peut plus rien afficher ni répondre, l'onglet se fige.
+
+Reproduit dans Chromium avec le script d'origine : bouton « Ajouter au panier » → page réactive ; bouton « Add to cart » → page bloquée (aucune réponse après 5 s).
+La version corrigée (script supprimé, voir #3 plus bas) reste réactive avec « Add to cart ».
+
+➡️ **Le blocage disparaîtra dès la publication du thème corrigé.** Il est aussi recommandé d'ajouter le français dans *Paramètres → Langues* et d'en faire la langue par défaut (boutique destinée à la France).
+
 ## 1. Page produit – bugs trouvés et corrigés dans le code
 
 | # | Problème | Effet pour le client | Fichier | Statut |
