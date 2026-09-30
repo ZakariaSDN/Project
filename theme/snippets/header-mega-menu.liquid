@@ -1,0 +1,73 @@
+{% if type == 'collection' %}
+  {% if location == 'mobile' %}
+    {% for menuCollection in block.settings.collection_list %}
+      <li>
+        <span class="reversed-link mega-menu-link">
+          <a href="{{ menuCollection.url }}" class="header-drawer-menu-label">{{ menuCollection.title }}</a>
+        </span>
+      </li>
+    {% endfor %}
+  {% else %}
+    <div class="mega-menu-item">
+      <ul role="list" class="list-style-none mega-menu-collection-list">
+        {% for menuCollection in block.settings.collection_list %}
+          <li>
+            <a href="{{ menuCollection.url }}" class="h6 reversed-link font-heading">
+              <span class="arrow-icon-wrapper" aria-label="Enjoye music">
+                <svg class="arrow-icon" width="13" height="13" viewBox="0 0 13 13" fill="none">
+                  <path fill-rule="evenodd" clip-rule="evenodd" d="M9.46695 2.30979L0.605106 2.30974L0.6051 0.666385L12.2724 0.666382L12.2724 12.3336L10.6291 12.3337L10.629 3.47182L1.18614 12.9147L0.0241138 11.7526L9.46695 2.30979Z" fill="currentcolor"></path>
+                </svg>
+              </span>
+              {{ menuCollection.title }}
+            </a>
+          </li>
+        {% endfor %}
+      </ul>
+    </div>
+  {% endif %}
+{% elsif type == 'grid' %}
+  {% if image != blank %}
+    <div class="mega-menu-item">
+      <a
+        {% if link != blank %}
+          href="{{ link }}"
+        {% else %}
+          role="link" aria-disabled="true"
+        {% endif %}
+        class="mega-menu-promotions-link"
+      >
+        <div class="media-wrapper" style="--mediaRatio:120%">
+          {% assign image_url = image %}
+          <img
+            srcset="
+              {%- if image_url.width >= 100 -%}{{ image_url | image_url: width: 100 }} 100w,{%- endif -%}
+              {%- if image_url.width >= 150 -%}{{ image_url | image_url: width: 150 }} 150w,{%- endif -%}
+              {%- if image_url.width >= 200 -%}{{ image_url | image_url: width: 200 }} 200w,{%- endif -%}
+              {%- if image_url.width >= 300 -%}{{ image_url | image_url: width: 300 }} 300w,{%- endif -%}
+              {%- if image_url.width >= 500 -%}{{ image_url | image_url: width: 500 }} 500w,{%- endif -%}
+              {%- if image_url.width >= 700 -%}{{ image_url | image_url: width: 500 }} 700w,{%- endif -%}
+
+              {{ image_url | image_url }} {{ image_url.width }}w
+            "
+            src="{{ image_url | image_url: width: 80 }}"
+            sizes="calc(100vw - 3rem)"
+            alt="{{ image_url.alt | escape }}"
+            height="{{ image_url.height }}"
+            width="{{ image_url.width }}"
+            loading="lazy"
+          >
+        </div>
+        {% if heading != blank or subheading != blank %}
+          <div class="mega-menu-promotions-text align-center">
+            {% if heading != blank %}
+              <strong class="text-size-large font-heading">{{ heading }}</strong>
+            {% endif %}
+            {% if subheading != blank %}
+              <p class="text-size-small">{{ subheading }}</p>
+            {% endif %}
+          </div>
+        {% endif %}
+      </a>
+    </div>
+  {% endif %}
+{% endif %}

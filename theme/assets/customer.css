@@ -1,0 +1,260 @@
+#reset-password,
+#reset-password:target + #login {
+  display: none;
+}
+
+#reset-password:target {
+  display: block;
+}
+
+.customer-container {
+  position: relative;
+  padding: 0 var(--space-column);
+}
+
+.customer-account-box {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.customer-header-box {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+}
+
+.customer-contact {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.customer-content-box {
+  position: relative;
+  width: 100%;
+  max-width: 95%;
+  margin: auto;
+  padding: 0;
+}
+
+.customer-content-box > * {
+  margin-bottom: 20px;
+}
+
+.customer-subtitle {
+  display: block;
+  color: rgba(var(--color-heading-text));
+}
+
+.customer-heading {
+  margin-bottom: 20px;
+  color: rgba(var(--color-text-card));
+}
+
+.customer-form {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  padding: 0px 30px;
+  position: relative;
+  overflow: hidden;
+  border-radius: var(--block-card-radius);
+}
+
+.customer-background {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  right: 0;
+  background: rgba(var(--image-background));
+}
+
+.customer-background img {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  object-fit: cover;
+}
+
+.customer-form-wrapper {
+  border-radius: var(--block-card-radius);
+  padding: 40px;
+  position: relative;
+  background-color: rgb(var(--color-background-card));
+  width: 100%;
+  max-width: 555px;
+  margin: 0px auto;
+}
+
+.customer-form-grid form > p {
+  margin: 0;
+  color: rgba(var(--color-text-card));
+}
+
+.form-fieldset + .button,
+.fieldset + .button {
+  margin-top: 0;
+}
+
+.customer-switch-box .cancel {
+  margin-top: 20px;
+  display: inline-block;
+}
+
+/* Order page */
+
+.account-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  margin-bottom: 3rem;
+}
+
+.account-content-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 40px;
+}
+
+.account-content-box {
+  flex: 0 0 75%;
+}
+
+.account-content-box + .account-address-wrapper {
+  flex: 1;
+}
+
+.account-address-block {
+  padding: 28px;
+  background-color: rgb(var(--color-background-foreground));
+  border-radius: 10px;
+}
+
+.account-block-btn {
+  display: flex;
+  gap: 12px;
+}
+
+span.status {
+  display: inline-block;
+  padding: 3px 16px;
+  background: rgba(var(--color-text));
+  color: rgba(var(--color-background));
+  border-radius: 40px;
+}
+
+.order-empty-wrapper {
+  min-height: 300px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  border: 1px solid #cac6c6;
+  border-radius: 10px;
+}
+
+.order-empty-wrapper p {
+  margin: 0;
+}
+
+.order-product-item {
+  display: flex;
+  max-width: 300px;
+}
+
+.order-product-item a img {
+  max-width: 100px;
+  border-radius: 10px;
+  margin-right: 25px;
+}
+
+.account-address-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 18px;
+}
+
+.account-address-list .account-address-block {
+  flex: 0 0 100%;
+}
+
+.order-subtotal-wrapper {
+  padding: 0 20px;
+}
+
+.order-subtotal-list {
+  border-top: 1px solid rgba(var(--color-divider));
+  padding-top: 30px;
+  margin-top: 20px;
+}
+
+.order-subtotal-wrapper li {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.order-subtotal-wrapper li span {
+  flex: 0 0 100%;
+  max-width: 50%;
+}
+
+.order .account-address-block + .account-address-block {
+  margin-top: 18px;
+}
+
+.payment-status {
+  padding-top: 14px;
+  margin-top: 14px;
+  border-top: 1px solid rgba(var(--color-divider));
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.custom-checkbox input {
+  vertical-align: middle;
+  width: 18px;
+  height: 18px;
+  margin-right: 10px;
+  accent-color: rgba(var(--color-text));
+}
+
+.address_button-wrapper {
+  text-align: center;
+}
+
+.address_button-wrapper a {
+  margin-top: 20px;
+  display: inline-block;
+}
+address-drawer .form-control-input:focus-visible,
+address-drawer input:focus-visible {
+        outline-offset: 3px;
+    outline: -webkit-focus-ring-color auto 2px;
+    transition: none!important;
+}
+
+@media (min-width: 768px) {
+  .customer-form-wrapper {
+    padding: 60px;
+  }
+  .form .button {
+    margin-top: 20px;
+  }
+  .account-address-list .account-address-block {
+    max-width: calc(100% / 4 - 18px);
+  }
+}

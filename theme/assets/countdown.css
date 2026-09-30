@@ -1,0 +1,181 @@
+.countdown-grid-wrapper {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-left: calc(0px - var(--space-column, 0px));
+  margin-right: calc(0px - var(--space-column, 0px));
+}
+
+.countdown-grid-item {
+  flex-grow: 1;
+  width: 100%;
+  padding: 0 var(--space-column, 0px);
+}
+
+.countdown-grid-item .collection-overlay-content {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  margin: 15px;
+}
+
+.countdown-grid-item .collection-card {
+  padding: 0;
+  border-radius: 0;
+}
+
+.countdown-grid-item .collection-card .collection-image:after {
+  content: none;
+}
+
+.countdown-time-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  max-width: 960px;
+  margin: 0 auto;
+  height: 100%;
+  padding: 20px;
+}
+
+.countdown-time-wrapper.background-enabled {
+  background-color: rgb(var(--color-background-foreground));
+  padding: 60px;
+}
+
+.countdown-time-wrapper.round-enabled {
+  border-radius: var(--block-card-radius);
+}
+
+.countdown-position-without_content {
+  text-align: center;
+}
+
+.countdown-position-without_content .countdown-grid-item {
+  max-width: 100%;
+}
+
+.countdown-position-without_content .product-card-content {
+  text-align: left;
+}
+
+.countdown_slider {
+  position: relative;
+}
+
+.countdown-time-wrapper > * {
+  width: 100%;
+  margin-bottom: 30px;
+}
+
+.countdown-button-wrapper {
+  margin-bottom: 0;
+}
+
+countdown-timer.countdown {
+  display: block;
+}
+
+.countdown-card {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: inline-flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+  -ms-flex-flow: row nowrap;
+  flex-flow: row nowrap;
+  gap: 8px;
+  font-size: clamp(1rem, 5vw, 5rem);
+  font-weight: var(--font-weight-heading);
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+}
+
+.countdown-block {
+  font-family: var(--font-family-body);
+  font-size: var(--text-size-base);
+  font-weight: var(--font-weight-body);
+  text-align: center;
+}
+
+.product-wrapper:not(.swiper-initialized) .product-grid-wrapper {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-gap: var(--space-column, 0px);
+}
+
+.product-grid-wrapper .product-card-wrapper {
+  display: flex;
+  align-items: flex-start;
+  padding: 10px;
+  background-color: rgba(var(--color-background-card));
+}
+
+.product-grid-wrapper .product-card-image {
+  flex: 0 0 30%;
+}
+
+.container .countdown-grid-wrapper .collection-image,
+.product-grid-wrapper :is(.product-card-image, .product-card-wrapper) {
+  border-radius: var(--block-card-radius);
+  overflow: hidden;
+}
+
+.product-grid-wrapper .product-card-content {
+  flex-grow: 1;
+  padding: 15px 22px;
+  color: rgb(var(--color-text-card));
+}
+
+.countdown-grid-item .collection-overlay-content .collection-heading {
+  color: rgb(var(--color-background));
+}
+
+.countdown_slider :not(.swiper-button-bottomright) .swiper-button {
+  transform: translateY(-50%);
+}
+
+.countdown_slider .swiper-button-prev {
+  left: -40px;
+}
+
+.countdown_slider .swiper-button-next {
+  right: -40px;
+}
+
+@media (min-width: 992px) {
+  .countdown-position-right {
+    flex-direction: row-reverse;
+  }
+  .countdown-grid-item {
+    max-width: calc(100% - 50%);
+  }
+  .countdown-card {
+    gap: 18px;
+  }
+}
+
+@media (max-width: 991px) {
+  .countdown-time-wrapper.background-enabled {
+    padding: 20px;
+  }
+  .countdown-timer,
+  .countdown-button-wrapper {
+    text-align: center;
+  }
+  countdown-timer.countdown {
+    display: block;
+    margin: 20px 0 0;
+  }
+  .countdown_slider .swiper-button-wrapper {
+    left: 0;
+    right: 0;
+    justify-content: center;
+    bottom: calc(0% - 34px);
+  }
+  .countdown-grid-item .collection-card {
+    margin-bottom: 20px;
+  }
+}

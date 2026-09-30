@@ -1,0 +1,59 @@
+{% assign size_chart = pages[block.settings.size_chart] %}
+{% if size_chart != blank %}
+  <size-chart class="sizechart-box ">
+    <a href="#sizechart-drawer" class="size-chart" data-id="sizechart-drawer-{{ section.id }}" data-drawer-head>
+      <svg class="icon" width="22" height="10" viewBox="0 0 22 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path fill-rule="evenodd" clip-rule="evenodd" d="M21.5 0.5H0.5V9.5H21.5V0.5ZM1.5 8.5V1.5H4V5.5H5V1.5H7.25V4.5H8.25V1.5H10.5V5.5H11.5V1.5H13.75V4.5H14.75V1.5H17V5.5H18V1.5H20.5V8.5H1.5Z" fill="currentcolor"></path>
+      </svg>
+      <span class="button-underline">{{ 'general.size_chart' | t }}</span>
+    </a>
+
+    <template data-sizechart-content>
+      <sizechart-drawer
+        class="sizechart-drawer drawer right"
+        id="sizechart-drawer-{{ section.id }}"
+        role="dialog"
+        aria-modal="true"
+      >
+        <drawer-layer class="overlay" data-close-drawer>
+          <drawer-mouse-cursor class="drawer-mouse-cursor">
+            <svg class="icon" stroke="currentColor" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M10 30L30 10M10 10L30 30" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"></path>
+            </svg>
+          </drawer-mouse-cursor>
+        </drawer-layer>
+        <div class="drawer-inner-card">
+          <div class="drawer-container">
+            <div class="drawer-head">
+              <drawer-header>
+                <a href="#" class="drawer-close button-right" aria-label="Close" data-close-drawer>
+                  <svg
+                    class="drawer-icon"
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                  >
+                    <path d="M18 6L6 18" stroke="currentColor" stroke-width="1.5"></path>
+                    <path d="M6 6L18 18" stroke="currentColor" stroke-width="1.5"></path>
+                  </svg>
+                </a>
+                <h3 class="drawer-heading h5">{{ 'general.size_chart' | t }}</h3>
+              </drawer-header>
+            </div>
+            <div class="drawer-body">
+              <div class="drawer-content-contain rte">
+                {{
+                  size_chart.content
+                  | replace: '<table', '<div class="table-responsive"><table'
+                  | replace: '</table>', '</table></div>'
+                }}
+              </div>
+            </div>
+          </div>
+        </div>
+      </sizechart-drawer>
+    </template>
+  </size-chart>
+{% endif %}

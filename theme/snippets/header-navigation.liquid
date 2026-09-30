@@ -1,0 +1,186 @@
+<div class="site-header-item site-header-nav">
+  {%- capture badgeContent -%}
+    {% for block in section.blocks %} 
+      {% if block.type == 'badge' %}
+        {% if block.settings.title != blank and block.settings.link != blank %}
+          <li class="site-menu-item">
+              <a href="{{ block.settings.link }}" class="button button-xsmall"><span class="button-text">{{ block.settings.title }}</span> </a>
+          </li>        
+        {% endif %}        
+      {% endif %}
+    {% endfor %}
+  {%- endcapture -%}
+  {% if section.settings.menu != blank or badgeContent != blank %}
+    <nav class="site-navbar-main-wrapper">
+      <ul class="list-style-none site-navbar-nav">
+        {% for link in section.settings.menu.links %}
+          {% liquid
+            assign megaMenuStatus = false
+            assign linkTitle = link.title | downcase
+            assign megaMenuCount = link.links.size
+            if link.levels == 1
+              assign megaMenuCount = 1
+            endif
+            for block in section.blocks
+              assign blockLabel = block.settings.title | downcase
+              if blockLabel == linkTitle
+                capture collections
+                  if block.settings.collection_list.count > 0
+                    assign megaMenuCount = megaMenuCount | plus: 1
+                    render 'header-mega-menu', type: 'collection', block: block
+                  endif
+                endcapture
+                capture grids
+                  for i in (1..6)
+                    assign headingSetting = 'content_title_' | append: i
+                    assign linkSetting = 'content_link_' | append: i
+                    assign imageSetting = 'content_image_' | append: i
+                    assign subheadingSetting = 'content_subheading_' | append: i
+                    if block.settings[imageSetting] != blank
+                      assign megaMenuCount = megaMenuCount | plus: 1
+                      render 'header-mega-menu', type: 'grid', image: block.settings[imageSetting], heading: block.settings[headingSetting], subheading: block.settings[subheadingSetting], link: block.settings[linkSetting]
+                    endif
+                  endfor
+                endcapture
+                if collections != blank or grids != blank
+                  assign megaMenuStatus = true
+                  break
+                endif
+              endif
+            endfor
+            if megaMenuCount > 6
+              assign megaMenuCount = 6
+            endif
+          %}
+          <li class="site-menu-item{% if megaMenuStatus %} site-mega-menu{% elsif link.levels > 0 %} site-dropdown-menu{% endif %}"{% if megaMenuStatus or link.levels > 0 %} data-menu-with-child{% endif %}>
+            <a class="site-menu-link" href="{{ link.url }}">
+              {{ link.title }}
+              {% if megaMenuStatus or link.levels > 0 %}
+                <svg
+                  width="12"
+                  height="12"
+                  class="menu-icon"
+                  viewBox="0 0 12 12"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path d="M9.75 4.5L6 8.25L2.25 4.5" stroke-width="1.5" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"></path>
+                </svg>
+              {% endif %}
+            </a>
+            {% if megaMenuStatus %}
+              <div class="mega-menu-wrapper">
+                <div class="mega-menu-container">
+                  <div class="container mega-menu-conatin">
+                    <div class="mega-menu-card" style="--mega-menu-items:{{ megaMenuCount }}">
+                      {% liquid
+                        if collections != blank
+                          echo collections
+                        endif
+                      %}
+                      {% if link.levels > 1 %}
+                        {% for childlink in link.links %}
+                          <div class="mega-menu-item">
+                            <div class="mega-menu-item-wrapper">
+                              <a href="{{ childlink.url }}" class="h6 mega-menu-link mega-menu-link-main font-heading">
+                                {{- childlink.title -}}
+                                {% if childlink.levels > 0 %}
+                                  <svg
+                                    width="12"
+                                    height="12"
+                                    class="menu-icon"
+                                    viewBox="0 0 12 12"
+                                    fill="none"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                  >
+                                    <path d="M9.75 4.5L6 8.25L2.25 4.5" stroke-width="1.5" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"></path>
+                                  </svg>
+                                {% endif %}
+                              </a>
+                              {% if childlink.levels > 0 %}
+                                <ul class="list-style-none mega-menu-item-inner">
+                                  {% for grandchildlink in childlink.links %}
+                                    <li>
+                                      <a href="{{ grandchildlink.url }}" class="reversed-link mega-menu-link">
+                                        {{- grandchildlink.title -}}
+                                      </a>
+                                    </li>
+                                  {% endfor %}
+                                </ul>
+                              {% endif %}
+                            </div>
+                          </div>
+                        {% endfor %}
+                      {% elsif link.levels == 1 %}
+                        <div class="mega-menu-item">
+                          <div class="mega-menu-item-wrapper">
+                            <ul class="list-style-none mega-menu-item-inner">
+                              {% for childlink in link.links %}
+                                <li>
+                                  <a href="{{ childlink.url }}" class="reversed-link mega-menu-link">
+                                    {{- childlink.title -}}
+                                  </a>
+                                </li>
+                              {% endfor %}
+                            </ul>
+                          </div>
+                        </div>
+                      {% endif %}
+                      {% liquid
+                        if grids != blank
+                          echo grids
+                        endif
+                      %}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            {% elsif link.levels > 0 %}
+              <div class="dropdown-wrapper">
+                <div class="dropdown-contain">
+                  <ul class="list-style-none dropdown-menu-nav" role="list">
+                    {% for childlink in link.links %}
+                      <li class="p-relative">
+                        <a href="{{ childlink.url }}" class="reversed-link">
+                          {{ childlink.title -}}
+                          {% if childlink.levels > 0 %}
+                            <svg
+                              width="12"
+                              height="12"
+                              class="menu-icon"
+                              viewBox="0 0 12 12"
+                              fill="none"
+                              xmlns="http://www.w3.org/2000/svg"
+                            >
+                              <path d="M9.75 4.5L6 8.25L2.25 4.5" stroke-width="1.5" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"></path>
+                            </svg>
+                          {% endif %}
+                        </a>
+                        {% if childlink.levels > 0 %}
+                          <div class="dropdown-wrapper">
+                            <div class="dropdown-contain">
+                              <ul class="list-style-none dropdown-menu-nav" role="list">
+                                {% for grandchildlink in childlink.links %}
+                                  <li>
+                                    <a class="reversed-link" href="{{ grandchildlink.url }}">
+                                      {{- grandchildlink.title -}}
+                                    </a>
+                                  </li>
+                                {% endfor %}
+                              </ul>
+                            </div>
+                          </div>
+                        {% endif %}
+                      </li>
+                    {% endfor %}
+                  </ul>
+                </div>
+              </div>
+            {% endif %}
+          </li>
+        {% endfor %}
+        {{ badgeContent }}
+      </ul>
+    </nav>
+  {% endif %}
+</div>

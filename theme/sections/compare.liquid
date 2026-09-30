@@ -1,0 +1,280 @@
+{{ 'compare.css' | asset_url | stylesheet_tag: preload: true }}
+{{ 'compare.css' | asset_url | stylesheet_tag }}
+<style>
+  #shopify-section-{{ section.id }} {
+    --section-top-space:{{ section.settings.top_space_desktop }}px;
+    --section-bottom-space:{{ section.settings.bottom_space_desktop }}px;
+    --grid-size:{{ section.blocks.size }};
+    --media-ratio: {%- if section.settings.before_image != blank -%}{{ 1 | divided_by:section.settings.before_image.aspect_ratio | times: 100 }}{% else %}40{% endif %}%;
+  }
+  @media only screen and (max-width:767px) {
+    #shopify-section-{{ section.id }}.shopify-section{
+      --section-top-space:{{ section.settings.top_space_mobile }}px;
+      --section-bottom-space:{{ section.settings.bottom_space_mobile }}px;
+    }
+  }
+</style>
+<div class="section-space color-scheme-{{ section.settings.color_scheme }}">
+  <div class="{{ section.settings.container_style }}">
+    {% liquid
+      if section.settings.layout == 'fullwidth'
+        assign comparegrid = '1'
+      else
+        assign comparegrid = '2'
+      endif
+    %}
+    {% capture content %}
+         {% if section.settings.heading != blank or section.settings.description != blank %}
+        <div class="compare-content-wrapper container">
+          <section-heading class="section-header">
+            {% if section.settings.heading != blank %}
+              <h2 class="heading-main {{  section.settings.heading_size }}">{{ section.settings.heading }}</h2>
+            {% endif %}
+            {% if section.settings.description != blank %}
+              <p class="compare-desc text-size-medium">
+                {{ section.settings.description | newline_to_br }}
+              </p>
+            {% endif %}
+          </section-heading>
+        </div>
+      {% endif %}
+      {% endcapture %}
+    {% if section.settings.layout == 'fullwidth' %}
+      {{ content }}
+    {% endif %}
+    <div class="compare-grid compare-grid-{{ comparegrid }} {{ section.settings.layout}}">
+      {% if section.settings.layout == 'content_left' %}
+        {{ content }}
+      {% endif %}
+      <div
+        class="compare-slide-wrapper"
+        data-compare-wrapper
+        data-layout="horizontal"
+      >
+        <compare-slide-item class="compare-slide-item compare-slide-before ">
+          <div class="media-wrapper">
+            {%- if section.settings.before_image != blank -%}
+              {%- liquid
+                assign height = section.settings.before_image.width | divided_by: section.settings.before_image.aspect_ratio | round
+                assign sizes = '100vw'
+                assign widths = '375, 550, 750, 1100, 1500, 1780, 2000, 3000, 3840'
+              -%}
+              {{
+                section.settings.before_image
+                | image_url: width: 3840
+                | image_tag: loading: 'lazy', height: height, sizes: sizes, widths: widths
+              }}
+            {%- else -%}
+              {{ 'hero-apparel-2' | placeholder_svg_tag: 'placeholder-svg' }}
+            {%- endif %}
+          </div>
+          {% if section.settings.before_text != blank %}
+            <compare-block-text class="compare-before">{{ section.settings.before_text }}</compare-block-text>
+          {% endif %}
+        </compare-slide-item>
+        <compare-slide-item class="compare-slide-item compare-slide-after ">
+          <div class="media-wrapper">
+            {%- if section.settings.after_image != blank -%}
+              {%- liquid
+                assign height = section.settings.after_image.width | divided_by: section.settings.after_image.aspect_ratio | round
+                assign sizes = '100vw'
+                assign widths = '375, 550, 750, 1100, 1500, 1780, 2000, 3000, 3840'
+              -%}
+              {{
+                section.settings.after_image
+                | image_url: width: 3840
+                | image_tag: loading: 'lazy', height: height, sizes: sizes, widths: widths
+              }}
+            {%- else -%}
+              {{ 'hero-apparel-3' | placeholder_svg_tag: 'placeholder-svg' }}
+            {%- endif %}
+          </div>
+          {% if section.settings.after_text != blank %}
+            <compare-block-text class="compare-after">{{ section.settings.after_text }}</compare-block-text>
+          {% endif %}
+        </compare-slide-item>
+        <compare-drag class="compare-slid-cursor">
+          <button type="button" class="compare-slid-button" aria-label="Compare Items" data-cursor>
+            <span>
+              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="16" viewBox="0 0 14 16" fill="none">
+                <g clip-path="url(#clip0_1726_58)">
+                <path d="M1 0.941406L1 15.0591M7 0.941406V15.0591M13 0.941406V15.0591" stroke="currentcolor" stroke-width="1.5" stroke-linecap="round"/>
+                </g>
+                <defs>
+                <clipPath id="clip0_1726_58">
+                <rect width="14" height="16" fill="white"/>
+                </clipPath>
+                </defs>
+              </svg>
+            </span>
+          </button>
+        </compare-drag>
+      </div>
+      {% if section.settings.layout == 'content_right' %}
+        {{ content }}
+      {% endif %}
+    </div>
+  </div>
+</div>
+{% schema %}
+{
+  "name": "t:sections.compare.name",
+  "class":"section-compare",
+   "tag": "section",
+   "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "settings": [
+     {
+      "type": "select",
+      "id": "container_style",
+      "label": "t:sections.compare.settings.container_style.label",
+      "default": "full-container",
+      "options": [
+        {
+          "label": "t:sections.compare.settings.container_style.options.full-container.label",
+          "value": "full-container"
+        },
+        {
+          "label": "t:sections.compare.settings.container_style.options.container.label",
+          "value": "container"
+        }
+      ]
+    },
+   {
+        "type": "color_scheme",
+        "id": "color_scheme",
+        "default": "primary",
+        "label": "t:global.color_scheme.label"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "heading",
+      "default": "Heading",
+      "label": "t:global.general_labels.heading"
+    },
+    {
+      "type": "select",
+      "id": "heading_size",
+      "default": "h2",
+      "label": "t:global.heading_size.label",
+      "options": [
+        {
+          "value": "h1",
+          "label": "t:global.heading_size.options.h1.label"
+        },
+        {
+          "value": "h2",
+          "label": "t:global.heading_size.options.h2.label"
+        },
+        {
+          "value": "h3",
+            "label": "t:global.heading_size.options.h3.label"
+        },
+        {
+          "value": "h4",
+         "label": "t:global.heading_size.options.h4.label"
+        },
+        {
+          "value": "h5",
+           "label": "t:global.heading_size.options.h5.label"
+        },
+       {
+          "value": "h6",
+          "label": "t:global.heading_size.options.h6.label"
+        }
+      ]
+    },
+    {
+          "type": "textarea",
+          "id": "description",
+         "label":"t:global.general_labels.description",
+        "default": "Add short description here."
+    },
+    {
+    "type":"select",
+      "id":"layout",
+      "label":"t:sections.compare.settings.layout.label",
+      "options": [
+        {
+          "value":"fullwidth",
+          "label":"t:sections.compare.settings.layout.options.fullwidth.label"
+        },
+        {
+         "value":"content_left",
+          "label":"t:sections.compare.settings.layout.options.content_left.label"
+        },
+        {
+         "value":"content_right",
+          "label":"t:sections.compare.settings.layout.options.content_right.label"
+        }
+      ]
+    },
+   {
+      "type": "header",
+      "content": "t:sections.compare.settings.before.content"
+    },
+    {
+      "type": "image_picker",
+      "id": "before_image",
+      "label":"t:global.general_labels.image"
+    },
+    {
+      "type": "text",
+      "id": "before_text",
+       "label":"t:global.general_labels.text",
+      "default": "Before"
+    },
+    {
+      "type": "header",
+       "content": "t:sections.compare.settings.after.content"
+    },
+    {
+      "type": "image_picker",
+      "id": "after_image",
+            "label":"t:global.general_labels.image"
+    },
+    {
+      "type": "text",
+      "id": "after_text",
+      "label":"t:global.general_labels.text",
+      "default": "After"
+    },
+    {
+      "type": "header",
+       "content": "t:global.section_spacing.label"
+    },
+     {
+      "type": "number",
+      "id": "top_space_desktop",
+      "label": "t:global.section_spacing.top_space_desktop.label",
+      "default": 80,
+
+    },
+    {
+      "type": "number",
+      "id": "bottom_space_desktop",
+       "label": "t:global.section_spacing.bottom_space_desktop.label",
+      "default": 80
+
+    },
+    {
+      "type": "number",
+      "id": "top_space_mobile",
+      "label": "t:global.section_spacing.top_space_mobile.label",
+      "default": 40
+    },
+    {
+      "type": "number",
+      "id": "bottom_space_mobile",
+      "label": "t:global.section_spacing.bottom_space_mobile.label",
+      "default": 40
+    }
+  ],
+  "presets": [
+    {
+       "name": "t:sections.compare.presets.name"
+    }
+  ]
+}
+{% endschema %}

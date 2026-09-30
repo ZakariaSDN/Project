@@ -1,0 +1,68 @@
+.logo-list-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.logo-list-card.marquee-true {
+  display: flex;
+}
+
+.logo-list-card.marquee-true .logo-list-grid {
+  animation-name: scrolling-text-left;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+  animation-duration: var(--marquee-duration);
+  animation-play-state: running;
+  width: max-content;
+  will-change: transform;
+  flex: 0 0 auto;
+}
+
+.logo-list-card.marquee-true:hover .logo-list-grid {
+  animation-play-state: paused;
+}
+
+.logo-list-card.marquee-true.marquee-direction-left .logo-list-grid {
+  animation-name: scrolling-text-right;
+}
+.logo-list-item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 15px;
+  width: 100%;
+  flex: 0 0 100%;
+}
+
+.logo-list-item.image-large {
+  max-width: 350px;
+}
+
+.logo-list-item.image-medium {
+  max-width: 250px;
+}
+
+.logo-list-item.image-small {
+  max-width: 150px;
+}
+
+@keyframes scrolling-text-left {
+  0% {
+    transform: translate3d(0, 0, 0);
+    visibility: visible;
+  }
+  100% {
+    transform: translate3d(-100%, 0, 0);
+  }
+}
+
+@keyframes scrolling-text-right {
+  0% {
+    transform: translate3d(-100%, 0, 0);
+    visibility: visible;
+  }
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+}

@@ -1,0 +1,101 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "type": "custom.Overlay",
+  "name": "Overlay",
+  "sections": {
+    "quick-view": {
+      "type": "quick-view",
+      "blocks": {
+        "quick-view-4": {
+          "type": "price",
+          "settings": {
+            "hide_shipping_content": false
+          }
+        },
+        "quick-view-2": {
+          "type": "sku",
+          "settings": {}
+        },
+        "quick-view-0": {
+          "type": "title",
+          "settings": {}
+        },
+        "quick-view-3": {
+          "type": "inventory",
+          "settings": {
+            "minimun_inventory": 10
+          }
+        },
+        "quick-view-5": {
+          "type": "variant",
+          "settings": {}
+        },
+        "quick-view-6": {
+          "type": "button",
+          "settings": {
+            "enable_quantity": true,
+            "dynamic_checkout_btn": true,
+            "show_recipient_form": false
+          }
+        },
+        "quick-view-7": {
+          "type": "share",
+          "settings": {
+            "enable_social_share": true
+          }
+        }
+      },
+      "block_order": [
+        "quick-view-4",
+        "quick-view-2",
+        "quick-view-0",
+        "quick-view-3",
+        "quick-view-5",
+        "quick-view-6",
+        "quick-view-7"
+      ],
+      "settings": {}
+    },
+    "age-verification": {
+      "type": "age-verification",
+      "disabled": true,
+      "settings": {
+        "color_scheme": "scheme-21e0af83-5226-4a42-8885-f0a80bd87a74",
+        "enable_age_verification": true,
+        "age_verification_heading": "Confirm your age",
+        "age_verification_content": "Are you 18 years old or older?",
+        "decline_text": "No, I'm not",
+        "approve_text": "Yes, I am",
+        "decline_heading": "Come back when you're older",
+        "decline_subheading": "Sorry, the content of this store can't be seen by a younger audience. Come back when you're older.",
+        "age_decline_button_text": "Oops, I entered incorrectly",
+        "agepopup_cookie_set": 10
+      }
+    },
+    "newsletter-popup": {
+      "type": "newsletter-popup",
+      "disabled": true,
+      "settings": {
+        "color_scheme": "one",
+        "newsletter_enable": true,
+        "image_position": "left",
+        "newsletter_heading": "Sign up and get 20% off first order",
+        "newsletter_content": "<p>Subscribe to our newsletter and be the first to hear about our new arrivals.</p>",
+        "popup_cookie_set": 2
+      }
+    }
+  },
+  "order": [
+    "quick-view",
+    "age-verification",
+    "newsletter-popup"
+  ]
+}

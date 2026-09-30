@@ -1,0 +1,217 @@
+bundle-product-wrapper.grid-wrapper-flex {
+  margin: 0;
+}
+
+bundle-product-wrapper > .grid-item-md-6 {
+  padding: 0px;
+}
+
+.product-bundle-offers-img {
+  position: relative;
+  width: 100%;
+  height: auto;
+  padding: 60px 0px;
+}
+
+.bundle-image-wrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  visibility: hidden;
+  overflow: hidden;
+}
+
+.bundle-image-wrapper :is(img, svg) {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+  transition: all 0.5s cubic-bezier(0.4, 0, 1, 1);
+}
+
+.bundle-image-wrapper:not(.active) :is(img, svg) {
+  transform: translate3d(-0.007vw, -0.001vh, 0px) scale3d(1.4, 1.4, 1)
+    rotateX(0deg) rotateY(0deg) rotateZ(-8deg) skew(0deg, 0deg);
+  display: block;
+  transform-style: preserve-3d;
+  opacity: 0.8;
+}
+
+.bundle-image-wrapper.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.product-bundle-offers-list-wrapper {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 30px 16px;
+}
+.product-bundle-offers-list {
+  max-height: calc(100% - 2rem);
+  overflow-y: auto;
+  padding: 2px 0;
+}
+
+.product-bundle-offers-list li {
+  text-align: center;
+  cursor: pointer;
+}
+
+.product-bundle-offers-list li + li {
+  margin-top: 16px;
+}
+
+.product-bundle-offers-list li a {
+  display: inline-flex;
+  align-items: center;
+  position: relative;
+}
+
+.product-bundle-offers-list li a::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 0;
+  height: 3px;
+  background-color: currentColor;
+  transition: all 0.3s ease-in-out;
+}
+
+.product-bundle-offers-list li:is(.active, :hover) a:before {
+  width: 100%;
+}
+
+.product-bundle-offers-list li a span {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  min-width: 28px;
+  height: 28px;
+  background-color: rgb(var(--color-button-background));
+  color: rgb(var(--color-button-text));
+  border-radius: 50%;
+  margin-left: 0;
+  opacity: 0;
+  transition: margin-left 0.3s, opacity 0.4s ease-in-out;
+}
+
+.product-bundle-offers-list li a span svg {
+  width: 8px;
+  min-width: auto;
+  height: auto;
+}
+
+.product-bundle-offers-list li a:focus-visible span,
+.product-bundle-offers-list li:is(.active, :hover) a span {
+  margin-left: 20px;
+  opacity: 1;
+}
+
+.product-bundle-subtitle {
+  display: block;
+  margin-bottom: 20px;
+}
+
+.product-bundle-offers {
+  padding: 20px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.product-bundle-grid {
+  width: 100%;
+  margin: 20px 0;
+}
+
+.product-bundle-grid .grid-wrapper-flex {
+  gap: var(--space-column, 0px);
+  width: 100%;
+  justify-content: center;
+  margin: 0px;
+}
+
+.product-bundle-grid .product-card-item {
+  flex: 0 0 100%;
+  width: 100%;
+  max-width: calc(80% - var(--space-column, 0px));
+}
+
+.product-bundle-offers .button {
+  margin-top: 30px;
+  padding: 8px 20px;
+  min-height: 48px;
+}
+
+.product-bundle-offers-inner {
+  display: none;
+  width: 100%;
+}
+
+.product-bundle-offers-inner.active {
+  display: block;
+}
+
+.text-align-center .price-sale {
+  justify-content: center;
+}
+
+@media (min-width: 768px) {
+  .product-bundle-grid .product-card-item {
+    max-width: calc(33.3333% - var(--space-column, 0px));
+  }
+}
+
+@media (min-width: 992px) {
+  .product-bundle-offers-img {
+    height: 100vh;
+  }
+  .product-bundle-offers-list-wrapper {
+    padding: 60px;
+  }
+  .product-bundle-offers-list li a span {
+    width: 42px;
+    min-width: 42px;
+    height: 42px;
+  }
+  .product-bundle-offers-list li + li {
+    margin-top: 26px;
+  }
+  .product-bundle-grid .product-card-item {
+    max-width: calc(33.33333% - var(--space-column, 0px));
+  }
+}
+
+@media (min-width: 1025px) {
+  .product-bundle-offers {
+    padding: 100px;
+  }
+}
+
+@media (max-width: 767px) {
+  .product-bundle-grid {
+    margin: 20px 0 0;
+  }
+  .product-bundle-grid .grid-wrapper-flex {
+    flex-wrap: nowrap;
+    --space-column: 4px;
+  }
+  .product-bundle-grid .product-card-item {
+    max-width: calc(100% / 3 - var(--space-column, 0px));
+  }
+  .product-bundle-offers {
+    padding: 40px 20px;
+  }
+}

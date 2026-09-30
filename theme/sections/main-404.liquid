@@ -1,0 +1,120 @@
+<div class="section-space color-scheme-{{ section.settings.color_scheme }}">
+  <div class="page-404-inner">
+    <div class="container">
+      <div class="page-404 text-align-center">
+        {% if section.settings.heading != blank %}
+          <h2 class="heading-main {{ section.settings.heading_size }}">{{ section.settings.heading }}</h2>
+        {% endif %}
+        {% if section.settings.description != blank %}
+          <div class="text-size-large">{{ section.settings.description }}</div>
+        {% endif %}
+        {% if section.settings.text != blank %}
+          <a
+            class="button button--secondary btn-{{ section.settings.btn_size }}"
+            href="{{ section.settings.link | default: routes.all_products_collection_url }}"
+            is="hover-link"
+          >
+            <span class="btn-text">{{ section.settings.text }}</span>
+          </a>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "t:sections.404.name",
+  "settings": [
+     {
+        "type": "color_scheme",
+        "id": "color_scheme",
+        "default": "primary",
+      "label": "t:global.color_scheme.label"
+    },
+    {
+            "type": "inline_richtext",
+            "id": "heading",
+            "default": "Page not found",
+            "label":"t:global.general_labels.heading"
+          },
+          {
+            "type": "select",
+            "id": "heading_size",
+            "default": "h1",
+             "label": "t:global.heading_size.label",
+            "options": [
+              {
+                "value": "h1",
+                "label": "t:global.heading_size.options.h1.label"
+              },
+              {
+                "value": "h2",
+                "label": "t:global.heading_size.options.h2.label"
+              },
+              {
+                "value": "h3",
+                  "label": "t:global.heading_size.options.h3.label"
+              },
+              {
+                "value": "h4",
+               "label": "t:global.heading_size.options.h4.label"
+              },
+              {
+                "value": "h5",
+                 "label": "t:global.heading_size.options.h5.label"
+              },
+             {
+                "value": "h6",
+                "label": "t:global.heading_size.options.h6.label"
+              }
+            ]
+          },
+          {
+            "type":"richtext",
+            "id":"description",
+            "label":"t:global.general_labels.description",
+            "default":"<p> You could try returning to the previous page.</p>"
+          },
+          {
+            "type": "header",
+            "content": "t:global.general_labels.button"
+          },
+          {
+            "type":"text",
+            "id":"text",
+            "label":"t:global.general_labels.text",
+            "default":"Shop now"
+          },
+          {
+            "type":"url",
+            "id":"link",
+            "label":"t:global.general_labels.link",
+          },
+          {
+          "type": "select",
+          "id": "btn_size",
+           "label": "t:global.btn_size.label",
+          "default": "medium",
+          "options": [
+            {
+              "value": "xsmall",
+              "label": "t:global.btn_size.options.xsmall.label"
+            },
+            {
+              "value": "small",
+              "label": "t:global.btn_size.options.small.label"
+            },
+            {
+              "value": "medium",
+              "label": "t:global.btn_size.options.medium.label"
+            },
+            {
+              "value": "large",
+              "label": "t:global.btn_size.options.large.label"
+            }
+          ]
+        },
+  ]
+}
+{% endschema %}

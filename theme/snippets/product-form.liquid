@@ -1,0 +1,112 @@
+{% liquid
+  assign preorder = false
+  if settings.enable_preorder and current_variant.inventory_quantity <= 0 and current_variant.inventory_policy == 'continue'
+    assign preorder = true
+  endif
+  assign gift_card_recipient = false
+  if block.settings.show_recipient_form and product.gift_card?
+    assign gift_card_recipient = true
+  endif
+%}
+<{% if product != blank %}product-form{% else %}div{% endif %}
+  class="product-info-add-to-cart"
+  data-hide-errors="{{ gift_card_recipient }}"
+  data-section-id="{{ section.id }}"
+>
+  <div class="product-form__error-message-wrapper " role="alert" hidden="">
+    <span class="product-form__error-message form-message error"></span>
+  </div>
+  {% if product != blank %}
+    {%- form 'product',
+      product,
+      id: product_form_id,
+      class: 'form main-product-form',
+      novalidate: 'novalidate',
+      data-type: 'add-to-cart-form'
+    -%}
+      <input
+        type="hidden"
+        class="product-variant-id"
+        name="id"
+        value="{{ product.selected_or_first_available_variant.id  }}"
+      >
+      {% if gift_card_recipient %}
+        {%- render 'gift-card-recipient-form', product: product, form: form, section: section -%}
+      {% endif %}
+
+      <div class="add-to-cart-wrapper">
+        {% if block.settings.enable_quantity %}
+          {% render 'quantity', product_form_id: product_form_id, quntity_text: true %}
+        {% endif %}
+        <button
+          type="submit"
+          name="add"
+          class="addtocart-button button-outline button button-medium {% if block.settings.dynamic_checkout_btn %}  dynamic-checkout-enabled {% endif %}"
+          {%- unless current_variant.available -%}
+            disabled
+          {% endunless %}
+          {% if settings.enable_cartdrawer %}
+            data-add-to-cart
+          {% endif %}
+          data-addtocart-main
+        >
+          <span class="button-text" data-addtocart-text>
+            {%- unless current_variant.available -%}
+              {{ 'products.product.sold_out' | t }}
+            {%- else -%}
+              {%- if preorder -%}
+                Preorder
+              {%- else -%}
+                {{ 'products.product.add_to_cart' | t }}
+              {%- endif -%}
+            {%- endunless -%}
+          </span> 
+          <span class="spinner-loading-btn btn-loader hidden">
+            <svg class="btn-loader-icon" viewBox="0 0 24 24">
+              <circle cx="4" cy="12" r="3" fill="currentColor">
+                <animate id="svg3DotsScale0" attributeName="r" begin="0;svg3DotsScale1.end-0.375s" dur="1.125s" values="3;.2;3"></animate>
+              </circle>
+              <circle cx="12" cy="12" r="3" fill="currentColor">
+                <animate attributeName="r" begin="svg3DotsScale0.end-0.9s" dur="1.125s" values="3;.2;3"></animate>
+              </circle>
+              <circle cx="20" cy="12" r="3" fill="currentColor">
+                <animate id="svg3DotsScale1" attributeName="r" begin="svg3DotsScale0.end-0.675s" dur="1.125s" values="3;.2;3"></animate>
+              </circle>
+            </svg>
+          </span>
+        </button>
+        
+        {%- if block.settings.dynamic_checkout_btn -%}
+          {{ form | payment_button }}
+        {%- endif -%}
+      </div>
+    {% endform %}
+  {% else %}
+    <div class="add-to-cart-wrapper">
+      {% if block.settings.enable_quantity %}
+        <div class="label-text">{{ 'products.product.quantity.label' | t }}</div>
+        {% render 'quantity', product_form_id: product_form_id, quntity_text: false %}
+      {% endif %}
+      <button class="addtocart-button button-outline button button-medium" disabled>
+        <span>{{ 'products.product.sold_out' | t }}</span>
+      </button>
+    </div>
+  {% endif %}
+</{% if product != blank %}product-form{% else %}div{% endif %}>
+{% comment %}
+
+This file has been rewritten to preserve the original behavior.
+
+---
+Changes:
+- from: "{% render 'quantity' product, product_form_id: product_form_id,quntity_text:true
+    %}"
+  to: "{% render 'quantity', product_form_id: product_form_id, quntity_text: true
+    %}"
+  position: 1312..1389
+- from: "{% render 'quantity' product, product_form_id: product_form_id,quntity_text:false
+    %}"
+  to: "{% render 'quantity', product_form_id: product_form_id, quntity_text: false
+    %}"
+  position: 3446..3524
+{% endcomment %}

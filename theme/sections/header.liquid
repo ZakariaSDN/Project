@@ -1,0 +1,524 @@
+{{ 'header.css' | asset_url | stylesheet_tag }}
+{% liquid
+  assign enlargedLogo = false
+  if section.settings.enlarged_logo and request.page_type == 'index' and section.settings.logo_position == 'center'
+    if section.settings.transparent_header and section.settings.transparent_logo != blank
+      assign enlargedLogo = true
+    elsif section.settings.logo != blank
+      assign enlargedLogo = true
+    else
+      assign enlargedLogo = true
+    endif
+  endif
+%}
+{%- comment -%}
+  IMPORTANT : dans un bloc {% liquid %}, ne rien mettre sur la même ligne que
+  "when" ou "else" dans un {% case %}.
+{%- endcomment -%}
+{% liquid
+  assign tagline_ff = 'inherit'
+  case section.settings.tagline_font_family
+    when 'heading'
+      assign tagline_ff = 'var(--font-heading-family)'
+    when 'body'
+      assign tagline_ff = 'var(--font-body-family)'
+    when 'system-sans'
+      assign tagline_ff = 'system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,Noto Sans,Helvetica Neue,Arial,sans-serif'
+    when 'serif'
+      assign tagline_ff = 'Georgia,Times,Times New Roman,serif'
+    else
+      assign tagline_ff = 'inherit'
+  endcase
+%}
+<style>
+  /* ========= Variables section ========= */
+  #shopify-section-{{ section.id }}{
+    /* Menu */
+    --menu-fs-d: {{ section.settings.menu_font_size_desktop }}px;
+    --menu-fs-m: {{ section.settings.menu_font_size_mobile }}px;
+    --menu-ls: {{ section.settings.menu_letter_spacing }}px;
+    --menu-fw: {{ section.settings.menu_font_weight }};
+
+    /* Tagline (texte au-dessus du logo) */
+    --tagline-fs-d: {{ section.settings.tagline_fs_desktop }}px;
+    --tagline-fs-m: {{ section.settings.tagline_fs_mobile }}px;
+    --tagline-fw: {% if section.settings.tagline_bold %}700{% else %}400{% endif %};
+    --tagline-style: {% if section.settings.tagline_italic %}italic{% else %}normal{% endif %};
+    --tagline-color: {{ section.settings.tagline_color }};
+    --tagline-ff: {{ tagline_ff }};
+
+    /* Espacements desktop */
+    --tagline-mt-d: {{ section.settings.tagline_margin_top_desktop }}px;
+    --tagline-mb-d: {{ section.settings.tagline_margin_bottom_desktop }}px;
+    --logo-mt-d: {{ section.settings.logo_margin_top_desktop }}px;
+    --logo-mb-d: {{ section.settings.logo_margin_bottom_desktop }}px;
+
+    /* Espacements mobile */
+    --tagline-mt-m: {{ section.settings.tagline_margin_top_mobile }}px;
+    --tagline-mb-m: {{ section.settings.tagline_margin_bottom_mobile }}px;
+    --logo-mt-m: {{ section.settings.logo_margin_top_mobile }}px;
+    --logo-mb-m: {{ section.settings.logo_margin_bottom_mobile }}px;
+
+    /* Décalages horizontaux (logo & tagline) */
+    --logo-shift-d: {{ section.settings.logo_shift_desktop }}px;
+    --logo-shift-m: {{ section.settings.logo_shift_mobile }}px;
+    --tagline-shift-d: {{ section.settings.tagline_shift_desktop }}px;
+    --tagline-shift-m: {{ section.settings.tagline_shift_mobile }}px;
+
+    /* ===== Badge Made in France ===== */
+    --badge-size-d: {{ section.settings.badge_logo_size_desktop | default: 24 }}px;
+    --badge-size-m: {{ section.settings.badge_logo_size_mobile  | default: 20 }}px;
+
+    /* Position absolue du badge (depuis le bord droit) */
+    --badge-right-d: {{ section.settings.badge_right_desktop | default: 16 }}px;
+    --badge-right-m: {{ section.settings.badge_right_mobile  | default: 12 }}px;
+
+    /* Micro décalage fin (gauche/droite) */
+    --badge-shift-d: {{ section.settings.badge_shift_desktop | default: 0 }}px;
+    --badge-shift-m: {{ section.settings.badge_shift_mobile  | default: 0 }}px;
+
+    /* NOUVEAU : Décalage vertical (positif = vers le bas, négatif = vers le haut) */
+    --badge-vshift-d: {{ section.settings.badge_vshift_desktop | default: 0 }}px;
+    --badge-vshift-m: {{ section.settings.badge_vshift_mobile  | default: 0 }}px;
+  }
+
+  /* ========= Menu ========= */
+  @media (min-width:768px){
+    #shopify-section-{{ section.id }} .site-navbar nav a,
+    #shopify-section-{{ section.id }} .site-navbar .menu a,
+    #shopify-section-{{ section.id }} .header-navigation a,
+    #shopify-section-{{ section.id }} .main-menu a,
+    #shopify-section-{{ section.id }} .menu-lists > li > a{
+      font-size: var(--menu-fs-d) !important;
+      letter-spacing: var(--menu-ls);
+      font-weight: var(--menu-fw);
+      line-height: 1.2;
+    }
+  }
+  @media (max-width:767px){
+    #shopify-section-{{ section.id }} .site-navbar nav a,
+    #shopify-section-{{ section.id }} .site-navbar .menu a,
+    #shopify-section-{{ section.id }} .header-navigation a,
+    #shopify-section-{{ section.id }} .main-menu a,
+    #shopify-section-{{ section.id }} .menu-lists > li > a{
+      font-size: var(--menu-fs-m) !important;
+      letter-spacing: var(--menu-ls);
+      font-weight: var(--menu-fw);
+      line-height: 1.25;
+    }
+  }
+
+  .drawer-body product-recommendations.product-recommendations { min-height:100px; }
+
+  {% if enlargedLogo %}
+  .header-wrapper .enlarged-logo-wrapper {
+    position: relative;
+    width: {{ section.settings.desktop_logo_width }}px;
+    {% if section.settings.transparent_header and section.settings.transparent_logo != blank %}
+      height: {{ section.settings.desktop_logo_width | divided_by: section.settings.transparent_logo.aspect_ratio | round }}px;
+    {% else %}
+      height: {{ section.settings.desktop_logo_width | divided_by: section.settings.logo.aspect_ratio | round }}px;
+    {% endif %}
+  }
+  .header-wrapper.header-fill .enlarged-logo-wrapper {
+    height: {{ section.settings.desktop_logo_width | divided_by: section.settings.logo.aspect_ratio | round }}px;
+  }
+  .enlarged-logo-wrapper.dummy-logo{ height:32px; }
+  {% endif %}
+
+  @media (max-width: 767px) {
+    {% if enlargedLogo %}
+    .header-wrapper.header-fill .enlarged-logo-wrapper, .header-wrapper .enlarged-logo-wrapper {
+      width: {{ section.settings.mobile_logo_width }}px;
+      {% if section.settings.transparent_header and section.settings.transparent_logo != blank %}
+        height: {{ section.settings.mobile_logo_width | divided_by: section.settings.transparent_logo.aspect_ratio | round }}px;
+      {% else %}
+        height: {{ section.settings.mobile_logo_width | divided_by: section.settings.logo.aspect_ratio | round }}px;
+      {% endif %}
+    }
+    {% else %}
+    .header-wrapper .logo-image-wrapper { max-width: {{ section.settings.mobile_logo_width }}px; }
+    {% endif %}
+  }
+
+  /* ========= Tagline ========= */
+  #shopify-section-{{ section.id }} .header-tagline{
+    display: block;
+    text-align: center;
+    font-size: var(--tagline-fs-d);
+    font-weight: var(--tagline-fw);
+    font-style: var(--tagline-style);
+    color: var(--tagline-color);
+    font-family: var(--tagline-ff);
+    margin-top: var(--tagline-mt-d);
+    margin-bottom: var(--tagline-mb-d);
+    transform: translateX(var(--tagline-shift-d));
+  }
+  @media (max-width:767px){
+    #shopify-section-{{ section.id }} .header-tagline{
+      font-size: var(--tagline-fs-m);
+      margin-top: var(--tagline-mt-m);
+      margin-bottom: var(--tagline-mb-m);
+      transform: translateX(var(--tagline-shift-m));
+    }
+  }
+
+  /* ========= Logo spacing + shift ========= */
+  #shopify-section-{{ section.id }} .site-header-logo{
+    margin-top: var(--logo-mt-d);
+    margin-bottom: var(--logo-mb-d);
+    transform: translateX(var(--logo-shift-d));
+  }
+  @media (max-width:767px){
+    #shopify-section-{{ section.id }} .site-header-logo{
+      margin-top: var(--logo-mt-m);
+      margin-bottom: var(--logo-mb-m);
+      transform: translateX(var(--logo-shift-m));
+    }
+  }
+
+  /* ========= Centrage du logo (option) ========= */
+  {% if section.settings.center_logo_desktop %}
+    @media (min-width:768px){
+      #shopify-section-{{ section.id }} .site-header-logo{
+        margin-left:auto;
+        margin-right:auto;
+        text-align:center;
+      }
+    }
+  {% endif %}
+  {% if section.settings.center_logo_mobile %}
+    @media (max-width:767px){
+      #shopify-section-{{ section.id }} .site-header-logo{
+        margin-left:auto;
+        margin-right:auto;
+        text-align:center;
+      }
+    }
+  {% endif %}
+
+  /* ========= Badge Made in France ========= */
+  /* Pour ancrer le badge sans impacter la grille */
+  #shopify-section-{{ section.id }} .site-navbar{ position: relative; }
+
+  #shopify-section-{{ section.id }} .header-madein-badge{
+    position: absolute;
+    top: 50%;
+    right: var(--badge-right-d);
+    transform: translateY(calc(-50% + var(--badge-vshift-d))) translateX(var(--badge-shift-d));
+    display: inline-flex;
+    align-items: center;
+    z-index: 3;
+  }
+  #shopify-section-{{ section.id }} .header-madein-badge img{
+    width: var(--badge-size-d);
+    height: var(--badge-size-d);
+    border-radius: 9999px;
+    object-fit: cover;
+    display: block;
+  }
+  @media (max-width:767px){
+    #shopify-section-{{ section.id }} .header-madein-badge{
+      right: var(--badge-right-m);
+      transform: translateY(calc(-50% + var(--badge-vshift-m))) translateX(var(--badge-shift-m));
+    }
+    #shopify-section-{{ section.id }} .header-madein-badge img{
+      width: var(--badge-size-m);
+      height: var(--badge-size-m);
+    }
+  }
+</style>
+
+<main-header
+  class="header-wrapper {% if section.settings.sticky_header %} is-sticky{% if section.settings.header_header_on_scroll %} hide-on-scroll{% endif %}{% endif %}{% if section.settings.transparent_header and request.page_type == 'index' %} transparency-header{% else %} header-fill{% endif %}">
+  {% liquid
+    assign headerStyleClass = 'logo-left'
+    if section.settings.logo_position == 'left' and section.settings.menu_position == 'left'
+      assign headerStyleClass = 'logo-with-menu-left'
+    elsif section.settings.logo_position == 'left' and section.settings.menu_position == 'center'
+      assign headerStyleClass = 'logo-with-menu-center'
+    elsif section.settings.logo_position == 'center' and section.settings.menu_position == 'center'
+      assign headerStyleClass = 'logo-center-below-menu'
+    elsif section.settings.logo_position == 'center' and section.settings.menu_position == 'left'
+      assign headerStyleClass = 'logo-center-menu-left'
+    endif
+  %}
+  <div class="container">
+    <div class="site-navbar {{ headerStyleClass }}">
+      <header-drawer class="header-drawer-btn">
+        <button class="header-menu-btn" aria-label="hamburger menu">
+          <span></span><span></span>
+        </button>
+      </header-drawer>
+
+      {% capture logoContent %}
+      <div class="site-header-item site-header-logo{% if enlargedLogo %} enlarged-logo{% endif %}">
+        {%- if section.settings.tagline_text != blank -%}
+          <div class="header-tagline">{{ section.settings.tagline_text }}</div>
+        {%- endif -%}
+
+        {% capture logo %}
+        <a
+          class="logo-image-wrapper{% if section.settings.transparent_header and request.page_type == 'index' and section.settings.transparent_logo != blank %} main-header-logo{% endif %}"
+          href="{{ routes.root_url }}"
+          aria-label="{{ shop.name }}" data-header-logo>
+          {%- if section.settings.logo != blank -%}
+            {%- assign image_2x_size = section.settings.desktop_logo_width | times: 2 | at_most: 2560 -%}
+            <img
+              class="logo-img"
+              srcset="{{ section.settings.logo | image_url: width: section.settings.desktop_logo_width }} 1x, {{ section.settings.logo | image_url: width: image_2x_size }} 2x"
+              src="{{ section.settings.logo | image_url: width: section.settings.desktop_logo_width }}"
+              loading="lazy"
+              width="{{ section.settings.desktop_logo_width }}"
+              height="{{ section.settings.desktop_logo_width | divided_by : section.settings.logo.aspect_ratio | round }}"
+              alt="{{ section.settings.logo.alt | default: shop.name | escape }}">
+          {% else %}
+            {% if enlargedLogo %}
+              <img class="logo-img" src="{{ 'header-logo.svg' | asset_url }}" loading="lazy" width="250" height="32" alt="{{ shop.name }}">
+            {% else %}
+              <span class="logo-text h6">{{ shop.name }}</span>
+            {% endif %}
+          {% endif %}
+        </a>
+        {% if section.settings.transparent_header and request.page_type == 'index' and section.settings.transparent_logo != blank %}
+          <a class="logo-image-wrapper transparent-header-logo" href="{{ routes.root_url }}" aria-label="{{ shop.name }}">
+            {%- assign image_2x_size = section.settings.desktop_logo_width | times: 2 | at_most: 2560 -%}
+            <img
+              class="logo-img"
+              srcset="{{ section.settings.transparent_logo | image_url: width: section.settings.desktop_logo_width }} 1x, {{ section.settings.transparent_logo | image_url: width: image_2x_size }} 2x"
+              src="{{ section.settings.transparent_logo | image_url: width: section.settings.desktop_logo_width }}"
+              loading="lazy"
+              width="{{ section.settings.desktop_logo_width }}"
+              height="{{ section.settings.desktop_logo_width | divided_by : section.settings.logo.aspect_ratio | round }}"
+              alt="{{ section.settings.transparent_logo.alt | default: shop.name | escape }}">
+          </a>
+        {% endif %}
+      {% endcapture %}
+        {% if enlargedLogo %}
+          <div class="enlarged-logo-wrapper {% if section.settings.logo == blank %}dummy-logo{% endif %}">{{ logo }}</div>
+        {% else %}
+          {{ logo }}
+        {% endif %}
+      </div>
+      {% endcapture %}
+
+      {% capture badgeLogo %}
+        {% if section.settings.badge_logo != blank %}
+          <div class="header-madein-badge" role="img" aria-label="{{ section.settings.badge_logo_alt | default: 'Made in France' | escape }}">
+            <img
+              src="{{ section.settings.badge_logo | image_url: width: 160 }}"
+              alt="{{ section.settings.badge_logo_alt | default: 'Made in France' | escape }}"
+              width="{{ section.settings.badge_logo.width }}"
+              height="{{ section.settings.badge_logo.height }}">
+          </div>
+        {% endif %}
+      {% endcapture %}
+
+      {% liquid
+        if section.settings.logo_position == 'center' and section.settings.menu_position == 'center'
+          echo logoContent
+          render 'header-utility', section: section
+          render 'header-navigation', section: section
+          echo badgeLogo
+        elsif section.settings.logo_position == 'center' and section.settings.menu_position == 'left'
+          render 'header-navigation', section: section
+          echo logoContent
+          render 'header-utility', section: section
+          echo badgeLogo
+        else
+          echo logoContent
+          render 'header-navigation', section: section
+          render 'header-utility', section: section
+          echo badgeLogo
+        endif
+      %}
+    </div>
+  </div>
+</main-header>
+
+{% liquid
+  render 'mobile-nav', section: section
+  unless request.page_type == 'search'
+    render 'search-drawer', section: section
+  endunless
+%}
+<script type="text/javascript" src="{{ 'header.js' | asset_url }}" defer="defer"></script>
+
+{% schema %}
+{
+  "name": "t:sections.header.name",
+  "tag": "header",
+  "class": "section-main-header",
+  "settings": [
+    { "type": "checkbox", "id": "sticky_header", "default": false, "label": "t:sections.header.settings.sticky_header.label" },
+    { "type": "checkbox", "id": "header_header_on_scroll", "default": false, "label": "t:sections.header.settings.header_header_on_scroll.label" },
+    { "type": "checkbox", "id": "transparent_header", "default": false, "label": "t:sections.header.settings.transparent_header.label" },
+    { "type": "checkbox", "id": "enlarged_logo", "default": false, "label": "t:sections.header.settings.enlarged_logo.label", "info": "t:sections.header.settings.enlarged_logo.info" },
+
+    { "type": "header", "content": "Logo" },
+    { "type": "image_picker", "id": "logo", "label": "Logo" },
+    { "type": "image_picker", "id": "transparent_logo", "label": "Logo (entête transparent)" },
+
+    { "type": "number", "id": "desktop_logo_width", "label": "Largeur du logo desktop (px)", "default": 100 },
+    { "type": "number", "id": "mobile_logo_width",  "label": "Largeur du logo mobile (px)",  "default": 80  },
+
+    { "type": "select", "id": "logo_position", "label": "Position du logo dans la grille", "default": "left",
+      "options": [
+        { "label": "Gauche", "value": "left" },
+        { "label": "Centre", "value": "center" }
+      ]
+    },
+
+    { "type": "header", "content": "Navigation" },
+    { "type": "link_list", "id": "menu", "default": "main-menu", "label": "Menu principal" },
+    { "type": "select", "id": "menu_position", "label": "Position du menu", "default": "center",
+      "options": [
+        { "label": "Gauche", "value": "left" },
+        { "label": "Centre", "value": "center" }
+      ]
+    },
+
+    { "type": "header", "content": "Taille du menu" },
+    { "type": "number", "id": "menu_font_size_desktop", "label": "Taille des liens (desktop, px)", "default": 16 },
+    { "type": "number", "id": "menu_font_size_mobile",  "label": "Taille des liens (mobile, px)",  "default": 14 },
+    { "type": "number", "id": "menu_letter_spacing",    "label": "Espacement des lettres (px)",   "default": 0  },
+    { "type": "select", "id": "menu_font_weight", "label": "Graisse du texte", "default": "500",
+      "options": [
+        { "value": "400", "label": "Normal (400)" },
+        { "value": "500", "label": "Médium (500)" },
+        { "value": "600", "label": "Semi-gras (600)" },
+        { "value": "700", "label": "Gras (700)" }
+      ]
+    },
+
+    { "type": "header", "content": "Texte au-dessus du logo" },
+    { "type": "text",   "id": "tagline_text", "label": "Texte", "default": "Couleur Safran Cannes" },
+    { "type": "number", "id": "tagline_fs_desktop", "label": "Taille du texte (desktop, px)", "default": 16 },
+    { "type": "number", "id": "tagline_fs_mobile",  "label": "Taille du texte (mobile, px)",  "default": 14 },
+    { "type": "checkbox", "id": "tagline_bold",   "label": "Texte en gras",     "default": false },
+    { "type": "checkbox", "id": "tagline_italic", "label": "Texte en italique", "default": false },
+    { "type": "color",    "id": "tagline_color",  "label": "Couleur du texte",  "default": "#111111" },
+    { "type": "select",   "id": "tagline_font_family", "label": "Famille de police", "default": "heading",
+      "options": [
+        { "value": "heading", "label": "Police des titres du thème" },
+        { "value": "body",    "label": "Police du corps du thème" },
+        { "value": "system-sans", "label": "Système sans-serif" },
+        { "value": "serif",       "label": "Serif" },
+        { "value": "inherit",     "label": "Hériter du thème" }
+      ]
+    },
+
+    { "type": "header", "content": "Espacement du texte (tagline)" },
+    { "type": "number", "id": "tagline_margin_top_desktop",    "label": "Marge haute (desktop, px)", "default": 25 },
+    { "type": "number", "id": "tagline_margin_bottom_desktop", "label": "Marge basse (desktop, px)", "default": 0  },
+    { "type": "number", "id": "tagline_margin_top_mobile",     "label": "Marge haute (mobile, px)",  "default": 20 },
+    { "type": "number", "id": "tagline_margin_bottom_mobile",  "label": "Marge basse (mobile, px)",  "default": 10 },
+
+    { "type": "header", "content": "Espacement du logo" },
+    { "type": "number", "id": "logo_margin_top_desktop",    "label": "Marge haute (desktop, px)", "default": 0  },
+    { "type": "number", "id": "logo_margin_bottom_desktop", "label": "Marge basse (desktop, px)", "default": 25 },
+    { "type": "number", "id": "logo_margin_top_mobile",     "label": "Marge haute (mobile, px)",  "default": 0  },
+    { "type": "number", "id": "logo_margin_bottom_mobile",  "label": "Marge basse (mobile, px)",  "default": 20 },
+
+    { "type": "header", "content": "Décalage horizontal (gauche/droite)" },
+    { "type": "number", "id": "logo_shift_desktop",    "label": "Décalage du logo (desktop, px)", "default": 0 },
+    { "type": "number", "id": "logo_shift_mobile",     "label": "Décalage du logo (mobile, px)",  "default": 0 },
+    { "type": "number", "id": "tagline_shift_desktop", "label": "Décalage du texte (desktop, px)", "default": 0 },
+    { "type": "number", "id": "tagline_shift_mobile",  "label": "Décalage du texte (mobile, px)",  "default": 0 },
+
+    { "type": "header", "content": "Centrage du logo" },
+    { "type": "checkbox", "id": "center_logo_desktop", "label": "Centrer le logo sur desktop", "default": false },
+    { "type": "checkbox", "id": "center_logo_mobile",  "label": "Centrer le logo sur mobile",  "default": false },
+
+    { "type": "header", "content": "Icônes" },
+    { "type": "checkbox", "id": "hide_search", "default": false, "label": "Masquer la recherche" },
+    { "type": "checkbox", "id": "hide_account_icon", "default": false, "label": "Masquer l’icône compte" },
+    { "type": "checkbox", "id": "hide_cart_icon", "default": false, "label": "Masquer l’icône panier" },
+
+    { "type": "header", "content": "Recherche" },
+    { "type": "select", "id": "search_drawer_position", "label": "Position du tiroir de recherche", "default": "right",
+      "options": [
+        { "label": "Gauche", "value": "left" },
+        { "label": "Droite", "value": "right" },
+        { "label": "Haut", "value": "top" },
+        { "label": "Bas",  "value": "bottom" }
+      ]
+    },
+    { "type": "textarea", "id": "search_suggestion", "label": "Texte d’aide recherche" },
+    { "type": "product_list", "id": "search_products", "label": "Produits suggérés" },
+
+    { "type": "header", "content": "Badge rond « Made in France »" },
+    { "type": "image_picker", "id": "badge_logo", "label": "Image du badge" },
+    { "type": "text", "id": "badge_logo_alt", "label": "Texte alternatif (accessibilité)", "default": "Made in France" },
+
+    { "type": "range", "id": "badge_logo_size_desktop", "label": "Taille du badge (desktop)", "min": 12, "max": 80, "step": 1, "default": 24, "unit": "px" },
+    { "type": "range", "id": "badge_logo_size_mobile",  "label": "Taille du badge (mobile)",  "min": 12, "max": 80, "step": 1, "default": 20, "unit": "px" },
+
+    { "type": "header", "content": "Position du badge (depuis le bord droit)" },
+    { "type": "number", "id": "badge_right_desktop", "label": "Distance depuis la droite (desktop, px)", "default": 16 },
+    { "type": "number", "id": "badge_right_mobile",  "label": "Distance depuis la droite (mobile, px)",  "default": 12 },
+
+    { "type": "header", "content": "Décalage horizontal (badge)" },
+    { "type": "number", "id": "badge_shift_desktop", "label": "Décalage horizontal (desktop, px)", "default": 0 },
+    { "type": "number", "id": "badge_shift_mobile",  "label": "Décalage horizontal (mobile, px)",  "default": 0 },
+
+    { "type": "header", "content": "Décalage vertical (badge)" },
+    { "type": "number", "id": "badge_vshift_desktop", "label": "Décalage vertical (desktop, px)", "default": 0 },
+    { "type": "number", "id": "badge_vshift_mobile",  "label": "Décalage vertical (mobile, px)",  "default": 0 }
+  ],
+  "blocks": [
+    {
+      "type": "grid",
+      "name": "Mega menu (grille)",
+      "settings": [
+        { "type": "text", "id": "title", "label": "Titre" },
+        { "type": "collection_list", "id": "collection_list", "label": "Collections", "limit": 5 },
+
+        { "type": "header", "content": "Contenu 1" },
+        { "type": "image_picker", "id": "content_image_1", "label": "Image" },
+        { "type": "text", "id": "content_title_1", "label": "Titre" },
+        { "type": "text", "id": "content_subheading_1", "label": "Sous-titre" },
+        { "type": "url",  "id": "content_link_1", "label": "Lien" },
+
+        { "type": "header", "content": "Contenu 2" },
+        { "type": "image_picker", "id": "content_image_2", "label": "Image" },
+        { "type": "text", "id": "content_title_2", "label": "Titre" },
+        { "type": "text", "id": "content_subheading_2", "label": "Sous-titre" },
+        { "type": "url",  "id": "content_link_2", "label": "Lien" },
+
+        { "type": "header", "content": "Contenu 3" },
+        { "type": "image_picker", "id": "content_image_3", "label": "Image" },
+        { "type": "text", "id": "content_title_3", "label": "Titre" },
+        { "type": "text", "id": "content_subheading_3", "label": "Sous-titre" },
+        { "type": "url",  "id": "content_link_3", "label": "Lien" },
+
+        { "type": "header", "content": "Contenu 4" },
+        { "type": "image_picker", "id": "content_image_4", "label": "Image" },
+        { "type": "text", "id": "content_title_4", "label": "Titre" },
+        { "type": "text", "id": "content_subheading_4", "label": "Sous-titre" },
+        { "type": "url",  "id": "content_link_4", "label": "Lien" },
+
+        { "type": "header", "content": "Contenu 5" },
+        { "type": "image_picker", "id": "content_image_5", "label": "Image" },
+        { "type": "text", "id": "content_title_5", "label": "Titre" },
+        { "type": "text", "id": "content_subheading_5", "label": "Sous-titre" },
+        { "type": "url",  "id": "content_link_5", "label": "Lien" },
+
+        { "type": "header", "content": "Contenu 6" },
+        { "type": "image_picker", "id": "content_image_6", "label": "Image" },
+        { "type": "text", "id": "content_title_6", "label": "Titre" },
+        { "type": "text", "id": "content_subheading_6", "label": "Sous-titre" },
+        { "type": "url",  "id": "content_link_6", "label": "Lien" }
+      ]
+    },
+    {
+      "type": "badge",
+      "name": "Badge",
+      "settings": [
+        { "type": "text", "id": "title", "label": "Texte" },
+        { "type": "url",  "id": "link",  "label": "Lien" }
+      ]
+    }
+  ]
+}
+{% endschema %}

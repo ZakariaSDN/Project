@@ -1,0 +1,28 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "main-404",
+      "settings": {
+        "color_scheme": "",
+        "heading": "Page not found",
+        "heading_size": "h1",
+        "description": "<p>The page you're looking for doesn't exist. Let’s get you back on track!</p>",
+        "text": "Shop now",
+        "link": "",
+        "btn_size": "medium"
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

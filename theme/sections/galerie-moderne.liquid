@@ -1,0 +1,464 @@
+{% comment %}
+  Section: Galerie moderne (grande image + vignettes + lightbox)
+  – Sources d’images : Blocs / Liste d’URLs / Médias d’un produit (optionnel)
+  – Taille image principale: ratio par device OU hauteur fixe (mobile/desktop)
+{% endcomment %}
+
+<section id="gallery-{{ section.id }}" class="gallery color-{{ section.settings.color_scheme }}">
+  <style>
+    #gallery-{{ section.id }}{
+      --g-maxw: {% if section.settings.full_width %}100%{% else %}{{ section.settings.max_width }}px{% endif %};
+      --g-pad:  {% if section.settings.full_width %}0{% else %}16px{% endif %};
+      --g-radius: {{ section.settings.corner_radius }}px;
+      --g-shadow: {% if section.settings.shadow %}0 12px 30px rgba(0,0,0,.16){% else %}none{% endif %};
+      --g-title-size: {{ section.settings.title_size }}px;
+      --g-title-weight: {% if section.settings.title_bold %}700{% else %}500{% endif %};
+      --g-title-color: {{ section.settings.title_color }};
+      --g-thumb-h: {{ section.settings.thumb_height }}px;
+      --g-thumb-gap: 10px;
+      --g-thumb-radius: 10px;
+      --g-thumb-ring: {{ section.settings.active_ring_color }};
+      --g-thumb-ring-w: {{ section.settings.active_ring_width }}px;
+      --g-thumb-border: rgba(0,0,0,.06);
+      --g-nav-bg: {{ section.settings.nav_bg }};
+      --g-nav-color: {{ section.settings.nav_color }};
+      --ar-d: {{ section.settings.main_ratio_desktop | replace: '_','/' }};
+      --ar-m: {{ section.settings.main_ratio_mobile  | replace: '_','/' }};
+    }
+    #gallery-{{ section.id }} .g-container{max-width:var(--g-maxw);margin-inline:auto;padding-inline:var(--g-pad);}
+    #gallery-{{ section.id }} .g-heading{
+      margin:0 0 16px; text-align:{{ section.settings.title_align }};
+      font-size:var(--g-title-size); font-weight:var(--g-title-weight); color:var(--g-title-color); line-height:1.15;
+    }
+
+    /* Viewer principal */
+    #gallery-{{ section.id }} .g-view{
+      position:relative; border-radius:var(--g-radius); overflow:hidden; box-shadow:var(--g-shadow); background:#f4f4f4;
+      isolation:isolate; aspect-ratio: var(--ar-m);
+    }
+    @media (min-width:768px){ #gallery-{{ section.id }} .g-view{ aspect-ratio: var(--ar-d); } }
+    {% if section.settings.fixed_height_mobile %}
+      #gallery-{{ section.id }} .g-view{ height: {{ section.settings.height_mobile }}px; aspect-ratio:auto; }
+    {% endif %}
+    @media (min-width:768px){
+      {% if section.settings.fixed_height_desktop %}
+        #gallery-{{ section.id }} .g-view{ height: {{ section.settings.height_desktop }}px; aspect-ratio:auto; }
+      {% endif %}
+    }
+
+    #gallery-{{ section.id }} .g-slide{
+      position:absolute; inset:0; opacity:0; transition:opacity {{ section.settings.transition_speed }}ms ease;
+      display:grid; place-items:center; background:#f4f4f4;
+    }
+    #gallery-{{ section.id }} .g-slide.is-active{opacity:1;}
+
+    /* >>> Correction : image centrée & entière, jamais coupée */
+    #gallery-{{ section.id }} .g-slide img{
+      width:100%;
+      height:100%;
+      object-fit: contain;         /* au lieu de cover => pas de coupe */
+      object-position: center;     /* toujours centré */
+      display:block;
+    }
+
+    /* Flèches (viewer) */
+    #gallery-{{ section.id }} .g-arrow{
+      position:absolute; top:50%; translate:0 -50%; z-index:3; width:44px;height:44px; display:grid;place-items:center;border:none;
+      border-radius:999px; background:var(--g-nav-bg); color:var(--g-nav-color); cursor:pointer;
+    }
+    #gallery-{{ section.id }} .g-prev{left:10px;} .g-next{right:10px;}
+    #gallery-{{ section.id }} .g-arrow svg{width:22px;height:22px;}
+    {% unless section.settings.show_arrows %}#gallery-{{ section.id }} .g-arrow{display:none}{% endunless %}
+
+    /* Vignettes */
+    #gallery-{{ section.id }} .g-thumbs{ margin-top:12px; position:relative; }
+    #gallery-{{ section.id }} .g-thumbs-viewport{
+      overflow:auto hidden; -webkit-overflow-scrolling: touch; scroll-behavior:smooth;
+      -webkit-mask-image:linear-gradient(90deg, transparent 0, #000 24px, #000 calc(100% - 24px), transparent 100%);
+              mask-image:linear-gradient(90deg, transparent 0, #000 24px, #000 calc(100% - 24px), transparent 100%);
+    }
+    #gallery-{{ section.id }} .g-thumbs-track{ display:flex; gap:var(--g-thumb-gap); align-items:center; padding:0 2px; }
+
+    #gallery-{{ section.id }} .g-thumb{
+      flex:0 0 auto; height:var(--g-thumb-h); aspect-ratio:1/1; border-radius:var(--g-thumb-radius);
+      overflow:hidden; cursor:pointer; position:relative; background:#fff;
+      border:1px solid var(--g-thumb-border); box-shadow:none;
+    }
+    #gallery-{{ section.id }} .g-thumb img{width:100%;height:100%;object-fit:cover;display:block;}
+    /* Anneau actif (désactivé si width=0) */
+    #gallery-{{ section.id }} .g-thumb.is-active{ box-shadow: 0 0 0 var(--g-thumb-ring-w) var(--g-thumb-ring); }
+    #gallery-{{ section.id }} .g-thumb[aria-disabled="true"]{opacity:.35; pointer-events:none;}
+
+    #gallery-{{ section.id }} .g-th-arrow{
+      position:absolute; top:50%; translate:0 -50%; width:36px;height:36px; display:grid; place-items:center; border-radius:999px;
+      background:var(--g-nav-bg); color:var(--g-nav-color); border:none; cursor:pointer; z-index:2;
+    }
+    #gallery-{{ section.id }} .g-th-prev{left:0;} .g-th-next{right:0;}
+    {% unless section.settings.show_thumb_arrows %}#gallery-{{ section.id }} .g-th-arrow{display:none}{% endunless %}
+
+    /* Lightbox */
+    #gallery-{{ section.id }} .g-lightbox{
+      position:fixed; inset:0; background:rgba(0,0,0,.85); display:none; align-items:center; justify-content:center; z-index:9999;
+    }
+    #gallery-{{ section.id }} .g-lightbox.is-open{display:flex;}
+    #gallery-{{ section.id }} .g-lightbox img{max-width:90vw; max-height:90vh; object-fit:contain;}
+    #gallery-{{ section.id }} .g-lb-close{
+      position:absolute; top:16px; right:16px; width:42px;height:42px; border-radius:999px; background:#fff; color:#111; border:none; display:grid;place-items:center; cursor:pointer;
+    }
+    #gallery-{{ section.id }} .g-lb-arrow{
+      position:absolute; top:50%; translate:0 -50%; width:56px;height:56px; border-radius:999px; background:#fff; color:#111; border:none; display:grid;place-items:center; cursor:pointer;
+    }
+    #gallery-{{ section.id }} .g-lb-prev{left:22px;} .g-lb-next{right:22px;}
+  </style>
+
+  <div class="g-container">
+    {% if section.settings.title != blank %}
+      <h2 class="g-heading">{{ section.settings.title }}</h2>
+    {% endif %}
+
+    <div class="g-view"
+         data-autoplay="{{ section.settings.autoplay | json }}"
+         data-delay="{{ section.settings.autoplay_speed | times: 1000 }}"
+         data-loop="{{ section.settings.loop | json }}"
+         data-pause-on-hover="{{ section.settings.pause_on_hover | json }}">
+
+      {%- comment -%} === IMAGES PRINCIPALES === {%- endcomment -%}
+      {%- case section.settings.image_source -%}
+
+      {%- when 'urls' -%}
+        {% assign raw = section.settings.image_urls | default: '' %}
+        {% assign list = raw | replace: '\r\n', ',' | replace: '\n', ',' | split: ',' %}
+        {% assign j = 0 %}
+        {% for u in list %}
+          {% assign u2 = u | strip %}
+          {% if u2 != '' %}
+            {% assign j = j | plus: 1 %}
+            <div class="g-slide{% if j == 1 %} is-active{% endif %}" data-index="{{ j | minus: 1 }}">
+              <img src="{{ u2 }}" alt="Image {{ j }}" loading="lazy">
+            </div>
+          {% endif %}
+        {% endfor %}
+        {% if j == 0 %}
+          <div class="g-slide is-active"><img src="//cdn.shopify.com/s/files/1/0533/2089/files/placeholder-images-image_large.png" alt="placeholder"></div>
+        {% endif %}
+
+      {%- when 'product' -%}
+        {% assign exclude_str = section.settings.exclude_indices | default: '' | replace: ' ', '' | downcase %}
+        {% assign exclude = exclude_str | split: ',' %}
+        {% assign i = 0 %}
+        {% if section.settings.source_product != blank and section.settings.source_product.media_count > 0 %}
+          {% for m in section.settings.source_product.media %}
+            {% if m.media_type == 'image' %}
+              {% assign i = i | plus: 1 %}
+              {% assign idx_s = i | append: '' %}
+              {% unless exclude_str != '' and exclude contains idx_s %}
+                <div class="g-slide{% if forloop.first %} is-active{% endif %}" data-index="{{ forloop.index0 }}">
+                  <img src="{{ m | image_url: width: 2400 }}"
+                       alt="{{ m.alt | default: 'Image ' | append: i | escape }}"
+                       loading="lazy" width="{{ m.width }}" height="{{ m.height }}">
+                </div>
+              {% endunless %}
+            {% endif %}
+          {% endfor %}
+        {% else %}
+          <div class="g-slide is-active"><img src="//cdn.shopify.com/s/files/1/0533/2089/files/placeholder-images-image_large.png" alt="placeholder"></div>
+        {% endif %}
+
+      {%- else -%} {% comment %} blocks {% endcomment %}
+        {% assign any = false %}
+        {% for block in section.blocks %}
+          {% if block.type == 'image' and block.settings.enabled and block.settings.image != blank %}
+            {% assign any = true %}
+            <div class="g-slide{% if any and forloop.index == 1 %} is-active{% endif %}" data-index="{{ forloop.index0 }}" {{ block.shopify_attributes }}>
+              <img src="{{ block.settings.image | image_url: width: 2400 }}"
+                   alt="{{ block.settings.alt | default: 'Image' | escape }}"
+                   loading="lazy" width="{{ block.settings.image.width }}" height="{{ block.settings.image.height }}">
+            </div>
+          {% endif %}
+        {% endfor %}
+        {% unless any %}
+          <div class="g-slide is-active"><img src="//cdn.shopify.com/s/files/1/0533/2089/files/placeholder-images-image_large.png" alt="placeholder"></div>
+        {% endunless %}
+      {%- endcase -%}
+
+      {% if section.settings.show_arrows %}
+        <button class="g-arrow g-prev" aria-label="Précédent" type="button">
+          <svg viewBox="0 0 24 24"><path fill="currentColor" d="M15.41 7.41 14 6l-6 6 6 6 1.41-1.41L10.83 12z"/></svg>
+        </button>
+        <button class="g-arrow g-next" aria-label="Suivant" type="button">
+          <svg viewBox="0 0 24 24"><path fill="currentColor" d="M8.59 16.59 13.17 12 8.59 7.41 10 6l6 6-6 6z"/></svg>
+        </button>
+      {% endif %}
+    </div>
+
+    <!-- VIGNETTES -->
+    <div class="g-thumbs">
+      <button class="g-th-arrow g-th-prev" aria-label="Précédent" type="button">
+        <svg viewBox="0 0 24 24"><path fill="currentColor" d="M15.41 7.41 14 6l-6 6 6 6 1.41-1.41L10.83 12z"/></svg>
+      </button>
+
+      <div class="g-thumbs-viewport">
+        <div class="g-thumbs-track">
+          {%- case section.settings.image_source -%}
+          {%- when 'urls' -%}
+            {% assign raw = section.settings.image_urls | default: '' %}
+            {% assign list = raw | replace: '\r\n', ',' | replace: '\n', ',' | split: ',' %}
+            {% assign j = 0 %}
+            {% for u in list %}
+              {% assign u2 = u | strip %}
+              {% if u2 != '' %}
+                {% assign j = j | plus: 1 %}
+                <button class="g-thumb{% if j == 1 %} is-active{% endif %}" data-go="{{ j | minus: 1 }}" aria-label="Aperçu {{ j }}">
+                  <img src="{{ u2 }}" alt="Aperçu {{ j }}">
+                </button>
+              {% endif %}
+            {% endfor %}
+
+          {%- when 'product' -%}
+            {% assign exclude_str = section.settings.exclude_indices | default: '' | replace: ' ', '' | downcase %}
+            {% assign exclude = exclude_str | split: ',' %}
+            {% assign i = 0 %}
+            {% if section.settings.source_product != blank and section.settings.source_product.media_count > 0 %}
+              {% for m in section.settings.source_product.media %}
+                {% if m.media_type == 'image' %}
+                  {% assign i = i | plus: 1 %}
+                  {% assign idx_s = i | append: '' %}
+                  {% unless exclude_str != '' and exclude contains idx_s %}
+                    <button class="g-thumb{% if forloop.first %} is-active{% endif %}" data-go="{{ forloop.index0 }}" aria-label="Aperçu {{ i }}">
+                      <img src="{{ m | image_url: width: 360 }}" alt="{{ m.alt | default: 'Aperçu ' | append: i | escape }}">
+                    </button>
+                  {% endunless %}
+                {% endif %}
+              {% endfor %}
+            {% endif %}
+
+          {%- else -%} {% comment %} blocks {% endcomment %}
+            {% assign any = false %}
+            {% for block in section.blocks %}
+              {% if block.type == 'image' and block.settings.enabled and block.settings.image != blank %}
+                {% assign any = true %}
+                <button class="g-thumb{% if any and forloop.index == 1 %} is-active{% endif %}" data-go="{{ forloop.index0 }}" aria-label="Aperçu {{ forloop.index }}" {{ block.shopify_attributes }}>
+                  <img src="{{ block.settings.image | image_url: width: 360 }}" alt="{{ block.settings.alt | default: 'Aperçu' | escape }}">
+                </button>
+              {% endif %}
+            {% endfor %}
+          {%- endcase -%}
+        </div>
+      </div>
+
+      <button class="g-th-arrow g-th-next" aria-label="Suivant" type="button">
+        <svg viewBox="0 0 24 24"><path fill="currentColor" d="M8.59 16.59 13.17 12 8.59 7.41 10 6l6 6-6 6z"/></svg>
+      </button>
+    </div>
+
+    {% if section.settings.enable_lightbox %}
+      <div class="g-lightbox" aria-hidden="true">
+        <button class="g-lb-close" aria-label="Fermer">
+          <svg viewBox="0 0 24 24"><path fill="currentColor" d="M18.3 5.71 12 12.01 5.7 5.7 4.29 7.11 10.59 13.4 4.29 19.7 5.7 21.11 12 14.82 18.29 21.1 19.7 19.69 13.41 13.4 19.71 7.1z"/></svg>
+        </button>
+        <button class="g-lb-arrow g-lb-prev" aria-label="Précédent">
+          <svg viewBox="0 0 24 24"><path fill="currentColor" d="M15.41 7.41 14 6l-6 6 6 6 1.41-1.41L10.83 12z"/></svg>
+        </button>
+        <img src="" alt="">
+        <button class="g-lb-arrow g-lb-next" aria-label="Suivant">
+          <svg viewBox="0 0 24 24"><path fill="currentColor" d="M8.59 16.59 13.17 12 8.59 7.41 10 6l6 6-6 6z"/></svg>
+        </button>
+      </div>
+    {% endif %}
+  </div>
+
+  <script>
+    (function(){
+      const root = document.getElementById('gallery-{{ section.id }}');
+      if(!root) return;
+
+      const view   = root.querySelector('.g-view');
+      const slides = [...root.querySelectorAll('.g-slide')];
+      const thumbs = [...root.querySelectorAll('.g-thumb')];
+      const prev   = root.querySelector('.g-prev');
+      const next   = root.querySelector('.g-next');
+
+      const thViewport = root.querySelector('.g-thumbs-viewport');
+      const thPrev     = root.querySelector('.g-th-prev');
+      const thNext     = root.querySelector('.g-th-next');
+
+      const lbEnabled = {{ section.settings.enable_lightbox | json }};
+      const lb = root.querySelector('.g-lightbox');
+      const lbImg = lb ? lb.querySelector('img') : null;
+      const lbClose = lb ? lb.querySelector('.g-lb-close') : null;
+      const lbPrev  = lb ? lb.querySelector('.g-lb-prev')  : null;
+      const lbNext  = lb ? lb.querySelector('.g-lb-next')  : null;
+
+      let index = 0, timer = null;
+      const loop  = view.dataset.loop === 'true';
+      const auto  = view.dataset.autoplay === 'true';
+      const delay = parseInt(view.dataset.delay || '5000', 10);
+      const pauseOnHover = view.dataset.pauseOnHover === 'true';
+
+      function go(i){
+        const len = slides.length;
+        if(len === 0) return;
+        index = (i + len) % len;
+        slides.forEach((s,k) => s.classList.toggle('is-active', k === index));
+        thumbs.forEach((t,k) => t.classList.toggle('is-active', k === index));
+        const active = thumbs[index];
+        if(active){ active.scrollIntoView({behavior:'smooth', block:'nearest', inline:'center'}); }
+      }
+      function nextFn(){ if(index === slides.length-1 && !loop) return; go(index+1); }
+      function prevFn(){ if(index === 0 && !loop) return; go(index-1); }
+
+      if(next) next.addEventListener('click', nextFn);
+      if(prev) prev.addEventListener('click', prevFn);
+      thumbs.forEach((t, k) => t.addEventListener('click', () => go(k)));
+
+      if(thNext) thNext.addEventListener('click', () => { thViewport.scrollBy({left: thViewport.clientWidth * 0.8, behavior:'smooth'}); });
+      if(thPrev) thPrev.addEventListener('click', () => { thViewport.scrollBy({left: -thViewport.clientWidth * 0.8, behavior:'smooth'}); });
+
+      function start(){ if(auto){ stop(); timer = setInterval(nextFn, delay); } }
+      function stop(){ if(timer){ clearInterval(timer); timer = null; } }
+      start();
+
+      if(pauseOnHover){
+        view.addEventListener('mouseenter', stop);
+        view.addEventListener('mouseleave', start);
+        view.addEventListener('focusin', stop);
+        view.addEventListener('focusout', start);
+      }
+
+      function openLb(){
+        if(!lbEnabled || !lb) return;
+        const activeImg = slides[index]?.querySelector('img');
+        if(activeImg){
+          lbImg.src = activeImg.currentSrc || activeImg.src;
+          lbImg.alt = activeImg.alt || '';
+          lb.classList.add('is-open');
+          document.documentElement.style.overflow = 'hidden';
+        }
+      }
+      function closeLb(){
+        if(!lbEnabled || !lb) return;
+        lb.classList.remove('is-open');
+        document.documentElement.style.overflow = '';
+      }
+      if(lbEnabled){
+        slides.forEach(s => s.addEventListener('click', openLb));
+        lbClose?.addEventListener('click', closeLb);
+        lb?.addEventListener('click', (e) => { if(e.target === lb) closeLb(); });
+        lbNext?.addEventListener('click', () => { nextFn(); openLb(); });
+        lbPrev?.addEventListener('click', () => { prevFn(); openLb(); });
+        window.addEventListener('keydown', (e) => {
+          if(!lb.classList.contains('is-open')) return;
+          if(e.key === 'Escape') closeLb();
+          if(e.key === 'ArrowRight') { nextFn(); openLb(); }
+          if(e.key === 'ArrowLeft')  { prevFn(); openLb(); }
+        });
+      }
+
+      go(0);
+      window.addEventListener('resize', () => go(index));
+    })();
+  </script>
+</section>
+
+{% schema %}
+{
+  "name": "Galerie moderne",
+  "tag": "section",
+  "class": "section-gallery-modern",
+  "settings": [
+    { "type": "color_scheme", "id": "color_scheme", "default": "background-1", "label": "Schéma de couleurs" },
+
+    { "type": "inline_richtext", "id": "title", "label": "Titre", "default": "Notre galerie" },
+    { "type": "select", "id": "title_align", "label": "Alignement du titre", "default": "center",
+      "options": [
+        { "value": "left", "label": "Gauche" },
+        { "value": "center", "label": "Centre" },
+        { "value": "right", "label": "Droite" }
+      ]
+    },
+    { "type": "checkbox", "id": "title_bold", "label": "Titre en gras", "default": true },
+    { "type": "range", "id": "title_size", "label": "Taille du titre", "min": 12, "max": 72, "step": 1, "unit": "px", "default": 32 },
+    { "type": "color", "id": "title_color", "label": "Couleur du titre", "default": "#111111" },
+
+    { "type": "header", "content": "Mise en page" },
+    { "type": "checkbox", "id": "full_width", "label": "Pleine largeur", "default": true },
+    { "type": "number", "id": "max_width", "label": "Largeur max (si non pleine largeur)", "default": 1280 },
+    { "type": "range", "id": "corner_radius", "label": "Rayon des coins", "min": 0, "max": 40, "step": 1, "unit": "px", "default": 16 },
+    { "type": "checkbox", "id": "shadow", "label": "Ombre portée", "default": true },
+
+    { "type": "header", "content": "Taille de l'image principale" },
+    { "type": "select", "id": "main_ratio_desktop", "label": "Ratio (desktop)", "default": "16_9",
+      "options": [
+        { "value": "21_9", "label": "21:9" },
+        { "value": "16_9", "label": "16:9" },
+        { "value": "4_3",  "label": "4:3" },
+        { "value": "1_1",  "label": "1:1" },
+        { "value": "3_4",  "label": "3:4 (vertical)" }
+      ]
+    },
+    { "type": "select", "id": "main_ratio_mobile", "label": "Ratio (mobile)", "default": "4_3",
+      "options": [
+        { "value": "21_9", "label": "21:9" },
+        { "value": "16_9", "label": "16:9" },
+        { "value": "4_3",  "label": "4:3" },
+        { "value": "1_1",  "label": "1:1" },
+        { "value": "3_4",  "label": "3:4 (vertical)" }
+      ]
+    },
+    { "type": "checkbox", "id": "fixed_height_desktop", "label": "Utiliser une hauteur fixe sur desktop (px)", "default": false },
+    { "type": "range", "id": "height_desktop", "label": "Hauteur desktop", "min": 300, "max": 1200, "step": 10, "unit": "px", "default": 700 },
+    { "type": "checkbox", "id": "fixed_height_mobile", "label": "Utiliser une hauteur fixe sur mobile (px)", "default": false },
+    { "type": "range", "id": "height_mobile", "label": "Hauteur mobile", "min": 240, "max": 900, "step": 10, "unit": "px", "default": 420 },
+
+    { "type": "select", "id": "image_fit", "label": "Ajustement de l'image", "default": "cover",
+      "options": [
+        { "value": "cover", "label": "Remplir (cover)" },
+        { "value": "contain", "label": "Contenir (contain)" }
+      ]
+    },
+
+    { "type": "header", "content": "Comportement" },
+    { "type": "checkbox", "id": "autoplay", "label": "Lecture automatique", "default": false },
+    { "type": "range", "id": "autoplay_speed", "label": "Délai entre images (autoplay)", "min": 2, "max": 12, "step": 1, "unit": "s", "default": 5 },
+    { "type": "checkbox", "id": "pause_on_hover", "label": "Pause au survol/focus", "default": true },
+    { "type": "checkbox", "id": "loop", "label": "Boucler la galerie", "default": true },
+    { "type": "checkbox", "id": "show_arrows", "label": "Flèches sur l'image principale", "default": true },
+    { "type": "checkbox", "id": "show_thumb_arrows", "label": "Flèches sur la rangée de vignettes", "default": true },
+    { "type": "checkbox", "id": "enable_lightbox", "label": "Cliquer pour ouvrir en grand (lightbox)", "default": true },
+
+    { "type": "header", "content": "Vignettes" },
+    { "type": "range", "id": "thumb_height", "label": "Hauteur des vignettes", "min": 48, "max": 140, "step": 2, "unit": "px", "default": 84 },
+    { "type": "range", "id": "active_ring_width", "label": "Épaisseur de l’anneau actif", "min": 0, "max": 4, "step": 1, "unit": "px", "default": 0 },
+    { "type": "color", "id": "active_ring_color", "label": "Couleur de l’anneau actif", "default": "#111111" },
+    { "type": "color", "id": "nav_bg", "label": "Fond des flèches", "default": "#FFFFFF" },
+    { "type": "color", "id": "nav_color", "label": "Couleur des flèches", "default": "#111111" },
+
+    { "type": "header", "content": "Source des images" },
+    { "type": "select", "id": "image_source", "label": "Choisir la source", "default": "blocks",
+      "options": [
+        { "value": "blocks", "label": "Ajouter manuellement (blocs)" },
+        { "value": "urls", "label": "Coller une liste d’URLs" },
+        { "value": "product", "label": "Médias d’un produit (optionnel)" }
+      ]
+    },
+    { "type": "textarea", "id": "image_urls", "label": "Liste d’URLs (mode URLs, une par ligne ou séparées par des virgules)" },
+    { "type": "product", "id": "source_product", "label": "Produit (si mode Produit)" },
+    { "type": "text", "id": "exclude_indices", "label": "Exclure ces indices (mode Produit, ex: 2,5,7)", "info": "Laisse vide si tu n’exclus rien." }
+  ],
+  "blocks": [
+    {
+      "type": "image",
+      "name": "Image",
+      "limit": 50,
+      "settings": [
+        { "type": "checkbox", "id": "enabled", "label": "Afficher cette image", "default": true },
+        { "type": "image_picker", "id": "image", "label": "Image" },
+        { "type": "text", "id": "alt", "label": "Texte alternatif (SEO)", "default": "Image de la galerie" }
+      ]
+    }
+  ],
+  "presets": [
+    { "name": "Galerie moderne", "category": "Médias" }
+  ]
+}
+{% endschema %}

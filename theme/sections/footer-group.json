@@ -1,0 +1,219 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "type": "footer",
+  "name": "Footer",
+  "sections": {
+    "citation_diaporama_nxqRcV": {
+      "type": "citation-diaporama",
+      "blocks": {
+        "quote_9tddkK": {
+          "type": "quote",
+          "settings": {
+            "quote": "Le parfum est un langage universel.",
+            "author": "Francis Kurkdjian"
+          }
+        },
+        "quote_xhN8ff": {
+          "type": "quote",
+          "settings": {
+            "quote": "De tous les sens, l'odorat est celui qui me frappe le plus... L'odeur serait comme une âme, immatérielle.",
+            "author": "Marcel Hanoun"
+          }
+        },
+        "quote_YJ6p9r": {
+          "type": "quote",
+          "settings": {
+            "quote": "Si le parfum est un art, l'objet qui le contient doit être un chef-d'œuvre.",
+            "author": "Robert Ricci"
+          }
+        },
+        "quote_fQXyJM": {
+          "type": "quote",
+          "settings": {
+            "quote": "Le parfum est un miroir de l'âme.",
+            "author": "Jean-Claude Ellena"
+          }
+        },
+        "quote_4Xk7AA": {
+          "type": "quote",
+          "settings": {
+            "quote": "Le parfum est comme un tableau, chaque note crée un sentiment.",
+            "author": "Thierry Wasser"
+          }
+        }
+      },
+      "block_order": [
+        "quote_9tddkK",
+        "quote_xhN8ff",
+        "quote_YJ6p9r",
+        "quote_fQXyJM",
+        "quote_4Xk7AA"
+      ],
+      "name": "Diaporama de citations",
+      "settings": {
+        "full_width": false,
+        "color_scheme": "",
+        "max_width": 760,
+        "text_align": "center",
+        "font_size": 22,
+        "author_size": 14,
+        "text_color": "#111111",
+        "author_color": "#a48351",
+        "show_guillemets": true,
+        "autoplay": true,
+        "autoplay_ms": 4500,
+        "transition_ms": 400,
+        "top_space_desktop": 50,
+        "bottom_space_desktop": 39,
+        "top_space_mobile": 16,
+        "bottom_space_mobile": 16,
+        "aria_label": "Diaporama de citations"
+      }
+    },
+    "footer": {
+      "type": "footer",
+      "blocks": {
+        "newsletter_CBm6tA": {
+          "type": "newsletter",
+          "settings": {
+            "image_width": 100,
+            "enable_newsletter": true,
+            "heading": "Abonnez-vous et profitez de 10% de réduction.",
+            "placeholder_text": "Email"
+          }
+        },
+        "menu_x9QGgj": {
+          "type": "menu",
+          "settings": {
+            "heading": "Où nous trouver ?",
+            "menu": "footer",
+            "show_extra_text": true,
+            "extra_text": "<p>Plongez dans l’univers Couleur Safran et découvrez nos produits d’exception à l'adresse suivante :</p><p>12, rue Reyer<br/>06400 Cannes  <br/>France</p><p><a href=\"https://maps.app.goo.gl/kJ659hQvFcodhxjF9\" target=\"_blank\" title=\"https://maps.app.goo.gl/kJ659hQvFcodhxjF9\">Accès à notre boutique (GPS)</a></p>",
+            "extra_text_image_width": 160,
+            "extra_text_image_gap": 10,
+            "extra_text_image_alt": "Illustration"
+          }
+        },
+        "menu_yHEUbX": {
+          "type": "menu",
+          "settings": {
+            "heading": "Liens utiles",
+            "menu": "",
+            "show_extra_text": false,
+            "extra_text": "",
+            "extra_text_image_width": 160,
+            "extra_text_image_gap": 10,
+            "extra_text_image_alt": "Illustration"
+          }
+        },
+        "menu_LRakkK": {
+          "type": "menu",
+          "settings": {
+            "heading": "Liens utiles",
+            "menu": "customer-account-main-menu",
+            "show_extra_text": false,
+            "extra_text": "",
+            "extra_text_image_width": 160,
+            "extra_text_image_gap": 10,
+            "extra_text_image_alt": "Illustration"
+          }
+        },
+        "menu_aJmAer": {
+          "type": "menu",
+          "settings": {
+            "heading": "Boutiques partenaires",
+            "menu": "lien-externe",
+            "show_extra_text": true,
+            "extra_text": "<p><em><strong>Couleur Safran</strong></em><em> </em>est partenaire vendeur de la marketplace Cocote et est enregistré auprès de Lemon Way, Établissement de paiement agréé par l'APCR en France le 24/12/2012 sous le numéro 16568<br/><br/><em><strong>Ankorstore : </strong></em><em>Offre de bienvenue exclusive : vous n’avez jamais commandé sur Ankorstore ? Profitez de 50 € de réduction sur votre première commande auprès de notre marque dès 100 € d'achat HT. Il vous suffit de saisir le code LIFT-NYAVBADP au moment du paiement.</em></p>",
+            "extra_text_image": "shopify://shop_images/unnamed_10.jpg",
+            "extra_text_image_width": 100,
+            "extra_text_image_gap": 10,
+            "extra_text_image_alt": "Illustration"
+          }
+        },
+        "menu_t3xBzj": {
+          "type": "menu",
+          "settings": {
+            "heading": "Notre séléction",
+            "menu": "menu-pied-de-page",
+            "show_extra_text": false,
+            "extra_text": "",
+            "extra_text_image_width": 160,
+            "extra_text_image_gap": 10,
+            "extra_text_image_alt": "Illustration"
+          }
+        }
+      },
+      "block_order": [
+        "newsletter_CBm6tA",
+        "menu_x9QGgj",
+        "menu_yHEUbX",
+        "menu_LRakkK",
+        "menu_aJmAer",
+        "menu_t3xBzj"
+      ],
+      "custom_css": [
+        ".social-icons-link {color: #a48351; background: #e8ddd2; padding: 8px; border-radius: 50%; display: inline-flex; transition: 0.3s;}",
+        ".social-icons-link:hover {color: #e8ddd2; background: #a48351;}"
+      ],
+      "settings": {
+        "color_scheme": "scheme-46c40998-bf14-493b-bfc3-629edab5e448",
+        "logo": "shopify://shop_images/Coueleur_Safran_Logo.png",
+        "logo_position": "bottom",
+        "logo_size": "small",
+        "logo_width_preset": "xl",
+        "logo_custom_width": 0,
+        "extra_image": "shopify://shop_images/Logo_CAF_bleu_blanc_rouge_5119c8f3-ec3e-461f-9957-69c46208c5cd.png",
+        "extra_image_width_desktop": 80,
+        "extra_image_width_mobile": 100,
+        "extra_image_gap_desktop": 12,
+        "extra_image_gap_mobile": 10,
+        "extra_image_offset_y_desktop": 0,
+        "extra_image_offset_y_mobile": 0,
+        "extra_image_position_desktop": "above",
+        "extra_image_v_align_desktop": "middle",
+        "logo_row_align_desktop": "center",
+        "background_image": "shopify://shop_images/58_11_42.png",
+        "accordion_mode": "mobile",
+        "heading_color": "#f4d185",
+        "link_color": "#dedede",
+        "link_hover_color": "#ffffff",
+        "divider_color": "#ffffff33",
+        "footer_text": "",
+        "footer_description": "",
+        "scrolling_text": "Fabriqué à Cannes • Parfums de Grasse • Collections artisanales",
+        "scrolling_text_style": "none",
+        "direction": "left",
+        "scrolling_speed": 16,
+        "scrolling_speed_mobile": 5,
+        "show_social": true,
+        "enable_currency_selector": true,
+        "enable_language_selector": true,
+        "payment_enable": true,
+        "show_copyright_text": true,
+        "custom_copyright_text": "",
+        "enable_follow_on_shop": true,
+        "enable_back_to_top": true,
+        "back_to_top_position": "right",
+        "overlay_color": "#ffffff",
+        "overlay_opacity": 16,
+        "top_space_desktop": 20,
+        "bottom_space_desktop": 20,
+        "top_space_mobile": 40,
+        "bottom_space_mobile": 40
+      }
+    }
+  },
+  "order": [
+    "citation_diaporama_nxqRcV",
+    "footer"
+  ]
+}

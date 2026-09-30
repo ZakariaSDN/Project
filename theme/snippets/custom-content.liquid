@@ -1,0 +1,59 @@
+{% assign custom_content = pages[block.settings.page_type] %}
+{% if custom_content != blank %}
+  <template data-custom-content-container>
+    <custom-content-drawer
+      class="custom-content-drawer drawer right"
+      id="custom-content-drawer-{{ section.id }}"
+      data-drawer-id="{{ block.id }}"
+      role="dialog"
+      aria-modal="true"
+    >
+      <drawer-layer class="overlay" data-close-drawer data-block="{{ block.id }}">
+        <drawer-mouse-cursor class="drawer-mouse-cursor">
+          <svg class="icon" stroke="currentColor" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M10 30L30 10M10 10L30 30" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"></path>
+          </svg>
+        </drawer-mouse-cursor>
+      </drawer-layer>
+      <div class="drawer-inner-card">
+        <div class="drawer-container">
+          <div class="drawer-head">
+            <drawer-header>
+              <a
+                href="#"
+                class="drawer-close button-right"
+                aria-label="Close"
+                data-close-drawer
+                data-block="{{ block.id }}"
+              >
+                <svg
+                  class="drawer-icon"
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                >
+                  <path d="M18 6L6 18" stroke="currentColor" stroke-width="1.5"></path>
+                  <path d="M6 6L18 18" stroke="currentColor" stroke-width="1.5"></path>
+                </svg>
+              </a>
+            </drawer-header>
+          </div>
+          <div class="drawer-body">
+            <div class="drawer-content-contain rte">
+              {% if block.settings.content != blank %}
+                <div class="custom-content-desc rte">{{ block.settings.content | replace: '<p></p>', '<br>' }}</div>
+              {% endif %}
+              {{
+                custom_content.content
+                | replace: '<table', '<div class="table-responsive"><table'
+                | replace: '</table>', '</table></div>'
+              }}
+            </div>
+          </div>
+        </div>
+      </div>
+    </custom-content-drawer>
+  </template>
+{% endif %}

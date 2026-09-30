@@ -1,0 +1,59 @@
+<cart-shipping-box id="getshipping" class="cart-tools-wrapper" data-section="{{ section.id }}" detail-expand>
+  <div class="form-control-field">
+    <label class="label-text visually-hidden" for="shippingCountry-{{ section.id }}">
+      {{- 'general.shipping_estimate.country' | t -}}
+    </label>
+    <select
+      id="shippingCountry-{{ section.id }}"
+      name="shipping_address[country]"
+      data-address-country-select
+      data-default="{{ shop.address.country }}"
+      autocomplete="country"
+      class="form-control-input select"
+      placeholder="Country"
+      tanbindex="0"
+    >
+      {{ country_option_tags }}
+    </select>
+  </div>
+  <div class="form-control-field" id="shipping-province-{{ section.id }}">
+    <label class="label-text visually-hidden" for="shippingProvince-{{ section.id }}">
+      {{- 'general.shipping_estimate.province' | t -}}
+    </label>
+    <select
+      id="shippingProvince-{{ section.id }}"
+      name="shipping_address[province]"
+      autocomplete="address-level1"
+      class="form-control-input select"
+      tanbindex="0"
+      data-address-province-select
+    ></select>
+  </div>
+  <div class="form-control-field">
+    <label class="label-text visually-hidden" for="shippingZip-{{ section.id }}">
+      {{- 'general.shipping_estimate.zip' | t -}}
+    </label>
+    <input
+      type="text"
+      id="shippingZip-{{ section.id }}"
+      name="shipping_address[zip]"
+      class="form-control-input"
+      autocapitalize="characters"
+      autocomplete="postal-code"
+      data-address-zip
+      placeholder="{{ 'general.shipping_estimate.zip' | t }}"
+      id="ShippingCalculatorZip"
+    >
+  </div>
+  <div class="cart-dialog-action">
+    <button id="shippingEstimates" type="button" class="button">
+      <span class="button-text">{{ 'general.shipping_estimate.estimate' | t }}</span>
+    </button>
+  </div>
+  <div class="form-field">
+    <div class="field form-message error hidden" id="shippingErrors">
+      <div class="errors"></div>
+    </div>
+    <div id="shippingResponse" class="form-message success hidden"></div>
+  </div>
+</cart-shipping-box>

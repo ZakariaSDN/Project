@@ -1,0 +1,197 @@
+{{ 'featured-blog.css' | asset_url | stylesheet_tag }}
+{{ 'main-blog.css' | asset_url | stylesheet_tag }}
+<style>
+  #shopify-section-{{ section.id }} {
+    --section-top-space:{{ section.settings.top_space_desktop }}px;
+    --section-bottom-space:{{ section.settings.bottom_space_desktop }}px
+  }
+   #shopify-section-{{ section.id }}  .blog-grid-wrapper{
+     --blog-item-gap: {{ section.settings.column_gap }}px;
+  }
+  @media only screen and (max-width:767px) {
+    #shopify-section-{{ section.id }}.shopify-section{
+      --section-top-space:{{ section.settings.top_space_mobile }}px;
+      --section-bottom-space:{{ section.settings.bottom_space_mobile }}px;
+    }
+
+  }
+</style>
+<div class="section-space color-scheme-{{ section.settings.color_scheme }}">
+  <div class="container">
+    {% if section.settings.heading != blank %}
+      <section-heading class="section-header">
+        <h2 class="heading-main {{ section.settings.heading_size }}">{{ section.settings.heading }}</h2>
+      </section-heading>
+    {% endif %}
+
+    <div class="related-post-wrapper p-relative">
+      <div class="blog-grid-wrapper {% if section.settings.enable_card_view %} card-enabled{% endif %}">
+        {% for article in blog.articles limit: section.settings.blog_limit %}
+          {% assign placeholder_image_index = forloop.index0 | modulo: 3 | plus: 1 %}
+          {% assign placeholder_image = 'blog-apparel-' | append: placeholder_image_index %}
+          {% render 'blog-post',
+            article: article,
+            section: section,
+            placeholder_image: placeholder_image,
+            media_aspect_ratio: section.settings.grid_image_size
+          %}
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</div>
+{% schema %}
+{
+  "name": "t:sections.related_post.name",
+  "settings": [
+      {
+    "type": "inline_richtext",
+    "id": "heading",
+    "default": "Related post",
+     "label":"t:global.general_labels.heading"
+  },
+  {
+    "type": "select",
+    "id": "heading_size",
+    "default": "h2",
+      "label": "t:global.heading_size.label",
+    "options": [
+      {
+          "value": "h1",
+          "label": "t:global.heading_size.options.h1.label"
+        },
+        {
+          "value": "h2",
+          "label": "t:global.heading_size.options.h2.label"
+        },
+        {
+          "value": "h3",
+            "label": "t:global.heading_size.options.h3.label"
+        },
+        {
+          "value": "h4",
+         "label": "t:global.heading_size.options.h4.label"
+        },
+        {
+          "value": "h5",
+           "label": "t:global.heading_size.options.h5.label"
+        },
+       {
+          "value": "h6",
+          "label": "t:global.heading_size.options.h6.label"
+        }
+    ]
+  },
+  {
+      "type": "select",
+      "id": "grid_image_size",
+       "label": "t:global.grid_image_size.label",
+        "default": "adapt",
+        "options": [
+           {
+              "value": "adapt",
+              "label": "t:global.grid_image_size.options.auto.label"
+            },
+            {
+              "value": "landscape",
+              "label": "t:global.grid_image_size.options.landscape.label"
+            },
+            {
+              "value": "portrait",
+              "label": "t:global.grid_image_size.options.portrait.label"
+            },
+            {
+              "value": "square",
+              "label": "t:global.grid_image_size.options.square.label"
+            }
+        ]
+    },
+    {
+          "type": "range",
+          "id": "blog_limit",
+          "default": 3,
+          "max": 6,
+          "min": 1,
+          "step": 1,
+          "label": "t:sections.related_post.settings.blog_limit.label"
+     },
+
+     {
+      "type": "range",
+      "id":"column_gap",
+     "label": "t:sections.related_post.settings.column_gap.label",
+      "min":0,
+      "max":50,
+      "default":20,
+      "step": 1,
+      "unit": "px"
+    },
+    {
+        "type": "checkbox",
+        "id": "enable_card_view",
+        "default":false,
+       "label": "t:sections.related_post.settings.enable_card_view.label"
+    },
+    {
+     "type": "checkbox",
+     "id": "show_date",
+     "default": true,
+    "label": "t:sections.related_post.settings.show_date.label"
+   },
+  {
+     "type": "checkbox",
+     "id": "show_comment",
+     "default": true,
+    "label": "t:sections.related_post.settings.show_comment.label"
+   },
+  {
+     "type": "checkbox",
+     "id": "show_author",
+     "default": true,
+    "label": "t:sections.related_post.settings.show_author.label"
+   },
+  {
+     "type": "checkbox",
+     "id": "show_excerpt",
+     "default": true,
+    "label": "t:sections.related_post.settings.show_excerpt.label"
+   },
+   {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "default": "primary",
+      "label": "t:global.color_scheme.label"
+  },
+   {
+      "type": "header",
+       "content": "t:global.section_spacing.label"
+    },
+     {
+      "type": "number",
+      "id": "top_space_desktop",
+      "label": "t:global.section_spacing.top_space_desktop.label",
+      "default": 80,
+
+    },
+    {
+      "type": "number",
+      "id": "bottom_space_desktop",
+       "label": "t:global.section_spacing.bottom_space_desktop.label",
+      "default": 80
+
+    },
+    {
+      "type": "number",
+      "id": "top_space_mobile",
+      "label": "t:global.section_spacing.top_space_mobile.label",
+      "default": 40
+    },
+    {
+      "type": "number",
+      "id": "bottom_space_mobile",
+      "label": "t:global.section_spacing.bottom_space_mobile.label",
+      "default": 40
+    }
+  ]
+}
+{% endschema %}

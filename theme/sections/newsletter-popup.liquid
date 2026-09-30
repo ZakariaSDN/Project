@@ -1,0 +1,157 @@
+{% if section.settings.newsletter_enable %}
+  <newsletter-popup
+    data-newsletterpopup="true"
+    class="modal-dialog-wrapper newsletter-modal  color-scheme-{{ section.settings.color_scheme }}"
+  >
+    <div class="modal-dialog-overlay" data-popup-close></div>
+    <div class="modal-dialog-card{% if section.settings.newsletter_img != null %} image-position-{{ section.settings.image_position }}{% endif %}">
+      <a href="#" class="drawer-close button-right" aria-label="Close" data-popup-close>
+        <svg
+          class="drawer-icon"
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          fill="none"
+        >
+          <path d="M18 6L6 18" stroke="currentColor" stroke-width="1.5"></path>
+          <path d="M6 6L18 18" stroke="currentColor" stroke-width="1.5"></path>
+        </svg>
+      </a>
+      <div class="modal-dialog-body">
+        <div class="newsletter-content">
+          {% if section.settings.newsletter_img != null %}
+            <div class="newsletter-imgbox">
+              {%- assign widths = '165, 360, 535, 750, 1070, 1500' -%}
+              {%- capture sizes -%}
+                  (min-width: 750px) calc((100vw - 130px) / 2), calc((100vw - 50px) / 2)
+              {%- endcapture -%}
+              {{
+                section.settings.newsletter_img
+                | image_url: width: 1500
+                | image_tag: sizes: sizes, widths: widths, class: 'responsive-img'
+              }}
+            </div>
+          {% endif %}
+
+          <div class="newsletter-form-wrapper text-align-center">
+            <div class="modal-dialog-head">
+              {% if section.settings.newsletter_heading != blank %}
+                <h5>{{ section.settings.newsletter_heading }}</h5>
+              {% endif %}
+              {% if section.settings.newsletter_content != blank %}
+                <p>{{ section.settings.newsletter_content }}</p>
+              {% endif %}
+            </div>
+            {%- form 'customer', id: 'newsletter-popup-form', class: 'news-letter__form' -%}
+              <input type="hidden" name="contact[tags]" value="newsletter">
+              <input type="hidden" name="contact[context]" value="newsletter_popup">
+              {%- if form.posted_successfully? -%}
+                {% assign form = true %}
+                <div class="form-message success">
+                  <div id="newsletter-success--{{ section.id }}" class="form-message-inner" tabindex="-1">
+                    {{- 'newsletter.success' | t -}}
+                  </div>
+                </div>
+              {%- endif -%}
+              {%- if form.errors and form.context == 'newsletter_popup' -%}
+                <div id="Newsletter-error--{{ section.id }}" class="form-message error" tabindex="-1">
+                  <div class="error_heading">
+                    {{- form.errors.translated_fields.email | capitalize -}}
+                    {{- form.errors.messages.email -}}
+                  </div>
+                </div>
+              {%- endif -%}
+              <div class="form-flex-item">
+                <label class="visually-hidden" for="CustomerEmail-{{section.id}}">{{ 'newsletter.label' | t }}</label>
+                <input
+                  type="text"
+                  class="form-control-input"
+                  name="contact[email]"
+                  id="CustomerEmail-{{section.id}}"
+                  autocomplete="email"
+                  autocapitalize="off"
+                  placeholder="Email"
+                  {%- if form.errors -%}
+                    autofocus
+                    aria-invalid="true"
+                    aria-describedby="Newsletter-error-{{ section.id }}"
+                  {%- elsif form.posted_successfully? -%}
+                    aria-describedby="Newsletter-success-{{ section.id }}"
+                  {%- endif -%}
+                  pattern="^([a-zA-Z0-9_\-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([a-zA-Z0-9\-]+\.)*[a-zA-Z]{2,}))$"
+                  required
+                >
+              </div>
+              <button type="submit" name="commit" class="button button-full button-medium">
+                <span class="button-text">{{ 'newsletter.button_label' | t }}</span>
+              </button>
+            {% endform %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </newsletter-popup>
+  <script src="{{ 'newsletter-popup.js' | asset_url }}" defer></script>
+{% endif %}
+{% schema %}
+{
+  "name": "t:sections.newsletter_popup.name",
+  "settings": [
+  {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "default": "primary",
+      "label": "t:global.color_scheme.label"
+  },
+  {
+    "type": "checkbox",
+    "id": "newsletter_enable",
+    "label": "t:sections.newsletter_popup.settings.newsletter_enable.label",
+    "default": false
+  },
+  {
+    "type": "image_picker",
+    "id": "newsletter_img",
+    "label": "t:global.general_labels.image"
+  },
+  {
+    "type":"select",
+    "id":"image_position",
+    "label":"t:global.image_position.label",
+    "options":[
+      {
+        "value":"left",
+        "label":"t:global.image_position.options.left.label"
+      },
+      {
+        "value":"top",
+        "label":"t:global.image_position.options.top.label"
+      }
+    ]
+  },
+  {
+    "type": "text",
+    "id": "newsletter_heading",
+    "label": "t:global.general_labels.heading",
+    "default": "Keep in touch"
+  },
+  {
+    "type": "richtext",
+    "id": "newsletter_content",
+    "label": "t:global.general_labels.description",
+    "default": "<p>Sign up for newsletter<p>"
+  },
+  {
+    "type": "range",
+    "id": "popup_cookie_set",
+    "min": 1,
+    "max": 30,
+    "step": 1,
+     "label": "t:sections.newsletter_popup.settings.popup_cookie_set.label",
+    "info": "t:sections.newsletter_popup.settings.popup_cookie_set.info",
+    "default": 5
+  }
+  ]
+}
+{% endschema %}

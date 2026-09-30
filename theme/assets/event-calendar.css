@@ -1,0 +1,110 @@
+.sticky-content-right {
+  position: sticky;
+}
+
+.event-calendar-heading-wrapper {
+  top: calc(var(--header-height) + 20px);
+  margin-bottom: 40px;
+}
+
+.event-calendar-item {
+  display: flex;
+  background-color: rgb(var(--color-background-foreground));
+  border: 1px solid rgb(var(--color-divider));
+  padding: 20px;
+  border-radius: var(--block-card-radius);
+  position: relative;
+  overflow: hidden;
+}
+
+.event-calendar-item:not(:first-child) {
+  margin-top: 20px;
+}
+
+.event-calendar-item:before {
+  content: "";
+  background-image: linear-gradient(
+    90deg,
+    rgba(var(--color-divider)),
+    rgba(var(--color-text))
+  );
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0%;
+  height: 5px;
+  transition: all 0.5s ease-in-out;
+}
+
+.event-calendar-item:hover:before {
+  width: 100%;
+}
+
+event-calendar-image {
+  display: block;
+  border-radius: var(--block-card-radius);
+  overflow: hidden;
+  flex: 0 0 40%;
+  margin-right: 40px;
+  align-self: flex-start;
+}
+
+event-calendar-image img {
+  transform: scale(1);
+  transition: all 0.3s ease-in-out;
+}
+
+.event-calendar-item:hover event-calendar-image img {
+  transform: scale(1.1);
+}
+
+.event-calendar-content {
+  flex-grow: 1;
+  padding: 13px 0;
+}
+
+.publish-action {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.publish-item {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 6px 12px;
+  border: 1px solid rgb(var(--color-divider));
+  border-radius: 5px;
+  font-size: var(--text-size-small);
+}
+
+@media (min-width: 1025px) {
+  .event-calendar-grid .grid-item-md-12 .event-calendar-list {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    align-items: flex-start;
+  }
+  .event-calendar-item {
+    padding: 40px;
+  }
+}
+
+@media (max-width: 480px) {
+  .event-calendar-item {
+    flex-wrap: wrap;
+    padding: 0;
+  }
+  .event-calendar-content {
+    flex-grow: 1;
+    padding: 30px;
+  }
+  event-calendar-image {
+    flex: 0 0 100%;
+    margin-right: 0;
+  }
+}

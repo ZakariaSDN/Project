@@ -1,0 +1,715 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "custom_liquid_Xnb8qh": {
+      "type": "custom-liquid",
+      "custom_css": [
+        ".promo-badge {display: inline-block; background: #a48351; color: #fff; font-weight: normal; /* pas en gras */ font-size: 16px; /* un peu plus grand par défaut */ line-height: 1.4; padding: 12px 24px; /* plus large en hauteur et largeur */ border-radius: 25px; /* arrondi */ white-space: normal; /* permet les retours à la ligne */}",
+        ".promo-badge--card {position: absolute; top: 8px; left: 8px; z-index: 2; max-width: 90%;}",
+        "@media screen and (min-width: 1024px) {.promo-badge {font-size: 18px; padding: 14px 28px; }}"
+      ],
+      "name": "t:sections.custom-liquid.presets.name",
+      "settings": {
+        "content": "{% assign promo_text = product.metafields.custom.promo | to_string | strip %}\n{% if promo_text != '' %}\n  <!-- Afficher le texte du méta, avec retours à la ligne -->\n  <div class=\"promo-badge\">{{ promo_text | newline_to_br }}</div>\n{% endif %}",
+        "color_scheme": "",
+        "content_alignment": "center",
+        "top_space_desktop": 10,
+        "bottom_space_desktop": 10,
+        "top_space_mobile": 10,
+        "bottom_space_mobile": 10
+      }
+    },
+    "main-product-section": {
+      "type": "main-product-section",
+      "blocks": {
+        "title_CiPdg8": {
+          "type": "title",
+          "settings": {}
+        },
+        "text_daqfHL": {
+          "type": "text",
+          "settings": {
+            "text": "Made in France – Fabrication artisanale, réalisée à Grasse par nos maîtres parfumeurs"
+          }
+        },
+        "description_g6iw7e": {
+          "type": "description",
+          "disabled": true,
+          "settings": {}
+        },
+        "price_kVYiMe": {
+          "type": "price",
+          "settings": {
+            "hide_shipping_content": false
+          }
+        },
+        "inventory_gf6xLU": {
+          "type": "inventory",
+          "disabled": true,
+          "settings": {
+            "minimun_inventory": 10
+          }
+        },
+        "variant_RmJeXx": {
+          "type": "variant",
+          "settings": {
+            "enable_size_chart": false,
+            "size_chart": ""
+          }
+        },
+        "button_bx3Xmp": {
+          "type": "button",
+          "settings": {
+            "enable_quantity": true,
+            "dynamic_checkout_btn": true,
+            "show_recipient_form": false
+          }
+        },
+        "custom_content_8bGMtd": {
+          "type": "custom_content",
+          "settings": {
+            "custom_svg": "<svg class=\"icon-small\" width=\"14\" height=\"16\" viewbox=\"0 0 14 16\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n          <path fill-rule=\"evenodd\" clip-rule=\"evenodd\" d=\"M6.98842 15.2045C6.98842 15.2045 12.7424 13.4622 12.7424 8.65925C12.7424 3.8555 12.9509 3.4805 12.4897 3.0185C12.0277 2.5565 7.74292 1.0625 6.98842 1.0625C6.23392 1.0625 1.94917 2.5565 1.48792 3.0185C1.02592 3.4805 1.23442 3.8555 1.23442 8.65925C1.23442 13.4622 6.98842 15.2045 6.98842 15.2045Z\" stroke=\"currentcolor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"></path>\n          <path d=\"M5.03906 7.90609L6.45806 9.32734L9.38156 6.40234\" stroke=\"currentcolor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"></path>\n        </svg>",
+            "text": "Livraison rapide en France",
+            "option_type": "drawer",
+            "link": "",
+            "content": "<h5><strong>Livraison rapide en France</strong></h5><p>Nos commandes sont préparées avec soin et expédiées sous 24 à 48h ouvrées après validation de votre achat.</p><ul><li><strong>Délais standards</strong> : 2 à 5 jours ouvrés pour la France métropolitaine.</li><li><strong>Transporteurs fiables</strong> : Livraison avec suivi par Colissimo ou Chronopost.</li><li><strong>Emballage soigné</strong> : Vos produits sont protégés pour garantir une réception en parfait état.</li></ul><p>Profitez d’une livraison rapide et sécurisée, directement à votre domicile ou en point relais.</p>",
+            "page_type": "contact"
+          }
+        },
+        "share_Edn8aW": {
+          "type": "share",
+          "settings": {
+            "enable_social_share": false,
+            "enable_query_share": true,
+            "text": "Une question? Contactez-nous!",
+            "option_type": "drawer",
+            "link": "shopify://pages/contact",
+            "content": ""
+          }
+        },
+        "custom_liquid_iB3JY4": {
+          "type": "custom_liquid",
+          "disabled": true,
+          "settings": {
+            "custom_liquid": "{%- comment -%} Description par variante — robuste (Desert/Dawn) {%- endcomment -%}\n{%- assign ns = 'custom' -%}{%- assign key = 'variant_description' -%}\n\n<div id=\"vdesc-{{ section.id }}\" class=\"rte\" hidden></div>\n\n<script id=\"vdesc-data-{{ section.id }}\" type=\"application/json\">\n{\n{%- for v in product.variants -%}\n  \"{{ v.id }}\": {{ v.metafields[ns][key] | metafield_tag | json }}{% unless forloop.last %},{% endunless %}\n{%- endfor -%}\n}\n</script>\n\n<script>\n(() => {\n  const dataEl = document.getElementById('vdesc-data-{{ section.id }}');\n  if (!dataEl) return;\n\n  let map = {};\n  try { map = JSON.parse(dataEl.textContent || '{}'); } catch(e) {}\n  const out = document.getElementById('vdesc-{{ section.id }}');\n\n  function render(id){\n    const html = map[id] || '';\n    out.innerHTML = html || '';\n    out.hidden = !html;\n  }\n\n  function getId(){\n    const form = document.querySelector('form[action*=\"/cart/add\"]');\n    if (!form) return null;\n    const input = form.querySelector('[name=\"id\"]');\n    return input && input.value ? String(input.value) : null;\n  }\n\n  // Initial\n  let last = getId();\n  if (last) render(last);\n\n  // Événements courants de changement de variante\n  ['variant:change','variant:changed','product:variant-change','theme:variant:change'].forEach(evt=>{\n    document.addEventListener(evt, e=>{\n      const v = e.detail && (e.detail.variant || e.detail.productVariant);\n      if (v && v.id) { last = String(v.id); render(last); }\n    });\n  });\n\n  // Écoute générique + MutationObserver + mini polling\n  ['change','input','click'].forEach(evt=>{\n    document.addEventListener(evt, ()=>{\n      const id = getId();\n      if (id && id !== last){ last = id; render(id); }\n    });\n  });\n\n  const form = document.querySelector('form[action*=\"/cart/add\"]');\n  if (form) {\n    const mo = new MutationObserver(() => {\n      const id = getId();\n      if (id && id !== last){ last = id; render(id); }\n    });\n    mo.observe(form, {subtree:true, childList:true, attributes:true, attributeFilter:['value']});\n  }\n\n  setInterval(() => {\n    const id = getId();\n    if (id && id !== last){ last = id; render(id); }\n  }, 500);\n})();\n</script>"
+          }
+        },
+        "pickup_NxqAXc": {
+          "type": "pickup",
+          "settings": {}
+        },
+        "p_desc_GBFGtU": {
+          "type": "p_desc",
+          "settings": {
+            "heading": "Description",
+            "heading_color": "#a48351",
+            "text_color": "#333333",
+            "open_by_default": true
+          }
+        },
+        "v_pictos_Mpprb8": {
+          "type": "v_pictos",
+          "settings": {
+            "heading": "Pictogrammes",
+            "open_by_default": false,
+            "heading_color": "#111111",
+            "text_color": "#333333",
+            "v_ns": "custom",
+            "v_key": "pictogrammes",
+            "picto_scale": 1
+          }
+        },
+        "v_scent_3k6ddb": {
+          "type": "v_scent",
+          "settings": {
+            "heading": "Détails de la senteur",
+            "open_by_default": false,
+            "heading_color": "#111111",
+            "text_color": "#333333",
+            "v_ns": "custom",
+            "v_key": "senteur",
+            "order_handles": "nom, description, caracteristiques_techniques, univers_ambiance, bienfaits, mots_cles, fiche_technique",
+            "exclude_handles": "pictogramme",
+            "show_empty": false
+          }
+        },
+        "collapsible_content_am48cP": {
+          "type": "collapsible_content",
+          "disabled": true,
+          "settings": {
+            "open_first_content": false,
+            "show_description": false,
+            "description_heading": "",
+            "heading_color": "#111111",
+            "text_color": "#333333",
+            "heading_1": "Expédition & Livraison",
+            "description_1": "",
+            "pageid_1": "",
+            "heading_2": "",
+            "description_2": "",
+            "pageid_2": "",
+            "heading_3": "",
+            "description_3": "",
+            "pageid_3": ""
+          }
+        }
+      },
+      "block_order": [
+        "title_CiPdg8",
+        "text_daqfHL",
+        "description_g6iw7e",
+        "price_kVYiMe",
+        "inventory_gf6xLU",
+        "variant_RmJeXx",
+        "button_bx3Xmp",
+        "custom_content_8bGMtd",
+        "share_Edn8aW",
+        "custom_liquid_iB3JY4",
+        "pickup_NxqAXc",
+        "p_desc_GBFGtU",
+        "v_pictos_Mpprb8",
+        "v_scent_3k6ddb",
+        "collapsible_content_am48cP"
+      ],
+      "custom_css": [
+        ".product-item-shipping-tax {display: none !important;}",
+        ".product-actual-price {font-weight: 700 !important;}",
+        ".product-gallery-thumb-item {display: none !important;}"
+      ],
+      "settings": {
+        "enable_fullwidth": true,
+        "enable_stickyProduct": true,
+        "media_object_fit": "cover",
+        "media_align_desktop": "center",
+        "media_align_mobile": "center",
+        "media_height_desktop": 600,
+        "media_height_mobile": 420,
+        "media_border_radius": 12,
+        "enable_gallery_arrows": true,
+        "hide_native_gallery_arrows": true,
+        "arrow_bg_color": "#333333",
+        "arrow_icon_color": "#ffffff",
+        "arrow_size": 42,
+        "arrow_border_radius": 9999,
+        "arrow_offset_desktop": 12,
+        "arrow_offset_mobile": 10,
+        "arrow_position": "edge",
+        "media_layout": "slider",
+        "thumbnail_position": "overlay",
+        "slider_coverflow_mode": true,
+        "color_scheme": "one",
+        "top_space_desktop": 40,
+        "bottom_space_desktop": 80,
+        "top_space_mobile": 20,
+        "bottom_space_mobile": 40,
+        "swatch_min_width": 140,
+        "swatch_gap": 14,
+        "swatch_radius": 12,
+        "swatch_bg": "#ffffff",
+        "swatch_border": "#cfcfcf",
+        "swatch_color": "#1b1b1b",
+        "swatch_bg_active": "#a48351",
+        "swatch_border_active": "#111111",
+        "swatch_color_active": "#ffffff",
+        "product_info_heading_color": "#a48351"
+      }
+    },
+    "recommended-products": {
+      "type": "recommended-products",
+      "disabled": true,
+      "settings": {
+        "heading": "Related products",
+        "heading_size": "h4",
+        "image_size": "portrait",
+        "products_count": 9,
+        "column_gap": 20,
+        "column_gap_mobile": 20,
+        "color_scheme": "three",
+        "top_space_desktop": 80,
+        "bottom_space_desktop": 80,
+        "top_space_mobile": 40,
+        "bottom_space_mobile": 40
+      }
+    },
+    "collection_carousel_3tEH43": {
+      "type": "collection-carousel",
+      "blocks": {
+        "collection_piLQpm": {
+          "type": "collection",
+          "settings": {
+            "color_scheme": "",
+            "collection": "nos-diffuseurs-de-parfum",
+            "image": "shopify://shop_images/d6b298f7-1a49-49bb-a839-5ca907140943.jpg",
+            "subheading": "SALE",
+            "heading": "Diffuseur de parfum",
+            "description": "",
+            "overlay_color": "#000000",
+            "overlay_opacity": 0
+          }
+        },
+        "collection_yyqzcB": {
+          "type": "collection",
+          "settings": {
+            "color_scheme": "",
+            "collection": "🌿-eaux-de-parfum",
+            "image": "shopify://shop_images/9C1C8CC8-193A-4ED3-A434-763247C1A6F5_c06a5d47-5016-4d40-9445-ebb5c78401f9.png",
+            "subheading": "",
+            "heading": "Eau de parfum",
+            "description": "A collection of exquisite pieces that redefine sophistication.",
+            "overlay_color": "#000000",
+            "overlay_opacity": 0
+          }
+        },
+        "collection_yMDiic": {
+          "type": "collection",
+          "settings": {
+            "color_scheme": "",
+            "collection": "",
+            "subheading": "SALE",
+            "heading": "Opulent Charm",
+            "description": "Handcrafted elegance designed for the modern connoisseur.",
+            "overlay_color": "#000000",
+            "overlay_opacity": 0
+          }
+        },
+        "collection_axxcng": {
+          "type": "collection",
+          "settings": {
+            "color_scheme": "primary",
+            "collection": "",
+            "subheading": "SALE",
+            "heading": "Signature Luxe",
+            "description": "Timeless creations that blend luxury with effortless style.",
+            "overlay_color": "#000000",
+            "overlay_opacity": 0
+          }
+        },
+        "collection_wrVj43": {
+          "type": "collection",
+          "settings": {
+            "color_scheme": "",
+            "collection": "",
+            "subheading": "SALE",
+            "heading": "Chic Prestige",
+            "description": "A fusion of classic beauty and contemporary craftsmanship.",
+            "overlay_color": "#000000",
+            "overlay_opacity": 0
+          }
+        },
+        "collection_PGARPU": {
+          "type": "collection",
+          "settings": {
+            "color_scheme": "",
+            "collection": "",
+            "subheading": "SALE",
+            "heading": "Timeless Icons",
+            "description": "Statement pieces that embody elegance and refined taste.",
+            "overlay_color": "#000000",
+            "overlay_opacity": 0
+          }
+        }
+      },
+      "block_order": [
+        "collection_piLQpm",
+        "collection_yyqzcB",
+        "collection_yMDiic",
+        "collection_axxcng",
+        "collection_wrVj43",
+        "collection_PGARPU"
+      ],
+      "disabled": true,
+      "settings": {
+        "enable_fullwidth": true,
+        "slider_enable": true,
+        "slider_slide_shadow": true,
+        "number_item": 3,
+        "column_gap": 20,
+        "image_ratio": "square",
+        "heading": "Signature Pieces, Endless Sophistication",
+        "heading_size": "h2",
+        "btn_text": "View All",
+        "btn_link": "shopify://collections",
+        "enable_background": false,
+        "content_style": "hover_description",
+        "columns_mobile": "1",
+        "swipe_on_mobile": false,
+        "color_scheme": "one",
+        "top_space_desktop": 80,
+        "bottom_space_desktop": 80,
+        "top_space_mobile": 40,
+        "bottom_space_mobile": 40
+      }
+    },
+    "17815131182b337762": {
+      "type": "apps",
+      "settings": {}
+    },
+    "multicolumn_Eg4h9r": {
+      "type": "multicolumn",
+      "blocks": {
+        "column_H3BWqW": {
+          "type": "column",
+          "settings": {
+            "icon": "",
+            "heading": "Livraison offerte à partir de 60 €",
+            "heading_size": "h6",
+            "description": "Livraison standard en 2–4 jours ouvrés en France. Offerte à partir de 60 €.",
+            "description_size": "text-size-small",
+            "link_label": "",
+            "link_url": "",
+            "btn_size": "small",
+            "color_scheme": "scheme-46c40998-bf14-493b-bfc3-629edab5e448",
+            "overlay_color": "#000000",
+            "overlay_opacity": 50
+          }
+        },
+        "column_rcxKR9": {
+          "type": "column",
+          "settings": {
+            "icon": "",
+            "heading": "100% Made in France",
+            "heading_size": "h6",
+            "description": "Profitez d’une qualité artisanale issue du savoir-faire unique de Grasse, capitale mondiale du parfum.",
+            "description_size": "text-size-small",
+            "link_label": "",
+            "link_url": "",
+            "btn_size": "small",
+            "color_scheme": "",
+            "overlay_color": "#000000",
+            "overlay_opacity": 50
+          }
+        },
+        "column_TAwe4c": {
+          "type": "column",
+          "settings": {
+            "icon": "",
+            "heading": "Qualité Garantie",
+            "heading_size": "h6",
+            "description": "Nos produits sont fabriqués avec des matières premières nobles, pour une expérience sensorielle incomparable.",
+            "description_size": "text-size-small",
+            "link_label": "",
+            "link_url": "",
+            "btn_size": "small",
+            "color_scheme": "scheme-46c40998-bf14-493b-bfc3-629edab5e448",
+            "overlay_color": "#000000",
+            "overlay_opacity": 50
+          }
+        },
+        "column_bgecdV": {
+          "type": "column",
+          "settings": {
+            "icon": "",
+            "heading": "Paiement sécurisé",
+            "heading_size": "h6",
+            "description": "Réglez vos achats en toute confiance grâce à notre système de paiement sécurisé.",
+            "description_size": "text-size-small",
+            "link_label": "",
+            "link_url": "",
+            "btn_size": "small",
+            "color_scheme": "",
+            "overlay_color": "#000000",
+            "overlay_opacity": 50
+          }
+        }
+      },
+      "block_order": [
+        "column_H3BWqW",
+        "column_rcxKR9",
+        "column_TAwe4c",
+        "column_bgecdV"
+      ],
+      "settings": {
+        "color_scheme": "four",
+        "heading": "Une expérience shopping tout en élégance",
+        "heading_size": "h4",
+        "description": "<p></p><p>Profitez d’une livraison soignée, d’un paiement sécurisé et d’options pensées pour vous faciliter la vie.</p>",
+        "content_alignment": "center",
+        "column_range": 4,
+        "column_gap": 20,
+        "row_gap": 20,
+        "show_icon_left": true,
+        "column_background": true,
+        "column_icon_background": true,
+        "text_alignment": "left",
+        "icon_size": "medium",
+        "top_space_desktop": 70,
+        "bottom_space_desktop": 80,
+        "top_space_mobile": 40,
+        "bottom_space_mobile": 40
+      }
+    },
+    "ss_split_media_text_inCAPW": {
+      "type": "ss-split-media-text",
+      "name": "Split Media Text",
+      "settings": {
+        "desktop_layout": "two-columns",
+        "image_side": "left",
+        "mobile_image_pos": "top",
+        "image": "shopify://shop_images/Design_sans4_titre_24_-min.jpg",
+        "show_image": true,
+        "media_img_width": 100,
+        "media_max_height": 0,
+        "media_border_width": 0,
+        "media_border_color": "#e5e5e5",
+        "media_radius": 25,
+        "image_full_bleed": false,
+        "image_full_bleed_mobile": true,
+        "image_full_bleed_height_d": 640,
+        "image_full_bleed_height_m": 420,
+        "show_content_desktop": true,
+        "show_content_mobile": true,
+        "center_desktop": false,
+        "center_mobile": true,
+        "content_shift_desktop": 0,
+        "content_color": "#121212",
+        "badge_enable": false,
+        "badge_size": 48,
+        "badge_gap": 8,
+        "badge_position_desktop": "inline",
+        "badge_position_mobile": "inline",
+        "eyebrow": "Idées cadeaux parfumées",
+        "eyebrow_bold": true,
+        "eyebrow_italic": false,
+        "eyebrow_size": 17,
+        "eyebrow_size_m": 14,
+        "eyebrow_color": "#a48351",
+        "heading": "<p>Offrez un moment d’exception, un sillage unique...</p>",
+        "heading2_enable": false,
+        "heading2": "<p>Sous-titre optionnel</p>",
+        "heading_size": 48,
+        "heading_size_m": 32,
+        "heading_color": "#121212",
+        "heading2_size": 28,
+        "heading2_size_m": 22,
+        "heading2_color": "#121212",
+        "text1": "Couleur Safran vous propose, tout au long de l’année, des senteurs singulières, riches et exclusives.",
+        "text2": "",
+        "text1_font_source": "theme",
+        "text1_font": "sans_serif_n4",
+        "show_button": true,
+        "btn_text": "Trouver le cadeau parfait",
+        "btn_link": "shopify://collections/nos-coffrets-et-bons-cadeaux",
+        "btn_font_size": 21,
+        "btn_font_size_m": 16,
+        "btn_py": 12,
+        "btn_px": 28,
+        "btn_radius": "999px",
+        "btn_bg": "#121212",
+        "btn_color": "#ffffff",
+        "text_size": 18,
+        "text_size_m": 16,
+        "text_color": "#333333",
+        "text2_size": 16,
+        "text2_size_m": 15,
+        "text2_color": "#555555",
+        "space_heading": 12,
+        "space_eyebrow": 12,
+        "space_texts": 16,
+        "space_text_btn": 24,
+        "font_scale_d": 100,
+        "font_scale_m": 100,
+        "title_lh": 110,
+        "title_lh_m": 110,
+        "subtitle_lh": 120,
+        "subtitle_lh_m": 120,
+        "text1_lh": 150,
+        "text1_lh_m": 150,
+        "text2_lh": 150,
+        "text2_lh_m": 150,
+        "text1_size_px": 0,
+        "text1_size_m_px": 0,
+        "pt": 40,
+        "pb": 40,
+        "col_gap": 40,
+        "section_width": 120,
+        "content_max": 60,
+        "bg": "#ffffff"
+      }
+    },
+    "overlay_collections_banner_izafim": {
+      "type": "overlay-collections-banner",
+      "blocks": {
+        "category_hMwwaB": {
+          "type": "category",
+          "settings": {
+            "color_scheme": "scheme-be9f6b7d-a59c-4f47-b276-028513b69a60",
+            "heading": "Parfums maison",
+            "image": "shopify://shop_images/unnamed_7.jpg",
+            "link_text": "Découvrir",
+            "link_url": "shopify://collections/nos-parfums-d-interieur",
+            "collection_list": [],
+            "heading_color": "#ffffff",
+            "heading_bold": true,
+            "heading_size_d": 32,
+            "heading_size_m": 24,
+            "link_color": "#ecac23",
+            "link_bold": true,
+            "link_size_d": 18,
+            "link_size_m": 18
+          }
+        },
+        "category_8UYTth": {
+          "type": "category",
+          "settings": {
+            "color_scheme": "scheme-8d63752f-eb88-4469-aa6c-e042fe0f850d",
+            "heading": "Parfums de peau",
+            "image": "shopify://shop_images/IMG_494456.jpg",
+            "link_text": "Découvrir",
+            "link_url": "shopify://collections/nos-parfums-de-peau",
+            "collection_list": [],
+            "heading_color": "#ffffff",
+            "heading_bold": true,
+            "heading_size_d": 32,
+            "heading_size_m": 24,
+            "link_color": "#ecac23",
+            "link_bold": true,
+            "link_size_d": 18,
+            "link_size_m": 18
+          }
+        },
+        "category_wkBhmp": {
+          "type": "category",
+          "settings": {
+            "color_scheme": "scheme-46c40998-bf14-493b-bfc3-629edab5e448",
+            "heading": "Offres cadeaux",
+            "image": "shopify://shop_images/Design_sans_titre_25_-min.jpg",
+            "link_text": "Découvrir",
+            "link_url": "shopify://collections/nos-coffrets-et-bons-cadeaux",
+            "collection_list": [],
+            "heading_color": "#ffffff",
+            "heading_bold": true,
+            "heading_size_d": 32,
+            "heading_size_m": 24,
+            "link_color": "#ffffff",
+            "link_bold": true,
+            "link_size_d": 18,
+            "link_size_m": 18
+          }
+        }
+      },
+      "block_order": [
+        "category_hMwwaB",
+        "category_8UYTth",
+        "category_wkBhmp"
+      ],
+      "custom_css": [
+        ".overlay-banner-container {border-top-left-radius: 0; border-top-right-radius: 0; border-bottom-left-radius: px; border-bottom-right-radius: px;}",
+        " {margin-bottom: 24px;}",
+        " /* Fond noir arrondi sur overlay-heading-wrapper */.overlay-heading-wrapper {background-color: rgba( 0, 0, 0, 0.6 ); /* règle l’opacité avec le dernier chiffre (0 = transparent, 1 = opaque) */ border-radius: 12px; /* arrondit les bords, ajuste la valeur à ton goût */ padding: 10px 20px; /* espace intérieur, ajuste si besoin */ display: inline-block; /* pour que le fond s'adapte au texte */}"
+      ],
+      "settings": {
+        "color_scheme": "",
+        "banner_height": "medium",
+        "top_space_desktop": 0,
+        "bottom_space_desktop": 25,
+        "top_space_mobile": 0,
+        "bottom_space_mobile": 0,
+        "overlay_color": "#000000",
+        "overlay_opacity": 0,
+        "mobile_card_border_enable": true,
+        "mobile_card_border_color": "#e5e5e5",
+        "mobile_card_border_width": 1
+      }
+    },
+    "recently_view_products_c4AawE": {
+      "type": "recently-view-products",
+      "custom_css": [
+        ".product-card-wrapper {border-top-left-radius: 10px; border-top-right-radius: 10px; border-bottom-left-radius: 15px; border-bottom-right-radius: 15px; border: 1px solid #cccccc;}",
+        "h2 {color: #a48351;}",
+        ".product-actual-price {font-weight: 700 !important;}"
+      ],
+      "name": "t:sections.recently_view_products.presets.name",
+      "settings": {
+        "heading": "Vos produits récemment consultés",
+        "heading_size": "h2",
+        "image_size": "square",
+        "products_count": 8,
+        "column_gap": 20,
+        "column_gap_mobile": 20,
+        "color_scheme": "",
+        "top_space_desktop": 80,
+        "bottom_space_desktop": 80,
+        "top_space_mobile": 40,
+        "bottom_space_mobile": 40
+      }
+    },
+    "hot_spots_dGAXTx": {
+      "type": "hot-spots",
+      "blocks": {
+        "spot_96y3df": {
+          "type": "spot",
+          "settings": {
+            "product": "coffret-diffuseur-parfum-artisanal",
+            "spot_size": 40,
+            "horizontal": 49,
+            "vertical": 36,
+            "mobile_spot_size": 25,
+            "mobile_horizontal": 49,
+            "mobile_vertical": 36,
+            "spot_color_bg": "#ffffff",
+            "spot_color": "#000000",
+            "mobile_spot_color_bg": "#282828",
+            "mobile_spot_color": "#ffffff"
+          }
+        },
+        "spot_PWjVcV": {
+          "type": "spot",
+          "settings": {
+            "product": "{{ product }}",
+            "spot_size": 40,
+            "horizontal": 85,
+            "vertical": 52,
+            "mobile_spot_size": 25,
+            "mobile_horizontal": 94,
+            "mobile_vertical": 43,
+            "spot_color_bg": "#ffffff",
+            "spot_color": "#000000",
+            "mobile_spot_color_bg": "#282828",
+            "mobile_spot_color": "#ffffff"
+          }
+        }
+      },
+      "block_order": [
+        "spot_96y3df",
+        "spot_PWjVcV"
+      ],
+      "settings": {
+        "image": "shopify://shop_images/G7C_5288-Modifier.jpg",
+        "heading": "",
+        "heading_size": "h2",
+        "btn_text": "Inspired by Luxury",
+        "btn_size": "small",
+        "color_scheme": "",
+        "top_space_desktop": 0,
+        "bottom_space_desktop": 0,
+        "top_space_mobile": 0,
+        "bottom_space_mobile": 40
+      }
+    },
+    "17557971436af605ad": {
+      "type": "apps",
+      "settings": {}
+    }
+  },
+  "order": [
+    "custom_liquid_Xnb8qh",
+    "main-product-section",
+    "recommended-products",
+    "collection_carousel_3tEH43",
+    "17815131182b337762",
+    "multicolumn_Eg4h9r",
+    "ss_split_media_text_inCAPW",
+    "overlay_collections_banner_izafim",
+    "recently_view_products_c4AawE",
+    "hot_spots_dGAXTx",
+    "17557971436af605ad"
+  ]
+}

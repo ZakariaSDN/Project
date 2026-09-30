@@ -1,0 +1,460 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "slideshow_zk4FeG": {
+      "type": "slideshow",
+      "settings": {
+        "color_scheme": "",
+        "container_style": "full-container",
+        "style": "single",
+        "desktop_media_height": 640,
+        "mobile_media_height": 420,
+        "autoplay": true,
+        "autoplay_interval": 4,
+        "pause_on_hover": true,
+        "autoplay_keep_after_interaction": true,
+        "show_edge_arrows": true,
+        "nav_arrow_size": 44,
+        "nav_edge_margin": 12,
+        "nav_arrow_bg_color": "#000000",
+        "nav_arrow_bg_opacity": 40,
+        "nav_arrow_icon_color": "#ffffff",
+        "controls": "arrows",
+        "navigation_position": "inside",
+        "desktop_navigation_alignment": "left"
+      }
+    },
+    "richtext_VwexWy": {
+      "type": "richtext",
+      "blocks": {
+        "heading_Vqtq43": {
+          "type": "heading",
+          "settings": {
+            "heading": "Espace Professionnel — Devenez revendeur de parfums de Grasse artisanaux",
+            "heading_size": "h1",
+            "heading_tag": "h1"
+          }
+        },
+        "description_MAGkAF": {
+          "type": "description",
+          "settings": {
+            "text": "<p>Couleur Safran accompagne les professionnels qui souhaitent proposer des parfums de Grasse artisanaux à leur clientèle. Que vous soyez boutique, concept store, hôtel, spa, comité d'entreprise ou marque en quête de personnalisation olfactive, nous avons une solution adaptée à vos besoins.<br/>Nos parfums de niche sont fabriqués à la main dans notre atelier de Cannes, avec des essences nobles issues du pays grassois. Diffuseurs, bougies parfumées, eaux de parfum, eaux de toilette et douceurs de linge — chaque création reflète un savoir-faire artisanal d'exception et un engagement éco-responsable.<br/>Nous proposons trois formules d'accompagnement : le programme revendeur avec tarifs dégressifs et support merchandising, les tarifs professionnels pour entreprises et CE avec personnalisation possible, et la création sur mesure pour les marques souhaitant développer leur propre ligne olfactive aux essences de Grasse.<br/>Contactez-nous pour recevoir notre catalogue professionnel et discuter de votre projet.</p>",
+            "description_size": "text-size-medium"
+          }
+        }
+      },
+      "block_order": [
+        "heading_Vqtq43",
+        "description_MAGkAF"
+      ],
+      "custom_css": [
+        "@media screen and (max-width: 767px) {.rich-text .rich-text-paragraph {text-align: left !important; }}",
+        "p {text-align: center;}",
+        ".rt-heading {color: #a48351;}",
+        "h1 {font-size: 38px; font-weight: bold;}",
+        "@media screen and (max-width: 767px) {h1 {font-size: 30px; font-weight: bold; }}"
+      ],
+      "name": "t:sections.rich-text.name",
+      "settings": {
+        "color_scheme": "",
+        "content_alignment": "center",
+        "enable_card_view": false,
+        "show_in_columns": false,
+        "show_image_desktop": true,
+        "show_image_mobile": true,
+        "image_desktop": "shopify://shop_images/CouleurSafran_004.jpg",
+        "image_mobile": "shopify://shop_images/CouleurSafran_004.jpg",
+        "image_alt": "Illustration",
+        "image_position_desktop": "top",
+        "image_order_desktop": "top",
+        "image_shape_desktop": "rectangle",
+        "image_radius_desktop": 16,
+        "image_width_desktop": 40,
+        "image_position_mobile": "center",
+        "image_order_mobile": "top",
+        "image_shape_mobile": "rounded",
+        "image_radius_mobile": 12,
+        "image_width_mobile": 80,
+        "image_full_bleed": true,
+        "image_full_bleed_mobile": true,
+        "image_full_bleed_height_d": 500,
+        "image_full_bleed_height_m": 420,
+        "image_max_height": 0,
+        "image_gap": 24,
+        "cta_show_desktop": true,
+        "cta_show_mobile": true,
+        "cta_text": "Shop collection",
+        "cta_collection": "",
+        "cta_url": "",
+        "cta_position_desktop": "below",
+        "cta_align_desktop": "center",
+        "cta_size_desktop": "medium",
+        "cta_bg_desktop": "#111111",
+        "cta_text_desktop": "#ffffff",
+        "cta_position_mobile": "below",
+        "cta_align_mobile": "center",
+        "cta_size_mobile": "small",
+        "cta_bg_mobile": "#111111",
+        "cta_text_mobile": "#ffffff",
+        "cta_radius": 6,
+        "cta_margin_y": 16,
+        "text_margin_top_desktop": 24,
+        "text_margin_bottom_desktop": 24,
+        "text_margin_top_mobile": 16,
+        "text_margin_bottom_mobile": 16,
+        "text_margin_top_desktop_compact": 8,
+        "text_margin_bottom_desktop_compact": 8,
+        "text_margin_top_mobile_compact": 6,
+        "text_margin_bottom_mobile_compact": 6,
+        "heading_font_size_desktop": 40,
+        "heading_font_size_mobile": 25
+      }
+    },
+    "tabs_collections_8i6kVW": {
+      "type": "tabs-collections",
+      "blocks": {
+        "tab_CXwG8q": {
+          "type": "tab",
+          "settings": {
+            "tab_title": ""
+          }
+        },
+        "card_jHV6Rn": {
+          "type": "card",
+          "settings": {
+            "desktop_width": "half",
+            "collection": "nos-diffuseurs-de-parfum",
+            "custom_image": "shopify://shop_images/G7C_5288-Modifier.jpg",
+            "heading": "Devenir revendeurs",
+            "description": "",
+            "title_size_desktop": 28,
+            "title_size_mobile": 22,
+            "title_bold": false,
+            "text_color_desktop": "#ffffff",
+            "text_color_mobile": "#ffffff",
+            "desc_size_desktop": 16,
+            "desc_size_mobile": 26,
+            "desc_bold": false,
+            "overlay_color": "#000000",
+            "overlay_opacity": 18,
+            "content_mode_desktop": "on",
+            "below_center_text_desktop": false,
+            "below_center_button_desktop": false,
+            "content_mode_mobile": "on",
+            "below_center_text_mobile": true,
+            "below_center_button_mobile": true,
+            "button_text": "Je deviens revendeur",
+            "button_link": "shopify://pages/espace-revendeurs",
+            "button_style_desktop": "filled",
+            "btn_bg": "#000000",
+            "btn_color": "#ffffff",
+            "btn_font_size": 0,
+            "btn_padding_y": 0,
+            "btn_padding_x": 0,
+            "btn_radius": 0
+          }
+        },
+        "card_GBChVQ": {
+          "type": "card",
+          "settings": {
+            "desktop_width": "half",
+            "collection": "recharge-diffuseur-parfum",
+            "custom_image": "shopify://shop_images/Image_6_aout_2025_15_15_25.jpg",
+            "custom_image_mobile": "shopify://shop_images/Image_6_aout_2025_15_15_25.jpg",
+            "heading": "Tarif professionnel (Entreprise/CE)",
+            "description": "",
+            "title_size_desktop": 28,
+            "title_size_mobile": 22,
+            "title_bold": false,
+            "text_color_desktop": "#ffffff",
+            "text_color_mobile": "#ffffff",
+            "desc_size_desktop": 16,
+            "desc_size_mobile": 26,
+            "desc_bold": false,
+            "overlay_color": "#000000",
+            "overlay_opacity": 33,
+            "content_mode_desktop": "on",
+            "below_center_text_desktop": false,
+            "below_center_button_desktop": false,
+            "content_mode_mobile": "on",
+            "below_center_text_mobile": true,
+            "below_center_button_mobile": true,
+            "button_text": "Voir les tarifs professionnels",
+            "button_link": "shopify://pages/entreprise-ce",
+            "button_style_desktop": "filled",
+            "btn_bg": "#000000",
+            "btn_color": "#ffffff",
+            "btn_font_size": 0,
+            "btn_padding_y": 0,
+            "btn_padding_x": 0,
+            "btn_radius": 0
+          }
+        },
+        "card_kJjxBT": {
+          "type": "card",
+          "settings": {
+            "desktop_width": "half",
+            "collection": "nos-bougies-de-parfum",
+            "custom_image": "shopify://shop_images/AGC_0814-Modifier_cc1c5b11-c016-4482-9130-3c409b17fbfd.jpg",
+            "custom_image_mobile": "shopify://shop_images/AGC_0814-Modifier_cc1c5b11-c016-4482-9130-3c409b17fbfd.jpg",
+            "heading": "Personnalisation",
+            "description": "",
+            "title_size_desktop": 28,
+            "title_size_mobile": 26,
+            "title_bold": false,
+            "text_color_desktop": "#ffffff",
+            "text_color_mobile": "#ffffff",
+            "desc_size_desktop": 16,
+            "desc_size_mobile": 14,
+            "desc_bold": false,
+            "overlay_color": "#000000",
+            "overlay_opacity": 28,
+            "content_mode_desktop": "on",
+            "below_center_text_desktop": false,
+            "below_center_button_desktop": false,
+            "content_mode_mobile": "on",
+            "below_center_text_mobile": true,
+            "below_center_button_mobile": true,
+            "button_text": "Demander une personnalisation",
+            "button_link": "shopify://pages/personnalisation",
+            "button_style_desktop": "filled",
+            "btn_bg": "#000000",
+            "btn_color": "#ffffff",
+            "btn_font_size": 0,
+            "btn_padding_y": 0,
+            "btn_padding_x": 0,
+            "btn_radius": 0
+          }
+        }
+      },
+      "block_order": [
+        "tab_CXwG8q",
+        "card_jHV6Rn",
+        "card_GBChVQ",
+        "card_kJjxBT"
+      ],
+      "name": "Tabs Collections",
+      "settings": {
+        "section_title": "<p>Sélectionnez votre catégorie</p>",
+        "section_title_color_desktop": "#a48351",
+        "section_title_color_mobile": "#111111",
+        "section_title_size_desktop": 42,
+        "section_title_size_mobile": 26,
+        "center_tabs": true,
+        "tabs_font_size_desktop": 24,
+        "tabs_font_size_mobile": 17,
+        "tabs_bold": false,
+        "show_nav_arrows": false,
+        "arrow_icon_color": "#000000",
+        "tabs_active_color": "#a48351",
+        "tabs_inactive_color": "#9a9a9a",
+        "tabs_underline": 2,
+        "gap": 12,
+        "card_radius": 18,
+        "aspect_ratio": "16/9",
+        "default_text_color": "#ffffff",
+        "default_overlay_color": "#000000",
+        "default_overlay_opacity": 40,
+        "btn_bg": "#000000",
+        "btn_color": "#ffffff",
+        "btn_font_size": 14,
+        "btn_padding_y": 10,
+        "btn_padding_x": 22,
+        "btn_radius": 6,
+        "show_buttons_desktop": true,
+        "show_buttons_mobile": true,
+        "section_width": 120,
+        "section_align": "center",
+        "pad_top": 0,
+        "pad_bottom": 0
+      }
+    },
+    "main": {
+      "type": "main-page",
+      "disabled": true,
+      "settings": {
+        "show_page_title": true,
+        "color_scheme": "",
+        "overlay_color": "#000000",
+        "overlay_opacity": 50,
+        "top_space_desktop": 80,
+        "bottom_space_desktop": 80,
+        "top_space_mobile": 40,
+        "bottom_space_mobile": 40
+      }
+    },
+    "contact_X43niV": {
+      "type": "contact",
+      "settings": {
+        "color_scheme": "one",
+        "heading": "",
+        "heading_size": "h4",
+        "form_heading": "Nous contacter",
+        "form_button_text": "Envoyer",
+        "form_position": "right",
+        "show_company": true,
+        "show_phone": true,
+        "show_project_type": true,
+        "show_volume": false,
+        "volume_input_type": "select",
+        "show_catalog": true,
+        "req_company": true,
+        "req_firstname": true,
+        "req_lastname": true,
+        "req_email": true,
+        "req_phone": false,
+        "req_project_type": true,
+        "req_volume": false,
+        "req_catalog": false,
+        "req_message": true,
+        "fs_company": 16,
+        "bold_company": false,
+        "fs_firstname": 16,
+        "bold_firstname": false,
+        "fs_lastname": 16,
+        "bold_lastname": false,
+        "fs_email": 16,
+        "bold_email": false,
+        "fs_phone": 16,
+        "bold_phone": false,
+        "fs_project_type": 16,
+        "bold_project_type": false,
+        "fs_volume": 16,
+        "bold_volume": false,
+        "fs_catalog": 16,
+        "bold_catalog": false,
+        "fs_message": 16,
+        "bold_message": false,
+        "info_heading": "",
+        "info_email_label": "Adresse mail",
+        "info_email_content": "contact@couleursafran.com",
+        "info_email_color": "#111111",
+        "info_email_bold": false,
+        "info_phone_label": "Appelez-nous",
+        "info_phone_content": "06 30 16 44 06",
+        "info_phone_color": "#111111",
+        "info_phone_bold": false,
+        "info_address_label": "Adresse",
+        "info_address_content": "<p>12, rue Reyer<br/>06400 Cannes, France</p>",
+        "info_address_color": "#111111",
+        "info_address_bold": false,
+        "show_social": true,
+        "top_space_desktop": 60,
+        "bottom_space_desktop": 80,
+        "top_space_mobile": 40,
+        "bottom_space_mobile": 40
+      }
+    },
+    "multicolumn_w4ymUG": {
+      "type": "multicolumn",
+      "blocks": {
+        "column_bTzFFr": {
+          "type": "column",
+          "settings": {
+            "icon": "",
+            "heading": "Livraison offerte",
+            "heading_size": "h6",
+            "description": "Livraison standard en 2–4 jours ouvrés en France. Offerte sur les commandes éligibles.",
+            "description_size": "text-size-small",
+            "link_label": "",
+            "link_url": "",
+            "btn_size": "small",
+            "color_scheme": "scheme-46c40998-bf14-493b-bfc3-629edab5e448",
+            "overlay_color": "#000000",
+            "overlay_opacity": 50
+          }
+        },
+        "column_i8ehw6": {
+          "type": "column",
+          "settings": {
+            "icon": "",
+            "heading": "100% Made in France",
+            "heading_size": "h6",
+            "description": "Profitez d’une qualité artisanale issue du savoir-faire unique de Grasse, capitale mondiale du parfum.",
+            "description_size": "text-size-small",
+            "link_label": "",
+            "link_url": "",
+            "btn_size": "small",
+            "color_scheme": "",
+            "overlay_color": "#000000",
+            "overlay_opacity": 50
+          }
+        },
+        "column_eWYR8f": {
+          "type": "column",
+          "settings": {
+            "icon": "",
+            "heading": "Qualité Garantie",
+            "heading_size": "h6",
+            "description": "Nos produits sont fabriqués avec des matières premières nobles, pour une expérience sensorielle incomparable.",
+            "description_size": "text-size-small",
+            "link_label": "",
+            "link_url": "",
+            "btn_size": "small",
+            "color_scheme": "scheme-46c40998-bf14-493b-bfc3-629edab5e448",
+            "overlay_color": "#000000",
+            "overlay_opacity": 50
+          }
+        },
+        "column_bdUz3g": {
+          "type": "column",
+          "settings": {
+            "icon": "",
+            "heading": "Paiement sécurisé",
+            "heading_size": "h6",
+            "description": "Réglez vos achats en toute confiance grâce à notre système de paiement sécurisé.",
+            "description_size": "text-size-small",
+            "link_label": "",
+            "link_url": "",
+            "btn_size": "small",
+            "color_scheme": "",
+            "overlay_color": "#000000",
+            "overlay_opacity": 50
+          }
+        }
+      },
+      "block_order": [
+        "column_bTzFFr",
+        "column_i8ehw6",
+        "column_eWYR8f",
+        "column_bdUz3g"
+      ],
+      "disabled": true,
+      "settings": {
+        "color_scheme": "four",
+        "heading": "Une expérience shopping tout en élégance",
+        "heading_size": "h4",
+        "description": "<p></p><p>Profitez d’une livraison soignée, d’un paiement sécurisé et d’options pensées pour vous faciliter la vie.</p>",
+        "content_alignment": "center",
+        "column_range": 4,
+        "column_gap": 20,
+        "row_gap": 20,
+        "show_icon_left": true,
+        "column_background": true,
+        "column_icon_background": true,
+        "text_alignment": "left",
+        "icon_size": "medium",
+        "top_space_desktop": 70,
+        "bottom_space_desktop": 80,
+        "top_space_mobile": 40,
+        "bottom_space_mobile": 40
+      }
+    }
+  },
+  "order": [
+    "slideshow_zk4FeG",
+    "richtext_VwexWy",
+    "tabs_collections_8i6kVW",
+    "main",
+    "contact_X43niV",
+    "multicolumn_w4ymUG"
+  ]
+}

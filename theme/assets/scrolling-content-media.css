@@ -1,0 +1,48 @@
+.scrolling-content-image-wrapper {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+}
+
+.scrolling-content-image-wrapper + .scrolling-content-card {
+  margin-top: -100vh;
+}
+
+.scrolling-content-card {
+  position: relative;
+}
+
+.scrolling-content-box {
+  padding: 6vh 0;
+}
+
+.scrolling-content-right {
+  margin-left: auto;
+}
+
+.scrolling-content-box > .grid-wrapper-flex {
+  margin-top: 20px;
+}
+
+.scrolling-content-box .product-card-wrapper {
+  margin-bottom: 20px;
+}
+
+.scrolling-content-box .product-card-item {
+  max-width: 100%;
+  padding: 0;
+}
+
+@media (max-width: 767px) {
+  .scrolling-content-grid {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+  }
+  .scrolling-content-grid .grid-item-md-6 {
+    flex: 0 0 46%;
+  }
+
+  .scrolling-content-box {
+    padding: 4vh 0;
+  }
+}

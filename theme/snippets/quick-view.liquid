@@ -1,0 +1,65 @@
+<quick-view
+  class="product-quick-view-drawer drawer right"
+  id="product-quick-view-drawer"
+  role="dialog"
+  aria-modal="true"
+>
+  {{ 'featured-product.css' | asset_url | stylesheet_tag: preload: true }}
+  {{ 'featured-product.css' | asset_url | stylesheet_tag }}
+  {%- assign unique_3d_model = product.media | where: 'media_type', 'model' | first -%}
+  {%- if unique_3d_model -%}
+    <link rel="stylesheet" href="https://cdn.shopify.com/shopifycloud/model-viewer-ui/assets/v1.0/model-viewer-ui.css">
+  {%- endif -%}
+  {% assign current_variant = product.selected_or_first_available_variant %}
+  <drawer-layer class="overlay" data-close-drawer>
+    <drawer-mouse-cursor class="drawer-mouse-cursor">
+      <svg class="icon" stroke="currentColor" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M10 30L30 10M10 10L30 30" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"></path>
+      </svg>
+    </drawer-mouse-cursor>
+  </drawer-layer>
+  <div class="drawer-inner-card">
+    <div class="drawer-container">
+      <div class="drawer-head">
+        <drawer-header>
+          <a href="#" class="drawer-close button-right" aria-label="Close" data-close-drawer>
+            <svg
+              class="drawer-icon"
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+            >
+              <path d="M18 6L6 18" stroke="currentColor" stroke-width="1.5"></path>
+              <path d="M6 6L18 18" stroke="currentColor" stroke-width="1.5"></path>
+            </svg>
+          </a>
+          <h5 class="drawer-heading">{{ 'onboarding.quickview' | t }}</h5>
+        </drawer-header>
+      </div>
+      <div class="drawer-body">
+        <div class="drawer-content-contain">
+          <div class="quick-view-slider">
+            {% render 'media-gallery',
+              product: product,
+              section: section,
+              current_variant: current_variant,
+              thumbnail: false,
+              slider: true,
+              zoomImage: false,
+              quickView: true
+            %}
+          </div>
+          <div class="quick-view-info">
+  {% render 'product-info', product: product, section: section, current_variant: current_variant, is_quick_view: true %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script type="application/json" id="ProductJSON-{{ product.id }}">
+    {{ product.media | where: 'media_type', 'model' | json }}
+  </script>
+  <script src="{{ 'product-model.js' | asset_url }}" defer></script>
+</quick-view>

@@ -1,0 +1,611 @@
+{% assign giftwrap_productenable = false %}
+
+<cart-drawer
+  class="cart-drawer drawer right"
+  id="cart-drawer"
+  role="dialog"
+  data-url="?section_id=cart-drawer"
+  data-id="{{ section.id }}"
+>
+  <drawer-layer class="overlay" data-close-drawer cart-drawer-close>
+    <drawer-mouse-cursor class="drawer-mouse-cursor">
+      <svg
+        class="icon"
+        stroke="currentColor"
+        viewBox="0 0 40 40"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path d="M10 30L30 10M10 10L30 30" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"></path>
+      </svg></drawer-mouse-cursor
+  ></drawer-layer>
+  <div class="drawer-inner-card">
+    <div class="drawer-container">
+      <div class="drawer-head">
+        <drawer-header>
+          <a href="#" class="drawer-close button-right" aria-label="Close" data-close-drawer cart-drawer-close>
+            <svg
+              class="drawer-icon"
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+            >
+              <path d="M18 6L6 18" stroke="currentColor" stroke-width="1.5"></path>
+              <path d="M6 6L18 18" stroke="currentColor" stroke-width="1.5"></path>
+            </svg>
+          </a>
+          <h3 class="drawer-heading h5">
+            {{ 'general.cart.shopping_cart' | t }}
+            <span class="text-size-xlarge" data-item-count>({{ cart.item_count }})</span>
+          </h3>
+        </drawer-header>
+        {% if cart.item_count > 0 %}
+          {%- if settings.show_shipping and settings.shipping_rate != blank and cart.item_count > 0 -%}
+            <div class="shipping-form hidden" data-shipping-bar-main>
+              <small class="shipping-message"></small>
+              <progress-bar
+                class="shipping-progress-bar"
+                role="progressbar"
+                aria-valuemin="0"
+              ></progress-bar>
+            </div>
+          {% endif %}
+        {% endif %}
+      </div>
+
+      <div
+        id="cart-drawer-body"
+        class="drawer-body {% if cart.item_count == 0 %}is-empty{% else %} section-{{ id }}{% endif %}"
+        data-cart-count="{{ cart.item_count }}"
+        data-cart-price="{{ cart.total_price }}"
+      >
+        {% if cart.item_count == 0 %}
+          <div class="drawer-empty-wrapper">
+            <div class="drawer-empty text-align-center">
+              <svg
+                class="text-align-center"
+                xmlns="http://www.w3.org/2000/svg"
+                width="45"
+                height="56"
+                viewBox="0 0 45 56"
+                fill="currentcolor"
+              >
+                <path d="M31.5 15.5C33.1 4.7 26.1667 1.66667 22.5 1.5C17.4341 1.5 14.4891 4.89352 13.6651 8.16418C13.5264 8.7148 13.5 9.28495 13.5 9.85278V15.5H31.5Z" fill="#ECECEC"/>
+                <path d="M16.2792 44.7841C15.8792 44.7833 15.5054 44.5975 15.28 44.2887C15.0545 43.9792 15.0054 43.5862 15.1494 43.2362C15.9275 41.3811 17.4725 39.8982 19.4337 39.1243C21.394 38.3504 23.6059 38.3504 25.5673 39.1243C27.5285 39.8983 29.0735 41.381 29.8515 43.2362C29.9854 43.5203 29.9905 43.8434 29.8642 44.13C29.7388 44.4173 29.493 44.6436 29.1845 44.7571C28.876 44.8706 28.5311 44.8611 28.2302 44.7309C27.9302 44.6007 27.6988 44.361 27.5912 44.0673C27.1894 43.1075 26.4868 42.2844 25.5757 41.7057C24.6655 41.1262 23.5892 40.819 22.4883 40.8238C21.3933 40.8175 20.322 41.1231 19.4169 41.7002C18.5126 42.2781 17.816 43.0996 17.4219 44.0562C17.2397 44.4976 16.7852 44.7873 16.2792 44.7841ZM18.515 35.191C18.4905 35.9213 17.9989 36.5659 17.27 36.8254C16.5403 37.0842 15.7157 36.9072 15.18 36.3762C14.6444 35.8451 14.502 35.0648 14.8198 34.3972C15.1368 33.7296 15.8521 33.3065 16.6318 33.3248C17.1463 33.3367 17.6345 33.5399 17.9879 33.8908C18.3421 34.2409 18.5311 34.7092 18.515 35.191ZM30.349 35.191C30.3253 35.9157 29.8405 36.5571 29.1184 36.8207C28.3963 37.0834 27.5767 36.9167 27.0352 36.3976C26.4945 35.8784 26.3368 35.1061 26.636 34.4369C26.9343 33.7677 27.631 33.3295 28.4056 33.3248C28.9302 33.3216 29.4345 33.5185 29.8015 33.8701C30.1676 34.2226 30.366 34.6996 30.349 35.191Z" fill="#010101"/>
+                <path d="M43.933 16.6166C43.1767 15.8333 42.1054 15.3839 40.9922 15.3839H33.1891V10.2559C33.1891 4.60132 28.3941 0 22.5001 0C16.6068 0 11.8111 4.60075 11.8111 10.2559V15.3839H4.00809C2.8953 15.3839 1.8231 15.8332 1.06725 16.6166C0.311877 17.3999 -0.0739683 18.46 0.0117685 19.5246L1.89304 47.1797C2.2663 51.8256 6.3624 55.4651 11.218 55.4651H33.7813C38.6379 55.4651 42.7331 51.8256 43.1068 47.1797L44.9881 19.5246C45.0743 18.46 44.6893 17.4008 43.933 16.6166ZM14.484 10.2565C14.484 6.01514 18.0802 2.56483 22.5005 2.56483C26.9208 2.56483 30.5169 6.01525 30.5169 10.2565V15.3844L14.4838 15.384L14.484 10.2565ZM40.4437 46.9826C40.1776 50.301 37.2516 52.901 33.7832 52.901H11.2187C7.75035 52.901 4.8243 50.301 4.5578 46.983L2.67653 19.3279C2.64764 18.9676 2.77252 18.6233 3.02789 18.3586C3.28325 18.0939 3.63228 17.9477 4.00881 17.9477H11.8118V24.3575C11.8118 25.0653 12.4106 25.6394 13.1478 25.6394C13.8855 25.6394 14.4838 25.0648 14.4838 24.3575L14.4843 17.9477H30.5174V24.3575C30.5174 25.0653 31.1162 25.6394 31.8534 25.6394C32.5911 25.6394 33.1894 25.0648 33.1894 24.3575L33.1898 17.9477H40.9933C41.3694 17.9477 41.718 18.0939 41.9743 18.3586C42.2301 18.6233 42.3545 18.9676 42.3256 19.3279L40.4437 46.9826Z" fill="black"/>
+              </svg>
+              <h5 class="drawer-empty-heading">{{ 'general.cart.empty' | t }}</h5>
+
+              {% if settings.empty_text != blank %}
+                <p>{{ settings.empty_text }}</p>
+              {% endif %}
+              {% if settings.collection_list != blank %}
+                <div class="drawer-empty-collections">
+                  {% for collection_list in settings.collection_list %}
+                    <a href="{{ collection_list.url }}" class="empty-collections-item">{{ collection_list.title }}</a>
+                  {% endfor %}
+                </div>
+              {% endif %}
+            </div>
+          </div>
+        {% else %}
+          <div class="drawer-content-contain">
+            <cart-items>
+              <form class="minicart-form" action="{{ routes.cart_url }}" method="post" id="cart" data-cart-form>
+                <cart-items-block class="cart-items-block">
+                  <ul id="cart-item-{{forloop.index}}" class="list-style-none cart-items-list" data-cart-item>
+                    {%- for item in cart.items -%}
+                      {% liquid
+                        assign giftwrapproduct = false
+                        if item.product_id == settings.gift_wrap_product.id
+                          assign giftwrap_productenable = true
+                          assign giftwrapproduct = true
+                        endif
+                      %}
+                      <li class="cart-items-product">
+                        {%- if item.image != blank -%}
+                          <a href="{{ item.url }}" class="cart-image-wrap">
+                            <figure class="cart-item-img">
+                              <img
+                                class="cart-item__image"
+                                src="{{ item.image | image_url: width: 300 }}"
+                                alt="{{ item.image.alt | escape }}"
+                                loading="lazy"
+                                width="150"
+                                height="{{ 150 | divided_by: item.image.aspect_ratio | ceil }}"
+                              >
+                            </figure>
+                          </a>
+                        {% endif %}
+                        <cart-item-info>
+                          <div class="cart-item-title">
+                            <a href="{{ item.url }}" class="product-title font-heading">
+                              {{ item.product.title | escape -}}
+                            </a>
+                            {%- if item.product.has_only_default_variant == false
+                              or item.properties.size != 0
+                              or item.selling_plan_allocation != null
+                            -%}
+                              <dl>
+                                {%- if item.product.has_only_default_variant == false -%}
+                                  {%- for option in item.options_with_values -%}
+                                    <div class="product-variant-title">
+                                      <dt>{{ option.name }}:</dt>
+                                      <dd>{{ option.value }}</dd>
+                                    </div>
+                                  {%- endfor -%}
+                                {%- endif -%}
+
+                                {%- for property in item.properties -%}
+                                  {%- assign property_first_char = property.first | slice: 0 -%}
+                                  {%- if property.last != blank and property_first_char != '_' -%}
+                                    <div class="product-option">
+                                      <dt>{{ property.first }}:</dt>
+                                      <dd>
+                                        {%- if property.last contains '/uploads/' -%}
+                                          <a href="{{ property.last }}" class="link" target="_blank">
+                                            {{ property.last | split: '/' | last }}
+                                          </a>
+                                        {%- else -%}
+                                          {{ property.last }}
+                                        {%- endif -%}
+                                      </dd>
+                                    </div>
+                                  {%- endif -%}
+                                {%- endfor -%}
+                              </dl>
+                              <p class="product-option">{{ item.selling_plan_allocation.selling_plan.name }}</p>
+                            {%- endif -%}
+                          </div>
+
+                          <div class="product-badge" aria-label="{{ 'customer.order.discount' | t }}">
+                            {%- for discount in item.line_level_discount_allocations -%}
+                              <span class="badge discounts__discount">
+                                {{ discount.discount_application.title }}
+                              </span>
+                            {%- endfor -%}
+                          </div>
+                          {% unless giftwrapproduct %}
+                            <quantity-input class="quantity quantity-buttons">
+                              <button type="button" class="minus-button" name="minus">
+                                <span class="hidden">
+                                  {{- 'products.product.quantity.decrease' | t: product: item.product.title | escape -}}
+                                </span>
+                                <svg
+                                  width="10"
+                                  height="2"
+                                  viewBox="0 0 10 2"
+                                  fill="none"
+                                  xmlns="http://www.w3.org/2000/svg"
+                                >
+                                  <path d="M10 4.37114e-08L10 2L-8.74228e-08 2L0 -4.37114e-07L10 4.37114e-08Z"
+                                    fill="currentcolor"></path>
+                                </svg>
+                              </button>
+                              <label for="drawer-quantity-{{ item.index | plus: 1 }}"  class="visually-hidden">{{ 'products.product.quantity.label' | t }}</label>
+                              <input
+                                class="quantity-input"
+                                data-quantity-variant-id="{{ item.variant.id }}"
+                                type="number"
+                                name="updates[]"
+                                value="{{ item.quantity }}"
+                                data-cart-quantity="{{ cart | item_count_for_variant: item.variant.id }}"
+                                min=""
+                                {% if item.variant.quantity_rule.max != null %}
+                                  max="{{ item.variant.quantity_rule.max }}"
+                                {% endif %}
+                                step="{{ item.variant.quantity_rule.increment }}"
+                                aria-label="{{ 'products.product.quantity.input_label' | t: product: item.product.title | escape }}"
+                                id="drawer-quantity-{{ item.index | plus: 1 }}"
+                                data-index="{{ item.index | plus: 1 }}"
+                              >
+                              <button type="button" class="plus-button" name="plus">
+                                <span class="hidden">
+                                  {{- 'products.product.quantity.increase' | t: product: item.product.title | escape -}}
+                                </span>
+                                <svg
+                                  width="10"
+                                  height="10"
+                                  viewBox="0 0 10 10"
+                                  fill="none"
+                                  xmlns="http://www.w3.org/2000/svg"
+                                >
+                                  <path d="M10 4V6L0 6L8.74243e-08 4L10 4Z" fill="currentcolor"></path>
+                                  <path d="M6 10H4L4 0L6 1.74845e-07L6 10Z" fill="currentcolor"></path>
+                                </svg>
+                              </button>
+                            </quantity-input>
+                          {% endunless %}
+                          <div
+                            class="cart-item__error"
+                            id="CartDrawer-Line-item-error-{{ item.index | plus: 1 }}"
+                            role="alert"
+                          >
+                            <small class="cart-item-error"></small>
+                          </div>
+                        </cart-item-info>
+
+                        <cart-action>
+                          <cart-remove
+                            class="action"
+                            id="drawer-remove-{{ item.index | plus: 1 }}"
+                            data-index="{{ item.index | plus: 1 }}"
+                          >
+                            <a
+                              href="{{ item.url_to_remove }}"
+                              class="cart-remove-item"
+                              data-line="{{ forloop.index }}"
+                              data-page="{{ section.id }}"
+                              aria-label="remove"
+                              data-remove-item
+                            >
+                              <svg
+                                width="17"
+                                height="18"
+                                viewBox="0 0 17 18"
+                                fill="none"
+                                xmlns="http://www.w3.org/2000/svg"
+                              >
+                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                  d="M6.722 1.00001C6.3834 0.998721 6.05725 1.1276 5.811 1.36001C5.573 1.58601 5.444 1.89001 5.444 2.20001V3.40001H11.556V2.20001C11.556 1.89001 11.426 1.58601 11.189 1.36001C10.9427 1.1276 10.6166 0.998721 10.278 1.00001H6.722ZM12.556 3.40001V2.20001C12.556 1.61001 12.31 1.04701 11.88 0.637006C11.4476 0.226781 10.874 -0.00131727 10.278 5.72305e-06H6.722C6.126 -0.00131727 5.55235 0.226781 5.12 0.637006C4.69 1.04701 4.445 1.60901 4.445 2.20001V3.40001H0V4.40001H1.778V15.8C1.778 16.39 2.024 16.953 2.453 17.363C2.88561 17.7735 3.45966 18.0016 4.056 18H12.945C13.541 18.0013 14.1146 17.7732 14.547 17.363C14.977 16.953 15.222 16.391 15.222 15.8V4.40001H17V3.40001H12.556ZM2.778 4.40001H14.222V15.8C14.222 16.11 14.093 16.414 13.856 16.64C13.6095 16.8726 13.2829 17.0015 12.944 17H4.057C3.71805 17.0015 3.3915 16.8726 3.145 16.64C3.03029 16.5321 2.9387 16.402 2.87579 16.2576C2.81288 16.1132 2.77995 15.9575 2.779 15.8L2.778 4.40001ZM7.222 7.50001V13.5H6.222V7.50001H7.222ZM10.778 7.50001V13.5H9.778V7.50001H10.778Z"
+                                  fill="currentcolor"></path>
+                              </svg>
+                            </a>
+                          </cart-remove>
+                          <price-main class="price-main">
+                            <price-sale class="price-sale text-size-xlarge font-heading">
+                              {%- if item.original_line_price != item.final_line_price -%}
+                                <span class="hidden">
+                                  {{ 'products.product.price.sale_price' | t }}
+                                </span>
+                                <span>
+                                  {{ item.final_line_price | money }}
+                                </span>
+                                <span class="hidden">
+                                  {{ 'products.product.price.regular_price' | t }}
+                                </span>
+                                <span class="discount-price">
+                                  {{- item.original_line_price | money -}}
+                                </span>
+                              {%- else -%}
+                                <span class="">
+                                  {{ item.original_line_price | money }}
+                                </span>
+                              {% endif %}
+                              {%- if item.unit_price_measurement -%}
+                                <span class="">
+                                  {{ item.unit_price | money }}
+                                  /
+                                  {%- if item.unit_price_measurement.reference_value != 1 %}
+                                    {{ item.unit_price_measurement.reference_value -}}
+                                  {%- endif %}
+                                  {{ item.unit_price_measurement.reference_unit }}
+                                </span>
+                              {%- endif -%}
+                            </price-sale>
+                          </price-main>
+                        </cart-action>
+                      </li>
+                    {% endfor %}
+                  </ul>
+                </cart-items-block>
+              </form>
+              {% if settings.enable_upsell_product and settings.upsell_product != blank %}
+                <cart-recommendations class="product-recommendations">
+                  {% if settings.upsell_product_heading %}
+                    <div class="product-complementary-head">
+                      <span class="product-complementary-heading text-size-medium">
+                        {{- settings.upsell_product_heading -}}
+                      </span>
+                    </div>
+                  {% endif %}
+
+                  <slider-main-component
+                    class="product-complementary swiper-container swiper swiper-slider"
+                    data-settings='
+                        {
+                        "loop": false,
+                        "slidesPerView":1.3,
+                        "spaceBetween": 12,
+                        "navigation": {
+                          "nextEl": ".swiper-button-next-complementory-{{ section.id }}",
+                          "prevEl": ".swiper-button-prev-complementory-{{ section.id }}"
+                        }
+                      }
+                    '
+                  >
+                    <div class="swiper-wrapper">
+                      {% assign upProduct = settings.upsell_product %}
+                      {%- for recomproduct in upProduct -%}
+                        {%- assign current_variant = recomproduct.selected_or_first_available_variant %}
+                        <div class="product-complementary-item swiper-slide">
+                          <div class="product-complementary-image">
+                            {%- capture current -%}{% cycle section.id: 1, 2, 3, 4 %}{%- endcapture -%}
+                            {%- assign placeholder_image = 'product-apparel-' | append: current -%}
+                            {% if recomproduct.featured_media != blank %}
+                              {%- assign widths = '50, 100, 200, 300, 400, 500' -%}
+                              {%- capture sizes -%}
+                    calc((100vw - 50px) / 2)
+                     {%- endcapture -%}
+                              {{
+                                recomproduct.featured_media.preview_image
+                                | image_url: width: 500
+                                | image_tag: sizes: sizes, widths: widths
+                              }}
+                            {% else %}
+                              {{ placeholder_image | placeholder_svg_tag: 'placeholder-svg' }}
+                            {% endif %}
+                          </div>
+                          <div class="product-complementary-info">
+                            <a
+                              href="{{ recomproduct.url | within : collection }}"
+                              class="product-complementary-title font-heading"
+                            >
+                              {{- recomproduct.title | strip_html -}}
+                            </a>
+                            <div class="product-price-wrapper">
+                              <price-main class="price-main">
+                                {%- assign price_min = recomproduct.price_min | default: 1899 | money -%}
+                                <price-sale class="price-sale">
+                                  {%- if recomproduct.price_varies -%}
+                                    <span class="product-price-item product-actual-price varies-price">
+                                      {{ 'products.product.price.from_price_html' | t: price: price_min }}
+                                    </span>
+                                  {%- else -%}
+                                    <span class="product-price-item product-actual-price">{{ price_min }}</span>
+                                  {%- endif -%}
+                                  {%- if recomproduct.compare_at_price_min > recomproduct.price_min -%}
+                                    <span class="product-price-item discount-price">
+                                      {{- recomproduct.compare_at_price_min | money -}}
+                                    </span>
+                                  {%- endif -%}
+                                  {%- if current_variant.unit_price_measurement -%}
+                                    <span class="product-price-item product-unit-price">
+                                      {{ current_variant.unit_price | money }} /
+                                      {% if current_variant.unit_price_measurement.reference_value != 1 -%}
+                                        {{- current_variant.unit_price_measurement.reference_value -}}
+                                      {%- endif %}
+                                      {{ current_variant.unit_price_measurement.reference_unit }}
+                                    </span>
+                                  {%- endif -%}
+                                </price-sale>
+                              </price-main>
+                            </div>
+                            <a href="{{ recomproduct.url | within : collection }}" class="button button-xsmall">
+                              <span class="hidden">{{- recomproduct.title | strip_html -}}</span>
+                              <svg
+                                width="10"
+                                height="10"
+                                viewBox="0 0 10 10"
+                                fill="none"
+                                xmlns="http://www.w3.org/2000/svg"
+                              >
+                                <path d="M10 4V6L0 6L8.74243e-08 4L10 4Z" fill="currentcolor"></path>
+                                <path d="M6 10H4L4 0L6 1.74845e-07L6 10Z" fill="currentcolor"></path>
+                              </svg>
+                            </a>
+                          </div>
+                        </div>
+                      {% endfor %}
+                    </div>
+                  </slider-main-component>
+                  {%- if upProduct.count > 1 -%}
+                    <div class="swiper-button-wrapper swiper-button-small">
+                      <div
+                        class="swiper-button swiper-button-next swiper-button-next-complementory-{{ section.id }}"
+                      ></div>
+                      <div
+                        class="swiper-button swiper-button-prev swiper-button-prev-complementory-{{ section.id }}"
+                      ></div>
+                    </div>
+                  {% endif %}
+                </cart-recommendations>
+              {% endif %}
+
+              {% if settings.enable_gift_wrap
+                and settings.gift_wrap_product != blank
+                and settings.gift_wrap_text != blank
+                and settings.gift_wrap_product.available
+                and giftwrap_productenable == false
+              %}
+                <gift-wrapping
+                  id="giftwrap"
+                  class="gift-wrapper"
+                  data-gift-product-wrapper
+                  data-gift-wrap-id="{{  settings.gift_wrap_product.first_available_variant.id }}"
+                  data-gift-wrapping="true"
+                  cart-items-size="{{ cart.item_count }}"
+                  gift-wraps-in-cart="0"
+                  items-in-cart="{{ cart.item_count }}"
+                >
+                  {%- form 'product',
+                    settings.gift_wrap_product,
+                    id: 'product_form_id',
+                    class: 'form main-product-form',
+                    novalidate: 'novalidate',
+                    data-type: 'add-to-cart-form'
+                  -%}
+                    <input type="hidden" name="id" value="{{ settings.gift_wrap_product.first_available_variant.id }}">
+                  {% endform %}
+                  <div class="giftwrap">
+                    <input type="checkbox" class="checkmark-input" id="cart_drawer_gift_wrap" value="" add-gift-product>
+                    <label for="cart_drawer_gift_wrap">{{ settings.gift_wrap_text }}</label>
+                  </div>
+                </gift-wrapping>
+              {% endif %}
+            </cart-items>
+          </div>
+        {% endif %}
+      </div>
+      {% if cart.item_count != 0 %}
+        <div class="drawer-footer">
+          <div class="cart-modal-wrapper">
+            <div class="cart-modal-tabs">
+              {%- if settings.show_cart_note -%}
+                <div class="cart-model-item">
+                  <button class="cart-modal-button" data-modal="cart-note" tabindex="0">
+                    <span class="cart-modal-icon">
+                      <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M5.79313 13.5001H3C2.86739 13.5001 2.74022 13.4474 2.64645 13.3536C2.55268 13.2598 2.5 13.1327 2.5 13.0001V10.207C2.50006 10.0746 2.55266 9.94752 2.64625 9.85384L10.3538 2.14633C10.4475 2.05263 10.5746 2 10.7072 2C10.8398 2 10.9669 2.05263 11.0606 2.14633L13.8538 4.93758C13.9474 5.03134 14.0001 5.15846 14.0001 5.29102C14.0001 5.42357 13.9474 5.5507 13.8538 5.64446L6.14625 13.3538C6.05255 13.4474 5.92556 13.5 5.79313 13.5001Z" stroke="currentcolor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M8.5 4L12 7.5" stroke="currentcolor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                      </svg>
+                    </span>
+                    <span class="cart-modal-text">{{ 'sections.cart.order_note_add' | t }}</span>
+                  </button>
+                  <cart-dialog id="cart-note" class="cart-dialog" tabindex="-1">
+                    <div class="cart-dialog-overlay"></div>
+                    <div class="cart-dialog-inner">
+                      <div class="cart-dialog-head">
+                        <h6 class="text-size-medium">{{ 'sections.cart.order_note_add' | t }}</h6>
+                        <a href="#" aria-label="Close" class="cart-dialog-close">
+                          <svg
+                            class="icon"
+                            viewBox="0 0 20 20"
+                            stroke="currentColor"
+                            fill="none"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M5 15L15 5M5 5L15 15"></path>
+                          </svg>
+                        </a>
+                      </div>
+                      <div class="cart-dialog-body">
+                        <cart-note-box>
+                          <div class="note-field">
+                            <label class="label-text visually-hidden" for="DarwerCartNoteField">
+                              {{- 'sections.cart.note_heading' | t -}}
+                            </label>
+                            <textarea
+                              name="note"
+                              class="form-control-input cart-note"
+                              rows="3"
+                              placeholder="{{ 'sections.cart.note' | t }}"
+                              id="DarwerCartNoteField"
+                              data-cart-note
+                            >{{ cart.note }}</textarea>
+                          </div>
+                          <div class="cart-dialog-action">
+                            <button type="button" class="button" add-order-note>
+                              <span class="button-text">{{ 'sections.cart.save' | t }}</span>
+                            </button>
+                          </div>
+                        </cart-note-box>
+                      </div>
+                    </div>
+                  </cart-dialog>
+                </div>
+              {% endif %}
+              {% if settings.shipping_estimates %}
+                <div class="cart-model-item">
+                  <button class="cart-modal-button" data-modal="shipping" tabindex="0">
+                    <span class="cart-modal-icon">
+                      <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M8 14C11.3137 14 14 11.3137 14 8C14 4.68629 11.3137 2 8 2C4.68629 2 2 4.68629 2 8C2 11.3137 4.68629 14 8 14Z" stroke="currentcolor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M8 4.5V8H11.5" stroke="currentcolor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                      </svg>
+                    </span>
+                    <span class="cart-modal-text">{{ 'sections.cart.estimate_shipping' | t }}</span>
+                  </button>
+                  <cart-dialog id="shipping" class="cart-dialog" tabindex="-1">
+                    <div class="cart-dialog-overlay"></div>
+                    <div class="cart-dialog-inner">
+                      <div class="cart-dialog-head">
+                        <h6 class="text-size-medium">{{ 'sections.cart.estimate_shipping' | t }}</h6>
+                        <a href="#" aria-label="Close" class="cart-dialog-close">
+                          <svg
+                            class="icon"
+                            viewBox="0 0 20 20"
+                            stroke="currentColor"
+                            fill="none"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M5 15L15 5M5 5L15 15"></path>
+                          </svg>
+                        </a>
+                      </div>
+                      <div class="cart-dialog-body">
+                        {% render 'shipping-estimate', section: section %}
+                      </div>
+                    </div>
+                  </cart-dialog>
+                </div>
+              {% endif %}
+            </div>
+          </div>
+          <div class="cart-total-details">
+            {%- for discount in cart.cart_level_discount_applications -%}
+              <div class="discount-offer">
+                <p class="discount-offer-text">
+                  <svg width="15" height="15" viewBox="0 0 15 15" fill="none">
+                    <path fill-rule="evenodd" clip-rule="evenodd"
+                      d="M6.157 0.7105L5.474 1.7135C5.334 1.919 5.0855 2.022 4.841 1.9755L3.6485 1.7495C3.1205 1.649 2.577 1.8165 2.1965 2.1965C1.8165 2.577 1.649 3.1205 1.7495 3.6485L1.9755 4.841C2.022 5.0855 1.919 5.334 1.7135 5.474L0.7105 6.157C0.266 6.4595 0 6.9625 0 7.5C0 8.0375 0.266 8.5405 0.7105 8.843L1.7135 9.526C1.919 9.666 2.022 9.9145 1.9755 10.159L1.7495 11.3515C1.649 11.8795 1.8165 12.423 2.1965 12.8035C2.577 13.1835 3.1205 13.351 3.6485 13.2505L4.841 13.0245C5.0855 12.978 5.334 13.081 5.474 13.2865L6.157 14.2895C6.4595 14.734 6.9625 15 7.5 15C8.0375 15 8.5405 14.734 8.843 14.2895L9.526 13.2865C9.666 13.081 9.9145 12.978 10.159 13.0245L11.3515 13.2505C11.8795 13.351 12.423 13.1835 12.8035 12.8035C13.1835 12.423 13.351 11.8795 13.2505 11.3515L13.0245 10.159C12.978 9.9145 13.081 9.666 13.2865 9.526L14.2895 8.843C14.734 8.5405 15 8.0375 15 7.5C15 6.9625 14.734 6.4595 14.2895 6.157L13.2865 5.474C13.081 5.334 12.978 5.0855 13.0245 4.841L13.2505 3.6485C13.351 3.1205 13.1835 2.577 12.8035 2.1965C12.423 1.8165 11.8795 1.649 11.3515 1.7495L10.159 1.9755C9.9145 2.022 9.666 1.919 9.526 1.7135L8.843 0.7105C8.5405 0.266 8.0375 0 7.5 0C6.9625 0 6.4595 0.266 6.157 0.7105ZM9.5 8C8.672 8 8 8.672 8 9.5C8 10.328 8.672 11 9.5 11C10.328 11 11 10.328 11 9.5C11 8.672 10.328 8 9.5 8ZM9.6465 4.6465L4.6465 9.6465C4.4515 9.8415 4.4515 10.1585 4.6465 10.3535C4.8415 10.5485 5.1585 10.5485 5.3535 10.3535L10.3535 5.3535C10.5485 5.1585 10.5485 4.8415 10.3535 4.6465C10.1585 4.4515 9.8415 4.4515 9.6465 4.6465ZM9.5 9C9.776 9 10 9.224 10 9.5C10 9.776 9.776 10 9.5 10C9.224 10 9 9.776 9 9.5C9 9.224 9.224 9 9.5 9ZM5.5 4C4.672 4 4 4.672 4 5.5C4 6.328 4.672 7 5.5 7C6.328 7 7 6.328 7 5.5C7 4.672 6.328 4 5.5 4ZM5.5 5C5.776 5 6 5.224 6 5.5C6 5.776 5.776 6 5.5 6C5.224 6 5 5.776 5 5.5C5 5.224 5.224 5 5.5 5Z"
+                      fill="#FC613F" />
+                  </svg>
+                  <span>{{ discount.title }} (-{{ discount.total_allocated_amount | money }})</span>
+                </p>
+              </div>
+            {%- endfor -%}
+            <ul class="list-style-none" data-cart-total-prices>
+              {%- if cart.cart_level_discount_applications.size > 0 -%}
+                <li>
+                  <p class="text-size-medium">{{ 'sections.cart.subtotal' | t }}</p>
+                  <p class="text-size-medium text-align-right">{{ cart.original_total_price | money }}</p>
+                </li>
+              {% endif %}
+              <li>
+                <p class="h6">{{ 'sections.cart.total' | t }} :</p>
+                <p class="h6 text-align-right">{{ cart.total_price | money_with_currency }}</p>
+              </li>
+            </ul>
+            <div id="cartDrawerErrors"></div>
+            <div class="cart-buttons" data-cart-checkout-buttons>
+              <button type="submit" name="checkout" id="checkoutCart" form="cart" class="button button-medium">
+                <span>
+                  <svg
+                    class="icon-small"
+                    width="21"
+                    height="21"
+                    viewBox="0 0 21 21"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M15.8634 6.125H5.13784C4.21652 6.125 3.453 6.83932 3.39171 7.75859L2.75005 17.3836C2.68271 18.3936 3.48386 19.25 4.49616 19.25H16.505C17.5174 19.25 18.3186 18.3936 18.2512 17.3836L17.6095 7.75859C17.5482 6.83932 16.7847 6.125 15.8634 6.125Z"
+                      stroke="currentcolor" stroke-width="1.5"></path>
+                    <path d="M14 8.75V5.25C14 3.317 12.433 1.75 10.5 1.75C8.567 1.75 7 3.317 7 5.25V8.75"
+                      stroke="currentcolor" stroke-width="1.5" stroke-linecap="square"></path>
+                  </svg>
+                </span>
+                <span class="button-text">{{ 'sections.cart.checkout' | t }}</span>
+              </button>
+              <a href="{{ routes.cart_url }}" class="button button-outline button-medium">
+                <span class="button-text">{{ 'sections.cart.view_cart' | t }}</span>
+              </a>
+            </div>
+            <shipping-small-text class="text-align-center">
+              <small>
+                {%- if cart.taxes_included and shop.shipping_policy.body != blank -%}
+                  {{ 'sections.cart.taxes_included_and_shipping_policy_html' | t: link: shop.shipping_policy.url }}
+                {%- elsif cart.taxes_included -%}
+                  {{ 'sections.cart.taxes_included_but_shipping_at_checkout' | t }}
+                {%- elsif shop.shipping_policy.body != blank -%}
+                  {{ 'sections.cart.taxes_and_shipping_policy_at_checkout_html' | t: link: shop.shipping_policy.url }}
+                {%- else -%}
+                  {{ 'sections.cart.taxes_and_shipping_at_checkout' | t }}
+                {%- endif -%}
+              </small>
+            </shipping-small-text>
+            <div class="payment-icons text-align-center">
+              {%- for type in shop.enabled_payment_types -%}
+                {{ type | payment_type_svg_tag: class: 'icon payment-icon' }}
+              {%- endfor -%}
+            </div>
+          </div>
+        </div>
+        </div>
+      {% endif %}
+    </div>
+  </div>
+</cart-drawer>

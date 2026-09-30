@@ -1,0 +1,75 @@
+.animated-number-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: var(--space-column);
+  margin: 0 auto;
+  width: 100%;
+}
+
+.animated-number-grid-item {
+  background: rgb(var(--color-background));
+  color: rgb(var(--color-text));
+  padding: 36px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  border-radius: var(--block-card-radius);
+  overflow: hidden;
+}
+
+.animated-number-icon {
+  margin-bottom: 50px;
+}
+
+.animated-number-icon .icon {
+  width: 40px;
+  height: 40px;
+}
+
+.animated-number {
+  margin: 10px 0;
+}
+
+.animated-number-label {
+  font-size: var(--text-size-large);
+  font-weight: 600;
+  margin: 10px 0;
+}
+
+.animated-number-description {
+  font-size: var(--text-size-base);
+  color: rgb(var(--color-text));
+}
+
+@media (min-width: 768px) {
+  .animated-number-wrapper.heading-left {
+    display: grid;
+    align-items: center;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-column, 0px);
+  }
+  .animated-number-wrapper.heading-left .section-header {
+    padding-right: 50px;
+  }
+}
+
+@media (min-width: 1025px) {
+  .animated-number-grid-item {
+    border: 2px solid transparent;
+  }
+  .animated-number-grid-item:hover {
+    border-color: rgba(var(--color-divider));
+  }
+}
+
+@media (max-width: 767px) {
+  .animated-number-grid {
+    grid: auto / auto-flow 80%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior-x: contain;
+    scroll-snap-type: x mandatory;
+    padding-bottom: 15px;
+  }
+  .animated-number-icon {
+    margin-bottom: 20px;
+  }
+}

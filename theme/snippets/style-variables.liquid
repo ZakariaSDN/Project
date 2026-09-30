@@ -1,0 +1,152 @@
+{%- liquid
+  assign body_font_bold = settings.type_body_font | font_modify: 'weight', 'bold'
+  assign body_font_italic = settings.type_body_font | font_modify: 'style', 'italic'
+  assign body_font_bold_italic = body_font_bold | font_modify: 'style', 'italic'
+  assign header_font_italic = settings.type_header_font | font_modify: 'style', 'italic'
+%}
+{% style %}
+  {{ settings.type_body_font | font_face: font_display: 'swap' }}
+  {{ body_font_bold | font_face: font_display: 'swap' }}
+  {{ body_font_italic | font_face: font_display: 'swap' }}
+  {{ body_font_bold_italic | font_face: font_display: 'swap' }}
+  {{ settings.type_header_font | font_face: font_display: 'swap' }}
+  {{ header_font_italic | font_face: font_display: 'swap' }}
+{% endstyle %}
+
+{% style %}
+  {% for scheme in settings.color_schemes -%}
+    {% if forloop.index == 1 -%}
+      :root,
+    {%- endif %}
+    .color-scheme-{{ scheme.id }}{
+      --color-background: {{ scheme.settings.background.red }},{{ scheme.settings.background.green }},{{ scheme.settings.background.blue }};
+      --color-background-foreground:{{ scheme.settings.alternate_background.red }},{{ scheme.settings.alternate_background.green }},{{ scheme.settings.alternate_background.blue }};
+      --color-background-card: {{ scheme.settings.card_background.red }},{{ scheme.settings.card_background.green }},{{ scheme.settings.card_background.blue }};
+      --color-text-card: {{ scheme.settings.card_text.red }},{{ scheme.settings.card_text.green }},{{ scheme.settings.card_text.blue }};
+      --color-text: {{ scheme.settings.text.red }},{{ scheme.settings.text.green }},{{ scheme.settings.text.blue }};
+      --color-link: {{ scheme.settings.link_text.red }},{{ scheme.settings.link_text.green }},{{ scheme.settings.link_text.blue }};
+      --color-heading-text:{{ scheme.settings.heading.red }},{{ scheme.settings.heading.green }},{{ scheme.settings.heading.blue }};
+
+      --color-button-background: {{ scheme.settings.button_bg.red }},{{ scheme.settings.button_bg.green }},{{ scheme.settings.button_bg.blue }};
+      --color-button-text: {{ scheme.settings.button_text.red }},{{ scheme.settings.button_text.green }},{{ scheme.settings.button_text.blue }};
+      --color-button-border: {{ scheme.settings.button_border.red }},{{ scheme.settings.button_border.green }},{{ scheme.settings.button_border.blue }};
+      --color-button-background-hover: var(--color-button-text);
+      --color-button-text-hover: var(--color-button-background);
+      --color-button-border-hover: var(--color-button-border);
+
+      --color-alternate-button-background: {{ scheme.settings.alternate_button_bg.red }},{{ scheme.settings.alternate_button_bg.green }},{{ scheme.settings.alternate_button_bg.blue }};
+      --color-alternate-button-text: {{ scheme.settings.alternate_button_text.red }},{{ scheme.settings.alternate_button_text.green }},{{ scheme.settings.alternate_button_text.blue }};
+      --color-alternate-button-border: {{ scheme.settings.alternate_button_border.red }},{{ scheme.settings.alternate_button_border.green }},{{ scheme.settings.alternate_button_border.blue }};
+      --color-alternate-button-background-hover: var(--color-alternate-button-text);
+      --color-alternate-button-text-hover: var(--color-alternate-button-background);
+      --color-alternate-button-border-hover: var(--color-alternate-button-border);
+
+      --color-input-background:{{ scheme.settings.input_bg.red }},{{ scheme.settings.input_bg.green }},{{ scheme.settings.input_bg.blue }};
+      --color-input-text:{{ scheme.settings.input_text.red }},{{ scheme.settings.input_text.green }},{{ scheme.settings.input_text.blue }};
+      --color-input-border:{{ scheme.settings.input_border.red }},{{ scheme.settings.input_border.green }},{{ scheme.settings.input_border.blue }};
+      --color-text-success: {{ scheme.settings.success_text.red }},{{ scheme.settings.success_text.green }},{{ scheme.settings.success_text.blue }};
+      --color-background-success:{{ scheme.settings.success_bg.red }},{{ scheme.settings.success_bg.green }},{{ scheme.settings.success_bg.blue }};
+      --color-text-error: {{ scheme.settings.error_text.red }},{{ scheme.settings.error_text.green }},{{ scheme.settings.error_text.blue }};
+      --color-background-error: {{ scheme.settings.error_bg.red }},{{ scheme.settings.error_bg.green }},{{ scheme.settings.error_bg.blue }};
+
+      --color-card-border: {{ scheme.settings.border.red }},{{ scheme.settings.border.green }},{{ scheme.settings.border.blue }};
+      --color-divider:var(--color-card-border);
+      --color-product-card-border: {{ scheme.settings.product_border_color.red }},{{ scheme.settings.product_border_color.green }},{{ scheme.settings.product_border_color.blue }};
+      --color-rating-star: {{ scheme.settings.rating_color.red }},{{ scheme.settings.rating_color.green }},{{ scheme.settings.rating_color.blue }};
+      --color-slider-arrow-background:{{ scheme.settings.arrow_bg.red }},{{ scheme.settings.arrow_bg.green }},{{ scheme.settings.arrow_bg.blue }};
+      --color-slider-arrow:{{ scheme.settings.arrow_color.red }},{{ scheme.settings.arrow_color.green }},{{ scheme.settings.arrow_color.blue }};
+
+      --color-media-background: {{ scheme.settings.alternate_background.red }},{{ scheme.settings.alternate_background.green }},{{ scheme.settings.alternate_background.blue }};
+      --image-background: var(--color-media-background);
+
+
+      --color-sale-tag-background:{{ scheme.settings.sale_badge_bg.red }},{{ scheme.settings.sale_badge_bg.green }},{{ scheme.settings.sale_badge_bg.blue }};
+      --color-sale-tag-text: {{ scheme.settings.sale_badge_text.red }},{{ scheme.settings.sale_badge_text.green }},{{ scheme.settings.sale_badge_text.blue }};
+      --color-badge-in-stock-background:{{ scheme.settings.in_stock_badge_bg.red }},{{ scheme.settings.in_stock_badge_bg.green }},{{ scheme.settings.in_stock_badge_bg.blue }};
+      --color-badge-in-stock-text: {{ scheme.settings.in_stock_badge_text.red }},{{ scheme.settings.in_stock_badge_text.green }},{{ scheme.settings.in_stock_badge_text.blue }};
+      --color-badge-sold-out-background:{{ scheme.settings.sold_out_badge_bg.red }},{{ scheme.settings.sold_out_badge_bg.green }},{{ scheme.settings.sold_out_badge_bg.blue }};
+      --color-badge-sold-out-text: {{ scheme.settings.sold_out_badge_text.red }},{{ scheme.settings.sold_out_badge_text.green }},{{ scheme.settings.sold_out_badge_text.blue }};
+
+      --card-radius:{% if settings.product_card_style == 'curved' %}1em{% else %}0em{% endif %};
+
+      --block-card-radius: {% if settings.block_style == 'curved' %}1em{% else %}0em{% endif %};
+
+      --button-radius: {% if settings.button_style == 'curved' %}0.5em{% elsif settings.button_style == 'rounded' %}3.75em{% else %}0em{% endif %};
+
+      --input-radius: {% if settings.input_style == 'curved' %}0.5em{% elsif settings.input_style == 'rounded' %}3.75em{% else %}0em{% endif %};
+    }
+  {% endfor %}
+{% endstyle %}
+{% style %}
+  :root{
+      /*========== Section Spacing ==========*/
+      --section-top-space: 80px;
+      --section-bottom-space: 80px;
+
+      --color-background-header: {{ settings.background_header.rgb }};
+      --color-text-header: {{ settings.header_text.rgb }};
+      --color-text-header-hover: {{ settings.header_text_hover.rgb }};
+      --color-background-submenu: {{ settings.submenu_background.rgb }};
+      --color-text-submenu:{{ settings.submenu_text.rgb }};
+      --color-text-submenu-hover: {{ settings.submenu_text_hover.rgb }};
+      --color-header-transparent:{{ settings.transparent_header_text.rgb }};
+      --heading-bottom-space: 26px;
+      --color-cart-bubble-background:  {{ settings.cart_count_bg.rgb }};
+      --color-cart-bubble-text:  {{ settings.cart_count_text.rgb }};
+
+      --media-landscape: 75%;
+      --media-square: 100%;
+      --media-portrait: 135%;
+      --media-ratio: 100%;
+
+      --container-padding: {{ settings.container_padding }}px;
+      --container-width: {{ settings.container_width }}px;
+      --scrollbar-width: 8px;
+      --font-family-body: {{ settings.type_body_font.family }},{{ settings.type_body_font.fallback_families }};
+      --font-weight-body: {{ settings.type_body_font.weight }};
+      --font-style-body: {{ settings.type_body_font.style }};
+      --font-line-height-body: {{ settings.type_base_line_height }};
+      --font-scale-body: {{ settings.type_base_scale | divided_by:100.0 }};
+      --font-letter-spacing-body:{{ settings.type_base_letter_spacing }}em;
+      --font-family-heading: {{ settings.type_header_font.family }},{{ settings.type_header_font.fallback_families }};
+      --font-weight-heading: {{ settings.type_header_font.weight }};
+      --font-style-heading: {{ settings.type_header_font.style }};
+      --font-line-height-heading: {{ settings.type_heading_line_height }};
+      --font-scale-heading: {{settings.type_heading_scale | divided_by:100.0 }};
+      --font-letter-spacing-heading: {{ settings.type_heading_letter_spacing }}em;
+
+      --text-size-xlarge: calc(var(--font-scale-body) * 20px);
+      --text-size-large: calc(var(--font-scale-body) * 18px);
+      --text-size-medium: calc(var(--font-scale-body) * 16px);
+      --text-size-base: calc(var(--font-scale-body) * 14px);
+      --text-size-small: calc(var(--font-scale-body) * 12px);
+      --text-size-xsmall: calc(var(--font-scale-body) * 10px);
+
+      --font-family-menu:var(--font-family-{{settings.header_navigation_font_family}});
+      --font-size-menu: calc(var(--font-scale-body) * 14px);
+      --font-weight-menu: var(--font-weight-{{settings.header_navigation_font_family}});
+
+      --color-text-drawer: 23 23 23;
+      --color-background-drawer: 255 255 255;
+      --color-button-background-drawer: 23 23 23;
+      --color-button-text-drawer: 255 255 255;
+      --color-overlay-background: 23 23 23;
+      --color-overlay-opacity: 0.7;
+
+  }
+  {% assign colors_pallets = settings.custom_colors | newline_to_br %}
+  {% assign colors_pallets = colors_pallets | split: '<br />' %}
+  {% for color in colors_pallets %}
+    {% assign color_value = color | strip | split: ':' %}
+    [data-color-name="{{- color_value.first | downcase -}}"]{
+      {%- if color_value.last contains '#' -%}
+        background-color: {{- color_value.last -}} !important;
+      {%- else -%}
+        background-image: url({{ color_value.last | lstrip | lstrip | file_img_url: 'small' }}) !important;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+      {%- endif -%}
+    }
+  {% endfor %}
+{% endstyle %}

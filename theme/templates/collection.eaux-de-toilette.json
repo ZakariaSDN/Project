@@ -1,0 +1,384 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "slideshow_NXmYzd": {
+      "type": "slideshow",
+      "blocks": {
+        "slide_EBcY46": {
+          "type": "slide",
+          "settings": {
+            "color_scheme": "three",
+            "subheading": "Explore a collection of premium handbags",
+            "heading": "Discover Luxury, Shop Elegance",
+            "heading_size": "h2",
+            "heading_align": "center",
+            "heading_color": "#1a1a1a",
+            "heading_bold": true,
+            "description": "Discover a curated selection of luxury handbags designed for elegance and versatility. Crafted with premium materials and meticulous attention to detail, each piece embodies sophistication and timeless style..",
+            "description_size": "text-size-large",
+            "description_align": "center",
+            "description_color": "#1a1a1a",
+            "description_bold": false,
+            "button_text": "",
+            "button_url": "",
+            "btn_size": "small",
+            "button_outline": false,
+            "content_width": "md",
+            "caption_align": "center",
+            "overlay_color": "#000000",
+            "overlay_opacity": 50,
+            "caption_wrapper_bg_color": "#ffff00",
+            "caption_wrapper_bg_opacity": 60,
+            "caption_px": 20,
+            "caption_py": 20,
+            "caption_max_width": 920,
+            "show_mobile_top_heading": false,
+            "mobile_top_heading_source": "inherit",
+            "mobile_top_heading_text": "Titre mobile",
+            "mobile_top_heading_offset": 0,
+            "mobile_top_heading_align": "center",
+            "mobile_top_heading_color": "#ffffff",
+            "hide_default_heading_on_mobile": false
+          }
+        }
+      },
+      "block_order": [
+        "slide_EBcY46"
+      ],
+      "disabled": true,
+      "settings": {
+        "color_scheme": "",
+        "container_style": "full-container",
+        "style": "single",
+        "desktop_media_height": 640,
+        "mobile_media_height": 420,
+        "autoplay": false,
+        "autoplay_interval": 3,
+        "pause_on_hover": true,
+        "autoplay_keep_after_interaction": true,
+        "show_edge_arrows": true,
+        "nav_arrow_size": 44,
+        "nav_edge_margin": 12,
+        "nav_arrow_bg_color": "#000000",
+        "nav_arrow_bg_opacity": 40,
+        "nav_arrow_icon_color": "#ffffff",
+        "controls": "arrows_with_number",
+        "navigation_position": "inside",
+        "desktop_navigation_alignment": "left"
+      }
+    },
+    "collection_list_X6nHX7": {
+      "type": "collection-list",
+      "disabled": true,
+      "settings": {
+        "heading": "Experience Opulence Like Never Before",
+        "heading_size": "h2",
+        "collection": [],
+        "number_item": 6,
+        "column_gap": 20,
+        "image_ratio": "square",
+        "collection_style": "square",
+        "color_scheme": "four",
+        "top_space_desktop": 80,
+        "bottom_space_desktop": 80,
+        "top_space_mobile": 40,
+        "bottom_space_mobile": 40
+      }
+    },
+    "richtext_4pTBYp": {
+      "type": "richtext",
+      "blocks": {
+        "heading_3p88aA": {
+          "type": "heading",
+          "settings": {
+            "heading": "Nos Eaux de Toilette artisanales — Fragrances légères aux essences de Grasse",
+            "heading_size": "h1",
+            "heading_tag": "h1"
+          }
+        }
+      },
+      "block_order": [
+        "heading_3p88aA"
+      ],
+      "custom_css": [
+        "h1 {font-size: 38px; font-weight: bold;}",
+        "@media screen and (max-width: 767px) {h1 {font-size: 30px; font-weight: bold; }}"
+      ],
+      "name": "t:sections.rich-text.name",
+      "settings": {
+        "color_scheme": "",
+        "content_alignment": "center",
+        "enable_card_view": false,
+        "show_in_columns": false,
+        "show_image_desktop": true,
+        "show_image_mobile": true,
+        "image_alt": "Illustration",
+        "image_position_desktop": "top",
+        "image_order_desktop": "top",
+        "image_shape_desktop": "rectangle",
+        "image_radius_desktop": 16,
+        "image_width_desktop": 40,
+        "image_position_mobile": "center",
+        "image_order_mobile": "top",
+        "image_shape_mobile": "rounded",
+        "image_radius_mobile": 12,
+        "image_width_mobile": 80,
+        "image_full_bleed": false,
+        "image_full_bleed_mobile": true,
+        "image_full_bleed_height_d": 640,
+        "image_full_bleed_height_m": 420,
+        "image_max_height": 0,
+        "image_gap": 24,
+        "cta_show_desktop": true,
+        "cta_show_mobile": true,
+        "cta_text": "Shop collection",
+        "cta_collection": "",
+        "cta_url": "",
+        "cta_position_desktop": "below",
+        "cta_align_desktop": "center",
+        "cta_size_desktop": "medium",
+        "cta_bg_desktop": "#111111",
+        "cta_text_desktop": "#ffffff",
+        "cta_position_mobile": "below",
+        "cta_align_mobile": "center",
+        "cta_size_mobile": "small",
+        "cta_bg_mobile": "#111111",
+        "cta_text_mobile": "#ffffff",
+        "cta_radius": 6,
+        "cta_margin_y": 16,
+        "text_margin_top_desktop": 24,
+        "text_margin_bottom_desktop": 24,
+        "text_margin_top_mobile": 16,
+        "text_margin_bottom_mobile": 16,
+        "text_margin_top_desktop_compact": 8,
+        "text_margin_bottom_desktop_compact": 8,
+        "text_margin_top_mobile_compact": 6,
+        "text_margin_bottom_mobile_compact": 6,
+        "heading_font_size_desktop": 48,
+        "heading_font_size_mobile": 32
+      }
+    },
+    "main-collection-products": {
+      "type": "main-collection-products",
+      "custom_css": [
+        ".collection-list-img {border: 1px solid #a48351;}",
+        ".product-actual-price {font-weight: 700 !important;}"
+      ],
+      "settings": {
+        "show_collection_image": false,
+        "banner_height": "medium",
+        "show_collection_title": true,
+        "show_collection_description": true,
+        "description_position": "below_title",
+        "top_collection": [
+          "nos-diffuseurs-de-parfum",
+          "recharge-diffuseur-parfum",
+          "👗-douceur-de-linge",
+          "nos-bougies-de-parfum",
+          "eaux-de-toilette",
+          "nos-eaux-de-parfum",
+          "nos-coffrets-cadeaux",
+          "collection-french-riviera",
+          "🎟-bons-cadeaux"
+        ],
+        "products_per_row": 4,
+        "products_per_page": 12,
+        "column_gap": 24,
+        "column_gap_mobile": 15,
+        "enable_sorting": true,
+        "enable_filtering": true,
+        "open_filtering": true,
+        "filter_type": "drawer",
+        "pagination_type": "pagination",
+        "image_size": "portrait",
+        "color_scheme": "",
+        "top_space_desktop": 0,
+        "bottom_space_desktop": 60,
+        "top_space_mobile": 40,
+        "bottom_space_mobile": 40
+      }
+    },
+    "richtext_JjWJz9": {
+      "type": "richtext",
+      "blocks": {
+        "heading_XdVJmV": {
+          "type": "heading",
+          "settings": {
+            "heading": "Indulge in Luxury for Half the Price",
+            "heading_size": "h4",
+            "heading_tag": "h2"
+          }
+        },
+        "description_CzxwFG": {
+          "type": "description",
+          "settings": {
+            "text": "<p>Handcrafted perfection in every detail, made for the modern icon.</p>",
+            "description_size": "text-size-base"
+          }
+        }
+      },
+      "block_order": [
+        "heading_XdVJmV",
+        "description_CzxwFG"
+      ],
+      "disabled": true,
+      "settings": {
+        "color_scheme": "four",
+        "content_alignment": "center",
+        "enable_card_view": false,
+        "show_in_columns": false,
+        "show_image_desktop": true,
+        "show_image_mobile": true,
+        "image_alt": "Illustration",
+        "image_position_desktop": "top",
+        "image_order_desktop": "top",
+        "image_shape_desktop": "rectangle",
+        "image_radius_desktop": 16,
+        "image_width_desktop": 40,
+        "image_position_mobile": "center",
+        "image_order_mobile": "top",
+        "image_shape_mobile": "rounded",
+        "image_radius_mobile": 12,
+        "image_width_mobile": 80,
+        "image_full_bleed": false,
+        "image_full_bleed_mobile": true,
+        "image_full_bleed_height_d": 640,
+        "image_full_bleed_height_m": 420,
+        "image_max_height": 0,
+        "image_gap": 24,
+        "cta_show_desktop": true,
+        "cta_show_mobile": true,
+        "cta_text": "Shop collection",
+        "cta_collection": "",
+        "cta_url": "",
+        "cta_position_desktop": "below",
+        "cta_align_desktop": "center",
+        "cta_size_desktop": "medium",
+        "cta_bg_desktop": "#111111",
+        "cta_text_desktop": "#ffffff",
+        "cta_position_mobile": "below",
+        "cta_align_mobile": "center",
+        "cta_size_mobile": "small",
+        "cta_bg_mobile": "#111111",
+        "cta_text_mobile": "#ffffff",
+        "cta_radius": 6,
+        "cta_margin_y": 16,
+        "text_margin_top_desktop": 24,
+        "text_margin_bottom_desktop": 24,
+        "text_margin_top_mobile": 16,
+        "text_margin_bottom_mobile": 16,
+        "text_margin_top_desktop_compact": 8,
+        "text_margin_bottom_desktop_compact": 8,
+        "text_margin_top_mobile_compact": 6,
+        "text_margin_bottom_mobile_compact": 6,
+        "heading_font_size_desktop": 48,
+        "heading_font_size_mobile": 32
+      }
+    },
+    "media_grid_HkDDhK": {
+      "type": "media-grid",
+      "blocks": {
+        "grid_F6Ac3B": {
+          "type": "grid",
+          "settings": {
+            "heading": "Luxury Selections",
+            "heading_size": "h5",
+            "description": "Explore timeless handbags crafted with elegance.",
+            "description_size": "text-size-base",
+            "desktop_content_position": "bottom-center",
+            "desktop_text_alignment": "center",
+            "grid_link": "",
+            "column": 1,
+            "row": 1,
+            "text_color": "#ffffff",
+            "overlay_color": "#000000",
+            "overlay_opacity": 50
+          }
+        },
+        "grid_Hdtdqn": {
+          "type": "grid",
+          "settings": {
+            "heading": "Elite Collection",
+            "heading_size": "h5",
+            "description": "Indulge in exquisite designs that redefine luxury and style.",
+            "description_size": "text-size-base",
+            "desktop_content_position": "bottom-center",
+            "desktop_text_alignment": "center",
+            "grid_link": "",
+            "column": 1,
+            "row": 1,
+            "text_color": "#ffffff",
+            "overlay_color": "#000000",
+            "overlay_opacity": 50
+          }
+        },
+        "grid_tTU3rg": {
+          "type": "grid",
+          "settings": {
+            "heading": "Signature Styles",
+            "heading_size": "h5",
+            "description": "Handbags crafted for those who appreciate elegance and quality.",
+            "description_size": "text-size-base",
+            "desktop_content_position": "bottom-center",
+            "desktop_text_alignment": "center",
+            "grid_link": "",
+            "column": 1,
+            "row": 1,
+            "text_color": "#ffffff",
+            "overlay_color": "#000000",
+            "overlay_opacity": 50
+          }
+        },
+        "grid_QMnwf6": {
+          "type": "grid",
+          "settings": {
+            "heading": "Timeless Icons",
+            "heading_size": "h5",
+            "description": "Discover statement pieces designed for every occasion.",
+            "description_size": "text-size-base",
+            "desktop_content_position": "bottom-center",
+            "desktop_text_alignment": "center",
+            "grid_link": "",
+            "column": 1,
+            "row": 1,
+            "text_color": "#ffffff",
+            "overlay_color": "#000000",
+            "overlay_opacity": 50
+          }
+        }
+      },
+      "block_order": [
+        "grid_F6Ac3B",
+        "grid_Hdtdqn",
+        "grid_tTU3rg",
+        "grid_QMnwf6"
+      ],
+      "disabled": true,
+      "settings": {
+        "color_scheme": "four",
+        "enable_fullwidth": false,
+        "grid_gap": 9,
+        "top_space_desktop": 30,
+        "bottom_space_desktop": 80,
+        "top_space_mobile": 0,
+        "bottom_space_mobile": 40
+      }
+    }
+  },
+  "order": [
+    "slideshow_NXmYzd",
+    "collection_list_X6nHX7",
+    "richtext_4pTBYp",
+    "main-collection-products",
+    "richtext_JjWJz9",
+    "media_grid_HkDDhK"
+  ]
+}

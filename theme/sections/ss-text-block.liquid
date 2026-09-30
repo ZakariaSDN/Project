@@ -1,0 +1,253 @@
+{% comment %}
+  Section: SS – Marquee Txt (gras + tailles desktop/mobile)
+  Tous les sliders "range" qui posent problème → "number" (plus d'erreurs).
+{% endcomment %}
+
+{%- style -%}
+  .p { margin: 0; padding: 0; }
+
+  .section-{{ section.id }}-padding {
+    max-width: {{ section.settings['section-width'] }}rem;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding: 0 5rem;
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+
+  .ss-text-wrapper { display: flex; justify-content: center; }
+  .ss-content { display:flex; flex-direction:column; align-items:center; text-align:center; width:100%; overflow:hidden; }
+  .marquee-wrapper { width:100%; overflow:hidden; margin-bottom:1rem; }
+
+  /* Section: fond, overlay, hauteur responsive */
+  .section-{{ section.id }} {
+    position: relative; overflow: hidden;
+    min-height: {{ section.settings.image_height_mobile }}vh;
+    background-color: {{ section.settings['background-color'] }};
+  }
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }} { min-height: {{ section.settings.image_height }}vh; }
+  }
+
+  .section-{{ section.id }} .section-bg{
+    z-index:0; position:absolute; inset:0;
+    background:url({{ section.settings.background_image | img_url: 'master' }}) center/cover no-repeat;
+    filter: brightness({{ section.settings.image_brightness | divided_by: 100.0 }});
+  }
+  .section-{{ section.id }} .overlay{
+    z-index:1; position:absolute; inset:0;
+    background-color: {{ section.settings.overlay_color }};
+    opacity: {{ section.settings.overlay_opacity | divided_by: 100.0 }};
+  }
+  .section-{{ section.id }} .ss-text-wrapper{
+    z-index:2; position:absolute; inset:0;
+    display:flex; justify-content:center; align-items:center; padding:0 1.5rem;
+  }
+  @media screen and (min-width: 750px){
+    .section-{{ section.id }} .ss-text-wrapper{ padding:0 5rem; }
+  }
+
+  /* Défilement (marquee) */
+  .section-{{ section.id }} .marquee{ display:flex; width:200%; animation: marquee-anim var(--scrolling-speed) linear infinite; }
+  .section-{{ section.id }} .marquee.direction-right{ animation-direction: reverse; }
+  @keyframes marquee-anim{ 0%{transform:translateX(0)} 100%{transform:translateX(-50%)} }
+
+  /* Bouton (réglages section) */
+  .section-{{ section.id }} .button-wrapper-text-block{ display:block; margin-top: {{ section.settings.padding_button }}px; }
+  .section-{{ section.id }} .ss-button{
+    text-decoration:none; display:inline-block;
+    color: {{ section.settings.button_text_color }};
+    background-color: {{ section.settings.button_bg_color }};
+    border-radius: {{ section.settings.button_radius }};
+    padding: {{ section.settings.btn_padding_y_mobile | default: 9 }}px {{ section.settings.btn_padding_x_mobile | default: 25 }}px;
+    font-size: {{ section.settings.button_font_size | times: 0.85 | round: 0 }}px;
+  }
+  @media screen and (min-width: 750px){
+    .section-{{ section.id }} .ss-button{
+      padding: {{ section.settings.btn_padding_y_desktop | default: 11 }}px {{ section.settings.btn_padding_x_desktop | default: 25 }}px;
+      font-size: {{ section.settings.button_font_size }}px;
+    }
+  }
+{%- endstyle -%}
+
+<style>
+  /* Vitesse de défilement depuis réglages */
+  #shopify-section-{{ section.id }}{ --scrolling-speed: {{ section.settings.scrolling_speed }}s; }
+  @media only screen and (max-width: 767px){
+    #shopify-section-{{ section.id }}.shopify-section{ --scrolling-speed: {{ section.settings.scrolling_speed_mobile }}s; }
+  }
+</style>
+
+<div class="section section-{{ section.id }}">
+  {% if section.settings.background_image != blank %}
+    <div class="section-bg"></div>
+    <div class="overlay"></div>
+  {% endif %}
+  <div class="page-width section-{{ section.id }}-padding">
+    <div class="ss-text-wrapper">
+      <div class="ss-content">
+
+        {% for block in section.blocks %}
+          {% case block.type %}
+            {% when 'text' %}
+              {% if block.settings.heading != blank %}
+                {%- liquid
+                  assign fs_d = block.settings.font_size_desktop | default: block.settings.font_size | default: 30
+                  assign fs_m = block.settings.font_size_mobile  | default: block.settings.font_size | default: 26
+                  assign fw_d = block.settings.bold_desktop | default: false
+                  assign fw_m = block.settings.bold_mobile  | default: false
+                  assign colr = block.settings.color | default: section.settings.marquee_text_color
+                -%}
+                <style>
+                  .countdown-banner-heading-{{ section.id }}-{{ block.id }}{
+                    font-size: {{ fs_m }}px;
+                    font-weight: {% if fw_m %}700{% else %}400{% endif %};
+                    color: {{ colr }};
+                    white-space: nowrap;
+                    padding: 0 2rem;
+                    flex: 0 0 auto;
+                  }
+                  @media screen and (min-width: 750px){
+                    .countdown-banner-heading-{{ section.id }}-{{ block.id }}{
+                      font-size: {{ fs_d }}px;
+                      font-weight: {% if fw_d %}700{% else %}400{% endif %};
+                    }
+                  }
+                </style>
+
+                <div class="marquee-wrapper" style="padding-bottom:{{ section.settings.padding_header }}px;">
+                  <div class="marquee direction-{{ section.settings.direction }}">
+                    {% for i in (1..2) %}
+                      {% for j in (1..5) %}
+                        <div class="marquee__item countdown-banner-heading-{{ section.id }}-{{ block.id }}">
+                          {{ block.settings.heading }}
+                        </div>
+                      {% endfor %}
+                    {% endfor %}
+                  </div>
+                </div>
+              {% endif %}
+
+              {% if block.settings.richtext != blank %}
+                <style>
+                  .countdown-banner-richtext-{{ section.id }}-{{ block.id }}{
+                    font-size: {{ block.settings.richtext_font_size | times: 0.85 | round: 0 }}px;
+                  }
+                  @media screen and (min-width: 750px){
+                    .countdown-banner-richtext-{{ section.id }}-{{ block.id }}{
+                      font-size: {{ block.settings.richtext_font_size }}px;
+                    }
+                  }
+                </style>
+                <div class="countdown-banner-richtext-{{ section.id }}-{{ block.id }}"
+                     style="color: {{ block.settings.richtext_color }}; line-height:1.3; margin-bottom:1rem;">
+                  {{ block.settings.richtext }}
+                </div>
+              {% endif %}
+
+            {% when 'button' %}
+              <div class="button-wrapper-text-block">
+                <a href="{{ block.settings.button_link }}" class="ss-button">{{ block.settings.button_text }}</a>
+              </div>
+          {% endcase %}
+        {% endfor %}
+
+      </div>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "SS – Marquee Txt",
+  "tag": "section",
+  "settings": [
+    { "type": "header", "content": "Spacing between items" },
+    { "type": "number", "id": "padding_header", "label": "Padding below heading (px)", "default": 10 },
+    { "type": "number", "id": "padding_button", "label": "Padding above button (px)", "default": 10 },
+
+    { "type": "header", "content": "Background color" },
+    { "type": "color", "id": "background-color", "label": "Section background color", "default": "#ffffff" },
+
+    { "type": "header", "content": "Image de fond & Overlay" },
+    { "type": "image_picker", "id": "background_image", "label": "Image de fond" },
+    { "type": "color", "id": "overlay_color", "label": "Couleur de l'overlay", "default": "#000000" },
+    { "type": "number", "id": "overlay_opacity", "label": "Opacité de l'overlay (0–100)", "default": 50 },
+    { "type": "number", "id": "image_brightness", "label": "Luminosité de l'image (0–200)", "default": 100 },
+
+    { "type": "header", "content": "Heights (vh)" },
+    { "type": "number", "id": "image_height_mobile", "label": "Mobile height (vh)", "default": 50 },
+    { "type": "number", "id": "image_height", "label": "Desktop height (vh)", "default": 50 },
+
+    { "type": "header", "content": "Marquee Settings (fallback section)" },
+    { "type": "color", "id": "marquee_text_color", "label": "Default marquee text color", "default": "#121212" },
+    { "type": "select", "id": "direction", "label": "Direction", "default": "left", "options": [
+      { "value": "left", "label": "Left" },
+      { "value": "right", "label": "Right" }
+    ] },
+    { "type": "number", "id": "scrolling_speed", "label": "Speed desktop (seconds)", "default": 10 },
+    { "type": "number", "id": "scrolling_speed_mobile", "label": "Speed mobile (seconds)", "default": 10 },
+
+    { "type": "header", "content": "Padding & Width" },
+    { "type": "number", "id": "padding_top", "label": "Padding top (px)", "default": 36 },
+    { "type": "number", "id": "padding_bottom", "label": "Padding bottom (px)", "default": 36 },
+    { "type": "number", "id": "section-width", "label": "Section width (rem)", "default": 120 },
+
+    { "type": "header", "content": "Button Settings (Section-wide)" },
+    { "type": "color", "id": "button_text_color", "label": "Button text color", "default": "#ffffff" },
+    { "type": "color", "id": "button_bg_color", "label": "Button background color", "default": "#121212" },
+    { "type": "text", "id": "button_radius", "label": "Button radius (e.g. 50px)", "default": "50px" },
+    { "type": "number", "id": "button_font_size", "label": "Button font size (px)", "default": 18 },
+    { "type": "number", "id": "btn_padding_y_mobile", "label": "Button padding Y (mobile, px)", "default": 9 },
+    { "type": "number", "id": "btn_padding_x_mobile", "label": "Button padding X (mobile, px)", "default": 25 },
+    { "type": "number", "id": "btn_padding_y_desktop", "label": "Button padding Y (desktop, px)", "default": 11 },
+    { "type": "number", "id": "btn_padding_x_desktop", "label": "Button padding X (desktop, px)", "default": 25 }
+  ],
+  "blocks": [
+    {
+      "type": "text",
+      "name": "Text",
+      "settings": [
+        { "type": "text", "id": "heading", "label": "Marquee text", "default": "Your marquee headline" },
+        { "type": "color", "id": "color", "label": "Marquee color (leave blank to use section default)" },
+
+        { "type": "number", "id": "font_size", "label": "Font size (legacy, px)", "default": 30 },
+        { "type": "number", "id": "font_size_desktop", "label": "Marquee font size — Desktop (px)", "default": 30 },
+        { "type": "number", "id": "font_size_mobile",  "label": "Marquee font size — Mobile (px)",  "default": 26 },
+        { "type": "checkbox", "id": "bold_desktop", "label": "Bold on Desktop", "default": false },
+        { "type": "checkbox", "id": "bold_mobile",  "label": "Bold on Mobile",  "default": false },
+
+        { "type": "richtext", "id": "richtext", "label": "Additional richtext (optional)" },
+        { "type": "color", "id": "richtext_color", "label": "Additional text color", "default": "#121212" },
+        { "type": "number", "id": "richtext_font_size", "label": "Additional text size (px)", "default": 14 }
+      ]
+    },
+    {
+      "type": "button",
+      "name": "Button",
+      "settings": [
+        { "type": "text", "id": "button_text", "label": "Button text", "default": "View Discounted Essentials" },
+        { "type": "url", "id": "button_link", "label": "Button link" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "SS – Text block",
+      "blocks": [
+        { "type": "text" },
+        { "type": "button" }
+      ]
+    }
+  ]
+}
+{% endschema %}
+
+{% stylesheet %}{% endstylesheet %}
+{% javascript %}// Pure CSS marquee; pas de JS nécessaire{% endjavascript %}

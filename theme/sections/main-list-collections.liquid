@@ -1,0 +1,191 @@
+{{ 'collection-list.css' | asset_url | stylesheet_tag }}
+{%- liquid
+  case section.settings.sort
+      when 'products_high', 'products_low'
+        assign collections = collections | sort: 'all_products_count'
+      when 'date', 'date_reversed'
+        assign collections = collections | sort: 'published_at'
+    endcase
+
+    if section.settings.sort == 'products_high' or section.settings.sort == 'date_reversed' or section.settings.sort == 'alphabetical_reversed'
+      assign collections = collections | reverse
+    endif
+-%}
+<div class="section-space color-scheme-{{ section.settings.color_scheme }}">
+  <div class="container">
+    {% assign paginate_by = section.settings.collections_per_page %}
+    {%- paginate collections by paginate_by -%}
+      <collection-list class="collection-list-wrapper">
+        <div class="collection-list-grid text-align-center">
+            {% for collection in collections offset:paginate.current_offset, limit:paginate_by %}
+              {%- assign placeholder_image_index = forloop.index0 | modulo: 4 | plus: 1 -%}
+              {%- assign placeholder_image = 'collection-apparel-' | append: placeholder_image_index -%}
+              <div class="collection-list-item">
+                {% render 'collection-grid',
+                  card_collection: collection,
+                  section: section,
+                  placeholder_image: placeholder_image,
+                  media_aspect_ratio: section.settings.image_ratio
+                %}
+              </div>
+            {% endfor %}
+        </div>
+      </collection-list>
+      {% liquid
+        if paginate.pages > 1
+          render 'pagination', paginate: paginate
+        endif
+      %}
+    {% endpaginate %}
+  </div>
+</div>
+
+<style>
+  #shopify-section-{{ section.id }} {
+    --section-top-space:{{ section.settings.top_space_desktop }}px;
+    --section-bottom-space:{{ section.settings.bottom_space_desktop }}px;
+    --card-grid-row-items:{{ section.settings.number_item}};
+    --card-items-gap: {{ section.settings.column_gap }}px;
+
+  }
+  @media only screen and (max-width:767px) {
+    #shopify-section-{{ section.id }}.shopify-section{
+      --section-top-space:{{ section.settings.top_space_mobile }}px;
+      --section-bottom-space:{{ section.settings.bottom_space_mobile }}px;
+    }
+
+  }
+</style>
+
+{% schema %}
+{
+  "name": "t:sections.main_collection_list.name",
+  "tag": "section",
+  "class": "collection-list",
+   "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "settings": [
+     {
+      "type": "range",
+      "id": "collections_per_page",
+      "min": 4,
+      "max": 32,
+      "step": 4,
+      "default": 12,
+      "label": "t:sections.main_collection_list.settings.collections_per_page.label"
+    },
+    {
+      "type":"range",
+      "id":"number_item",
+      "min": 2,
+      "max": 4,
+      "step": 1,
+      "default":3,
+      "label": "t:sections.main_collection_list.settings.number_item.label"
+    },
+     {
+      "type": "range",
+      "id":"column_gap",
+      "label":"t:sections.main_collection_list.settings.column_gap.label",
+      "min":0,
+      "max":50,
+      "default":20,
+      "step": 1,
+      "unit": "px"
+    },
+    {
+      "type": "select",
+      "id": "image_ratio",
+      "default": "square",
+      "label": "t:global.image_ratio.label",
+      "options": [
+        {
+          "value": "adapt",
+          "label": "t:global.image_ratio.options.adapt.label"
+        },
+        {
+          "value": "landscape",
+          "label": "t:global.image_ratio.options.landscape.label"
+        },
+        {
+          "value": "portrait",
+          "label": "t:global.image_ratio.options.portrait.label"
+        },
+        {
+          "value": "square",
+          "label": "t:global.image_ratio.options.square.label"
+        }
+      ],
+    },
+    {
+      "type": "select",
+      "id": "sort",
+      "label": "t:sections.main_collection_list.settings.sort.label",
+      "options": [
+        {
+          "value": "alphabetical",
+        "label": "t:sections.main_collection_list.settings.sort.options.alphabetical.label"
+        },
+        {
+          "value": "alphabetical_reversed",
+         "label": "t:sections.main_collection_list.settings.sort.options.alphabetical_reversed.label"
+        },
+        {
+          "value": "date_reversed",
+            "label": "t:sections.main_collection_list.settings.sort.options.date_reversed.label"
+        },
+        {
+          "value": "date",
+          "label": "t:sections.main_collection_list.settings.sort.options.date.label"
+        },
+        {
+          "value": "products_high",
+          "label": "t:sections.main_collection_list.settings.sort.options.products_high.label"
+        },
+        {
+          "value": "products_low",
+          "label": "t:sections.main_collection_list.settings.sort.options.products_low.label"
+        }
+      ],
+      "default": "alphabetical"
+    },
+   {
+        "type": "color_scheme",
+        "id": "color_scheme",
+        "default": "primary",
+        "label": "t:global.color_scheme.label"
+    },
+    {
+      "type": "header",
+       "content": "t:global.section_spacing.label"
+    },
+     {
+      "type": "number",
+      "id": "top_space_desktop",
+      "label": "t:global.section_spacing.top_space_desktop.label",
+      "default": 80,
+
+    },
+    {
+      "type": "number",
+      "id": "bottom_space_desktop",
+       "label": "t:global.section_spacing.bottom_space_desktop.label",
+      "default": 80
+
+    },
+    {
+      "type": "number",
+      "id": "top_space_mobile",
+      "label": "t:global.section_spacing.top_space_mobile.label",
+      "default": 40
+    },
+    {
+      "type": "number",
+      "id": "bottom_space_mobile",
+      "label": "t:global.section_spacing.bottom_space_mobile.label",
+      "default": 40
+    }
+  ]
+}
+{% endschema %}

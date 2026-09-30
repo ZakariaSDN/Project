@@ -1,0 +1,57 @@
+{% liquid
+  if media_aspect_ratio == 'landscape'
+    assign imageratio = 75
+  elsif media_aspect_ratio == 'square'
+    assign imageratio = 100
+  elsif media_aspect_ratio == 'portrait'
+    assign imageratio = 125
+  else
+    if card_collection.featured_image != blank
+      assign imageratio = 1 | divided_by: card_collection.featured_image.aspect_ratio | times: 100
+    else
+      assign imageratio = 100
+    endif
+  endif
+%}
+  <{% if card_collection %}a href="{{ card_collection.url }}" {% else %}div{% endif %} class="collection-list-card">
+    <figure class="collection-list-img" >
+      <div class="media-wrapper" style="--media-ratio:{{ imageratio }}%">
+        {%- if card_collection.featured_image -%}
+         <img
+              srcset="
+                {%- if card_collection.featured_image.width >= 165 -%}{{ card_collection.featured_image | image_url: width: 165 }} 165w,{%- endif -%}
+                {%- if card_collection.featured_image.width >= 330 -%}{{ card_collection.featured_image | image_url: width: 330 }} 330w,{%- endif -%}
+                {%- if card_collection.featured_image.width >= 535 -%}{{ card_collection.featured_image | image_url: width: 535 }} 535w,{%- endif -%}
+                {%- if card_collection.featured_image.width >= 750 -%}{{ card_collection.featured_image | image_url: width: 750 }} 750w,{%- endif -%}
+                {%- if card_collection.featured_image.width >= 1000 -%}{{ card_collection.featured_image | image_url: width: 1000 }} 1000w,{%- endif -%}
+                {%- if card_collection.featured_image.width >= 1500 -%}{{ card_collection.featured_image | image_url: width: 1500 }} 1500w,{%- endif -%}
+                {%- if card_collection.featured_image.width >= 3000 -%}{{ card_collection.featured_image | image_url: width: 3000 }} 3000w,{%- endif -%}
+                {{ card_collection.featured_image | image_url }} {{ card_collection.featured_image.width }}w
+              "
+              src="{{ card_collection.featured_image | image_url: width: 1500 }}"
+              sizes="(min-width: 750px) calc(100vw - 10rem),calc(100vw - 3rem)"
+              alt="{{ card_collection.featured_image.alt | escape }}"
+              height="{{ card_collection.featured_image.height }}"
+              width="{{ card_collection.featured_image.width }}"
+              loading="lazy"
+            >
+          {% else %}
+               {{ placeholder_image | placeholder_svg_tag: 'placeholder-svg' }}
+          {% endif %}
+        <div class="collection-list-arrow">
+          <span class="coll-arrow-box">
+            <svg width="13" height="13" viewBox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path fill-rule="evenodd" clip-rule="evenodd" d="M9.57216 1.99393L1.09561 1.99388L1.0956 0.421974L12.2556 0.421971L12.2556 11.582L10.6837 11.582L10.6837 3.10543L1.65139 12.1377L0.539879 11.0262L9.57216 1.99393Z" fill="currentcolor"/>
+            </svg>
+          </span>
+        </div>
+      </div>
+    </figure>
+    <div class="collection-list-title"><span>
+       {% if card_collection != blank %}
+          {{- card_collection.title -}}
+        {% else %}
+          {{ 'onboarding.collection_title' | t }}
+        {% endif -%}
+    </span></div>
+  </{% if card_collection %}a{% else %}div{% endif %}>

@@ -1,0 +1,102 @@
+<div class="section-space color-scheme-{{ section.settings.color_scheme }}">
+    <div class="page-content ">
+      <div class="container">
+        {% if section.settings.show_page_title %}
+          <section-heading class="section-header">
+            <h2 class="heading-main {{ section.settings.heading_size }}">
+              {{ page.title }}
+            </h2>
+          </section-heading>
+          {% endif %}
+  {%- if page.content != blank -%}
+        <div class="page-content rich-text-editor-content rte">
+          {{
+            page.content
+            | replace: '<table', '<div class="table-content"><table'
+            | replace: '</table>', '</table></div>'
+          }}
+        </div>
+  {%- endif -%}
+      </div>
+    </div>
+</div>
+<style>
+  #shopify-section-{{ section.id }} {
+    --section-top-space:{{ section.settings.top_space_desktop }}px;
+    --section-bottom-space:{{ section.settings.bottom_space_desktop }}px;
+  }
+
+
+  @media only screen and (max-width:767px) {
+    #shopify-section-{{ section.id }}.shopify-section{
+     --section-top-space:{{ section.settings.top_space_mobile }}px;
+     --section-bottom-space:{{ section.settings.bottom_space_mobile }}px;
+    }
+  }
+</style>
+{% schema %}
+{
+  "name": "t:sections.main_page.name",
+  "settings": [
+      {
+            "type": "checkbox",
+            "id": "show_page_title",
+            "default": true,
+           "label": "t:sections.main_page.settings.show_page_title.label"
+        },
+     {
+        "type": "color_scheme",
+        "id": "color_scheme",
+        "default": "primary",
+         "label": "t:global.color_scheme.label"
+    },
+    {
+      "type": "color",
+      "id": "overlay_color",
+      "default": "#000000",
+      "label":"t:global.general_labels.overlay"
+    },
+   {
+    "type": "range",
+    "id": "overlay_opacity",
+  "label":"t:global.general_labels.overlay_opacity" ,
+    "default": 50,
+     "min": 0,
+     "max": 100,
+    "step": 1,
+     "unit": "%"
+  },
+     {
+      "type": "header",
+       "content": "t:global.section_spacing.label"
+    },
+     {
+      "type": "number",
+      "id": "top_space_desktop",
+      "label": "t:global.section_spacing.top_space_desktop.label",
+      "default": 80,
+
+    },
+    {
+      "type": "number",
+      "id": "bottom_space_desktop",
+       "label": "t:global.section_spacing.bottom_space_desktop.label",
+      "default": 80
+
+    },
+    {
+      "type": "number",
+      "id": "top_space_mobile",
+      "label": "t:global.section_spacing.top_space_mobile.label",
+      "default": 40
+    },
+    {
+      "type": "number",
+      "id": "bottom_space_mobile",
+      "label": "t:global.section_spacing.bottom_space_mobile.label",
+      "default": 40
+    }
+
+  ]
+}
+{% endschema %}

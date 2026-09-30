@@ -1,0 +1,132 @@
+.scrolling-text-card {
+  display: grid;
+  align-items: center;
+}
+
+.scrolling-text-card-item {
+  display: flex;
+  align-items: center;
+  font-size: var(--scrolling-text-font-size);
+  font-weight: var(--font-weight-heading);
+  overflow: hidden;
+  position: relative;
+  z-index: 2;
+}
+
+.scrolling-slide {
+  display: flex;
+  align-items: center;
+}
+
+.scrolling-text-wrapper {
+  display: flex;
+  align-items: center;
+  white-space: nowrap;
+}
+
+.scrolling-text-card-item.scrolling-text-left .scrolling-slide {
+  animation: scrolling-text-left var(--scrolling-speed, 50s) linear infinite;
+}
+
+.scrolling-text-card-item.scrolling-text-right .scrolling-slide {
+  animation: scrolling-text-right var(--scrolling-speed, 50s) linear infinite;
+}
+
+.scrolling-text-card-item:hover .scrolling-slide {
+  animation-play-state: paused;
+}
+
+.scrolling-text-item:not(.scrolling-text-image) {
+  padding-right: 40px;
+}
+
+.scrolling-text-wrapper span {
+  display: inline-flex;
+  align-items: center;
+  vertical-align: middle;
+  transition: all 0.25s ease-in-out;
+}
+
+.scrolling-content-text {
+  color: rgba(var(--color-text));
+}
+
+.scrolling-text-image {
+  display: block;
+  text-align: center;
+  min-width: 95px;
+  width: 95px;
+  margin-right: 40px;
+}
+
+.scrolling-text-image.image-size-medium {
+  min-width: 120px;
+  width: 120px;
+}
+
+.scrolling-text-image.image-size-large {
+  min-width: 160px;
+  width: 160px;
+}
+
+.scrolling-text-image img {
+  object-fit: cover;
+  width: auto;
+}
+
+.icon-size-large svg {
+  min-width: 100px;
+  width: 100px;
+  height: 100px;
+}
+
+.icon-size-medium svg {
+  min-width: 60px;
+  width: 60px;
+  height: 60px;
+}
+
+.icon-size-small svg {
+  min-width: 40px;
+  width: 40px;
+  height: 40px;
+}
+
+.scrolling-content-text.gradient-enabled {
+  background-clip: text;
+  -webkit-background-clip: text;
+  background-image: var(--color-gradient);
+  color: transparent;
+}
+
+[text-stroke],
+.scrolling-content-text[text-stroke] {
+  display: block;
+  -webkit-text-fill-color: transparent;
+  -webkit-text-stroke-width: 1px;
+  -webkit-text-stroke-color: rgb(var(--color-text));
+}
+
+@keyframes scrolling-text-left {
+  0% {
+    transform: translate3d(0, 0, 0);
+    visibility: visible;
+  }
+  100% {
+    transform: translate3d(-100%, 0, 0);
+  }
+}
+
+@keyframes scrolling-text-right {
+  0% {
+    transform: translate3d(-100%, 0, 0);
+    visibility: visible;
+  }
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+.scrolling-text-wrapper .button {
+  margin: 0;
+}

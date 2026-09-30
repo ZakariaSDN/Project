@@ -1,0 +1,149 @@
+{%- assign pickup_availabilities = current_variant.store_availabilities | where: 'pick_up_enabled', true -%}
+{%- if pickup_availabilities.size > 0 and current_variant.available -%}
+  {%- liquid
+    assign closest_location = pickup_availabilities.first
+  -%}
+  <div class="pickup-availability-content">
+    {%- if closest_location.available -%}
+      <svg
+        class="icon-xsmall"
+        viewBox="0 0 24 24"
+        stroke="none"
+        fill="green"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path fill-rule="evenodd" clip-rule="evenodd"
+            d="M1.25 12C1.25 6.06294 6.06294 1.25 12 1.25C17.9371 1.25 22.75 6.06294 22.75 12C22.75 17.9371 17.9371 22.75 12 22.75C6.06294 22.75 1.25 17.9371 1.25 12ZM17.0303 10.0303C17.3232 9.73744 17.3232 9.26256 17.0303 8.96967C16.7374 8.67678 16.2626 8.67678 15.9697 8.96967L11 13.9393L9.03033 11.9697C8.73744 11.6768 8.26256 11.6768 7.96967 11.9697C7.67678 12.2626 7.67678 12.7374 7.96967 13.0303L10.4697 15.5303C10.6103 15.671 10.8011 15.75 11 15.75C11.1989 15.75 11.3897 15.671 11.5303 15.5303L17.0303 10.0303Z"
+        ></path>
+      </svg>
+    {% endif %}
+    <div class="pickup-availability-text">
+      <p class="pickup-availability-desc font-heading">
+        {%- if closest_location.available -%}
+          {{
+            'products.product.pickup_availability.pick_up_available_at_html'
+            | t: location_name: closest_location.location.name
+          }}
+        {%- else -%}
+          {{
+            'products.product.pickup_availability.pick_up_unavailable_at_html'
+            | t: location_name: closest_location.location.name
+          }}
+        {%- endif -%}
+      </p>
+      <div class="text-size-small">
+        {{ closest_location.pick_up_time }}
+      </div>
+      <a
+        href="#pickup-availability-drawer-{{ section.id }}"
+        class="view-store-info button-underline"
+        data-id="pickup-availability-drawer-{{ section.id }}"
+        data-drawer-head
+      >
+        {%- if pickup_availabilities.size == 1 -%}
+          {{ 'products.product.pickup_availability.view_store_info' | t }}
+        {%- else -%}
+          {{ 'products.product.pickup_availability.check_other_stores' | t }}
+        {%- endif -%}
+      </a>
+    </div>
+  </div>
+  <template id="availability-drawer">
+    <availability-drawer
+      class="pickup-availability-drawer drawer right"
+      id="pickup-availability-drawer-{{ section.id }}"
+      role="dialog"
+      aria-modal="true"
+      data-drawer-body
+    >
+      <drawer-mouse-cursor class="drawer-mouse-cursor" cart-drawer-close>
+        <svg
+          class="icon"
+          stroke="currentColor"
+          viewBox="0 0 40 40"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path d="M10 30L30 10M10 10L30 30" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"></path>
+        </svg>
+      </drawer-mouse-cursor>
+      <drawer-layer class="overlay" data-close-drawer>
+        <drawer-mouse-cursor class="drawer-mouse-cursor">
+          <svg class="icon" stroke="currentColor" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M10 30L30 10M10 10L30 30" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"></path>
+          </svg>
+        </drawer-mouse-cursor>
+      </drawer-layer>
+      <div class="drawer-inner-card">
+        <div class="drawer-container">
+          <div class="drawer-head">
+            <drawer-header>
+              <a href="#" class="drawer-close button-right" aria-label="Close" data-close-drawer>
+                <svg
+                  class="drawer-icon"
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                >
+                  <path d="M18 6L6 18" stroke="currentColor" stroke-width="1.5"></path>
+                  <path d="M6 6L18 18" stroke="currentColor" stroke-width="1.5"></path>
+                </svg>
+              </a>
+              <h3 class="drawer-heading h5">{{ 'products.product.pickup_availability.pick_up_available' | t }}</h3>
+            </drawer-header>
+          </div>
+          <div class="drawer-body">
+            <div class="drawer-content-contain">
+              <div class="pickup-availability-inner pickup-availability-content">
+                <ul class="list-style-none pickup-availability-list">
+                  {%- for availability in pickup_availabilities -%}
+                    <li class="pickup-availability-list-item">
+                      {%- if availability.available -%}
+                        <h6 class="pickup-location-title">{{ availability.location.name | escape }}</h6>
+                      {% endif %}
+                      <p class="pickup-availability-preview">
+                        {%- if availability.available -%}
+                          <svg focusable="false" aria-hidden="true" viewBox="0 0 512 512">
+                            <path fill="currentColor"
+                                d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"
+                            ></path>
+                          </svg>
+                          <span>
+                            {{ 'products.product.pickup_availability.pick_up_available' | t }},
+                            {{ availability.pick_up_time | downcase -}}
+                          </span>
+                        {% else %}
+                          <svg
+                            class="pickup-store-icon"
+                            width="11"
+                            height="11"
+                            viewBox="0 0 11 11"
+                            fill="none"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <path d="M9.05836 0L10.0483 1.03709L1.22366 10.2819L0.233703 9.24484L9.05836 0Z" fill="black"/>
+                            <path d="M10.2819 9.05818L9.24483 10.0481L0 1.22347L1.03708 0.23352L10.2819 9.05818Z" fill="black"/>
+                          </svg>
+                          <span> {{ 'products.product.pickup_availability.unavailable' | t }}</span>
+                        {% endif %}
+                      </p>
+                      {%- assign address = availability.location.address -%}
+                      <address class="pickup-availability-address">
+                        {{ address | format_address }}
+                        {%- if address.phone.size > 0 -%}
+                          <a href="tel:{{ address.phone }}" class="unstyled-link">{{ address.phone }}</a>
+                        {%- endif -%}
+                      </address>
+                    </li>
+                  {% endfor %}
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </availability-drawer>
+  </template>
+{%- endif -%}

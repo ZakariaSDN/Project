@@ -1,0 +1,140 @@
+<search-drawer
+  class="search-drawer drawer {{ section.settings.search_drawer_position | default: 'right'}}"
+  id="search-drawer"
+  role="dialog"
+  aria-modal="true"
+>
+  <drawer-layer class="overlay" data-close-drawer>
+    <drawer-mouse-cursor class="drawer-mouse-cursor">
+      <svg
+        class="icon"
+        stroke="currentColor"
+        viewBox="0 0 40 40"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path d="M10 30L30 10M10 10L30 30" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"></path>
+      </svg></drawer-mouse-cursor
+  ></drawer-layer>
+  <div class="drawer-inner-card">
+    <div class="drawer-container">
+      <div class="drawer-head">
+        <drawer-header>
+          <a href="#" class="drawer-close button-right" aria-label="Close" data-close-drawer>
+            <svg
+              class="drawer-icon"
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+            >
+              <path d="M18 6L6 18" stroke="currentColor" stroke-width="1.5"></path>
+              <path d="M6 6L18 18" stroke="currentColor" stroke-width="1.5"></path>
+            </svg>
+          </a>
+          <h3 class="drawer-heading h5">{{ 'general.search.search_placeholder' | t }}</h3>
+        </drawer-header>
+      </div>
+      <div class="drawer-body">
+        <div class="drawer-content-contain">
+          <form action="/search" method="get" class="search-form" role="search">
+            <div class="search-input-box">
+              <input type="hidden" name="type" value="product">
+              <label for="search-input-{{ section.id }}" class="visually-hidden">Search</label>
+              <input
+                id="search-input-{{ section.id }}"
+                type="search"
+                name="q"
+                placeholder="I’ looking for ..."
+                autocomplete="off"
+                autocorrect="off"
+                autocapitalize="off"
+                spellcheck="false"
+                aria-label="Search"
+              >
+              <button type="reset" value="Reset" class="text-size-small" data-search-clear>
+                {{ 'general.search.clear' | t }}
+              </button>
+              <button type="button" class="drawer-search-icon">
+                <span class="hidden">Submit</span>
+                <svg
+                  class="icon-small"
+                  width="20"
+                  height="20"
+                  viewBox="0 0 20 20"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path d="M19 19L15.5967 15.5963M18.0385 9.5202C18.0385 14.2258 14.2243 18.0405 9.5192 18.0405C4.8142 18.0405 1 14.2258 1 9.5202C1 4.81464 4.8142 1 9.5192 1C14.2243 1 18.0385 4.81464 18.0385 9.5202Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                </svg>
+              </button>
+            </div>
+          </form>
+          <div class="predictive-search-result-wrapper hidden" data-result-wrapper></div>
+          {% if section.settings.search_suggestion != blank or section.settings.search_products != blank %}
+            <div class="predictive-search-suggestion-wrapper" data-suggestion-wrapper>
+              {% if section.settings.search_suggestion != blank %}
+                {% assign suggestions = section.settings.search_suggestion | split: ',' %}
+                <div class="predictive-search-suggestion">
+                  <div class="predictive-search-suggestion-box">
+                    <span class="predictive-search-label font-heading text-size-large">
+                      {{- 'general.search.popular_categories' | t -}}
+                    </span>
+                    <ul class="list-style-none predictive-search-suggestion-inner">
+                      {% for query in suggestions %}
+                        <li>
+                          <a href="{{ routes.search_url }}?q={{ query | url_encode }}">{{ query }}</a>
+                        </li>
+                      {% endfor %}
+                    </ul>
+                  </div>
+                </div>
+              {% endif %}
+              {% if section.settings.search_products != blank %}
+                <div class="predictive-search-popular-product">
+                  <span class="predictive-search-label font-heading text-size-large">
+                    {{- 'general.search.popular_product' | t -}}
+                  </span>
+                  <div class="predictive-search-products-grid round-enabled">
+                    {% liquid
+                      capture current
+                        cycle section.id: 1, 2, 3, 4
+                      endcapture
+                      assign placeholder_image = 'product-apparel-' | append: current
+                      assign product_form_id = 'product-form-' | append: section.id | append: forloop.index | append: '-header'
+                      for card_product in section.settings.search_products
+                        render 'product-card-grid', card_product: card_product, product_form_id: product_form_id, placeholder_image: placeholder_image
+                      endfor
+                    %}
+                  </div>
+                </div>
+              {% endif %}
+            </div>
+          {% endif %}
+          <div class="predictive-search-loading-wrapper hidden" data-loading-wrapper>
+            <div class="search-loader text-center">
+              <svg
+                width="40"
+                height="40"
+                style="shape-rendering: auto; animation-play-state: running; animation-delay: 0s; background: none;"
+                viewBox="0 0 100 100"
+                preserveAspectRatio="xMidYMid"
+              >
+                <circle cx="50" cy="50" fill="none" stroke="#d9e2ed" stroke-width="6" r="35"
+                    stroke-dasharray="164.93361431346415 56.97787143782138"
+                    style="animation-play-state: running; animation-delay: 0s;"
+                    transform="rotate(115.597 50 50)">
+                    <animateTransform attributeName="transform" type="rotate" calcMode="linear"
+                        values="0 50 50;360 50 50" keyTimes="0;1" dur="1s" begin="0s"
+                        repeatCount="indefinite">
+                    </animateTransform>
+                </circle>
+              </svg>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</search-drawer>

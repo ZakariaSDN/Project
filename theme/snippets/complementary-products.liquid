@@ -1,0 +1,105 @@
+<product-recommendations
+  class="product-recommendations-main"
+  data-url="{{ routes.product_recommendations_url }}?section_id={{ section.id }}&product_id={{ product.id }}&limit={{ block.settings.products_count }}&intent=complementary"
+  product-recommendations
+  {{ block.shopify_attributes }}
+>
+  {%- if recommendations.performed and recommendations.products_count > 0 -%}
+    <div class="product-recommendations">
+      {% if block.settings.heading != blank %}
+        <div class="product-complementary-head">
+          <span class="product-complementary-heading text-size-large font-heading">{{ block.settings.heading }}</span>
+        </div>
+      {% endif %}
+      <slider-main-component
+        class="product-complementary swiper-container swiper swiper-slider"
+        data-settings='
+                {
+                "loop": false,
+                "slidesPerView":1,
+                "spaceBetween":"12px",
+                "navigation": {
+                  "nextEl": ".swiper-button-next-complementory-{{ section.id }}",
+                  "prevEl": ".swiper-button-prev-complementory-{{ section.id }}"
+                },
+                "breakpoints": {
+                  "767": {
+                    "slidesPerView": 2
+                  }
+                }
+          }
+        '
+      >
+        <div class="swiper-wrapper">
+          {%- for recomproduct in recommendations.products limit: block.settings.products_count -%}
+            {%- assign current_variant = recomproduct.selected_or_first_available_variant %}
+            <div class="product-complementary-item swiper-slide">
+              <div class="product-complementary-image">
+                {%- capture current -%}{% cycle section.id: 1, 2, 3, 4 %}{%- endcapture -%}
+                {%- assign placeholder_image = 'product-apparel-' | append: current -%}
+                {% if recomproduct.featured_media != blank %}
+                  {%- assign widths = '50, 100, 200, 300, 400, 500' -%}
+                  {%- capture sizes -%}
+                    calc((100vw - 50px) / 2)
+                     {%- endcapture -%}
+                  {{
+                    recomproduct.featured_media.preview_image
+                    | image_url: width: 500
+                    | image_tag: sizes: sizes, widths: widths
+                  }}
+                {% else %}
+                  {{ placeholder_image | placeholder_svg_tag: 'placeholder-svg' }}
+                {% endif %}
+              </div>
+              <div class="product-complementary-info">
+                <a href="{{ recomproduct.url | within : collection }}" class="product-complementary-title font-heading">
+                  {{- recomproduct.title | strip_html -}}
+                </a>
+                <div class="product-price-wrapper">
+                  <price-main class="price-main">
+                    {%- assign price_min = recomproduct.price_min | default: 1899 | money -%}
+                    <price-sale class="price-sale">
+                      {%- if recomproduct.price_varies -%}
+                        <span class="product-price-item product-actual-price varies-price">
+                          {{ 'products.product.price.from_price_html' | t: price: price_min }}
+                        </span>
+                      {%- else -%}
+                        <span class="product-price-item product-actual-price">{{ price_min }}</span>
+                      {%- endif -%}
+                      {%- if recomproduct.compare_at_price_min > recomproduct.price_min -%}
+                        <span class="product-price-item discount-price">
+                          {{- recomproduct.compare_at_price_min | money -}}
+                        </span>
+                      {%- endif -%}
+                      {%- if current_variant.unit_price_measurement -%}
+                        <span class="product-price-item product-unit-price">
+                          {{ current_variant.unit_price | money }} /
+                          {% if current_variant.unit_price_measurement.reference_value != 1 -%}
+                            {{- current_variant.unit_price_measurement.reference_value -}}
+                          {%- endif %}
+                          {{ current_variant.unit_price_measurement.reference_unit }}
+                        </span>
+                      {%- endif -%}
+                    </price-sale>
+                  </price-main>
+                </div>
+                <a href="{{ recomproduct.url | within : collection }}" class="button button-xsmall">
+                  <svg width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M10 4V6L0 6L8.74243e-08 4L10 4Z" fill="currentcolor"></path>
+                    <path d="M6 10H4L4 0L6 1.74845e-07L6 10Z" fill="currentcolor"></path>
+                  </svg>
+                </a>
+              </div>
+            </div>
+          {% endfor %}
+        </div>
+      </slider-main-component>
+      {%- if recommendations.performed and recommendations.products_count > 1 -%}
+        <div class="swiper-button-wrapper swiper-button-small">
+          <div class="swiper-button swiper-button-next swiper-button-next-complementory-{{ section.id }}"></div>
+          <div class="swiper-button swiper-button-prev swiper-button-prev-complementory-{{ section.id }}"></div>
+        </div>
+      {% endif %}
+    </div>
+  {% endif %}
+</product-recommendations>

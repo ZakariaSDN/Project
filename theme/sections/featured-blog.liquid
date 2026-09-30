@@ -1,0 +1,571 @@
+{{ 'featured-blog.css' | asset_url | stylesheet_tag: preload: true }}
+{{ 'featured-blog.css' | asset_url | stylesheet_tag }}
+
+<div class="section-space color-scheme-{{ section.settings.color_scheme }}">
+  <div class="container featured-blog-container">
+    {% if section.settings.heading != blank or section.settings.subheading != blank %}
+      <div class="featured-blog-header text-{{ section.settings.heading_alignment }}">
+        {% if section.settings.heading != blank %}
+          <h2 class="heading-main {{ section.settings.heading_size }}">{{ section.settings.heading }}</h2>
+        {% endif %}
+        {% if section.settings.subheading != blank %}
+          <div class="featured-blog-subheading rte">
+            {{ section.settings.subheading }}
+          </div>
+        {% endif %}
+      </div>
+    {% endif %}
+
+    {% assign card_class = '' %}
+    {% if section.settings.enable_slider %}
+      {% assign card_class = 'swiper-slide' %}
+      <div class="featured-blog-wrapper p-relative">
+        <slider-main-component
+          class="swiper-container swiper swiper-slider"
+          data-settings='
+            {
+              "loop": true,
+              "slidesPerView": 1,
+              "spaceBetween": {{ section.settings.column_gap }},
+              "navigation": {
+                "nextEl": ".swiper-button-next-{{ section.id }}",
+                "prevEl": ".swiper-button-prev-{{ section.id }}"
+              },
+              "breakpoints": {
+                "768": {
+                  "slidesPerView": {{ section.settings.cloumn }},
+                  "spaceBetween": {{ section.settings.column_gap }},
+                  "speed": 900
+                }
+              },
+              "scrollbar": {
+                "el": ".swiper-progressbar-{{ section.id }}",
+                "dragSize":"auto"
+              }
+            }
+          '
+        >
+    {% endif %}
+
+    <div class="{% if section.settings.enable_slider %}swiper-wrapper{% else %}blog-grid-wrapper{% endif %}">
+      {% assign selected_blog = section.settings.blog %}
+      {% if selected_blog != blank and section.blocks.size == 0 %}
+        {% for article in selected_blog.articles limit: section.settings.post_limit %}
+          {% assign placeholder_image_index = forloop.index0 | modulo: 3 | plus: 1 %}
+          {% assign placeholder_image = 'blog-apparel-' | append: placeholder_image_index %}
+          <div class="featured-blog-item {{ card_class }}">
+            {% render 'blog-post',
+              article: article,
+              section: section,
+              placeholder_image: placeholder_image,
+              media_aspect_ratio: section.settings.grid_image_size,
+              class: ''
+            %}
+          </div>
+        {% endfor %}
+      {% else %}
+        {% for i in (1..section.settings.post_limit) %}
+          {% assign placeholder_image_index = forloop.index0 | modulo: 3 | plus: 1 %}
+          {% assign placeholder_image = 'blog-apparel-' | append: placeholder_image_index %}
+          <div class="featured-blog-item {{ card_class }}">
+            {% render 'blog-post',
+              article: article,
+              section: section,
+              media_aspect_ratio: section.settings.grid_image_size,
+              placeholder_image: placeholder_image,
+              class: ''
+            %}
+          </div>
+        {% endfor %}
+      {% endif %}
+    </div>
+
+    {% if section.settings.enable_slider %}
+      </slider-main-component>
+      <div class="swiper-pagination swiper-progressbar swiper-progressbar-{{ section.id }}"></div>
+      <div class="swiper-button-wrapper swiper-button-bottomright">
+        <div class="swiper-button swiper-button-prev swiper-button-prev-{{ section.id }}"></div>
+        <div class="swiper-button swiper-button-next swiper-button-next-{{ section.id }}"></div>
+      </div>
+      </div>
+    {% endif %}
+  </div>
+</div>
+
+<style>
+  #shopify-section-{{ section.id }}{
+    --section-top-space: {{ section.settings.top_space_desktop }}px;
+    --section-bottom-space: {{ section.settings.bottom_space_desktop }}px;
+
+    --blog-item-per-row: {{ section.settings.cloumn }};
+    --blog-item-gap: {{ section.settings.column_gap }}px;
+
+    --fb-max-width: {{ section.settings.content_max_width }}px;
+    --fb-heading-color: {{ section.settings.heading_color }};
+    --fb-subheading-color: {{ section.settings.subheading_color }};
+
+    --fb-card-bg: {{ section.settings.card_bg }};
+    --fb-card-radius: {{ section.settings.card_radius }}px;
+    --fb-card-padding: {{ section.settings.card_padding }}px;
+    --fb-card-shadow: {% if section.settings.enable_soft_shadow %}0 14px 40px rgba(0,0,0,.10){% else %}none{% endif %};
+
+    --fb-meta-color: {{ section.settings.meta_color }};
+    --fb-title-color: {{ section.settings.title_color }};
+    --fb-excerpt-color: {{ section.settings.excerpt_color }};
+    --fb-link-color: {{ section.settings.link_color }};
+    --fb-link-hover: {{ section.settings.link_hover_color }};
+    --fb-image-radius: {{ section.settings.image_radius }}px;
+  }
+
+  @media only screen and (max-width: 767px){
+    #shopify-section-{{ section.id }}.shopify-section{
+      --section-top-space: {{ section.settings.top_space_mobile }}px;
+      --section-bottom-space: {{ section.settings.bottom_space_mobile }}px;
+    }
+  }
+
+  #shopify-section-{{ section.id }} .featured-blog-container{
+    max-width: min(100%, var(--fb-max-width));
+    margin: 0 auto;
+  }
+
+  #shopify-section-{{ section.id }} .featured-blog-header{
+    max-width: 900px;
+    margin: 0 auto 34px;
+  }
+
+  #shopify-section-{{ section.id }} .featured-blog-header.text-left{
+    text-align: left;
+  }
+
+  #shopify-section-{{ section.id }} .featured-blog-header.text-center{
+    text-align: center;
+  }
+
+  #shopify-section-{{ section.id }} .featured-blog-header.text-right{
+    text-align: right;
+  }
+
+  #shopify-section-{{ section.id }} .featured-blog-header .heading-main{
+    color: var(--fb-heading-color);
+    margin: 0 0 10px;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+  }
+
+  #shopify-section-{{ section.id }} .featured-blog-subheading{
+    color: var(--fb-subheading-color);
+    max-width: 760px;
+    margin: 0 auto;
+    line-height: 1.65;
+    font-size: 16px;
+  }
+
+  #shopify-section-{{ section.id }} .blog-grid-wrapper{
+    display: grid;
+    grid-template-columns: repeat(var(--blog-item-per-row), minmax(0, 1fr));
+    gap: var(--blog-item-gap);
+    align-items: stretch;
+  }
+
+  #shopify-section-{{ section.id }} .featured-blog-item{
+    height: 100%;
+  }
+
+  #shopify-section-{{ section.id }} .featured-blog-item > *{
+    height: 100%;
+  }
+
+  /* si un seul article -> centré et plus élégant */
+  #shopify-section-{{ section.id }} .blog-grid-wrapper > .featured-blog-item:only-child{
+    grid-column: 1 / -1;
+    max-width: min(760px, 100%);
+    width: 100%;
+    justify-self: center;
+  }
+
+  #shopify-section-{{ section.id }} .featured-blog-item article,
+  #shopify-section-{{ section.id }} .featured-blog-item .blog-card,
+  #shopify-section-{{ section.id }} .featured-blog-item .article-card,
+  #shopify-section-{{ section.id }} .featured-blog-item .card-wrapper,
+  #shopify-section-{{ section.id }} .featured-blog-item > div{
+    background: var(--fb-card-bg);
+    border-radius: var(--fb-card-radius);
+    box-shadow: var(--fb-card-shadow);
+    padding: var(--fb-card-padding);
+    overflow: hidden;
+    height: 100%;
+  }
+
+  #shopify-section-{{ section.id }} .featured-blog-item img{
+    display: block;
+    width: 100%;
+    height: auto;
+    border-radius: var(--fb-image-radius);
+  }
+
+  #shopify-section-{{ section.id }} .featured-blog-item .article-card__image,
+  #shopify-section-{{ section.id }} .featured-blog-item .blog-card__image,
+  #shopify-section-{{ section.id }} .featured-blog-item figure{
+    margin-bottom: 18px;
+  }
+
+  #shopify-section-{{ section.id }} .featured-blog-item .article-card__meta,
+  #shopify-section-{{ section.id }} .featured-blog-item .blog-card__meta,
+  #shopify-section-{{ section.id }} .featured-blog-item .card-information,
+  #shopify-section-{{ section.id }} .featured-blog-item .meta,
+  #shopify-section-{{ section.id }} .featured-blog-item small{
+    color: var(--fb-meta-color);
+    font-size: 14px;
+  }
+
+  #shopify-section-{{ section.id }} .featured-blog-item h3,
+  #shopify-section-{{ section.id }} .featured-blog-item .h3,
+  #shopify-section-{{ section.id }} .featured-blog-item .article-card__title,
+  #shopify-section-{{ section.id }} .featured-blog-item .blog-card__heading,
+  #shopify-section-{{ section.id }} .featured-blog-item .card__heading{
+    color: var(--fb-title-color);
+    line-height: 1.18;
+    letter-spacing: -0.02em;
+    margin-top: 10px;
+    margin-bottom: 14px;
+  }
+
+  #shopify-section-{{ section.id }} .featured-blog-item p{
+    color: var(--fb-excerpt-color);
+    line-height: 1.7;
+  }
+
+  #shopify-section-{{ section.id }} .featured-blog-item a{
+    transition: all .25s ease;
+  }
+
+  #shopify-section-{{ section.id }} .featured-blog-item h3 a,
+  #shopify-section-{{ section.id }} .featured-blog-item .article-card__title a,
+  #shopify-section-{{ section.id }} .featured-blog-item .blog-card__heading a,
+  #shopify-section-{{ section.id }} .featured-blog-item .card__heading a{
+    color: var(--fb-title-color);
+    text-decoration: none;
+  }
+
+  #shopify-section-{{ section.id }} .featured-blog-item h3 a:hover,
+  #shopify-section-{{ section.id }} .featured-blog-item .article-card__title a:hover,
+  #shopify-section-{{ section.id }} .featured-blog-item .blog-card__heading a:hover,
+  #shopify-section-{{ section.id }} .featured-blog-item .card__heading a:hover{
+    color: var(--fb-link-hover);
+  }
+
+  #shopify-section-{{ section.id }} .featured-blog-item .read-more,
+  #shopify-section-{{ section.id }} .featured-blog-item .article-card__link,
+  #shopify-section-{{ section.id }} .featured-blog-item .blog-card__link,
+  #shopify-section-{{ section.id }} .featured-blog-item a.button-underline,
+  #shopify-section-{{ section.id }} .featured-blog-item a[href*="/blogs/"]{
+    color: var(--fb-link-color);
+    text-decoration: none;
+  }
+
+  #shopify-section-{{ section.id }} .featured-blog-item .read-more:hover,
+  #shopify-section-{{ section.id }} .featured-blog-item .article-card__link:hover,
+  #shopify-section-{{ section.id }} .featured-blog-item .blog-card__link:hover,
+  #shopify-section-{{ section.id }} .featured-blog-item a.button-underline:hover,
+  #shopify-section-{{ section.id }} .featured-blog-item a[href*="/blogs/"]:hover{
+    color: var(--fb-link-hover);
+  }
+
+  #shopify-section-{{ section.id }} .swiper-pagination{
+    margin-top: 18px;
+  }
+
+  @media (max-width: 991px){
+    #shopify-section-{{ section.id }} .blog-grid-wrapper{
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  @media (max-width: 767px){
+    #shopify-section-{{ section.id }} .blog-grid-wrapper{
+      grid-template-columns: 1fr;
+    }
+
+    #shopify-section-{{ section.id }} .featured-blog-header{
+      margin-bottom: 24px;
+    }
+
+    #shopify-section-{{ section.id }} .featured-blog-item article,
+    #shopify-section-{{ section.id }} .featured-blog-item .blog-card,
+    #shopify-section-{{ section.id }} .featured-blog-item .article-card,
+    #shopify-section-{{ section.id }} .featured-blog-item .card-wrapper,
+    #shopify-section-{{ section.id }} .featured-blog-item > div{
+      padding: 16px;
+    }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Featured blogs premium",
+  "class": "section-blog",
+  "tag": "section",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "settings": [
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "default": "primary",
+      "label": "Nuancier"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "heading",
+      "default": "Découvrez nos actualités",
+      "label": "Titre"
+    },
+    {
+      "type": "richtext",
+      "id": "subheading",
+      "label": "Texte sous le titre"
+    },
+    {
+      "type": "select",
+      "id": "heading_size",
+      "default": "h2",
+      "label": "Taille du titre",
+      "options": [
+        { "value": "h1", "label": "H1" },
+        { "value": "h2", "label": "H2" },
+        { "value": "h3", "label": "H3" },
+        { "value": "h4", "label": "H4" },
+        { "value": "h5", "label": "H5" },
+        { "value": "h6", "label": "H6" }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "heading_alignment",
+      "label": "Alignement du titre",
+      "default": "center",
+      "options": [
+        { "value": "left", "label": "Gauche" },
+        { "value": "center", "label": "Centre" },
+        { "value": "right", "label": "Droite" }
+      ]
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Couleur du titre",
+      "default": "#111111"
+    },
+    {
+      "type": "color",
+      "id": "subheading_color",
+      "label": "Couleur du texte sous le titre",
+      "default": "#666666"
+    },
+    {
+      "type": "blog",
+      "id": "blog",
+      "label": "Blog"
+    },
+    {
+      "type": "range",
+      "id": "content_max_width",
+      "label": "Largeur max de la section",
+      "min": 900,
+      "max": 1600,
+      "step": 20,
+      "default": 1280,
+      "unit": "px"
+    },
+    {
+      "type": "select",
+      "id": "grid_image_size",
+      "label": "Format d’image",
+      "default": "adapt",
+      "options": [
+        { "value": "adapt", "label": "Auto" },
+        { "value": "landscape", "label": "Paysage" },
+        { "value": "portrait", "label": "Portrait" },
+        { "value": "square", "label": "Carré" }
+      ]
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_card_view",
+      "default": true,
+      "label": "Activer l’effet carte"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_soft_shadow",
+      "default": true,
+      "label": "Activer une ombre douce"
+    },
+    {
+      "type": "color",
+      "id": "card_bg",
+      "label": "Fond des cartes",
+      "default": "#ffffff"
+    },
+    {
+      "type": "range",
+      "id": "card_radius",
+      "label": "Arrondi des cartes",
+      "min": 0,
+      "max": 40,
+      "step": 1,
+      "default": 22,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "card_padding",
+      "label": "Padding des cartes",
+      "min": 0,
+      "max": 40,
+      "step": 1,
+      "default": 18,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "image_radius",
+      "label": "Arrondi des images",
+      "min": 0,
+      "max": 30,
+      "step": 1,
+      "default": 16,
+      "unit": "px"
+    },
+    {
+      "type": "color",
+      "id": "meta_color",
+      "label": "Couleur des métadonnées",
+      "default": "#7a7a7a"
+    },
+    {
+      "type": "color",
+      "id": "title_color",
+      "label": "Couleur des titres d’articles",
+      "default": "#111111"
+    },
+    {
+      "type": "color",
+      "id": "excerpt_color",
+      "label": "Couleur du texte d’extrait",
+      "default": "#555555"
+    },
+    {
+      "type": "color",
+      "id": "link_color",
+      "label": "Couleur des liens",
+      "default": "#A48351"
+    },
+    {
+      "type": "color",
+      "id": "link_hover_color",
+      "label": "Couleur des liens au survol",
+      "default": "#7f6238"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_slider",
+      "label": "Activer le slider",
+      "default": false
+    },
+    {
+      "type": "range",
+      "id": "post_limit",
+      "label": "Nombre d’articles",
+      "min": 1,
+      "max": 6,
+      "step": 1,
+      "default": 3
+    },
+    {
+      "type": "range",
+      "id": "cloumn",
+      "label": "Nombre de colonnes desktop",
+      "min": 1,
+      "max": 4,
+      "step": 1,
+      "default": 3
+    },
+    {
+      "type": "range",
+      "id": "column_gap",
+      "label": "Espace entre les cartes",
+      "min": 0,
+      "max": 50,
+      "default": 24,
+      "step": 1,
+      "unit": "px"
+    },
+    {
+      "type": "checkbox",
+      "id": "overlay",
+      "label": "Overlay contenu",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "show_date",
+      "default": true,
+      "label": "Afficher la date"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_comment",
+      "default": true,
+      "label": "Afficher le nombre de commentaires"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_author",
+      "default": true,
+      "label": "Afficher l’auteur"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_excerpt",
+      "default": true,
+      "label": "Afficher l’extrait"
+    },
+    {
+      "type": "header",
+      "content": "Espacement"
+    },
+    {
+      "type": "number",
+      "id": "top_space_desktop",
+      "label": "Espace haut desktop",
+      "default": 80
+    },
+    {
+      "type": "number",
+      "id": "bottom_space_desktop",
+      "label": "Espace bas desktop",
+      "default": 80
+    },
+    {
+      "type": "number",
+      "id": "top_space_mobile",
+      "label": "Espace haut mobile",
+      "default": 40
+    },
+    {
+      "type": "number",
+      "id": "bottom_space_mobile",
+      "label": "Espace bas mobile",
+      "default": 40
+    }
+  ],
+  "presets": [
+    {
+      "name": "Featured blogs premium"
+    }
+  ]
+}
+{% endschema %}

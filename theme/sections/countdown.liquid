@@ -1,0 +1,510 @@
+{{ 'countdown.css' | asset_url | stylesheet_tag: preload: true }}
+{{ 'countdown.css' | asset_url | stylesheet_tag }}
+<style>
+   #shopify-section-{{ section.id }} {
+     --section-top-space:{{ section.settings.top_space_desktop }}px;
+     --section-bottom-space:{{ section.settings.bottom_space_desktop }}px;
+     --space-column:{{section.settings.grid_gap}}px;
+   }
+  {% if section.settings.background_image != blank %}
+     #shopify-section-{{ section.id }} .section-background-image {
+       position: absolute;
+       width: 100%;
+       height: 100%;
+       top: 0;
+       left: 0;
+       z-index: 0;
+     }
+
+     #shopify-section-{{ section.id }} .section-background-image img {
+       width: 100%;
+       height: 100%;
+       object-fit: cover;
+     }
+
+      #shopify-section-{{ section.id }} .section-background-image:before {
+         content: '';
+         position: absolute;
+         width: 100%;
+         height: 100%;
+         background: rgb({{ section.settings.overlay_color.rgb }} / {{ section.settings.overlay_opacity }}%);
+     }
+   {% endif %}
+   @media only screen and (max-width:767px) {
+     #shopify-section-{{ section.id }}.shopify-section{
+       --section-top-space:{{ section.settings.top_space_mobile }}px;
+       --section-bottom-space:{{ section.settings.bottom_space_mobile }}px;
+     }
+    }
+</style>
+<div class="section-space color-scheme-{{ section.settings.color_scheme }} p-relative">
+  {% if section.settings.background_image != blank %}
+      <div class="section-background-image">
+        {%- liquid
+          assign height = section.settings.background_image.width | divided_by: section.settings.background_image.aspect_ratio | round
+          assign sizes = '100vw'
+          assign widths = '375, 550, 750, 1100, 1500, 1780, 2000, 3000, 3840'
+        -%}
+        {{
+          section.settings.background_image
+          | image_url: width: 3840
+          | image_tag: loading: 'lazy', height: height, sizes: sizes, widths: widths
+        }}
+      </div>
+    {% endif %}
+  {% if section.settings.fullwidth == false %}
+    <div class="container">
+  {% endif %}
+    {% if section.settings.heading != blank %}
+      <section-heading class="section-header p-relative">
+        <h2 class="heading-main {{  section.settings.heading_size }} text-align-{{ section.settings.heading_alignment }}">{{ section.settings.heading }}</h2>
+      </section-heading>
+    {% endif %}
+    <div class="countdown-grid-wrapper {% if section.settings.rounded_enable %}round-enabled{% endif %} countdown-position-{{ section.settings.countdown_layout }} p-relative {% if section.settings.fullwidth %}container{% endif %}">
+      {% liquid
+        assign collection = section.settings.collection
+        assign image_url = ''
+        if section.settings.image != blank
+          assign image_url = section.settings.image
+        elsif collection.featured_image
+          assign image_url = collection.featured_image
+        endif
+       
+         assign media_aspect_ratio = section.settings.grid_image_size
+        
+          if media_aspect_ratio == 'landscape'
+            assign imageratio = 75
+          elsif media_aspect_ratio == 'square'
+            assign imageratio = 100
+          elsif media_aspect_ratio == 'portrait'
+            assign imageratio = 125
+          else
+            if image_url != blank
+              assign imageratio = 1 | divided_by: image_url.aspect_ratio | times: 100
+            else
+              assign imageratio = 100
+            endif
+          endif
+                
+      %}
+      {% if section.settings.countdown_layout != 'without_content' %}
+        <div class="countdown-grid-item">
+          <div class="collection-card">
+            <div class="collection-image" style="--media-ratio:{{ imageratio }}%">
+              <div class="media-wrapper" >
+                {% if image_url != blank %}
+                  <img
+                    srcset="
+                      {%- if image_url.width >= 165 -%}{{ image_url | image_url: width: 165 }} 165w,{%- endif -%}
+                      {%- if image_url.width >= 330 -%}{{ image_url | image_url: width: 330 }} 330w,{%- endif -%}
+                      {%- if image_url.width >= 535 -%}{{ image_url | image_url: width: 535 }} 535w,{%- endif -%}
+                      {%- if image_url.width >= 750 -%}{{ image_url | image_url: width: 750 }} 750w,{%- endif -%}
+                      {%- if image_url.width >= 1000 -%}{{ image_url | image_url: width: 1000 }} 1000w,{%- endif -%}
+                      {%- if image_url.width >= 1500 -%}{{ image_url | image_url: width: 1500 }} 1500w,{%- endif -%}
+                      {%- if image_url.width >= 3000 -%}{{ image_url | image_url: width: 3000 }} 3000w,{%- endif -%}
+                      {{ image_url | image_url }} {{ image_url.width }}w
+                    "
+                    src="{{ image_url | image_url: width: 1500 }}"
+                    sizes="calc(100vw - 3rem)"
+                    alt="{{ image_url.alt | escape }}"
+                    height="{{ image_url.height }}"
+                    width="{{ image_url.width }}"
+                    loading="lazy"
+                  >
+                {% else %}
+                  {{ 'collection-apparel-1' | placeholder_svg_tag: 'placeholder-svg' }}
+                {% endif %}
+              </div>
+            </div>
+
+            <div class="collection-content-box">
+              <div class="collection-icon-wrapper">
+                {% if section.settings.subheading_collection != blank %}
+                  <div class="collection-name">{{ section.settings.subheading_collection }}</div>
+                {% endif %}
+                {% if collection != blank %}
+                  <a href="{{ collection.url }}" class="arrow-icon-wrapper" aria-label="{{ collection.title }}">
+                    <svg class="icon-xxsmall" width="13" height="13" viewBox="0 0 13 13" fill="none">
+                      <path fill-rule="evenodd" clip-rule="evenodd" d="M9.46695 2.30979L0.605106 2.30974L0.6051 0.666385L12.2724 0.666382L12.2724 12.3336L10.6291 12.3337L10.629 3.47182L1.18614 12.9147L0.0241138 11.7526L9.46695 2.30979Z" fill="currentcolor"></path>
+                    </svg>
+                  </a>
+                {% endif %}
+              </div>
+
+              {% if collection != blank or section.settings.collection_heading != blank %}
+                <div class="collection-title-wrapper collection-overlay-content">
+                  <h2 class="collection-heading h4">
+                    {% if section.settings.collection_heading != blank -%}
+                      {{- section.settings.collection_heading -}}
+                    {%- elsif collection != blank -%}
+                      {{- collection.title -}}
+                    {% else %}
+                      {{ 'onboarding.collection_title' | t }}
+                    {%- endif %}
+                  </h2>
+                </div>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+      {% endif %}
+      <div class="countdown-grid-item">
+        <div class="countdown-time-wrapper {% if section.settings.background_enable %}background-enabled{% endif %} {% if section.settings.rounded_enable %}round-enabled{% endif %}">
+          <div class="countdown-timer">
+            {% if section.settings.countdown_heading != blank %}
+              <div class="countdown-heading">
+                <h2 class="countdown-title h4">{{ section.settings.countdown_heading }}</h2>
+              </div>
+            {% endif %}
+            {% if section.settings.enable_countdown %}
+              <countdown-timer class="countdown" role="timer" end-time="{{ section.settings.date }}">
+                <div class="countdown-card">
+                  <div class="countdown-item">
+                    <span class="countdown-number days">00</span>
+                    <div class="countdown-block">{{ 'sections.countdown.days'| t }}</div>
+                  </div>
+                  <div class="timer__separator">:</div>
+                  <div class="countdown-item">
+                    <span class="countdown-number hour">00</span>
+                    <div class="countdown-block">{{ 'sections.countdown.hours'| t }}</div>
+                  </div>
+                  <div class="timer__separator">:</div>
+                  <div class="countdown-item">
+                    <span class="countdown-number minutes">00</span>
+                    <div class="countdown-block">{{ 'sections.countdown.minutes'| t }}</div>
+                  </div>
+                  <div class="timer__separator">:</div>
+                  <div class="countdown-item">
+                    <span class="countdown-number seconds">00</span>
+                    <div class="countdown-block">{{ 'sections.countdown.seconds'| t }}</div>
+                  </div>
+                </div>
+              </countdown-timer>
+            {% endif %}
+          </div>
+          {% if collection != blank and collection.all_products_count > 0 %}
+          <div class="countdown_slider">
+            <slider-main-component class="product-wrapper swiper-container swiper swiper-slider"   
+              data-settings='
+            {
+            "loop": true,
+            "slidesPerView":1,
+            "spaceBetween":"12px",
+            "navigation": {
+              "nextEl": ".swiper-button-next-{{ section.id }}",
+              "prevEl": ".swiper-button-prev-{{ section.id }}"
+            },
+            "breakpoints": {
+              "600": {
+                "slidesPerView": 2
+              }
+            },
+            "scrollbar": {
+              "el": ".swiper-progressbar-{{ section.id }}",
+              "dragSize":"auto"
+            }
+          }'>
+              <div class="swiper-wrapper product-grid-wrapper {% if section.settings.rounded_enable %}round-enabled{% endif %}">
+                {%- for product in collection.products limit: section.settings.product_limit -%}
+                  {% assign product_form_id = 'product-form-'
+                    | append: section.id
+                    | append: forloop.index
+                    | append: '-'
+                    | append: collection.handle
+                  %}
+                  {%- capture current -%}{% cycle section.id: 1, 2, 3, 4 %}{%- endcapture -%}
+                  {%- assign placeholder_image = 'product-apparel-' | append: current -%}
+                  {% render 'product-card-grid',
+                    card_product: product,
+                    section: section,
+                    product_form_id: product_form_id,
+                    placeholder_image: placeholder_image,
+                    media_aspect_ratio: section.settings.grid_image_size,
+                    class:'swiper-slide'
+                  %}
+                {% endfor %}
+              </div>
+            </slider-main-component>
+             <div class="swiper-button-wrapper swiper-button-small swiper-button-{{ section.settings.slider_arrow }}">
+                  <div class="swiper-button swiper-button-next swiper-button-next-{{ section.id }}"></div>
+                  <div class="swiper-button swiper-button-prev swiper-button-prev-{{ section.id }}"></div>
+                </div>
+            </div>
+            <div class="countdown-button-wrapper">
+              <a href="{{ collection.url }}" class="button">
+                <span class="button-text">{{ 'sections.countdown.button_text'| t  }}</span>
+              </a>
+            </div>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  {% if section.settings.fullwidth == false %}
+    </div>
+  {% endif %}
+</div>
+{% schema %}
+{
+ "name": "t:sections.countdown.name",
+  "class": "section-countdown",
+  "settings": [
+    {
+      "type":"checkbox",
+      "id":"fullwidth",
+      "label":"t:global.general_labels.enable_fullwidth"
+    },
+    {
+      "type":"checkbox",
+      "id":"rounded_enable",
+      "label":"t:global.general_labels.enable_rounded_corner"
+    },
+     {
+      "type":"checkbox",
+      "id":"enable_countdown",
+       "label":"t:sections.countdown.settings.enable_countdown.label",
+      "default":true
+    },
+    {
+      "type":"checkbox",
+      "id":"background_enable",
+     "label":"t:sections.countdown.settings.background_enable.label",
+      "default":true
+    },
+        {
+      "type": "range",
+      "id": "grid_gap",
+       "label":"t:sections.countdown.settings.grid_gap.label",
+      "default": 12,
+      "min": 0,
+      "max": 40,
+      "step": 1,
+      "unit": "px"
+    },
+    {
+      "type":"image_picker",
+      "id":"background_image",
+      "label":"t:global.general_labels.background_image" 
+    },
+    {
+      "type": "inline_richtext",
+      "id": "heading",
+      "default": "Heading here",
+      "label":"t:global.general_labels.heading"
+    },
+    {
+      "type": "select",
+      "id": "heading_size",
+      "default": "h4",
+     "label": "t:global.heading_size.label",
+      "options": [
+       {
+          "value": "h1",
+          "label": "t:global.heading_size.options.h1.label"
+        },
+        {
+          "value": "h2",
+          "label": "t:global.heading_size.options.h2.label"
+        },
+        {
+          "value": "h3",
+            "label": "t:global.heading_size.options.h3.label"
+        },
+        {
+          "value": "h4",
+         "label": "t:global.heading_size.options.h4.label"
+        },
+        {
+          "value": "h5",
+           "label": "t:global.heading_size.options.h5.label"
+        },
+       {
+          "value": "h6",
+          "label": "t:global.heading_size.options.h6.label"
+        }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "heading_alignment",
+      "label": "t:global.heading_alignment.label",
+      "default": "center",
+      "options": [
+        {
+          "value": "left",
+         "label": "t:global.heading_alignment.options.left.label"
+        },
+        {
+          "value": "center",
+        "label": "t:global.heading_alignment.options.center.label"
+        },
+        {
+          "value": "right",
+          "label": "t:global.heading_alignment.options.right.label"
+        }
+      ]
+    },
+    {
+        "type": "text",
+        "id": "countdown_heading",
+        "label":"t:global.general_labels.heading"
+    },
+    {
+      "type": "text",
+      "id": "date",
+      "info": "t:sections.countdown.settings.date.info",
+      "label": "t:sections.countdown.settings.date.label"
+    },
+    {
+      "type":"select",
+      "id":"countdown_layout",
+      "label":"t:sections.countdown.settings.countdown_layout.label",
+      "default":"right",
+      "options": [
+        {
+          "value":"without_content",
+          "label":"t:sections.countdown.settings.countdown_layout.options.without_content.label"
+        },
+        {
+          "value":"left",
+          "label":"t:sections.countdown.settings.countdown_layout.options.left.label"
+        },
+        {
+           "value":"right",
+          "label":"t:sections.countdown.settings.countdown_layout.options.right.label"
+        }
+      ]
+    },
+    {
+      "type": "collection",
+      "id": "collection",
+      "label":"t:global.general_labels.collection"
+    },
+    {
+      "type":"range",
+      "id":"product_limit",
+      "label":"t:sections.countdown.settings.product_limit.label",
+      "min":2,
+      "max":8,
+      "default":4
+    },
+    {
+    "type": "select",
+    "id": "grid_image_size",
+     "label": "t:global.grid_image_size.label",
+      "default": "adapt",
+      "options": [
+         {
+          "value": "adapt",
+          "label": "t:global.grid_image_size.options.auto.label"
+        },
+        {
+          "value": "landscape",
+          "label": "t:global.grid_image_size.options.landscape.label"
+        },
+        {
+          "value": "portrait",
+          "label": "t:global.grid_image_size.options.portrait.label"
+        },
+        {
+          "value": "square",
+          "label": "t:global.grid_image_size.options.square.label"
+        }
+      ]
+  },
+    {
+      "type":"select",
+      "id":"slider_arrow",
+      "label":"t:sections.countdown.settings.slider_arrow.label",
+      "default":"with_slider",
+      "options":[
+        {
+          "value":"bottomright",
+          "label":"t:sections.countdown.settings.slider_arrow.options.bottomright.label"
+        },
+        {
+          "value":"with_slider",
+          "label":"t:sections.countdown.settings.slider_arrow.options.with_slider.label"
+        }
+      ]
+    },
+    {
+        "type":"text",
+        "id":"subheading_collection",
+        "default":"Collection subheading",
+         "label":"t:sections.countdown.settings.subheading_collection.label",
+    },
+    {
+      "type":"image_picker",
+      "id":"image",
+        "label":"t:sections.countdown.settings.custom_image.label",
+    },
+    {
+        "type":"text",
+        "id":"collection_heading",
+        "label":"t:sections.countdown.settings.collection_heading.label",
+    },
+    {
+      "type":"header",
+      "content":"t:global.general_labels.colors" 
+    },
+    {
+        "type": "color_scheme",
+        "id": "color_scheme",
+        "default": "primary",
+        "label": "t:global.color_scheme.label"
+    },
+     {
+        "type": "color",
+        "id": "overlay_color",
+        "default": "#000000",
+        "label": "t:global.general_labels.overlay"
+    },
+    {
+      "type": "range",
+      "id": "overlay_opacity",
+       "label": "t:global.general_labels.overlay_opacity",
+      "default": 50,
+       "min": 0,
+       "max": 100,
+      "step": 1,
+       "unit": "%"
+    },
+    {
+      "type": "header",
+       "content": "t:global.section_spacing.label"
+    },
+     {
+      "type": "number",
+      "id": "top_space_desktop",
+      "label": "t:global.section_spacing.top_space_desktop.label",
+      "default": 20,
+
+    },
+    {
+      "type": "number",
+      "id": "bottom_space_desktop",
+       "label": "t:global.section_spacing.bottom_space_desktop.label",
+      "default": 0
+
+    },
+    {
+      "type": "number",
+      "id": "top_space_mobile",
+      "label": "t:global.section_spacing.top_space_mobile.label",
+      "default": 20
+    },
+    {
+      "type": "number",
+      "id": "bottom_space_mobile",
+      "label": "t:global.section_spacing.bottom_space_mobile.label",
+      "default": 0
+    }
+  ],
+  "presets": [
+    {
+       "name": "t:sections.countdown.presets.name"
+
+    }
+  ]
+}
+{% endschema %}

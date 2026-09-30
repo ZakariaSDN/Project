@@ -1,0 +1,926 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "slideshow_zk4FeG": {
+      "type": "slideshow",
+      "blocks": {
+        "slide_jQHVnW": {
+          "type": "slide",
+          "settings": {
+            "color_scheme": "primary",
+            "slide_image": "shopify://shop_images/unnamed_9.jpg",
+            "mobile_slide_image": "shopify://shop_images/unnamed_9.jpg",
+            "subheading": "",
+            "heading": "",
+            "heading_size": "h1",
+            "heading_align": "center",
+            "heading_color": "#1a1a1a",
+            "heading_bold": true,
+            "description": "",
+            "description_size": "text-size-large",
+            "description_align": "center",
+            "description_color": "#1a1a1a",
+            "description_bold": false,
+            "button_text": "",
+            "button_url": "",
+            "btn_size": "small",
+            "button_outline": false,
+            "content_width": "md",
+            "caption_align": "center",
+            "overlay_color": "#000000",
+            "overlay_opacity": 0,
+            "caption_wrapper_bg_color": "#ffff00",
+            "caption_wrapper_bg_opacity": 60,
+            "caption_px": 20,
+            "caption_py": 20,
+            "caption_max_width": 920,
+            "show_mobile_top_heading": false,
+            "mobile_top_heading_source": "inherit",
+            "mobile_top_heading_text": "Titre mobile",
+            "mobile_top_heading_offset": 0,
+            "mobile_top_heading_align": "center",
+            "mobile_top_heading_color": "#ffffff",
+            "hide_default_heading_on_mobile": false
+          }
+        }
+      },
+      "block_order": [
+        "slide_jQHVnW"
+      ],
+      "settings": {
+        "color_scheme": "",
+        "container_style": "full-container",
+        "style": "single",
+        "desktop_media_height": 640,
+        "mobile_media_height": 420,
+        "autoplay": false,
+        "autoplay_interval": 4,
+        "pause_on_hover": true,
+        "autoplay_keep_after_interaction": true,
+        "show_edge_arrows": true,
+        "nav_arrow_size": 44,
+        "nav_edge_margin": 12,
+        "nav_arrow_bg_color": "#000000",
+        "nav_arrow_bg_opacity": 40,
+        "nav_arrow_icon_color": "#ffffff",
+        "controls": "arrows",
+        "navigation_position": "inside",
+        "desktop_navigation_alignment": "left"
+      }
+    },
+    "richtext_wzBUi9": {
+      "type": "richtext",
+      "blocks": {
+        "heading_mLYgJi": {
+          "type": "heading",
+          "settings": {
+            "heading": "Couleur Safran – L’art des parfums de Grasse au cœur de Cannes",
+            "heading_size": "h1",
+            "heading_tag": "h1"
+          }
+        }
+      },
+      "block_order": [
+        "heading_mLYgJi"
+      ],
+      "custom_css": [
+        "h1 {font-size: 38px; font-weight: bold;}",
+        "@media screen and (max-width: 767px) {h1 {font-size: 30px; font-weight: bold; }}"
+      ],
+      "name": "t:sections.rich-text.name",
+      "settings": {
+        "color_scheme": "",
+        "content_alignment": "center",
+        "enable_card_view": false,
+        "show_in_columns": false,
+        "show_image_desktop": true,
+        "show_image_mobile": true,
+        "image_alt": "Illustration",
+        "image_position_desktop": "top",
+        "image_order_desktop": "top",
+        "image_shape_desktop": "rectangle",
+        "image_radius_desktop": 16,
+        "image_width_desktop": 40,
+        "image_position_mobile": "center",
+        "image_order_mobile": "top",
+        "image_shape_mobile": "rounded",
+        "image_radius_mobile": 12,
+        "image_width_mobile": 80,
+        "image_full_bleed": false,
+        "image_full_bleed_mobile": true,
+        "image_full_bleed_height_d": 640,
+        "image_full_bleed_height_m": 420,
+        "image_max_height": 0,
+        "image_gap": 24,
+        "cta_show_desktop": true,
+        "cta_show_mobile": true,
+        "cta_text": "Shop collection",
+        "cta_collection": "",
+        "cta_url": "",
+        "cta_position_desktop": "below",
+        "cta_align_desktop": "center",
+        "cta_size_desktop": "medium",
+        "cta_bg_desktop": "#111111",
+        "cta_text_desktop": "#ffffff",
+        "cta_position_mobile": "below",
+        "cta_align_mobile": "center",
+        "cta_size_mobile": "small",
+        "cta_bg_mobile": "#111111",
+        "cta_text_mobile": "#ffffff",
+        "cta_radius": 6,
+        "cta_margin_y": 16,
+        "text_margin_top_desktop": 24,
+        "text_margin_bottom_desktop": 24,
+        "text_margin_top_mobile": 16,
+        "text_margin_bottom_mobile": 16,
+        "text_margin_top_desktop_compact": 8,
+        "text_margin_bottom_desktop_compact": 8,
+        "text_margin_top_mobile_compact": 6,
+        "text_margin_bottom_mobile_compact": 6,
+        "heading_font_size_desktop": 48,
+        "heading_font_size_mobile": 32
+      }
+    },
+    "richtext_VwexWy": {
+      "type": "richtext",
+      "blocks": {
+        "heading_Vqtq43": {
+          "type": "heading",
+          "settings": {
+            "heading": "<strong>Mon histoire – De la passion à la création d’une parfumerie de niche</strong>",
+            "heading_size": "h2",
+            "heading_tag": "h2"
+          }
+        },
+        "description_MAGkAF": {
+          "type": "description",
+          "settings": {
+            "text": "<p>Mon histoire puise<strong> ses origines dans l’enfance</strong>, portée par mon attrait pour le beau et l’exceptionnel. Dès lors, <strong>je me suis orientée vers des études de cosmétique</strong> et j’ai côtoyé, pendant de nombreuses années, de <strong>grandes maisons telles que Dior, Hermès, Lancôme ou Shiseido.</strong><br/><br/>Au fil du temps, ma soif de créativité et mon envie de relever de nouveaux défis se sont imposées comme une évidence : <strong>créer mon univers singulier.<br/></strong><br/>Ainsi est né mon boudoir, un lieu où chacun peut s’arrêter le temps d’une pause, pour le plaisir de découvrir :<br/><br/>Nos gammes artisanales de parfums d’intérieur, made in France ;<br/>Une collection de parfums exclusive et inédite, aux essences rares et enveloppantes ;<br/>Et bien d’autres trésors encore...<br/><br/>J’accorde une très grande importance aux prix justes et à la qualité de mes produits, car nous devrions tous pouvoir consommer ce qu’il y a de bon, de beau et d’attrayant.<br/><br/><strong>Une part de rêve à laquelle chacun devrait avoir accès : tel est le concept de notre boutique.</strong></p>",
+            "description_size": "text-size-medium"
+          }
+        }
+      },
+      "block_order": [
+        "heading_Vqtq43",
+        "description_MAGkAF"
+      ],
+      "custom_css": [
+        "@media screen and (max-width: 767px) {.rich-text .rich-text-paragraph {text-align: left !important; }}",
+        "p {text-align: center;}",
+        ".rt-heading {color: #a48351;}"
+      ],
+      "name": "t:sections.rich-text.name",
+      "settings": {
+        "color_scheme": "",
+        "content_alignment": "center",
+        "enable_card_view": false,
+        "show_in_columns": false,
+        "show_image_desktop": true,
+        "show_image_mobile": true,
+        "image_alt": "Illustration",
+        "image_position_desktop": "top",
+        "image_order_desktop": "top",
+        "image_shape_desktop": "rectangle",
+        "image_radius_desktop": 16,
+        "image_width_desktop": 40,
+        "image_position_mobile": "center",
+        "image_order_mobile": "top",
+        "image_shape_mobile": "rounded",
+        "image_radius_mobile": 12,
+        "image_width_mobile": 80,
+        "image_full_bleed": false,
+        "image_full_bleed_mobile": true,
+        "image_full_bleed_height_d": 640,
+        "image_full_bleed_height_m": 420,
+        "image_max_height": 0,
+        "image_gap": 24,
+        "cta_show_desktop": true,
+        "cta_show_mobile": true,
+        "cta_text": "Shop collection",
+        "cta_collection": "",
+        "cta_url": "",
+        "cta_position_desktop": "below",
+        "cta_align_desktop": "center",
+        "cta_size_desktop": "medium",
+        "cta_bg_desktop": "#111111",
+        "cta_text_desktop": "#ffffff",
+        "cta_position_mobile": "below",
+        "cta_align_mobile": "center",
+        "cta_size_mobile": "small",
+        "cta_bg_mobile": "#111111",
+        "cta_text_mobile": "#ffffff",
+        "cta_radius": 6,
+        "cta_margin_y": 16,
+        "text_margin_top_desktop": 24,
+        "text_margin_bottom_desktop": 24,
+        "text_margin_top_mobile": 16,
+        "text_margin_bottom_mobile": 16,
+        "text_margin_top_desktop_compact": 8,
+        "text_margin_bottom_desktop_compact": 8,
+        "text_margin_top_mobile_compact": 6,
+        "text_margin_bottom_mobile_compact": 6,
+        "heading_font_size_desktop": 40,
+        "heading_font_size_mobile": 25
+      }
+    },
+    "richtext_E43eEY": {
+      "type": "richtext",
+      "blocks": {
+        "heading_MKgA3H": {
+          "type": "heading",
+          "settings": {
+            "heading": "<strong>Aux origines de Grasse, capitale du parfum - Inscrit au Patrimoine de l'Unesco</strong>",
+            "heading_size": "h2",
+            "heading_tag": "h2"
+          }
+        },
+        "description_fjimJz": {
+          "type": "description",
+          "settings": {
+            "text": "<p>Au <strong>XVIᵉ siècle</strong>, Grasse était principalement connue pour son savoir-faire dans le tannage du cuir et son industrie de ganterie. Mais les méthodes utilisées à l’époque étaient particulièrement incommodantes : les artisans employaient de l’urine et des excréments pour traiter les peaux, ce qui dégageait de fortes odeurs.</p><p>Un jour, un artisan eut l’idée de plonger ses gants dans une <strong>essence parfumée</strong>. Ce geste marqua le début d’un nouvel essor pour la ville. Dès lors, le métier de parfumeur se développa sur le territoire, et de nombreux artisans commencèrent à se spécialiser dans la <strong>distillerie</strong> et la <strong>parfumerie</strong>.</p><p>À la fin du XVIᵉ siècle, la demande en produits parfumés explosa. Une première usine consacrée à cette production vit le jour, faisant le bonheur de la cour de Versailles qui, à cette époque, cherchait à masquer les mauvaises odeurs. Peu à peu, les maîtres « gantiers » abandonnèrent la tannerie pour se consacrer entièrement à la parfumerie et à la culture des plantes aromatiques, devenant ainsi de véritables <strong>maîtres parfumeurs</strong>.</p><p>Face à cette demande croissante, de nouvelles plantations apparurent. Alors qu’au XVIᵉ siècle les champs de Grasse étaient principalement composés de <strong>lavande</strong>, de <strong>fleur d’oranger</strong>, de <strong>tubéreuse</strong> et de <strong>pistachier</strong>, le XVIIᵉ siècle vit fleurir de nouvelles cultures emblématiques : <strong>mimosa</strong>, <strong>violette</strong>, <strong>rose</strong> et surtout <strong>jasmin</strong>, devenu au fil du temps l’une des signatures olfactives de Grasse.</p>",
+            "description_size": "text-size-medium"
+          }
+        }
+      },
+      "block_order": [
+        "heading_MKgA3H",
+        "description_fjimJz"
+      ],
+      "custom_css": [
+        ".rt-heading {color: #a48351;}"
+      ],
+      "name": "t:sections.rich-text.name",
+      "settings": {
+        "color_scheme": "",
+        "content_alignment": "center",
+        "enable_card_view": false,
+        "show_in_columns": false,
+        "show_image_desktop": true,
+        "show_image_mobile": true,
+        "image_desktop": "shopify://shop_images/IMG_0065_1.webp",
+        "image_alt": "Illustration",
+        "image_position_desktop": "top",
+        "image_order_desktop": "top",
+        "image_shape_desktop": "rectangle",
+        "image_radius_desktop": 16,
+        "image_width_desktop": 40,
+        "image_position_mobile": "center",
+        "image_order_mobile": "top",
+        "image_shape_mobile": "rounded",
+        "image_radius_mobile": 12,
+        "image_width_mobile": 80,
+        "image_full_bleed": false,
+        "image_full_bleed_mobile": true,
+        "image_full_bleed_height_d": 640,
+        "image_full_bleed_height_m": 420,
+        "image_max_height": 0,
+        "image_gap": 24,
+        "cta_show_desktop": true,
+        "cta_show_mobile": true,
+        "cta_text": "Shop collection",
+        "cta_collection": "",
+        "cta_url": "",
+        "cta_position_desktop": "below",
+        "cta_align_desktop": "center",
+        "cta_size_desktop": "medium",
+        "cta_bg_desktop": "#111111",
+        "cta_text_desktop": "#ffffff",
+        "cta_position_mobile": "below",
+        "cta_align_mobile": "center",
+        "cta_size_mobile": "small",
+        "cta_bg_mobile": "#111111",
+        "cta_text_mobile": "#ffffff",
+        "cta_radius": 6,
+        "cta_margin_y": 16,
+        "text_margin_top_desktop": 24,
+        "text_margin_bottom_desktop": 24,
+        "text_margin_top_mobile": 16,
+        "text_margin_bottom_mobile": 16,
+        "text_margin_top_desktop_compact": 8,
+        "text_margin_bottom_desktop_compact": 8,
+        "text_margin_top_mobile_compact": 6,
+        "text_margin_bottom_mobile_compact": 6,
+        "heading_font_size_desktop": 40,
+        "heading_font_size_mobile": 25
+      }
+    },
+    "richtext_zLbmah": {
+      "type": "richtext",
+      "blocks": {
+        "heading_cH7xr8": {
+          "type": "heading",
+          "settings": {
+            "heading": "<strong>De nos jours...</strong>",
+            "heading_size": "h2",
+            "heading_tag": "h2"
+          }
+        },
+        "description_KKxF6A": {
+          "type": "description",
+          "settings": {
+            "text": "<p>En <strong>2016</strong>, un nouveau tournant s’est écrit pour cette ville emblématique. En mai, la <strong>Maison Dior</strong> inaugurait le prestigieux <strong>château de La Colle Noire</strong> et lançait dans le même temps un parfum en hommage à la mythique <strong>Rose de Mai</strong>, symbole de Grasse.</p><p>Quelques mois plus tard, en septembre, c’était au tour du groupe <strong>LVMH</strong> d’ouvrir les portes des <strong>Fontaines Parfumées</strong>, une majestueuse bastide du XVIIᵉ siècle de plus de 1000 m². C’est là que s’installèrent deux figures majeures de la parfumerie contemporaine : <strong>François Demachy</strong> pour Dior et <strong>Jacques Cavallier</strong> pour Louis Vuitton.</p><p>Aujourd’hui, Grasse est reconnue comme la <strong>capitale mondiale du parfum</strong>. Elle assure à elle seule plus de la moitié de la <strong>production française de matières premières</strong> destinées à la parfumerie, aux arômes et aux cosmétiques, perpétuant ainsi un héritage séculaire tout en s’inscrivant dans la modernité.</p>",
+            "description_size": "text-size-medium"
+          }
+        }
+      },
+      "block_order": [
+        "heading_cH7xr8",
+        "description_KKxF6A"
+      ],
+      "custom_css": [
+        ".rt-heading {color: #a48351;}"
+      ],
+      "name": "t:sections.rich-text.name",
+      "settings": {
+        "color_scheme": "",
+        "content_alignment": "center",
+        "enable_card_view": false,
+        "show_in_columns": false,
+        "show_image_desktop": true,
+        "show_image_mobile": true,
+        "image_desktop": "shopify://shop_images/Grasse-1C-Fotolia_136663942_S.jpg",
+        "image_alt": "Illustration",
+        "image_position_desktop": "left",
+        "image_order_desktop": "top",
+        "image_shape_desktop": "rectangle",
+        "image_radius_desktop": 16,
+        "image_width_desktop": 40,
+        "image_position_mobile": "center",
+        "image_order_mobile": "top",
+        "image_shape_mobile": "rounded",
+        "image_radius_mobile": 12,
+        "image_width_mobile": 80,
+        "image_full_bleed": false,
+        "image_full_bleed_mobile": true,
+        "image_full_bleed_height_d": 640,
+        "image_full_bleed_height_m": 420,
+        "image_max_height": 0,
+        "image_gap": 24,
+        "cta_show_desktop": true,
+        "cta_show_mobile": true,
+        "cta_text": "Shop collection",
+        "cta_collection": "",
+        "cta_url": "",
+        "cta_position_desktop": "below",
+        "cta_align_desktop": "center",
+        "cta_size_desktop": "medium",
+        "cta_bg_desktop": "#111111",
+        "cta_text_desktop": "#ffffff",
+        "cta_position_mobile": "below",
+        "cta_align_mobile": "center",
+        "cta_size_mobile": "small",
+        "cta_bg_mobile": "#111111",
+        "cta_text_mobile": "#ffffff",
+        "cta_radius": 6,
+        "cta_margin_y": 16,
+        "text_margin_top_desktop": 24,
+        "text_margin_bottom_desktop": 24,
+        "text_margin_top_mobile": 16,
+        "text_margin_bottom_mobile": 16,
+        "text_margin_top_desktop_compact": 8,
+        "text_margin_bottom_desktop_compact": 8,
+        "text_margin_top_mobile_compact": 6,
+        "text_margin_bottom_mobile_compact": 6,
+        "heading_font_size_desktop": 40,
+        "heading_font_size_mobile": 25
+      }
+    },
+    "richtext_yeAU7Q": {
+      "type": "richtext",
+      "blocks": {
+        "heading_UN3Wpj": {
+          "type": "heading",
+          "settings": {
+            "heading": "<strong>On parle de nous – Couleur Safran dans la presse</strong>",
+            "heading_size": "h2",
+            "heading_tag": "h2"
+          }
+        },
+        "description_HDCaC9": {
+          "type": "description",
+          "settings": {
+            "text": "<p>Pour en savoir plus sur notre univers et notre démarche, nous vous invitons à découvrir cet article de Nice Matin pour Couleur Safran dédié à la parfumerie issue de Grasse : </p>",
+            "description_size": "text-size-medium"
+          }
+        }
+      },
+      "block_order": [
+        "heading_UN3Wpj",
+        "description_HDCaC9"
+      ],
+      "custom_css": [
+        ".rt-heading {color: #a48351;}"
+      ],
+      "name": "t:sections.rich-text.name",
+      "settings": {
+        "color_scheme": "",
+        "content_alignment": "center",
+        "enable_card_view": false,
+        "show_in_columns": false,
+        "show_image_desktop": true,
+        "show_image_mobile": true,
+        "image_alt": "Illustration",
+        "image_position_desktop": "right",
+        "image_order_desktop": "top",
+        "image_shape_desktop": "rectangle",
+        "image_radius_desktop": 16,
+        "image_width_desktop": 40,
+        "image_position_mobile": "center",
+        "image_order_mobile": "top",
+        "image_shape_mobile": "rounded",
+        "image_radius_mobile": 12,
+        "image_width_mobile": 80,
+        "image_full_bleed": false,
+        "image_full_bleed_mobile": true,
+        "image_full_bleed_height_d": 640,
+        "image_full_bleed_height_m": 420,
+        "image_max_height": 0,
+        "image_gap": 24,
+        "cta_show_desktop": true,
+        "cta_show_mobile": true,
+        "cta_text": "Shop collection",
+        "cta_collection": "",
+        "cta_url": "",
+        "cta_position_desktop": "below",
+        "cta_align_desktop": "center",
+        "cta_size_desktop": "medium",
+        "cta_bg_desktop": "#111111",
+        "cta_text_desktop": "#ffffff",
+        "cta_position_mobile": "below",
+        "cta_align_mobile": "center",
+        "cta_size_mobile": "small",
+        "cta_bg_mobile": "#111111",
+        "cta_text_mobile": "#ffffff",
+        "cta_radius": 6,
+        "cta_margin_y": 16,
+        "text_margin_top_desktop": 24,
+        "text_margin_bottom_desktop": 24,
+        "text_margin_top_mobile": 16,
+        "text_margin_bottom_mobile": 16,
+        "text_margin_top_desktop_compact": 8,
+        "text_margin_bottom_desktop_compact": 8,
+        "text_margin_top_mobile_compact": 6,
+        "text_margin_bottom_mobile_compact": 6,
+        "heading_font_size_desktop": 40,
+        "heading_font_size_mobile": 25
+      }
+    },
+    "richtext_yBpJqH": {
+      "type": "richtext",
+      "blocks": {
+        "heading_PDnkwL": {
+          "type": "heading",
+          "settings": {
+            "heading": "<strong>Explorez notre univers parfumé</strong>",
+            "heading_size": "h2",
+            "heading_tag": "h2"
+          }
+        }
+      },
+      "block_order": [
+        "heading_PDnkwL"
+      ],
+      "custom_css": [
+        ".rt-heading {color: #a48351;}"
+      ],
+      "name": "t:sections.rich-text.name",
+      "settings": {
+        "color_scheme": "",
+        "content_alignment": "center",
+        "enable_card_view": false,
+        "show_in_columns": false,
+        "show_image_desktop": true,
+        "show_image_mobile": true,
+        "image_alt": "Illustration",
+        "image_position_desktop": "top",
+        "image_order_desktop": "top",
+        "image_shape_desktop": "rectangle",
+        "image_radius_desktop": 16,
+        "image_width_desktop": 40,
+        "image_position_mobile": "center",
+        "image_order_mobile": "top",
+        "image_shape_mobile": "rounded",
+        "image_radius_mobile": 12,
+        "image_width_mobile": 80,
+        "image_full_bleed": false,
+        "image_full_bleed_mobile": true,
+        "image_full_bleed_height_d": 640,
+        "image_full_bleed_height_m": 420,
+        "image_max_height": 0,
+        "image_gap": 24,
+        "cta_show_desktop": true,
+        "cta_show_mobile": true,
+        "cta_text": "Shop collection",
+        "cta_collection": "",
+        "cta_url": "",
+        "cta_position_desktop": "below",
+        "cta_align_desktop": "center",
+        "cta_size_desktop": "medium",
+        "cta_bg_desktop": "#111111",
+        "cta_text_desktop": "#ffffff",
+        "cta_position_mobile": "below",
+        "cta_align_mobile": "center",
+        "cta_size_mobile": "small",
+        "cta_bg_mobile": "#111111",
+        "cta_text_mobile": "#ffffff",
+        "cta_radius": 6,
+        "cta_margin_y": 16,
+        "text_margin_top_desktop": 24,
+        "text_margin_bottom_desktop": 24,
+        "text_margin_top_mobile": 16,
+        "text_margin_bottom_mobile": 16,
+        "text_margin_top_desktop_compact": 8,
+        "text_margin_bottom_desktop_compact": 8,
+        "text_margin_top_mobile_compact": 6,
+        "text_margin_bottom_mobile_compact": 6,
+        "heading_font_size_desktop": 40,
+        "heading_font_size_mobile": 25
+      }
+    },
+    "overlay_collections_banner_pTVczc": {
+      "type": "overlay-collections-banner",
+      "blocks": {
+        "category_9kMeza": {
+          "type": "category",
+          "settings": {
+            "color_scheme": "scheme-be9f6b7d-a59c-4f47-b276-028513b69a60",
+            "heading": "Parfums maison",
+            "image": "shopify://shop_images/unnamed_7.jpg",
+            "link_text": "Découvrir",
+            "link_url": "shopify://collections/nos-parfums-d-interieur",
+            "collection_list": [],
+            "heading_color": "#ffffff",
+            "heading_bold": true,
+            "heading_size_d": 32,
+            "heading_size_m": 24,
+            "link_color": "#ecac23",
+            "link_bold": true,
+            "link_size_d": 18,
+            "link_size_m": 18
+          }
+        },
+        "category_YKGpMt": {
+          "type": "category",
+          "settings": {
+            "color_scheme": "scheme-8d63752f-eb88-4469-aa6c-e042fe0f850d",
+            "heading": "Parfums de peau",
+            "image": "shopify://shop_images/IMG_494456.jpg",
+            "link_text": "Découvrir",
+            "link_url": "shopify://collections/nos-parfums-de-peau",
+            "collection_list": [],
+            "heading_color": "#ffffff",
+            "heading_bold": true,
+            "heading_size_d": 32,
+            "heading_size_m": 24,
+            "link_color": "#ecac23",
+            "link_bold": true,
+            "link_size_d": 18,
+            "link_size_m": 18
+          }
+        },
+        "category_3hzTLU": {
+          "type": "category",
+          "settings": {
+            "color_scheme": "scheme-46c40998-bf14-493b-bfc3-629edab5e448",
+            "heading": "Offres cadeaux",
+            "image": "shopify://shop_images/Design_sans_titre_25_-min.jpg",
+            "link_text": "Découvrir",
+            "link_url": "shopify://collections/nos-coffrets-et-bons-cadeaux",
+            "collection_list": [],
+            "heading_color": "#ffffff",
+            "heading_bold": true,
+            "heading_size_d": 32,
+            "heading_size_m": 24,
+            "link_color": "#ffffff",
+            "link_bold": true,
+            "link_size_d": 18,
+            "link_size_m": 18
+          }
+        }
+      },
+      "block_order": [
+        "category_9kMeza",
+        "category_YKGpMt",
+        "category_3hzTLU"
+      ],
+      "custom_css": [
+        ".overlay-banner-container {border-top-left-radius: 0; border-top-right-radius: 0; border-bottom-left-radius: px; border-bottom-right-radius: px;}",
+        " {margin-bottom: 24px;}",
+        " /* Fond noir arrondi sur overlay-heading-wrapper */.overlay-heading-wrapper {background-color: rgba( 0, 0, 0, 0.6 ); /* règle l’opacité avec le dernier chiffre (0 = transparent, 1 = opaque) */ border-radius: 12px; /* arrondit les bords, ajuste la valeur à ton goût */ padding: 10px 20px; /* espace intérieur, ajuste si besoin */ display: inline-block; /* pour que le fond s'adapte au texte */}"
+      ],
+      "settings": {
+        "color_scheme": "",
+        "banner_height": "medium",
+        "top_space_desktop": 0,
+        "bottom_space_desktop": 25,
+        "top_space_mobile": 0,
+        "bottom_space_mobile": 0,
+        "overlay_color": "#000000",
+        "overlay_opacity": 0,
+        "mobile_card_border_enable": true,
+        "mobile_card_border_color": "#e5e5e5",
+        "mobile_card_border_width": 1
+      }
+    },
+    "richtext_EzPXqX": {
+      "type": "richtext",
+      "blocks": {
+        "heading_kpp3Ty": {
+          "type": "heading",
+          "settings": {
+            "heading": "<strong>Nos valeurs — Parfumerie artisanale éco-responsable à Cannes</strong>",
+            "heading_size": "h2",
+            "heading_tag": "h2"
+          }
+        },
+        "description_iUdAAh": {
+          "type": "description",
+          "settings": {
+            "text": "<p>Chez Couleur Safran, chaque création reflète un engagement profond envers la qualité, le respect de l'environnement et le savoir-faire local. Implantée à Cannes, à quelques kilomètres de Grasse, berceau mondial de la parfumerie, notre maison sélectionne avec soin des ingrédients nobles issus du pays grassois, en privilégiant les circuits courts pour garantir la fraîcheur de nos essences et soutenir l'économie artisanale de notre région.<br/>Nous croyons qu'une parfumerie d'exception peut aussi être responsable. C'est pourquoi nous avons fait le choix du zéro compromis : matériaux recyclables, packaging sans plastique, production raisonnée et fabrication 100% française. Chaque étape de notre processus est pensée pour minimiser notre empreinte environnementale, tout en réduisant les coûts de production afin de vous proposer des parfums de niche à des tarifs accessibles.<br/>Toutes nos créations — diffuseurs, bougies, eaux de toilette et douceurs de linge — sont réalisées à la main dans le respect des gestes traditionnels de la parfumerie grassoise. Derrière chaque flacon, il y a de longs mois de travail, la passion d'un maître parfumeur et la recherche de l'équilibre parfait entre les notes. C'est cette exigence artisanale qui fait de chaque produit Couleur Safran une pièce unique, portée par une conviction simple : le beau et le bon devraient être accessibles à tous.<br/></p>",
+            "description_size": "text-size-medium"
+          }
+        },
+        "image_block_4x4GwV": {
+          "type": "image_block",
+          "settings": {
+            "alt": "Image",
+            "align_desktop": "center",
+            "align_mobile": "center",
+            "width_desktop": 60,
+            "maxw_desktop": 900,
+            "width_mobile": 100,
+            "maxw_mobile": 700,
+            "margin_y": 16,
+            "margin_y_mobile": 12,
+            "radius": 12,
+            "border_w": 0,
+            "border_c": "#e5e7eb",
+            "shadow": false,
+            "ratio": "auto",
+            "fit": "cover"
+          }
+        },
+        "button_rWDEJb": {
+          "type": "button",
+          "settings": {
+            "button_text": "Découvrir nos collections artisanales",
+            "button_link": "https://couleursafran.com/collections/all",
+            "btn_size": "small"
+          }
+        }
+      },
+      "block_order": [
+        "heading_kpp3Ty",
+        "description_iUdAAh",
+        "image_block_4x4GwV",
+        "button_rWDEJb"
+      ],
+      "name": "t:sections.rich-text.name",
+      "settings": {
+        "color_scheme": "one",
+        "content_alignment": "center",
+        "enable_card_view": false,
+        "show_in_columns": false,
+        "show_image_desktop": true,
+        "show_image_mobile": true,
+        "image_alt": "Illustration",
+        "image_position_desktop": "top",
+        "image_order_desktop": "top",
+        "image_shape_desktop": "rectangle",
+        "image_radius_desktop": 16,
+        "image_width_desktop": 40,
+        "image_position_mobile": "center",
+        "image_order_mobile": "top",
+        "image_shape_mobile": "rounded",
+        "image_radius_mobile": 12,
+        "image_width_mobile": 80,
+        "image_full_bleed": false,
+        "image_full_bleed_mobile": true,
+        "image_full_bleed_height_d": 640,
+        "image_full_bleed_height_m": 420,
+        "image_max_height": 0,
+        "image_gap": 24,
+        "cta_show_desktop": true,
+        "cta_show_mobile": true,
+        "cta_text": "Shop collection",
+        "cta_collection": "",
+        "cta_url": "",
+        "cta_position_desktop": "below",
+        "cta_align_desktop": "center",
+        "cta_size_desktop": "medium",
+        "cta_bg_desktop": "#111111",
+        "cta_text_desktop": "#ffffff",
+        "cta_position_mobile": "below",
+        "cta_align_mobile": "center",
+        "cta_size_mobile": "small",
+        "cta_bg_mobile": "#111111",
+        "cta_text_mobile": "#ffffff",
+        "cta_radius": 6,
+        "cta_margin_y": 16,
+        "text_margin_top_desktop": 24,
+        "text_margin_bottom_desktop": 24,
+        "text_margin_top_mobile": 16,
+        "text_margin_bottom_mobile": 16,
+        "text_margin_top_desktop_compact": 8,
+        "text_margin_bottom_desktop_compact": 8,
+        "text_margin_top_mobile_compact": 6,
+        "text_margin_bottom_mobile_compact": 6,
+        "heading_font_size_desktop": 48,
+        "heading_font_size_mobile": 32
+      }
+    },
+    "contact_HUKTzy": {
+      "type": "contact",
+      "settings": {
+        "color_scheme": "one",
+        "heading": "",
+        "heading_size": "h4",
+        "form_heading": "Nous contacter",
+        "form_button_text": "Envoyer",
+        "form_position": "right",
+        "show_company": true,
+        "show_phone": true,
+        "show_project_type": true,
+        "show_volume": false,
+        "volume_input_type": "select",
+        "show_catalog": false,
+        "req_company": true,
+        "req_firstname": true,
+        "req_lastname": true,
+        "req_email": true,
+        "req_phone": false,
+        "req_project_type": true,
+        "req_volume": false,
+        "req_catalog": false,
+        "req_message": true,
+        "fs_company": 16,
+        "bold_company": false,
+        "fs_firstname": 16,
+        "bold_firstname": false,
+        "fs_lastname": 16,
+        "bold_lastname": false,
+        "fs_email": 16,
+        "bold_email": false,
+        "fs_phone": 16,
+        "bold_phone": false,
+        "fs_project_type": 16,
+        "bold_project_type": false,
+        "fs_volume": 16,
+        "bold_volume": false,
+        "fs_catalog": 16,
+        "bold_catalog": false,
+        "fs_message": 16,
+        "bold_message": false,
+        "info_heading": "",
+        "info_email_label": "Adresse mail",
+        "info_email_content": "contact@couleursafran.com",
+        "info_email_color": "#111111",
+        "info_email_bold": false,
+        "info_phone_label": "Appelez-nous",
+        "info_phone_content": "06 30 16 44 06",
+        "info_phone_color": "#111111",
+        "info_phone_bold": false,
+        "info_address_label": "Adresse",
+        "info_address_content": "<p>12, rue Reyer<br/>06400 Cannes, France</p>",
+        "info_address_color": "#111111",
+        "info_address_bold": false,
+        "show_social": true,
+        "top_space_desktop": 60,
+        "bottom_space_desktop": 80,
+        "top_space_mobile": 40,
+        "bottom_space_mobile": 40
+      }
+    },
+    "main": {
+      "type": "main-page",
+      "disabled": true,
+      "settings": {
+        "show_page_title": true,
+        "color_scheme": "",
+        "overlay_color": "#000000",
+        "overlay_opacity": 50,
+        "top_space_desktop": 80,
+        "bottom_space_desktop": 80,
+        "top_space_mobile": 40,
+        "bottom_space_mobile": 40
+      }
+    },
+    "multicolumn_w4ymUG": {
+      "type": "multicolumn",
+      "blocks": {
+        "column_bTzFFr": {
+          "type": "column",
+          "settings": {
+            "icon": "",
+            "heading": "Livraison offerte",
+            "heading_size": "h6",
+            "description": "Livraison standard en 2–4 jours ouvrés en France. Offerte sur les commandes éligibles.",
+            "description_size": "text-size-small",
+            "link_label": "",
+            "link_url": "",
+            "btn_size": "small",
+            "color_scheme": "scheme-46c40998-bf14-493b-bfc3-629edab5e448",
+            "overlay_color": "#000000",
+            "overlay_opacity": 50
+          }
+        },
+        "column_i8ehw6": {
+          "type": "column",
+          "settings": {
+            "icon": "",
+            "heading": "100% Made in France",
+            "heading_size": "h6",
+            "description": "Profitez d’une qualité artisanale issue du savoir-faire unique de Grasse, capitale mondiale du parfum.",
+            "description_size": "text-size-small",
+            "link_label": "",
+            "link_url": "",
+            "btn_size": "small",
+            "color_scheme": "",
+            "overlay_color": "#000000",
+            "overlay_opacity": 50
+          }
+        },
+        "column_eWYR8f": {
+          "type": "column",
+          "settings": {
+            "icon": "",
+            "heading": "Qualité Garantie",
+            "heading_size": "h6",
+            "description": "Nos produits sont fabriqués avec des matières premières nobles, pour une expérience sensorielle incomparable.",
+            "description_size": "text-size-small",
+            "link_label": "",
+            "link_url": "",
+            "btn_size": "small",
+            "color_scheme": "scheme-46c40998-bf14-493b-bfc3-629edab5e448",
+            "overlay_color": "#000000",
+            "overlay_opacity": 50
+          }
+        },
+        "column_bdUz3g": {
+          "type": "column",
+          "settings": {
+            "icon": "",
+            "heading": "Paiement sécurisé",
+            "heading_size": "h6",
+            "description": "Réglez vos achats en toute confiance grâce à notre système de paiement sécurisé.",
+            "description_size": "text-size-small",
+            "link_label": "",
+            "link_url": "",
+            "btn_size": "small",
+            "color_scheme": "",
+            "overlay_color": "#000000",
+            "overlay_opacity": 50
+          }
+        }
+      },
+      "block_order": [
+        "column_bTzFFr",
+        "column_i8ehw6",
+        "column_eWYR8f",
+        "column_bdUz3g"
+      ],
+      "disabled": true,
+      "settings": {
+        "color_scheme": "four",
+        "heading": "Une expérience shopping tout en élégance",
+        "heading_size": "h4",
+        "description": "<p></p><p>Profitez d’une livraison soignée, d’un paiement sécurisé et d’options pensées pour vous faciliter la vie.</p>",
+        "content_alignment": "center",
+        "column_range": 4,
+        "column_gap": 20,
+        "row_gap": 20,
+        "show_icon_left": true,
+        "column_background": true,
+        "column_icon_background": true,
+        "text_alignment": "left",
+        "icon_size": "medium",
+        "top_space_desktop": 70,
+        "bottom_space_desktop": 80,
+        "top_space_mobile": 40,
+        "bottom_space_mobile": 40
+      }
+    }
+  },
+  "order": [
+    "slideshow_zk4FeG",
+    "richtext_wzBUi9",
+    "richtext_VwexWy",
+    "richtext_E43eEY",
+    "richtext_zLbmah",
+    "richtext_yeAU7Q",
+    "richtext_yBpJqH",
+    "overlay_collections_banner_pTVczc",
+    "richtext_EzPXqX",
+    "contact_HUKTzy",
+    "main",
+    "multicolumn_w4ymUG"
+  ]
+}

@@ -1,0 +1,103 @@
+<div class="section-space color-scheme-{{ section.settings.color_scheme }}">
+  <div class="container">
+    <div class="grid-wrapper-flex">
+      <div class="grid-item-md-12">
+        <div class="text-align-{{ section.settings.content_alignment }}">
+           {{ section.settings.content }}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<style>
+  #shopify-section-{{ section.id }}{
+    --section-top-space:{{ section.settings.top_space_desktop }}px;
+    --section-bottom-space:{{ section.settings.bottom_space_desktop }}px;
+  }
+
+  @media only screen and (max-width:767px){
+    #shopify-section-{{ section.id }}{
+      --section-top-space:{{ section.settings.top_space_mobile }}px;
+      --section-bottom-space:{{ section.settings.bottom_space_mobile }}px;
+    }
+  }
+</style>
+{% schema %}
+ {
+  "name": "t:sections.custom-liquid.name",
+  "tag": "section",
+  "class": "section section-custom-liquid",
+  "disabled_on":{
+    "groups":["header","footer"]
+  },
+  "settings":[
+     {
+        "type": "liquid",
+        "id": "content",
+         "label": "t:sections.custom-liquid.settings.content.label",
+         "info": "t:sections.custom-liquid.settings.content.info"
+    },
+     {
+        "type": "color_scheme",
+        "id": "color_scheme",
+        "default": "primary",
+         "label": "t:global.color_scheme.label"
+    },
+    {
+      "type": "select",
+      "id": "content_alignment",
+      "label": "t:global.general_labels.alignment",
+      "default": "center",
+      "options": [
+        {
+          "value": "left",
+          "label": "t:global.general_labels.left"
+        },
+        {
+          "value": "center",
+          "label": "t:global.general_labels.center"
+        },
+        {
+          "value": "right",
+          "label": "t:global.general_labels.right"
+        }
+      ]
+    },
+   {
+      "type": "header",
+       "content": "t:global.section_spacing.label"
+    },
+     {
+      "type": "number",
+      "id": "top_space_desktop",
+      "label": "t:global.section_spacing.top_space_desktop.label",
+      "default": 80,
+
+    },
+    {
+      "type": "number",
+      "id": "bottom_space_desktop",
+       "label": "t:global.section_spacing.bottom_space_desktop.label",
+      "default": 80
+
+    },
+    {
+      "type": "number",
+      "id": "top_space_mobile",
+      "label": "t:global.section_spacing.top_space_mobile.label",
+      "default": 40
+    },
+    {
+      "type": "number",
+      "id": "bottom_space_mobile",
+      "label": "t:global.section_spacing.bottom_space_mobile.label",
+      "default": 40
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:sections.custom-liquid.presets.name"
+    }
+  ]
+}
+{% endschema %}

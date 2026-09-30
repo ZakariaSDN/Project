@@ -1,0 +1,122 @@
+{% liquid
+  if results.url
+    assign results_url = results.url
+  else
+    assign terms = results.terms | escape
+    assign results_url = '?q=' | append: terms | append: '&options%5Bprefix%5D=last&sort_by=' | append: sort_by
+  endif
+%}
+
+<facet-sidebar class="filter-toggle">
+  <div class="facets-wrapper">
+    {% if section.settings.enable_filtering and results.filters.size > 0 %}
+      <div class="facets-button-box">
+        <facets-drawer>
+          <a href="#facets-filte-drawer" class="facets-button-show button button-medium" data-drawer-head>
+            <svg
+              class="icon-small facets-icon-filter"
+              viewBox="0 0 22 20"
+              stroke="currentColor"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path stroke-linecap="round" d="M1.5 14H4M4 14C4 15.6569 5.34315 17 7 17C8.65685 17 10 15.6569 10 14C10 12.3431 8.65685 11 7 11C5.34315 11 4 12.3431 4 14ZM18 6H20.5M18 6C18 7.65685 16.6569 9 15 9C13.3431 9 12 7.65685 12 6C12 4.34315 13.3431 3 15 3C16.6569 3 18 4.34315 18 6ZM13 14H20.5M1.5 6H9"></path>
+            </svg>
+            <span>{{ 'sections.collection_template.filter_by_label' | t }}</span>
+          </a>
+        </facets-drawer>
+        {% unless section.settings.filter_type == 'drawer' %}
+          <div class="facets-title-box">
+            <span class="h6">{{ 'sections.collection_template.filter_by_label' | t }}</span>
+          </div>
+        {% endunless %}
+        <div class="product-count" id="facet-product-count">
+          <span class="text-size-base">
+            {%- if results.results_count -%}
+              {{ 'templates.search.results_with_count' | t: terms: results.terms, count: results.results_count }}
+            {%- elsif results.products_count == results.all_products_count -%}
+              {{ 'products.facets.product_count_simple' | t: count: results.products_count }}
+            {%- else -%}
+              {{
+                'products.facets.product_count'
+                | t: product_count: results.products_count, count: results.all_products_count
+              }}
+            {%- endif -%}
+          </span>
+        </div>
+      </div>
+    {% endif %}
+    {% if section.settings.enable_sorting %}
+      <div class="facets-product-wrapper">
+        <div class="facet-product-grid-sort-wrapper">
+          <button class="prod-col-grid {% if productPerRow == 3 %}active{% endif %}" data-col="3">
+          <svg xmlns="http://www.w3.org/2000/svg" width="30" height="8" viewBox="0 0 38 10" fill="none">
+            <path d="M0.5 0.5H10.6765V9.5H0.5V0.5ZM13.9118 0.5H24.0882V9.5H13.9118V0.5ZM27.3235 0.5H37.5V9.5H27.3235V0.5Z" fill="#BDBDBD" stroke="#BDBDBD"/>
+          </svg>
+          </button>
+          <button class="prod-col-grid {% if productPerRow == 4 %}active{% endif %}" data-col="4">
+          <svg xmlns="http://www.w3.org/2000/svg" width="42" height="8" viewBox="0 0 50 10" fill="none">
+            <path d="M0.5 0.5H10.3696V9.5H0.5V0.5ZM13.5435 0.5H23.413V9.5H13.5435V0.5ZM26.587 0.5H36.4565V9.5H26.587V0.5ZM39.6304 0.5H49.5V9.5H39.6304V0.5Z" fill="#BDBDBD" stroke="#BDBDBD"/>
+          </svg>
+          </button>
+          <button class="prod-col-grid {% if productPerRow == 5 %}active{% endif %}" data-col="5">
+            <svg xmlns="http://www.w3.org/2000/svg" width="55" height="8" viewBox="0 0 63 10" fill="none">
+              <path d="M0.5 0.5H10.3621V9.5H0.5V0.5ZM13.5345 0.5H23.3966V9.5H13.5345V0.5ZM26.569 0.5H36.431V9.5H26.569V0.5ZM39.6034 0.5H49.4655V9.5H39.6034V0.5ZM52.6379 0.5H62.5V9.5H52.6379V0.5Z" fill="#BDBDBD" stroke="#BDBDBD"/>
+            </svg>
+          </button>
+        </div>
+        <div class="facets-sort-wrapper">
+          {% assign sort_by = results.sort_by | default: results.default_sort_by %}
+          {% assign sort_by_name = '' %}
+          {% capture sorting_options %}
+                {%- for option in results.sort_options -%}
+                    {% if option.value == sort_by %}
+                    {% assign sort_by_name = option.name | escape %}
+                    {% endif %}
+                    <div class="facets-sortby-item radio-box{% if option.value == sort_by %} selected{% endif %}">
+                            <input
+                            type="radio"
+                            class="filter-sort-checkbox{% if option.value == sort_by %} sort-by-selected{% endif %}" name="sort_by" id="sortByOption-{{ forloop.index }}-{{ filterstyle }}" value="{{ option.value | escape }}" data-name="{{ option.name | escape }}" {% if option.value == sort_by %}checked="checked"{% endif %}
+                            >
+                        <label class="filter-sort-label" for="sortByOption-{{ forloop.index }}-{{ filterstyle }}" >
+                            <span> {{ option.name | escape }}</span>
+                        </label>
+                    </div>
+                {% endfor %}
+            {% endcapture %}
+          <form id="FacetSortForm" class="sorting">
+            <details class="facets-filters-sort">
+              <summary class="facets-summary">
+                <span class="facets-shortby-title">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" clip-rule="evenodd" d="M21.7111 9.29304L17.004 4.58594L12.2969 9.29304L13.7111 10.7073L16.0039 8.41444V19H18.0039V8.41429L20.2969 10.7073L21.7111 9.29304Z" fill="currentColor"/>
+                    <path fill-rule="evenodd" clip-rule="evenodd" d="M6.00391 15.5856V5H8.00391V15.5857L10.2969 13.2927L11.7111 14.707L7.00399 19.4141L2.29688 14.707L3.71109 13.2927L6.00391 15.5856Z" fill="currentColor"/>
+                  </svg>
+                  Sort by
+                </span>
+              </summary>
+              <div class="facets-sortby-filter">
+                <div class="facets-sortby-close" data-sort-close>
+                  <svg
+                    class="drawer-icon"
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                  >
+                    <path d="M18 6L6 18" stroke="currentColor" stroke-width="1.5"></path>
+                    <path d="M6 6L18 18" stroke="currentColor" stroke-width="1.5"></path>
+                  </svg>
+                </div>
+                <div class="list-style-none facets-sortby">
+                  {{ sorting_options }}
+                </div>
+              </div>
+            </details>
+          </form>
+        </div>
+      </div>
+    {% endif %}
+  </div>
+</facet-sidebar>

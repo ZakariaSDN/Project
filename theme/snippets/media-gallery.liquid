@@ -1,0 +1,300 @@
+{% liquid
+  if section.settings.thumbnail_position == 'left' or section.settings.thumbnail_position == 'right'
+    assign slider_type = 'vertical'
+  else
+    assign slider_type = 'horizontal'
+  endif
+  assign coverflow_mode = false
+  if section.settings.slider_coverflow_mode 
+    assign coverflow_mode = true
+  endif
+%}
+
+<product-media
+  id="product-media-gallery-{{ section.id }}"
+  class="product-media-gallery {% if section.settings.media_layout == 'slider' or slider %} slider-{{ slider_type }} slider-{{ section.settings.thumbnail_position }}{% else %} media-layout-{{ section.settings.media_layout }}{% endif %}{% if section.settings.slider_coverflow_mode and section.settings.media_layout == 'slider'%} slider-coverflow{% endif %}"
+  data-id="{{ section.id }}"
+  data-thumbnail-position="{{ section.settings.thumbnail_position }}"  
+  data-media-type="{% if section.settings.media_layout == 'slider' or slider %}slider{% else %}{{ section.settings.media_layout }}{% endif %}"
+  {% if quickView %}
+    data-quick-view-media
+  {% endif %}
+>
+  <div
+    class="product-gallery-slider"
+    {% if section.settings.media_layout == 'slider' or slider %}
+      data-product-images-{{ section.id }}
+      data-product-media="main-product-media-{{ section.id }}"
+    {% endif %}
+  >
+    <div class="swiper-wrapper gallery-popup-images" data-product-main-media>
+      {%- if product.media.size > 0 -%}
+        {%- if current_variant.featured_media != null -%}
+          {%- assign featured_media = current_variant.featured_media -%}
+          <div
+            id="product-media-{{ current_variant.featured_media.id }}"
+            class="swiper-slide"
+            data-slide-index="{{ forloop.index0 }}"
+            data-product-media
+          >
+            <div
+              class="media-wrapper"
+              style="--media-ratio:{% if section.settings.slider_coverflow_mode and section.settings.media_layout == 'slider'%}100{% else %}{{ 1 | divided_by : featured_media.preview_image.aspect_ratio  | times: 100 }}{% endif %}%"
+            >
+              {{
+                featured_media.preview_image
+                | image_url: width: 1946
+                | image_tag:
+                  loading: lazy,
+                  sizes: '100vw',
+                  widths: '246, 493, 600, 713, 823, 990, 1100, 1206, 1346, 1426, 1646, 1946'
+              }}
+              {% if zoomImage != false %}
+                <a
+                  href="{{ featured_media.preview_image | image_url }}"
+                  class="product-single__media-zoom"
+
+                  data-pswp-height="1400"
+                  data-pswp-width="1200"
+                  target="_blank"
+                  tabindex="-1"
+                  aria-label="Zoom"
+                  data-index=""
+                >
+                  <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12.375 4.0625H15.9375V7.625" stroke="currentcolor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"></path>
+                    <path d="M11.7812 8.21875L15.9375 4.0625" stroke="currentcolor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"></path>
+                    <path d="M7.625 15.9375H4.0625V12.375" stroke="currentcolor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"></path>
+                    <path d="M8.21875 11.7812L4.0625 15.9375" stroke="currentcolor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"></path>
+                  </svg>
+                </a>
+              {% endif %}
+            </div>
+          </div>
+        {% endif %}
+        {% for media in product.media %}
+          {% unless media.id == current_variant.featured_media.id %}
+            {% case media.media_type %}
+              {% when 'image' %}
+                <div id="product-media-{{ media.id }}" class="swiper-slide" data-product-media>
+                  <div
+                    class="media-wrapper"
+                    style="--media-ratio:{% if section.settings.slider_coverflow_mode and section.settings.media_layout == 'slider'%}100{% else %}{{ 1 | divided_by : media.preview_image.aspect_ratio | times: 100 }}{% endif %}%"
+                  >
+                    {{
+                      media.preview_image
+                      | image_url: width: 1946
+                      | image_tag:
+                        loading: lazy,
+                        sizes: '100vw',
+                        widths: '246, 493, 600, 713, 823, 990, 1100, 1206, 1346, 1426, 1646, 1946'
+                    }}
+                    {% if zoomImage != false %}
+                      <a
+                        href="{{ media.preview_image | image_url }}"
+                        class="product-single__media-zoom"
+
+                        data-pswp-height="1400"
+                        data-pswp-width="1200"
+                        target="_blank"
+                        tabindex="-1"
+                        aria-label="Zoom"
+                        data-index=""
+                      >
+                        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <path d="M12.375 4.0625H15.9375V7.625" stroke="currentcolor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"></path>
+                          <path d="M11.7812 8.21875L15.9375 4.0625" stroke="currentcolor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"></path>
+                          <path d="M7.625 15.9375H4.0625V12.375" stroke="currentcolor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"></path>
+                          <path d="M8.21875 11.7812L4.0625 15.9375" stroke="currentcolor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"></path>
+                        </svg>
+                      </a>
+                    {% endif %}
+                  </div>
+                </div>
+              {%- when 'external_video' -%}
+                {% assign video_class = 'no-js-hidden product-media-' | append: media.host %}
+
+                <div id="product-media-{{ media.id }}" class="swiper-slide">
+                  <div
+                    class="media-wrapper"
+                    style="--media-ratio:{% if section.settings.slider_coverflow_mode and section.settings.media_layout == 'slider'%}100{% else %}{{ 1 | divided_by : media.aspect_ratio | times: 100 }}{% endif %}%"
+                    tabindex="-1"
+                  >
+                    {% if media.host == 'youtube' %}
+                      {{
+                        media
+                        | external_video_url: autoplay: false, playlist: media.external_id
+                        | external_video_tag: class: video_class, loading: 'lazy'
+                      }}
+                    {% else %}
+                      {{
+                        media
+                        | external_video_url: autoplay: false, playlist: media.external_id
+                        | external_video_tag: class: video_class, loading: 'lazy'
+                      }}
+                    {% endif %}
+                    <noscript>
+                      <a
+                        href="{{ media | external_video_url }}"
+                        target="_blank"
+                        class="unstyled-link"
+                        aria-label="{{ media.alt | default: product.title | strip_html }}"
+                      >
+                        {% comment %}theme-check-disable ImgWidthAndHeight{% endcomment %}
+                        <img
+                          src="{{ media.preview_image | image_url: width: '[246, 493, 600, 713, 823, 990, 1100, 1206, 1346, 1426, 1646, 1946]' }}"
+                          alt="{{ media.preview_image.alt | escape }}"
+                          loading="lazy"
+                        >
+                        {% comment %}theme-check-enable ImgWidthAndHeight{% endcomment %}
+                      </a>
+                    </noscript>
+                  </div>
+                </div>
+              {%- when 'video' -%}
+                {%- liquid
+                  assign video_class = 'no-js-hidden product-video-media'
+                  assign video_url = media.sources[0]
+                  if media.sources[1] != blank
+                    assign video_url = media.sources[1]
+                  endif
+                %}
+                <div
+                  id="product-media-{{ media.id }}"
+                  class="swiper-slide"
+                  data-media-id="{{ media.id }}"
+                  tabindex="-1"
+                >
+                  <div
+                    class="media-wrapper"
+                    style="--media-ratio:{% if section.settings.slider_coverflow_mode and section.settings.media_layout == 'slider'%}100{% else %}{{ 1 | divided_by : media.aspect_ratio | times: 100 }}{% endif %}%"
+                  >
+                    {{
+                      media
+                      | media_tag:
+                        image_size: '2048x',
+                        autoplay: false,
+                        controls: true,
+                        preload: 'none',
+                        class: video_class
+                    }}
+                    <noscript>
+                      <a href="{{ video_url.url  }}" target="_blank">
+                        {% comment %}theme-check-disable ImgWidthAndHeight{% endcomment %}
+                        <img
+                          src="{{ media.preview_image | image_url: width: 2048 }}"
+                          alt="{{ media.preview_image.alt | escape }}"
+                          loading="lazy"
+                          aria-label="{{ media.alt | default: product.title | strip_html }}"
+                        >
+                        {% comment %}theme-check-enable ImgWidthAndHeight{% endcomment %}
+                      </a>
+                    </noscript>
+                  </div>
+                </div>
+              {%- when 'model' -%}
+                {%- liquid
+                  if media.preview_image.aspect_ratio
+                  endif
+                -%}
+                <product-model
+                  id="product-media-{{ media.id }}"
+                  class="product-model-item swiper-slide product-media-modal__model"
+                >
+                  <div
+                    class="media-wrapper no-js-hidden"
+                    data-media-id="{{ media.id }}"
+                  >
+                    {{
+                      media
+                      | model_viewer_tag:
+                        image_size: true,
+                        reveal: 'interaction',
+                        toggleable: true,
+                        data-model-id: media.id
+                    }}
+                    <button class="close-product-model hidden">
+                      <svg width="12" height="12" viewBox="0 0 22 22" fill="none">
+                        <path d="M21.7987 20.826L11.9721 10.9958L21.7987 1.16552C22.0561 0.899047 22.0561 0.476499 21.7987 0.20994C21.5349 -0.0632507 21.0997 -0.0708067 20.8266 0.193065L11 10.0233L1.17343 0.193149C0.907055 -0.0642582 0.484664 -0.0642582 0.218204 0.193149C-0.0548867 0.457021 -0.0624398 0.892415 0.201335 1.16561L10.0279 10.9958L0.201335 20.826C0.0724268 20.9549 1.71925e-08 21.1298 1.71925e-08 21.3122C-8.39964e-05 21.692 0.307751 21.9999 0.687425 22C0.869793 22.0002 1.04469 21.9276 1.17343 21.7984L11 11.9682L20.8266 21.7985C20.9553 21.9277 21.1303 22.0002 21.3127 22C21.4949 21.9999 21.6696 21.9275 21.7985 21.7987C22.0671 21.5301 22.0672 21.0946 21.7987 20.826Z" fill="currentColor"></path>
+                      </svg>
+                    </button>
+                    <button
+                      class="product-model-button button no-js-hidden"
+                      type="button"
+                      aria-label="{{ 'products.product.media.view_in_ar_button' | t }}"
+                      data-shopify-xr
+                      data-shopify-model3d-id="{{ media.id }}"
+                      data-shopify-title="title"
+                      data-shopify-xr-hidden
+                    >
+                      <span>{{ 'products.product.media.view_in_ar_button' | t }}</span>
+                    </button>
+                  </div>
+
+                  {% comment %}theme-check-disable ImgWidthAndHeight,ImgLazyLoading{% endcomment %}
+                  <noscript>
+                    <img
+                      src="{{ media.preview_image | image_url: width: 2048 }}"
+                      alt="{{ media.preview_image.alt | escape }}"
+                      aria-label="{{ media.alt | default: product.title | strip_html }}"
+                    >
+                  </noscript>
+                  {% comment %}theme-check-enable ImgWidthAndHeight,ImgLazyLoading{% endcomment %}
+                </product-model>
+            {% endcase %}
+          {% endunless %}
+        {% endfor %}
+
+      {% else %}
+        <div class="swiper-slide">
+          <div class="media-wrapper" style="--mediaRatio:100%">
+            {{ 'product-apparel-1' | placeholder_svg_tag: 'placeholder-svg' }}
+          </div>
+        </div>
+      {% endif %}
+    </div>
+    {% assign sliderenable = false %}
+    {% if section.settings.media_layout == 'slider' or slider %}
+      {% assign sliderenable = true %}
+    {% endif %}
+    {% if sliderenable and product.media.size > 2 %}
+      <div class="swiper-button-wrapper">
+        <div class="swiper-button swiper-button-prev swiper-button-prev-{{ section.id }}"></div>
+        {% if quickView %}
+          <div class="swiper-pagination swiper-pagination-quick-view swiper-pagination-{{ section.id }}"></div>
+        {% endif %}
+        <div class="swiper-button swiper-button-next swiper-button-next-{{ section.id }}"></div>
+      </div>
+    {% endif %}
+  </div>
+  {%- if product != blank and product.media.size > 2 and sliderenable and thumbnail != false and coverflow_mode == false -%}
+    <div class="product-gallery-thumbs">
+      <div class="product-gallery-thumb-item area-scrollbar" data-product-thumbs-{{ section.id }}>
+        <!-- Additional required wrapper -->
+        <div class="swiper-wrapper">
+          {%- if current_variant.featured_media != null -%}
+            {%- assign featured_media = current_variant.featured_media -%}
+            <div class="swiper-slide">
+              {{
+                featured_media.preview_image
+                | image_url: width: 500
+                | image_tag: loading: lazy, sizes: '50vw', widths: '150, 200, 300, 400'
+              }}
+            </div>
+          {% endif %}
+          {% for media in product.media %}
+            {% unless media.id == current_variant.featured_media.id %}
+              <div class="swiper-slide">
+                {{
+                  media.preview_image
+                  | image_url: width: 500
+                  | image_tag: loading: lazy, sizes: '50vw', widths: '150, 200, 300, 400'
+                }}
+              </div>
+            {% endunless %}
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  {% endif %}
+</product-media>

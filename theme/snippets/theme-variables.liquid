@@ -1,0 +1,59 @@
+{{ 'swiper.css' | asset_url | stylesheet_tag: preload: true }}
+{{ 'base.css' | asset_url | stylesheet_tag: preload: true }}
+{{ 'parallax-min.css' | asset_url | stylesheet_tag: preload: true }}
+{{ 'theme.css' | asset_url | stylesheet_tag: preload: true }}
+
+{{ 'country-flag.css' | asset_url | stylesheet_tag: preload: true }}
+{{ 'testimonial.css' | asset_url | stylesheet_tag: preload: true }}
+{{ 'custom.css' | asset_url | stylesheet_tag: preload: true }}
+{{ 'cart.css' | asset_url | stylesheet_tag: preload: true }}
+
+{{ 'swiper.css' | asset_url | stylesheet_tag }}
+{{ 'parallax-min.css' | asset_url | stylesheet_tag }}
+{{ 'base.css' | asset_url | stylesheet_tag }}
+{{ 'theme.css' | asset_url | stylesheet_tag }}
+{{ 'cart.css' | asset_url | stylesheet_tag }}
+
+{{ 'country-flag.css' | asset_url | stylesheet_tag }}
+{{ 'testimonial.css' | asset_url | stylesheet_tag }}
+{{ 'custom.css' | asset_url | stylesheet_tag }}
+{% if template contains 'product' %}
+  <link rel="stylesheet" href="https://cdn.shopify.com/shopifycloud/model-viewer-ui/assets/v1.0/model-viewer-ui.css">
+{% endif %}
+<script>
+  window.routes = {
+    cart_add_url: '{{ routes.cart_add_url }}',
+    cart_change_url: '{{routes.cart_change_url }}',
+    cart_update_url: '{{routes.cart_update_url }}',
+    cart_url: '{{ routes.cart_url }}',
+    predictive_search_url:'{{ routes.search_url }}/suggest'
+
+  };
+   window.variantStrings = {
+    addToCart: `{{ 'products.product.add_to_cart'  | t }}`,
+    soldOut: `{{ 'products.product.sold_out'  | t }}`,
+    unavailable: `{{ 'products.product.sold_out'  | t }}`,
+    unavailable_with_option: `[value] - {{ 'products.product.unavailable'  | t }}`
+}
+  const currencyRate = `{{settings.shipping_rate}}`;
+  const shippingmessage = `{{ settings.shipping_text }}`;
+  const shippingsuccessmessage = `{{ settings.shipping_success_text }}`;
+  const shippingStatus ={{ settings.show_shipping }};
+  
+  const ON_CHANGE_DEBOUNCE_TIMER = 300;
+  const PUB_SUB_EVENTS = {
+    cartUpdate: 'cart-update',
+    quantityUpdate: 'quantity-update',
+    variantChange: 'variant-change',
+    cartError: 'cart-error',
+  };
+</script>
+<script type="text/javascript" src="{{ 'swiper.js' | asset_url }}" defer="defer"></script>
+<script type="text/javascript" src="{{ 'pubsub.js' | asset_url }}" defer="defer"></script>
+<script type="text/javascript" src="{{ 'product-form.js' | asset_url }}" defer="defer"></script>
+<script type="text/javascript" src="{{ 'theme.js' | asset_url }}" defer="defer"></script>
+<script type="text/javascript" src="{{ 'cart-drawer.js' | asset_url }}" defer></script>
+<script type="text/javascript" src="{{ 'cart.js' | asset_url }}" defer></script>
+<script src="{{ 'vimeo-player.js' | asset_url }}" defer></script>
+<script type="module" src="{{ 'photoswipe.js' | asset_url }}" async></script>
+<script type="module" src="{{ 'photoswipe-lightbox.js' | asset_url }}" async></script>

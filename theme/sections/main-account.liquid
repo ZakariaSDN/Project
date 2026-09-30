@@ -1,0 +1,138 @@
+{{ 'customer.css' | asset_url | stylesheet_tag }}
+<style>
+  #shopify-section-{{ section.id }} {
+    --section-top-space:{{ section.settings.top_space_desktop }}px;
+    --section-bottom-space:{{ section.settings.bottom_space_desktop }}px;
+  }
+
+  @media only screen and (max-width:767px) {
+    #shopify-section-{{ section.id }}.shopify-section{
+      --section-top-space:{{ section.settings.top_space_mobile }}px;
+      --section-bottom-space:{{ section.settings.bottom_space_mobile }}px;
+    }
+  }
+</style>
+<div class="main-account section-space color-scheme-{{ section.settings.color_scheme }}">
+  <div class="container">
+    <header class="account-header">
+      <div class="header-account-title">
+        <h3 class="account-title">{{- 'customer.account.title' | t -}}</h3>
+        <!-- <a href="#" class="button-underline">Return to account details</a> -->
+      </div>
+      <a href="{{ routes.account_logout_url }}" class="button-underline"> {{ 'customer.log_out' | t }} </a>
+    </header>
+    <div class="account-body">
+      <div class="account-content-wrapper">
+        <div class="account-content-box">
+          {% paginate customer.orders by 20 %}
+            <div class="account-content">
+              {% if customer.orders.size > 0 %}
+                <table role="table" class="order-details">
+                  <thead style="background:rgba(var(--color-background-foreground));">
+                    <tr role="row">
+                      <th>{{ 'customer.order.order_title' | t }}</th>
+                      <th>{{ 'customer.order.date' | t }}</th>
+                      <th>{{ 'customer.order.payment_status' | t }}</th>
+                      <th>{{ 'customer.order.fulfillment_status' | t }}</th>
+                      <th>{{ 'customer.order.total' | t }}</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {% for order in customer.orders %}
+                      <tr role="row" align="center">
+                        <td>
+                          <a href="{{ order.customer_url }}" class="button-underline">{{ order.id }}</a>
+                        </td>
+                        <td>{{ order.created_at }}</td>
+                        <td>
+                          <span class="status">{{ order.financial_status_label }}</span>
+                        </td>
+                        <td>{{ order.fulfillment_status_label }}</td>
+                        <td>{{ order.total_price | money }}</td>
+                      </tr>
+                    {% endfor %}
+                  </tbody>
+                </table>
+              {% else %}
+                <div class="order-empty-wrapper text-align-center">
+                  <svg width="44" height="43" viewBox="0 0 44 43" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M2.3507 8.35776C2.10576 8.4257 1.88293 8.55669 1.70445 8.73768C1.48697 9.00311 1.36613 9.33456 1.36174 9.67768C0.441321 18.5196 0.421738 23.8266 1.36174 32.6039C1.3622 32.916 1.45684 33.2208 1.63328 33.4783C1.80972 33.7358 2.05976 33.9341 2.3507 34.0472L20.9431 41.2852L21.5012 41.4399L22.0613 41.2832L40.6537 34.0491C40.9425 33.9329 41.1905 33.7339 41.3665 33.4771C41.5425 33.2202 41.6386 32.9171 41.6427 32.6058C42.6219 23.7209 42.6336 18.5979 41.6427 9.79518C41.6693 9.41045 41.5466 9.03027 41.3 8.73376C41.1375 8.50726 40.9131 8.3325 40.6537 8.23047V8.23439" stroke="black" stroke-width="1.33333" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M41.6128 9.38422C41.5634 9.14328 41.4558 8.91807 41.2995 8.72818C41.1366 8.50207 40.9124 8.3274 40.6533 8.22488L22.0608 1.11809C21.8847 1.04022 21.6943 1 21.5017 1C21.3092 1 21.1187 1.04022 20.9426 1.11809L11.6464 4.73513L2.35021 8.35217C2.10568 8.41899 1.88289 8.54862 1.70396 8.72818C1.54735 8.91863 1.43977 9.14455 1.39062 9.38618C1.44141 9.64403 1.55578 9.88512 1.72335 10.0876C1.89092 10.29 2.10639 10.4474 2.35021 10.5455L20.9426 17.7835H22.0589L32.2735 13.8081L40.6552 10.5455C40.9012 10.4496 41.1187 10.2927 41.2873 10.0896C41.4558 9.8864 41.5699 9.64366 41.6187 9.38422H41.6148H41.6128Z" fill="black" fill-opacity="0.12"/>
+                    <path d="M32.2735 13.8061L22.0608 17.7815H20.9426L2.35021 10.5455C2.10639 10.4474 1.89092 10.29 1.72335 10.0876C1.55578 9.88512 1.44141 9.64403 1.39062 9.38618C1.43977 9.14455 1.54735 8.91863 1.70396 8.72818C1.88289 8.54862 2.10568 8.41899 2.35021 8.35217L11.6464 4.73513M32.2735 13.8061L40.6552 10.5455C40.9012 10.4496 41.1187 10.2927 41.2873 10.0896C41.4558 9.8864 41.5699 9.64366 41.6187 9.38422H41.6148C41.5653 9.14328 41.4578 8.91807 41.3015 8.72818C41.1386 8.50207 40.9143 8.3274 40.6552 8.22488L22.0628 1.11809C21.8867 1.04022 21.6962 1 21.5037 1C21.3111 1 21.1207 1.04022 20.9446 1.11809L11.6464 4.73513M32.2735 13.8061L11.6464 4.73513M21.5027 41.4382V17.7815M28.3569 30.9318L36.1902 27.9943" stroke="black" stroke-width="1.33333" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                  <h5>{{ 'customer.order.order_history' | t }}</h5>
+                  <p class="text-size-large">{{ 'customer.order.empty_message' | t }}</p>
+                </div>
+              {% endif %}
+            </div>
+            {%- if paginate.pages > 1 -%}
+              <div class="page-navigation text-align-center">
+                {% render 'pagination', paginate: paginate, anchor: '' %}
+              </div>
+            {% endif %}
+          {% endpaginate %}
+        </div>
+        <div class="account-address-wrapper">
+          {% if customer.default_address != blank %}
+            <div class="account-address-block">
+              <h2 class="h5">{{ 'customer.addresses.default' | t }}</h2>
+              <p>
+                {{ customer.default_address | format_address }}
+              </p>
+            </div>
+          {% endif %}
+          <div class="text-align-center">
+            <a href="{{ routes.account_addresses_url }}" class="button">
+              View Address ({{ customer.addresses.size }})
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "t:sections.main_account.name",
+  "tag": "section",
+  "settings": [
+    {
+        "type": "color_scheme",
+        "id": "color_scheme",
+        "default": "primary",
+        "label": "t:global.color_scheme.label"
+    },
+    {
+      "type": "header",
+       "content": "t:global.section_spacing.label"
+    },
+     {
+      "type": "number",
+      "id": "top_space_desktop",
+      "label": "t:global.section_spacing.top_space_desktop.label",
+      "default": 80,
+
+    },
+    {
+      "type": "number",
+      "id": "bottom_space_desktop",
+       "label": "t:global.section_spacing.bottom_space_desktop.label",
+      "default": 80
+
+    },
+    {
+      "type": "number",
+      "id": "top_space_mobile",
+      "label": "t:global.section_spacing.top_space_mobile.label",
+      "default": 40
+    },
+    {
+      "type": "number",
+      "id": "bottom_space_mobile",
+      "label": "t:global.section_spacing.bottom_space_mobile.label",
+      "default": 40
+    }
+  ]
+}
+{% endschema %}

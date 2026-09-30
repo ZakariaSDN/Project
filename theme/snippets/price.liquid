@@ -1,0 +1,54 @@
+{%- liquid
+  assign current_variant = product.selected_or_first_available_variant
+  assign compare_at_price = current_variant.compare_at_price
+  assign price = current_variant.price | default: 1999
+  assign money_price = price | money
+-%}
+
+<span class="hidden">
+  {%- if current_variant.compare_at_price > current_variant.price -%}
+    {{ 'products.product.price.sale_price' | t }}
+  {%- else -%}
+    {{ 'products.product.price.regular_price' | t -}}
+  {%- endif -%}
+</span>
+<span class="product-price-item product-actual-price font-body h6" data-product-actual-price>
+  {{- money_price }}
+</span>
+<span class="hidden">{{ 'products.product.price.regular_price' | t }}</span>
+<span class="product-price-item product-compare-price text-size-large" data-compare-price>
+  {{ compare_at_price | money -}}
+</span>
+<span class="hidden">{{ 'products.product.sold_out' | t }}</span>
+<span data-product-soldout class="product-price-item item-soldeout hidden">
+  {%- unless current_variant.available -%}{{ 'products.product.sold_out' | t }}{%- endunless -%}
+</span>
+{% if settings.save_amount %}
+  {% assign off_text = 'Save ' %}
+  <span
+    class="product-price-item product-price-discount text-size-small {% if current_variant.compare_at_price > current_variant.price %}price-saving{% else %}hidden{% endif %}"
+    data-price-saving
+  >
+    {%- if current_variant.compare_at_price > current_variant.price -%}
+      {{-
+        current_variant.compare_at_price
+        | minus: current_variant.price
+        | times: 100
+        | divided_by: current_variant.compare_at_price
+        | append: '% '
+        | prepend: off_text
+      -}}
+    {% endif %}
+  </span>
+{% endif %}
+<span class="hidden">{{ 'products.product.price.unit_price' | t }}</span>
+<span
+  class="product-price-item  item-unit-price text-size-small {%- if current_variant.unit_price_measurement -%}product-unite-price {% else %} hidden {% endif %}"
+  data-unit-price
+>
+  {{ current_variant.unit_price | money }} /
+  {% if current_variant.unit_price_measurement.reference_value != 1 -%}
+    {{- current_variant.unit_price_measurement.reference_value -}}
+  {%- endif %}
+  {{ current_variant.unit_price_measurement.reference_unit }}
+</span>

@@ -1,0 +1,238 @@
+{% comment %}
+  Section : Diaporama de citations (texte uniquement)
+  Idéal pour le pied de page, mais fonctionne partout.
+{% endcomment %}
+
+<section id="shopify-section-{{ section.id }}" class="quotes-slider color-scheme-{{ section.settings.color_scheme }}">
+  <div class="{% if section.settings.full_width %}container-fullwidth{% else %}container{% endif %}">
+    <div class="quotes-track" role="region" aria-label="{{ section.settings.aria_label | default: 'Diaporama de citations' }}">
+      {% if section.blocks.size > 0 %}
+        <ul class="quotes-list" aria-live="polite">
+          {% for block in section.blocks %}
+            {% assign quote  = block.settings.quote  | strip %}
+            {% assign author = block.settings.author | strip %}
+            {% if quote != blank or author != blank %}
+              <li class="quote-slide" {{ block.shopify_attributes }}>
+                <figure class="quote-figure">
+                  <blockquote class="quote-text">
+                    {% if section.settings.show_guillemets %}« {% endif %}
+                    {{ quote }}
+                    {% if section.settings.show_guillemets %} »{% endif %}
+                  </blockquote>
+                  {% if author != blank %}
+                    <figcaption class="quote-author">— {{ author }}</figcaption>
+                  {% endif %}
+                </figure>
+              </li>
+            {% endif %}
+          {% endfor %}
+        </ul>
+      {% else %}
+        <p class="quotes-empty">Ajoutez des blocs “Citation” pour alimenter ce diaporama.</p>
+      {% endif %}
+    </div>
+  </div>
+
+  <style>
+    #shopify-section-{{ section.id }}{
+      --qs-top-d:   {{ section.settings.top_space_desktop }}px;
+      --qs-bot-d:   {{ section.settings.bottom_space_desktop }}px;
+      --qs-top-m:   {{ section.settings.top_space_mobile }}px;
+      --qs-bot-m:   {{ section.settings.bottom_space_mobile }}px;
+      --qs-maxw:    {{ section.settings.max_width }}px;
+      --qs-align:   {{ section.settings.text_align }};
+      --qs-size:    {{ section.settings.font_size }}px;
+      --qs-author:  {{ section.settings.author_size }}px;
+      --qs-color:   {{ section.settings.text_color }};
+      --qs-muted:   {{ section.settings.author_color }};
+      --qs-speed:   {{ section.settings.autoplay_ms }}ms;
+      --qs-fade:    {{ section.settings.transition_ms }}ms;
+    }
+    #shopify-section-{{ section.id }}.shopify-section{
+      padding-top: var(--qs-top-d);
+      padding-bottom: var(--qs-bot-d);
+    }
+    @media (max-width: 749px){
+      #shopify-section-{{ section.id }}.shopify-section{
+        padding-top: var(--qs-top-m);
+        padding-bottom: var(--qs-bot-m);
+      }
+    }
+
+    /* Layout */
+    #shopify-section-{{ section.id }} .quotes-track{
+      display: flex; justify-content: center;
+    }
+    #shopify-section-{{ section.id }} .quotes-list{
+      list-style: none; margin: 0; padding: 0;
+      max-width: var(--qs-maxw); width: 100%;
+      position: relative;
+      min-height: 1px;
+      overflow: visible; /* évite tout clipping visuel */
+    }
+    #shopify-section-{{ section.id }} .quote-slide{
+      position: absolute; inset: 0;
+      display: flex; align-items: center; justify-content: center;
+      opacity: 0; visibility: hidden;
+      transition: opacity var(--qs-fade) ease, visibility var(--qs-fade) step-end;
+    }
+    #shopify-section-{{ section.id }} .quote-slide.is-active{
+      opacity: 1; visibility: visible; transition: opacity var(--qs-fade) ease, visibility 0s linear;
+    }
+
+    /* Typo */
+    #shopify-section-{{ section.id }} .quote-figure{ margin: 0; text-align: var(--qs-align); }
+    #shopify-section-{{ section.id }} .quote-text{
+      margin: 0; color: var(--qs-color);
+      font-size: clamp(16px, 3.2vw, var(--qs-size)); line-height: 1.5; font-weight: 600;
+    }
+    #shopify-section-{{ section.id }} .quote-author{
+      margin-top: .45rem; color: var(--qs-muted);
+      font-size: clamp(12px, 2.6vw, var(--qs-author)); line-height: 1.4; font-weight: 500;
+      opacity: .9;
+    }
+
+    /* Marges verticales compactes */
+    #shopify-section-{{ section.id }} .quote-figure{ padding: .25rem 0; }
+
+    /* Message vide (éditeur) */
+    #shopify-section-{{ section.id }} .quotes-empty{
+      text-align: center; max-width: var(--qs-maxw); color: var(--qs-muted); margin: 0 auto;
+      font-size: 14px;
+    }
+  </style>
+
+  {% if section.blocks.size > 1 %}
+    <script>
+      (() => {
+        const root = document.getElementById('shopify-section-{{ section.id }}');
+        if (!root) return;
+        const list = root.querySelector('.quotes-list');
+        if (!list) return;
+        const slides = Array.from(list.querySelectorAll('.quote-slide'));
+        if (!slides.length) return;
+
+        // Active la 1re et met la hauteur du conteneur à la taille du slide actif
+        let i = 0, to = null, hovering = false, rTO = null;
+        slides.forEach((s,k)=> s.classList.toggle('is-active', k === 0));
+
+        // mesure robuste même si le slide n'est pas actif
+        const measure = (idx = i) => {
+          const slide = slides[idx];
+          if (!slide) return 0;
+          const wasActive = slide.classList.contains('is-active');
+          if (!wasActive) {
+            slide.style.visibility='hidden'; slide.style.opacity='0'; slide.style.display='block';
+          }
+          const fig = slide.querySelector('.quote-figure') || slide;
+          const h = Math.ceil(fig.getBoundingClientRect().height);
+          if (!wasActive) {
+            slide.style.removeProperty('visibility');
+            slide.style.removeProperty('opacity');
+            slide.style.removeProperty('display');
+          }
+          return h;
+        };
+
+        const applyHeight = () => { list.style.height = measure() + 'px'; };
+
+        const show = (idx) => {
+          i = idx;
+          slides.forEach((s,k)=> s.classList.toggle('is-active', k === i));
+          applyHeight();
+        };
+
+        const next = () => { show((i + 1) % slides.length); };
+
+        const interval = Math.max(1200, Number(getComputedStyle(root).getPropertyValue('--qs-speed')) || {{ section.settings.autoplay_ms }});
+        const start = () => { if (!{{ section.settings.autoplay | json }}) return; stop(); to = setInterval(next, interval); };
+        const stop  = () => { if (to) { clearInterval(to); to = null; } };
+
+        // Accessibilité
+        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) { stop(); }
+        root.addEventListener('mouseenter', ()=>{ hovering=true; stop(); }, {passive:true});
+        root.addEventListener('mouseleave', ()=>{ hovering=false; start(); }, {passive:true});
+        root.addEventListener('focusin', stop);
+        root.addEventListener('focusout', ()=>{ if (!hovering) start(); });
+
+        // init
+        applyHeight();
+        start();
+
+        // resize & fonts
+        const onResize = () => { clearTimeout(rTO); rTO = setTimeout(applyHeight, 100); };
+        window.addEventListener('resize', onResize, {passive:true});
+        if (document.fonts && document.fonts.ready) document.fonts.ready.then(applyHeight);
+
+        // réinit dans l’éditeur
+        document.addEventListener('shopify:section:load', (e)=>{
+          if (e?.detail?.sectionId === '{{ section.id }}') { stop(); i = 0; show(i); start(); }
+        });
+      })();
+    </script>
+  {% endif %}
+</section>
+
+{% schema %}
+{
+  "name": "Diaporama de citations",
+  "tag": "section",
+  "class": "section-quotes-slider",
+  "settings": [
+    { "type": "checkbox", "id": "full_width", "default": false, "label": "Pleine largeur" },
+    { "type": "color_scheme", "id": "color_scheme", "default": "background-1", "label": "Schéma de couleurs" },
+
+    { "type": "header", "content": "Typographie & couleurs" },
+    { "type": "range", "id": "max_width", "label": "Largeur max du bloc", "min": 360, "max": 1000, "step": 10, "unit": "px", "default": 760 },
+    { "type": "select", "id": "text_align", "label": "Alignement du texte", "default": "center",
+      "options": [
+        { "value": "left", "label": "Gauche" },
+        { "value": "center", "label": "Centré" },
+        { "value": "right", "label": "Droite" }
+      ]
+    },
+    { "type": "range", "id": "font_size", "label": "Taille du texte (max)", "min": 16, "max": 34, "step": 1, "unit": "px", "default": 22 },
+    { "type": "range", "id": "author_size", "label": "Taille de l’auteur (max)", "min": 12, "max": 20, "step": 1, "unit": "px", "default": 14 },
+    { "type": "color", "id": "text_color", "label": "Couleur du texte", "default": "#111111" },
+    { "type": "color", "id": "author_color", "label": "Couleur de l’auteur", "default": "#555555" },
+    { "type": "checkbox", "id": "show_guillemets", "label": "Afficher « » autour de la citation", "default": true },
+
+    { "type": "header", "content": "Défilement" },
+    { "type": "checkbox", "id": "autoplay", "label": "Lecture automatique", "default": true },
+    { "type": "range", "id": "autoplay_ms", "label": "Durée d’affichage par citation (ms)", "default": 4500, "min": 1200, "max": 9900, "step": 100 },
+    { "type": "range", "id": "transition_ms", "label": "Durée de la transition (ms)", "default": 400, "min": 100, "max": 2000, "step": 50 },
+
+    { "type": "header", "content": "Espacements" },
+    { "type": "number", "id": "top_space_desktop", "label": "Espace haut (desktop px)", "default": 24 },
+    { "type": "number", "id": "bottom_space_desktop", "label": "Espace bas (desktop px)", "default": 24 },
+    { "type": "number", "id": "top_space_mobile", "label": "Espace haut (mobile px)", "default": 16 },
+    { "type": "number", "id": "bottom_space_mobile", "label": "Espace bas (mobile px)", "default": 16 },
+
+    { "type": "text", "id": "aria_label", "label": "Libellé accessibilité (ARIA)", "default": "Diaporama de citations" }
+  ],
+  "blocks": [
+    {
+      "type": "quote",
+      "name": "Citation",
+      "settings": [
+        { "type": "textarea", "id": "quote", "label": "Texte de la citation" },
+        { "type": "text", "id": "author", "label": "Auteur" }
+      ]
+    }
+  ],
+  "max_blocks": 24,
+  "presets": [
+    {
+      "name": "Diaporama de citations",
+      "category": "Texte",
+      "blocks": [
+        { "type": "quote", "settings": { "quote": "Le parfum est un langage universel.", "author": "Francis Kurkdjian" } },
+        { "type": "quote", "settings": { "quote": "De tous les sens, l'odorat est celui qui me frappe le plus. Comment l'odeur, le goût, se font-ils parfum, comment nos nerfs se font-ils nuances, interprètes subtils, sublimes de ce qui ne se voit pas, ne s'entend pas, ne s'écrit pas avec des mots ? L'odeur serait comme une âme, immatérielle.", "author": "Marcel Hanoun" } },
+        { "type": "quote", "settings": { "quote": "Si le parfum est un art, l'objet qui le contient doit être un chef-d'œuvre, le chef-d'œuvre d'un artisan.", "author": "Robert Ricci" } },
+        { "type": "quote", "settings": { "quote": "Le parfum est un miroir de l'âme.", "author": "Jean-Claude Ellena" } },
+        { "type": "quote", "settings": { "quote": "Le parfum est comme un tableau, chaque note crée un sentiment.", "author": "Thierry Wasser" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

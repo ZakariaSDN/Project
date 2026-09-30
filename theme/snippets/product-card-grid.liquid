@@ -1,0 +1,112 @@
+ {% assign current_variant = card_product.selected_or_first_available_variant  %}
+  {%- liquid
+  if media_aspect_ratio == 'landscape'
+      assign imageratio = 75
+  elsif media_aspect_ratio == 'square'
+    assign imageratio = 100
+  elsif media_aspect_ratio == 'portrait'
+    assign imageratio = 125
+  else
+    if cardProduct.featured_media != blank
+      assign imageratio = 1 | divided_by: card_product.featured_media.preview_image.aspect_ratio | times: 100
+    else
+      assign imageratio = 100
+    endif
+  endif
+  -%}
+<product-card-item class="product-card-item  {{ class }} {% if settings.enable_card_border %} card-border-enabled{% endif %} product-grid-style-{{ settings.card_style }}" data-variant-id="{{ current_variant.id }}" data-variant-available="{{ current_variant.available }}">
+<div class="product-card-wrapper">
+    <div class="product-card-image">
+      {% liquid 
+        assign show_badge = false
+        if card_product.compare_at_price_min > card_product.price_min and card_product.available
+          assign show_badge = true
+        elsif card_product.available == false
+          assign show_badge = true
+        endif
+      %}
+      {% if show_badge %}
+      <div class="product-badge">
+        {%- liquid
+          assign discount = 0
+          if settings.saving_display_style == 'percentage'
+            assign badgeTranslation  = 'products.product.badges.percentage_off'
+            assign discount = card_product.compare_at_price_min | minus: card_product.price_min | times: 100 | divided_by: card_product.compare_at_price_min
+          elsif settings.saving_display_style == 'amount' 
+            assign badgeTranslation  = 'products.product.badges.amount_off'
+            assign discount = card_product.compare_at_price_min | minus: card_product.price_min | money 
+          else
+            assign badgeTranslation  = 'products.product.badges.sale'
+          endif
+        -%}
+        {% if card_product.compare_at_price_min > card_product.price_min and card_product.available %}
+          <span class="badge badge-sale">
+            {{ badgeTranslation | t: discount: discount }}
+          </span>
+        {% endif %}
+        {% if card_product.available == false %}
+          <span class="badge badge-sold-out">{{ 'products.product.badges.soldout' | t }}</span>
+        {% endif %}
+      </div>
+    {% endif %}
+      <div class="media-wrapper" style="--media-ratio:{{ imageratio }}%">
+         <{% if card_product != blank %}a href="{{ card_product.url | within : collection }}" aria-label="{{ card_product.title }}"{% else %}div{%endif %} data-main-image tabindex="-1">
+           {%- if card_product.featured_media != blank -%}
+           <img
+                srcset="
+                  {%- if card_product.featured_media.width >= 165 -%}{{ card_product.featured_media | image_url: width: 165 }} 165w,{%- endif -%}
+                  {%- if card_product.featured_media.width >= 360 -%}{{ card_product.featured_media | image_url: width: 360 }} 360w,{%- endif -%} 
+                  {%- if card_product.featured_media.width >= 533 -%}{{ card_product.featured_media | image_url: width: 533 }} 533w,{%- endif -%}
+                  {%- if card_product.featured_media.width >= 720 -%}{{ card_product.featured_media | image_url: width: 720 }} 720w,{%- endif -%}
+                  {%- if card_product.featured_media.width >= 940 -%}{{ card_product.featured_media | image_url: width: 940 }} 940w,{%- endif -%}
+                  {%- if card_product.featured_media.width >= 1066 -%}{{ card_product.featured_media | image_url: width: 1066 }} 1066w,{%- endif -%} 
+                  {{ card_product.featured_media | image_url }} {{ card_product.featured_media.width }}w
+                "
+                src="{{ card_product.featured_media | image_url: width: 533 }}"
+                sizes="(min-width: 990px) calc((100vw - 130px) / 4), (min-width: 750px) calc((100vw - 120px) / 3), calc((100vw - 35px) / 2)"
+                alt="{{ card_product.featured_media.alt | escape }}"
+                loading="lazy"
+                width="{{ card_product.featured_media.width }}"
+                height="{{ card_product.featured_media.height }}"
+              >
+        {% else %}
+          {{ placeholder_image | placeholder_svg_tag: 'placeholder-svg' }}
+        {% endif %}
+        </{% if card_product != blank %}a{% else %}div{% endif %}>   
+      </div>
+    </div>
+    <div class="product-card-content">
+      <{% if  card_product != blank  %}a href="{{ card_product.url | within : collection }}"{% else %}span{% endif %} class="product-title" >
+      {% if  card_product.title  %}
+          {{- card_product.title | strip_html -}}
+        {% else %}
+           {{ 'onboarding.product_title' | t }}
+        {% endif %}
+      </{% if  card_product.url != blank  %}a{% else %}span{% endif %}>
+      <price-main class="price-main">
+      {%- assign price_min = card_product.price_min | default: 1899 | money -%}
+        <price-sale class="price-sale"> 
+           {%- if card_product.price_varies -%}
+            <span class="product-actual-price varies-price">
+              {{ 'products.product.price.from_price_html' | t: price: price_min }}
+            </span>
+          {%- else -%}
+            <span class="product-actual-price">{{ price_min }}</span>
+          {%- endif -%}
+            {%- if card_product.compare_at_price_min > card_product.price_min -%}
+              <span class="discount-price">{{ card_product.compare_at_price_min | money }}</span>
+            {%- endif -%}
+        {%- if current_variant.unit_price_measurement -%}
+          <span class="product-unit-price">
+            {{ current_variant.unit_price | money }} /
+            {% if current_variant.unit_price_measurement.reference_value != 1 -%}
+              {{- current_variant.unit_price_measurement.reference_value -}}
+            {%- endif %}
+            {{ current_variant.unit_price_measurement.reference_unit }}
+          </span>
+        {%- endif -%}
+        </price-sale>
+      </price-main>
+    </div>
+</div>
+      </product-card-item>

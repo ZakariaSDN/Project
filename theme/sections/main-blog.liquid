@@ -1,0 +1,215 @@
+{{ 'featured-blog.css' | asset_url | stylesheet_tag }}
+{{ 'main-blog.css' | asset_url | stylesheet_tag: preload: true }}
+{{ 'main-blog.css' | asset_url | stylesheet_tag }}
+<style>
+  #shopify-section-{{ section.id }} {
+    --section-top-space:{{ section.settings.top_space_desktop }}px;
+    --section-bottom-space:{{ section.settings.bottom_space_desktop }}px;
+  }
+   #shopify-section-{{ section.id }}  .blog-grid-wrapper{
+      --blog-item-per-row: {{ section.settings.cloumn }};
+      --blog-item-gap: {{ section.settings.column_gap }}px;
+  }
+  @media only screen and (max-width:767px) {
+    #shopify-section-{{ section.id }}.shopify-section{
+      --section-top-space:{{ section.settings.top_space_mobile }}px;
+      --section-bottom-space:{{ section.settings.bottom_space_mobile }}px;
+    }
+    
+   #shopify-section-{{ section.id }}  .blog-grid-wrapper{
+      --blog-item-gap: 16px;
+  }
+
+  }
+</style>
+
+<div class="section-space color-scheme-{{ section.settings.color_scheme }}">
+  {% assign limit = section.settings.artical_per_page %}
+  {%- paginate blog.articles by limit -%}
+    <div class="container">
+      <h1 class="title-main text-align-center">
+        {{ blog.title | escape }}
+      </h1>
+      {% if section.settings.show_tag_bar and blog.all_tags.size > 0 %}
+        <div class="main-blog-tab text-align-center">
+          <ul class="list-style-none blog-tab-nav">
+            <li>
+              <a href="{{ blog.url }}" class="blog-tab-link {% if current_tags == blank %} active{% endif %}"
+                >All Posts</a
+              >
+            </li>
+            {%- for tag in blog.all_tags -%}
+              <li>
+                <a
+                  href="{{ blog.url }}/tagged/{{ tag | handle }}"
+                  class="blog-tab-link {% if current_tags contains tag %}active{% endif %}"
+                >
+                  {{- tag -}}
+                </a>
+              </li>
+            {%- endfor -%}
+          </ul>
+        </div>
+      {% endif %}
+      {% if blog.articles_count > 0 %}
+        <div class="blog-grid-wrapper {% if section.settings.enable_card_view %} card-enabled{% endif %}">
+          {%- for article in blog.articles -%}
+            {% assign placeholder_image_index = forloop.index0 | modulo: 3 | plus: 1 %}
+            {% assign placeholder_image = 'blog-apparel-' | append: placeholder_image_index %}
+            {% render 'blog-post',
+              article: article,
+              section: section,
+              placeholder_image: placeholder_image,
+              media_aspect_ratio: section.settings.grid_image_size
+            %}
+          {% endfor %}
+        </div>
+
+        {%- if paginate.pages > 1 -%}
+          <div class="page-navigation text-align-center">
+            {% render 'pagination', paginate: paginate, anchor: '' %}
+          </div>
+        {% endif %}
+      {% endif %}
+    </div>
+  {% endpaginate %}
+</div>
+
+{% schema %}
+{
+  "name": "t:sections.main_blog.name",
+  "tag":"section",
+  "class":"main-blog-grid",
+  "settings": [
+    {
+      "type": "range",
+      "id": "artical_per_page",
+      "min": 3,
+      "max": 24,
+      "step": 3,
+      "default": 12,
+      "label": "t:sections.main_blog.settings.artical_per_page.label"
+    },
+    {
+      "type": "range",
+     "id": "cloumn",
+      "label": "t:sections.main_blog.settings.cloumn.label",
+     "min": 2,
+     "max": 4,
+     "step": 1,
+     "default": 2
+    },
+    {
+      "type": "range",
+      "id":"column_gap",
+      "label": "t:sections.main_blog.settings.column_gap.label",
+      "min":0,
+      "max":50,
+      "default":20,
+      "step": 1,
+      "unit": "px"
+    },
+    {
+    "type": "select",
+    "id": "grid_image_size",
+     "label": "t:global.grid_image_size.label",
+      "default": "adapt",
+      "options": [
+       {
+          "value": "adapt",
+          "label": "t:global.grid_image_size.options.auto.label"
+        },
+        {
+          "value": "landscape",
+          "label": "t:global.grid_image_size.options.landscape.label"
+        },
+        {
+          "value": "portrait",
+          "label": "t:global.grid_image_size.options.portrait.label"
+        },
+        {
+          "value": "square",
+          "label": "t:global.grid_image_size.options.square.label"
+        }
+      ]
+  },
+    {
+        "type": "checkbox",
+        "id": "enable_card_view",
+        "default":false,
+         "label": "t:sections.main_blog.settings.enable_card_view.label"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_tag_bar",
+      "default": true,
+      "label": "t:sections.main_blog.settings.show_tag_bar.label"
+    },
+    {
+     "type": "checkbox",
+     "id": "show_date",
+     "default": true,
+     "label": "t:sections.main_blog.settings.show_date.label"
+   },
+    {
+     "type": "checkbox",
+     "id": "show_comment",
+     "default": true,
+     "label": "t:sections.main_blog.settings.show_comment.label"
+   },
+    {
+     "type": "checkbox",
+     "id": "show_author",
+     "default": true,
+      "label": "t:sections.main_blog.settings.show_author.label"
+   },
+    {
+     "type": "checkbox",
+     "id": "show_excerpt",
+     "default": true,
+      "label": "t:sections.main_blog.settings.show_excerpt.label"
+   },
+    {
+  "type": "header",
+   "content": "t:global.general_labels.color"
+  },
+    {
+        "type": "color_scheme",
+        "id": "color_scheme",
+        "default": "primary",
+        "label": "t:global.color_scheme.label"
+    },
+     {
+      "type": "header",
+       "content": "t:global.section_spacing.label"
+    },
+     {
+      "type": "number",
+      "id": "top_space_desktop",
+      "label": "t:global.section_spacing.top_space_desktop.label",
+      "default": 80,
+
+    },
+    {
+      "type": "number",
+      "id": "bottom_space_desktop",
+       "label": "t:global.section_spacing.bottom_space_desktop.label",
+      "default": 80
+
+    },
+    {
+      "type": "number",
+      "id": "top_space_mobile",
+      "label": "t:global.section_spacing.top_space_mobile.label",
+      "default": 40
+    },
+    {
+      "type": "number",
+      "id": "bottom_space_mobile",
+      "label": "t:global.section_spacing.bottom_space_mobile.label",
+      "default": 40
+    }
+  ]
+
+}
+{% endschema %}

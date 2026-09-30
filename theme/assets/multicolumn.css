@@ -1,0 +1,145 @@
+.multicolumn-wrapper .multicolumn-card {
+  display: grid;
+  column-gap: var(--gapcolumn, 0px);
+  row-gap: var(--gaprow);
+  grid-template-columns: 1fr;
+}
+
+.multicolumn-card-item {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  border-radius: var(--block-card-radius);
+  overflow: hidden;
+}
+
+.multicolumn-card__info,
+.multicolumn-card-icon {
+  z-index: 1;
+}
+.horizontal-icon .multicolumn-card-item {
+  flex-direction: row;
+}
+
+.horizontal-icon .multicolumn-card-icon {
+  margin: 0 26px 0 0;
+}
+
+.multicolumn-card.card-enabled .multicolumn-card-item {
+  padding: 40px;
+  border: 1px solid rgb(var(--color-divider));
+}
+
+.multicolumn-card-icon.icon-background-enabled {
+  background-color: rgb(var(--color-background-foreground));
+  padding: 6px;
+}
+
+.multicolumn-card-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  margin-bottom: 26px;
+  transition: all 0.3s ease-in-out;
+}
+
+.multicolumn-card-icon svg path {
+  stroke: currentColor;
+}
+
+.vertical-icon .multicolumn-card-item.text-align-center .multicolumn-card-icon {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.vertical-icon .multicolumn-card-item.text-align-left .multicolumn-card-icon {
+  margin-right: auto;
+}
+
+.vertical-icon .multicolumn-card-item.text-align-right .multicolumn-card-icon {
+  margin-left: auto;
+}
+
+.multicolumn-card-icon.multicolumn-icon-small {
+  width: 30px;
+  min-width: 30px;
+  height: 30px;
+}
+
+.multicolumn-card-icon.multicolumn-icon-medium {
+  width: 50px;
+  min-width: 50px;
+  height: 50px;
+}
+
+.multicolumn-card-icon.multicolumn-icon-large {
+  width: 70px;
+  min-width: 70px;
+  height: 70px;
+}
+
+.multicolumn-text {
+  color: rgb(var(--color-text));
+  padding-top: 10px;
+}
+
+.multicolumn-text-button {
+  margin-top: 20px;
+}
+.card-enabled .column-background-image {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  z-index: 0;
+}
+
+.card-enabled .column-background-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: all 0.3s ease-in-out;
+}
+
+.card-enabled .column-background-image:before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgb(var(--opacity-color) / var(--opacity));
+}
+
+@media (min-width: 768px) {
+  .multicolumn-wrapper .multicolumn-card {
+    grid-template-columns: repeat(var(--multicolumn-per-row), 1fr);
+  }
+}
+
+@media (min-width: 1025px) {
+  .multicolumn-card-item:hover .column-background-image img {
+    transform: scale(1.1);
+  }
+  .multicolumn-card-item:hover .multicolumn-card-icon {
+    transform: translateY(-10px);
+  }
+}
+
+@media (max-width: 767px) {
+  .multicolumn-card.card-enabled .multicolumn-card-item {
+    padding: 30px;
+  }
+
+  .multicolumn-wrapper .multicolumn-card {
+    display: flex;
+    overflow-x: auto;
+    padding-bottom: 15px;
+  }
+  .multicolumn-wrapper .multicolumn-card-item {
+    flex: 0 0 90%;
+    width: 90%;
+  }
+}

@@ -1,0 +1,118 @@
+.store-locator-item {
+  position: relative;
+  overflow: hidden;
+  border-radius: var(--block-card-radius);
+}
+.store-locator-item img {
+  transform: scale(1);
+  transition: transform 0.2s ease-in-out;
+}
+.store-locator-item img:hover {
+  transform: scale(1.1);
+}
+
+.store-locator-info {
+  position: absolute;
+  left: 0px;
+  bottom: 0px;
+  padding: 20px;
+  overflow: hidden;
+  background: linear-gradient(
+    180deg,
+    rgba(var(--color-text) / 0) 0%,
+    rgb(var(--color-text)) 100%
+  );
+}
+
+.store-locator-hover {
+  padding: 45px;
+  background-color: rgba(var(--color-background-card));
+  color: rgba(var(--color-text-card));
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: calc(100% - 28px);
+  height: calc(100% - 28px);
+  max-height: 100%;
+  overflow-y: auto;
+  transition: 0.3s ease-in-out;
+  margin: 14px;
+  border-radius: var(--block-card-radius);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+
+.store-locator-hover .store-locator-title {
+  margin-bottom: 18px;
+  color: rgba(var(--color-text-card));
+}
+
+.store-locator-hover .button {
+  margin-top: auto;
+}
+
+.store-locator-cant li {
+  display: flex;
+  align-items: center;
+  margin-bottom: 18px;
+}
+
+.store-locatore-icon {
+  min-width: 40px;
+  min-height: 40px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 15px;
+  color: rgba(var(--color-text), 0.5);
+  background-color: rgba(var(--color-background-foreground));
+  border-radius: 100%;
+}
+
+.store-locator-cant li p {
+  margin: 0;
+  font-size: var(--text-size-large);
+}
+
+@media (min-width: 768px) {
+  .store-locator-hover {
+    bottom: -100%;
+  }
+  .store-locator-item:hover .store-locator-hover {
+    bottom: 0;
+  }
+}
+
+@media (max-width: 767px) {
+  .grid-wrapper-flex.mobile-scrollbar {
+    flex-wrap: nowrap;
+    margin: 0;
+  }
+  .grid-wrapper-flex.mobile-scrollbar .grid-item-md-4 {
+    flex: 0 0 92%;
+  }
+  .store-locator-item {
+    margin-bottom: 30px;
+  }
+  .store-locator-hover {
+    display: block;
+    padding: 24px;
+    height: auto;
+    max-height: 272px;
+  }
+  .store-locator-cant li {
+    margin-bottom: 12px;
+  }
+  .store-locatore-icon {
+    min-width: 26px;
+    min-height: 26px;
+  }
+  .store-locator-cant li p {
+    font-size: var(--text-size-base);
+  }
+  .store-locatore-icon svg {
+    width: 10px;
+  }
+}

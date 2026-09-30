@@ -1,0 +1,93 @@
+<div class="ask-question-wrapper" {{ block.shopify_attributes }}>
+  {% if block.settings.text != blank and block.settings.enable_query_share %}
+    <div class="ask-query-wrapper">
+      {% if block.settings.option_type == 'link' %}
+        {% if block.settings.text != blank %}
+          <a href="{{ block.settings.link }}" class="ask-question-card">
+            <svg
+              class="icon-small"
+              width="17"
+              height="15"
+              viewBox="0 0 17 15"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path d="M12.95 5.4209L9.75089 7.9966C9.14547 8.47125 8.2968 8.47125 7.69139 7.9966L4.46484 5.4209" stroke="currentcolor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+              <path fill-rule="evenodd" clip-rule="evenodd" d="M5.1659 1.25H12.2368C13.2564 1.26144 14.2268 1.69245 14.922 2.44265C15.6172 3.19286 15.9766 4.19677 15.9165 5.22059V10.1165C15.9766 11.1403 15.6172 12.1442 14.922 12.8944C14.2268 13.6446 13.2564 14.0756 12.2368 14.0871H5.1659C2.97597 14.0871 1.5 12.3055 1.5 10.1165V5.22059C1.5 3.03159 2.97597 1.25 5.1659 1.25Z" stroke="currentcolor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+            </svg>
+            <span>{{ block.settings.text }}</span>
+          </a>
+        {% endif %}
+      {% else %}
+        {% if block.settings.text != blank %}
+          <custom-content-element data-id="{{ block.id }}">
+            <a
+              href="#"
+              class="ask-question-card"
+              data-custom-drawer
+            >
+              <svg
+                class="icon-small"
+                width="17"
+                height="15"
+                viewBox="0 0 17 15"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path d="M12.95 5.4209L9.75089 7.9966C9.14547 8.47125 8.2968 8.47125 7.69139 7.9966L4.46484 5.4209" stroke="currentcolor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                <path fill-rule="evenodd" clip-rule="evenodd" d="M5.1659 1.25H12.2368C13.2564 1.26144 14.2268 1.69245 14.922 2.44265C15.6172 3.19286 15.9766 4.19677 15.9165 5.22059V10.1165C15.9766 11.1403 15.6172 12.1442 14.922 12.8944C14.2268 13.6446 13.2564 14.0756 12.2368 14.0871H5.1659C2.97597 14.0871 1.5 12.3055 1.5 10.1165V5.22059C1.5 3.03159 2.97597 1.25 5.1659 1.25Z" stroke="currentcolor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+              </svg>
+              <span>{{ block.settings.text }}</span>
+            </a>
+            {% render 'query-form', block: block %}
+          </custom-content-element>
+        {% endif %}
+      {% endif %}
+    </div>
+  {% endif %}
+  {% if block.settings.enable_social_share %}
+    <div class="social-share-icon">
+      <div class="social-share-card">
+        <span>Share</span>
+        <ul class="list-style-none social-icons-list">
+          <li class="facebook">
+            <a
+              class="social-icons-link"
+              target="_blank"
+              title="{{ 'general.social.links.facebook' | t }}"
+              href="//www.facebook.com/sharer.php?u={{ shop.url | append: share_link | strip_html }}"
+            >
+              <svg class="icon icon-xsmall" viewBox="0 0 9 14" fill="none">
+                <path d="M2.35173 13.4173L2.33333 7.58398H0V5.25065H2.33333V3.79232C2.33333 1.62733 3.67401 0.583984 5.60531 0.583984C6.53048 0.583984 7.32556 0.652859 7.55726 0.683647V2.94618L6.21781 2.94679C5.1674 2.94679 4.96405 3.4459 4.96405 4.17831V5.25065H8.02083L6.85417 7.58398H4.96405V13.4173H2.35173Z" fill="currentcolor"></path>
+              </svg>
+            </a>
+          </li>
+          <li class="twitter">
+            <a
+              class="social-icons-link"
+              target="_blank"
+              title="{{ 'general.social.links.twitter' | t }}"
+              href="//twitter.com/share?text={{ share_title | url_param_escape | strip_html }}&amp;url={{ shop.url | append: share_link | strip_html }}"
+            >
+              <svg class="icon icon-xsmall" viewBox="0 0 15 14" fill="none">
+                <path fill-rule="evenodd" clip-rule="evenodd" d="M14.084 7C14.084 10.8659 10.9499 14 7.08398 14C3.21812 14 0.0839844 10.8659 0.0839844 7C0.0839844 3.13413 3.21812 0 7.08398 0C10.9499 0 14.084 3.13413 14.084 7ZM10.1514 3.73333H9.04305L7.21652 5.82073L5.63778 3.73333H3.35065L6.08345 7.3066L3.49345 10.2667H4.60225L6.60145 7.9828L8.34818 10.2667H10.5789L7.72985 6.50067L10.1514 3.73333ZM9.26798 9.60307H8.65385L4.64518 4.36193H5.30412L9.26798 9.60307Z" fill="currentcolor"></path>
+              </svg>
+            </a>
+          </li>
+          <li class="pinterest">
+            <a
+              class="social-icons-link"
+              target="_blank"
+              title="{{ 'general.social.links.pinterest' | t }}"
+              href="//pinterest.com/pin/create/button/?url={{ shop.url | append: share_link | strip_html }}&amp;media={{ share_product | image_url: width: 1024, height: 1024 }}&amp;description={{ share_title | url_param_escape | strip_html }}"
+            >
+              <svg class="icon icon-xsmall" viewBox="0 0 12 14" fill="none">
+                <path d="M6.32173 0H8.63951C8.63951 0 8.50729 2.97111 11.8517 3.18889V5.48333C11.8517 5.48333 10.0628 5.59222 8.63951 4.50333L8.66284 9.24778C8.66284 10.0972 8.41084 10.9276 7.93874 11.6338C7.46664 12.34 6.79565 12.8903 6.01069 13.215C5.22574 13.5398 4.36209 13.6243 3.52905 13.458C2.69602 13.2917 1.93103 12.8821 1.33091 12.2809C0.730788 11.6796 0.322503 10.9139 0.157723 10.0806C-0.00705696 9.24725 0.0790758 8.38376 0.405221 7.59939C0.731366 6.81502 1.28286 6.14504 1.98992 5.67422C2.69698 5.20339 3.52781 4.9529 4.37729 4.95444H4.97617V7.31111C4.58541 7.19002 4.16642 7.19527 3.77881 7.32609C3.3912 7.45692 3.05473 7.70667 2.81727 8.03979C2.57982 8.37292 2.45348 8.77245 2.45624 9.18153C2.459 9.59061 2.59071 9.98841 2.83263 10.3183C3.07455 10.6482 3.41436 10.8934 3.8037 11.019C4.19303 11.1446 4.61206 11.1442 5.00116 11.0178C5.39025 10.8915 5.72958 10.6456 5.97087 10.3153C6.21215 9.98491 6.3431 9.58686 6.34506 9.17778L6.32173 0Z" fill="currentcolor"></path>
+              </svg>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  {% endif %}
+</div>

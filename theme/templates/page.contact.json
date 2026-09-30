@@ -1,0 +1,338 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "slideshow_zk4FeG": {
+      "type": "slideshow",
+      "blocks": {
+        "slide_XnG8Bn": {
+          "type": "slide",
+          "settings": {
+            "color_scheme": "primary",
+            "slide_image": "shopify://shop_images/IMG_5871.jpg",
+            "subheading": "",
+            "heading": "",
+            "heading_size": "h1",
+            "heading_align": "center",
+            "heading_color": "#1a1a1a",
+            "heading_bold": true,
+            "description": "",
+            "description_size": "text-size-large",
+            "description_align": "center",
+            "description_color": "#1a1a1a",
+            "description_bold": false,
+            "button_text": "",
+            "button_url": "",
+            "btn_size": "small",
+            "button_outline": false,
+            "content_width": "md",
+            "caption_align": "center",
+            "overlay_color": "#000000",
+            "overlay_opacity": 0,
+            "caption_wrapper_bg_color": "#ffff00",
+            "caption_wrapper_bg_opacity": 60,
+            "caption_px": 20,
+            "caption_py": 20,
+            "caption_max_width": 920,
+            "show_mobile_top_heading": false,
+            "mobile_top_heading_source": "inherit",
+            "mobile_top_heading_text": "Titre mobile",
+            "mobile_top_heading_offset": 0,
+            "mobile_top_heading_align": "center",
+            "mobile_top_heading_color": "#ffffff",
+            "hide_default_heading_on_mobile": false
+          }
+        }
+      },
+      "block_order": [
+        "slide_XnG8Bn"
+      ],
+      "settings": {
+        "color_scheme": "",
+        "container_style": "full-container",
+        "style": "single",
+        "desktop_media_height": 640,
+        "mobile_media_height": 420,
+        "autoplay": false,
+        "autoplay_interval": 3,
+        "pause_on_hover": true,
+        "autoplay_keep_after_interaction": true,
+        "show_edge_arrows": true,
+        "nav_arrow_size": 44,
+        "nav_edge_margin": 12,
+        "nav_arrow_bg_color": "#000000",
+        "nav_arrow_bg_opacity": 40,
+        "nav_arrow_icon_color": "#ffffff",
+        "controls": "arrows_with_number",
+        "navigation_position": "inside",
+        "desktop_navigation_alignment": "left"
+      }
+    },
+    "richtext_nBhDB7": {
+      "type": "richtext",
+      "blocks": {
+        "heading_64pG7V": {
+          "type": "heading",
+          "settings": {
+            "heading": "Boutique de parfums de niche à Cannes",
+            "heading_size": "h1",
+            "heading_tag": "h1"
+          }
+        },
+        "description_tLcV6V": {
+          "type": "description",
+          "settings": {
+            "text": "<p>Couleur Safran vous accueille au cœur de Cannes, à quelques kilomètres de Grasse, capitale mondiale du parfum. Notre parfumerie artisanale est un lieu unique où se mêlent création olfactive, savoir-faire local et passion du beau.<br/><br/>Que vous soyez un particulier à la recherche d’un parfum de niche d’exception, un professionnel souhaitant devenir revendeur, ou une entreprise désirant personnaliser des créations parfumées pour vos clients ou collaborateurs, notre équipe est à votre écoute.</p>",
+            "description_size": "text-size-medium"
+          }
+        }
+      },
+      "block_order": [
+        "heading_64pG7V",
+        "description_tLcV6V"
+      ],
+      "custom_css": [
+        ".rt-heading {color: #a48351;}",
+        "h1 {font-size: 38px; font-weight: bold;}",
+        "@media screen and (max-width: 767px) {h1 {font-size: 30px; font-weight: bold; }}"
+      ],
+      "name": "t:sections.rich-text.name",
+      "settings": {
+        "color_scheme": "",
+        "content_alignment": "center",
+        "enable_card_view": false,
+        "show_in_columns": false,
+        "show_image_desktop": true,
+        "show_image_mobile": true,
+        "image_alt": "Illustration",
+        "image_position_desktop": "top",
+        "image_order_desktop": "top",
+        "image_shape_desktop": "rectangle",
+        "image_radius_desktop": 16,
+        "image_width_desktop": 40,
+        "image_position_mobile": "center",
+        "image_order_mobile": "top",
+        "image_shape_mobile": "rounded",
+        "image_radius_mobile": 12,
+        "image_width_mobile": 80,
+        "image_full_bleed": false,
+        "image_full_bleed_mobile": true,
+        "image_full_bleed_height_d": 640,
+        "image_full_bleed_height_m": 420,
+        "image_max_height": 0,
+        "image_gap": 24,
+        "cta_show_desktop": true,
+        "cta_show_mobile": true,
+        "cta_text": "Shop collection",
+        "cta_collection": "",
+        "cta_url": "",
+        "cta_position_desktop": "below",
+        "cta_align_desktop": "center",
+        "cta_size_desktop": "medium",
+        "cta_bg_desktop": "#111111",
+        "cta_text_desktop": "#ffffff",
+        "cta_position_mobile": "below",
+        "cta_align_mobile": "center",
+        "cta_size_mobile": "small",
+        "cta_bg_mobile": "#111111",
+        "cta_text_mobile": "#ffffff",
+        "cta_radius": 6,
+        "cta_margin_y": 16,
+        "text_margin_top_desktop": 24,
+        "text_margin_bottom_desktop": 24,
+        "text_margin_top_mobile": 16,
+        "text_margin_bottom_mobile": 16,
+        "text_margin_top_desktop_compact": 8,
+        "text_margin_bottom_desktop_compact": 8,
+        "text_margin_top_mobile_compact": 6,
+        "text_margin_bottom_mobile_compact": 6,
+        "heading_font_size_desktop": 40,
+        "heading_font_size_mobile": 25
+      }
+    },
+    "main": {
+      "type": "main-page",
+      "disabled": true,
+      "settings": {
+        "show_page_title": true,
+        "color_scheme": "",
+        "overlay_color": "#000000",
+        "overlay_opacity": 50,
+        "top_space_desktop": 80,
+        "bottom_space_desktop": 80,
+        "top_space_mobile": 40,
+        "bottom_space_mobile": 40
+      }
+    },
+    "contact_X43niV": {
+      "type": "contact",
+      "settings": {
+        "color_scheme": "one",
+        "heading": "",
+        "heading_size": "h4",
+        "form_heading": "Nous contacter",
+        "form_button_text": "Envoyer",
+        "form_position": "right",
+        "show_company": true,
+        "show_phone": true,
+        "show_project_type": true,
+        "show_volume": false,
+        "volume_input_type": "select",
+        "show_catalog": false,
+        "req_company": true,
+        "req_firstname": true,
+        "req_lastname": true,
+        "req_email": true,
+        "req_phone": false,
+        "req_project_type": true,
+        "req_volume": false,
+        "req_catalog": false,
+        "req_message": true,
+        "fs_company": 16,
+        "bold_company": false,
+        "fs_firstname": 16,
+        "bold_firstname": false,
+        "fs_lastname": 16,
+        "bold_lastname": false,
+        "fs_email": 16,
+        "bold_email": false,
+        "fs_phone": 16,
+        "bold_phone": false,
+        "fs_project_type": 16,
+        "bold_project_type": false,
+        "fs_volume": 16,
+        "bold_volume": false,
+        "fs_catalog": 16,
+        "bold_catalog": false,
+        "fs_message": 16,
+        "bold_message": false,
+        "info_heading": "",
+        "info_email_label": "Adresse mail",
+        "info_email_content": "contact@couleursafran.com",
+        "info_email_color": "#111111",
+        "info_email_bold": false,
+        "info_phone_label": "Appelez-nous",
+        "info_phone_content": "06 30 16 44 06",
+        "info_phone_color": "#111111",
+        "info_phone_bold": false,
+        "info_address_label": "Adresse",
+        "info_address_content": "<p>12, rue Reyer<br/>06400 Cannes, France</p>",
+        "info_address_color": "#111111",
+        "info_address_bold": false,
+        "show_social": true,
+        "top_space_desktop": 60,
+        "bottom_space_desktop": 80,
+        "top_space_mobile": 40,
+        "bottom_space_mobile": 40
+      }
+    },
+    "multicolumn_w4ymUG": {
+      "type": "multicolumn",
+      "blocks": {
+        "column_bTzFFr": {
+          "type": "column",
+          "settings": {
+            "icon": "",
+            "heading": "Livraison offerte",
+            "heading_size": "h6",
+            "description": "Livraison standard en 2–4 jours ouvrés en France. Offerte sur les commandes éligibles.",
+            "description_size": "text-size-small",
+            "link_label": "",
+            "link_url": "",
+            "btn_size": "small",
+            "color_scheme": "scheme-46c40998-bf14-493b-bfc3-629edab5e448",
+            "overlay_color": "#000000",
+            "overlay_opacity": 50
+          }
+        },
+        "column_i8ehw6": {
+          "type": "column",
+          "settings": {
+            "icon": "",
+            "heading": "100% Made in France",
+            "heading_size": "h6",
+            "description": "Profitez d’une qualité artisanale issue du savoir-faire unique de Grasse, capitale mondiale du parfum.",
+            "description_size": "text-size-small",
+            "link_label": "",
+            "link_url": "",
+            "btn_size": "small",
+            "color_scheme": "",
+            "overlay_color": "#000000",
+            "overlay_opacity": 50
+          }
+        },
+        "column_eWYR8f": {
+          "type": "column",
+          "settings": {
+            "icon": "",
+            "heading": "Qualité Garantie",
+            "heading_size": "h6",
+            "description": "Nos produits sont fabriqués avec des matières premières nobles, pour une expérience sensorielle incomparable.",
+            "description_size": "text-size-small",
+            "link_label": "",
+            "link_url": "",
+            "btn_size": "small",
+            "color_scheme": "scheme-46c40998-bf14-493b-bfc3-629edab5e448",
+            "overlay_color": "#000000",
+            "overlay_opacity": 50
+          }
+        },
+        "column_bdUz3g": {
+          "type": "column",
+          "settings": {
+            "icon": "",
+            "heading": "Paiement sécurisé",
+            "heading_size": "h6",
+            "description": "Réglez vos achats en toute confiance grâce à notre système de paiement sécurisé.",
+            "description_size": "text-size-small",
+            "link_label": "",
+            "link_url": "",
+            "btn_size": "small",
+            "color_scheme": "",
+            "overlay_color": "#000000",
+            "overlay_opacity": 50
+          }
+        }
+      },
+      "block_order": [
+        "column_bTzFFr",
+        "column_i8ehw6",
+        "column_eWYR8f",
+        "column_bdUz3g"
+      ],
+      "settings": {
+        "color_scheme": "four",
+        "heading": "Une expérience shopping tout en élégance",
+        "heading_size": "h4",
+        "description": "<p></p><p>Profitez d’une livraison soignée, d’un paiement sécurisé et d’options pensées pour vous faciliter la vie.</p>",
+        "content_alignment": "center",
+        "column_range": 4,
+        "column_gap": 20,
+        "row_gap": 20,
+        "show_icon_left": true,
+        "column_background": true,
+        "column_icon_background": true,
+        "text_alignment": "left",
+        "icon_size": "medium",
+        "top_space_desktop": 70,
+        "bottom_space_desktop": 80,
+        "top_space_mobile": 40,
+        "bottom_space_mobile": 40
+      }
+    }
+  },
+  "order": [
+    "slideshow_zk4FeG",
+    "richtext_nBhDB7",
+    "main",
+    "contact_X43niV",
+    "multicolumn_w4ymUG"
+  ]
+}

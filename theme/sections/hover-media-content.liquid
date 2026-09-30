@@ -1,0 +1,450 @@
+{{ 'hover-media-content.css' | asset_url | stylesheet_tag: preload: true }}
+{{ 'collapsible-content.css' | asset_url | stylesheet_tag: preload: true }}
+{{ 'hover-media-content.css' | asset_url | stylesheet_tag }}
+{{ 'collapsible-content.css' | asset_url | stylesheet_tag }}
+
+<style>
+  #shopify-section-{{ section.id }} {
+    --section-top-space:{{ section.settings.top_space_desktop }}px;
+    --section-bottom-space:{{ section.settings.bottom_space_desktop }}px;
+
+    /* === COULEURS DESKTOP (valeurs par défaut) === */
+    --sec-heading-color: {{ section.settings.heading_color_desktop }};
+    --count-color: {{ section.settings.count_color_desktop }};
+    --tab-title-color: {{ section.settings.tab_title_color_desktop }};
+    --media-heading-color: {{ section.settings.media_heading_color_desktop }};
+    --media-desc-color: {{ section.settings.description_color_desktop }};
+    --btn-bg-color: {{ section.settings.button_bg_desktop }};
+    --btn-text-color: {{ section.settings.button_text_desktop }};
+    --accordion-title-color: {{ section.settings.accordion_title_color_desktop }};
+    --accordion-icon-color: {{ section.settings.accordion_icon_color_desktop }};
+
+    /* tailles d’images de fond – desktop */
+    --bg1-size: {{ section.settings.bg1_size_desktop }};
+    --bg2-size: {{ section.settings.bg2_size_desktop }};
+    --bg1-position: {{ section.settings.bg1_position }};
+    --bg2-position: {{ section.settings.bg2_position }};
+  }
+
+  {% for block in section.blocks %}
+    #hover-media-item-{{ block.id }}{
+      width: calc(100% - {{ section.blocks.size | times:150 }}px);
+      left: {{ forloop.index0 | times:150 }}px;
+      z-index: {{ 9 | minus: forloop.index0 }};
+    }
+  {% endfor %}
+
+  @media only screen and (max-width:767px){
+    #shopify-section-{{ section.id }}.shopify-section{
+      --section-top-space:{{ section.settings.top_space_mobile }}px;
+      --section-bottom-space:{{ section.settings.bottom_space_mobile }}px;
+
+      --sec-heading-color: {{ section.settings.heading_color_mobile }};
+      --count-color: {{ section.settings.count_color_mobile }};
+      --tab-title-color: {{ section.settings.tab_title_color_mobile }};
+      --media-heading-color: {{ section.settings.media_heading_color_mobile }};
+      --media-desc-color: {{ section.settings.description_color_mobile }};
+      --btn-bg-color: {{ section.settings.button_bg_mobile }};
+      --btn-text-color: {{ section.settings.button_text_mobile }};
+      --accordion-title-color: {{ section.settings.accordion_title_color_mobile }};
+      --accordion-icon-color: {{ section.settings.accordion_icon_color_mobile }};
+
+      --bg1-size: {{ section.settings.bg1_size_mobile }};
+      --bg2-size: {{ section.settings.bg2_size_mobile }};
+    }
+  }
+
+  /* Couches de fond */
+  #shopify-section-{{ section.id }} .bg-layer{
+    position:absolute; inset:0; border-radius: {{ section.settings.section_border_radius }}px;
+    background-repeat:no-repeat; background-position:center; will-change: transform;
+    pointer-events:none;
+  }
+  #shopify-section-{{ section.id }} .bg-primary{
+    z-index:0;
+    background-size: var(--bg1-size);
+    background-position: var(--bg1-position);
+  }
+  #shopify-section-{{ section.id }} .bg-secondary{
+    z-index:1;
+    background-size: var(--bg2-size);
+    background-position: var(--bg2-position);
+  }
+  /* Overlay au-dessus des couches */
+  #shopify-section-{{ section.id }} .section-bg-overlay{ z-index:2; }
+
+  @media screen and (min-width:768px){
+    #shopify-section-{{ section.id }} .hover-media-header{
+      display:flex; align-items:center; justify-content:center; gap:3rem;
+    }
+    #shopify-section-{{ section.id }} .hover-media-count.h1{ flex:0 0 auto; text-align:center; margin:0; }
+    #shopify-section-{{ section.id }} .hover-media-heading{ flex:1 1 auto; }
+  }
+
+  /* Application couleurs via variables */
+  #shopify-section-{{ section.id }} .heading-main{ color:var(--sec-heading-color); }
+  #shopify-section-{{ section.id }} .hover-media-count.h1{ color:var(--count-color); }
+  #shopify-section-{{ section.id }} .hover-media-header .hover-media-title{ color:var(--tab-title-color); }
+  #shopify-section-{{ section.id }} .hover-media-text .hover-media-title{ color:var(--media-heading-color); }
+  #shopify-section-{{ section.id }} .hover-media-desc{ color:var(--media-desc-color); }
+  #shopify-section-{{ section.id }} .button{ background-color:var(--btn-bg-color); color:var(--btn-text-color); border-color:var(--btn-bg-color); }
+  #shopify-section-{{ section.id }} .button .button-text{ color:inherit; }
+  #shopify-section-{{ section.id }} .collapsiable-summary{ color:var(--accordion-title-color); }
+  #shopify-section-{{ section.id }} .collapsiable-summary svg{ color:var(--accordion-icon-color); }
+</style>
+
+<div class="section-space color-scheme-{{ section.settings.color_scheme }}">
+  <div
+    id="shopify-section-{{ section.id }}"
+    class="shopify-section section-space color-scheme-{{ section.settings.color_scheme }}"
+    style="
+      /* fallback (optionnel) */
+      background-color: {{ section.settings.section_bg_color }};
+      {% if section.settings.section_bg_image != blank %}
+        background-image: url('{{ section.settings.section_bg_image | image_url: width: 2000 }}');
+        background-size: cover; background-position: center;
+      {% endif %}
+      border-radius: {{ section.settings.section_border_radius }}px;
+      position: relative; overflow: hidden;
+    "
+  >
+    {%- comment -%} Couches de fond personnalisables {%- endcomment -%}
+    <div
+      class="bg-layer bg-primary"
+      style="
+        background-color: {{ section.settings.bg1_color | color_modify: 'alpha', section.settings.bg1_opacity | divided_by: 100.0 }};
+        {% if section.settings.bg1_image != blank %}
+          background-image: url('{{ section.settings.bg1_image | image_url: width: 3000 }}');
+        {% endif %}
+      "
+    ></div>
+
+    <div
+      class="bg-layer bg-secondary"
+      style="
+        background-color: {{ section.settings.bg2_color | color_modify: 'alpha', section.settings.bg2_opacity | divided_by: 100.0 }};
+        {% if section.settings.bg2_image != blank %}
+          background-image: url('{{ section.settings.bg2_image | image_url: width: 3000 }}');
+        {% endif %}
+      "
+    ></div>
+
+    {% if section.settings.section_bg_image != blank %}
+      <div
+        class="section-bg-overlay"
+        style="
+          background-color: {{ section.settings.overlay_color }};
+          opacity: {{ section.settings.overlay_opacity | divided_by: 100.0 }};
+          position: absolute; inset: 0;
+        "
+      ></div>
+    {% endif %}
+
+    <!-- UNIQUE wrapper correct (le doublon a été retiré) -->
+    <div class="hover-media-wapper" style="position: relative; z-index: 3;">
+      {% if section.settings.heading != blank %}
+        <div class="container">
+          <section-heading class="section-header">
+            <h2 class="heading-main {{ section.settings.heading_size }}">
+              {{- section.settings.heading -}}
+            </h2>
+          </section-heading>
+        </div>
+      {% endif %}
+
+      {% if section.blocks.size > 0 %}
+        <hover-media-content class="hover-media-card media-height-{{ section.settings.media_height }}">
+          {% for block in section.blocks %}
+            <div id="hover-media-item-{{ block.id }}"
+                 class="hover-media-item{% if forloop.first %} active{% endif %}"
+                 data-media-item
+                 {{ block.shopify_attributes }}>
+              <div class="hover-media-header focus-inside"
+                   {% unless forloop.first %}tabindex="0"{% endunless %}
+                   data-media-header>
+                <div class="hover-media-count h1">0{{ forloop.index }}</div>
+                <div class="hover-media-heading">
+                  <h2 class="hover-media-title h4">{{ block.settings.title | default: 'Tab heading' }}</h2>
+                </div>
+              </div>
+
+              <div class="hover-media-content-wrapper">
+                <div class="hover-media-image">
+                  <div class="media-wrapper">
+                    {%- if block.settings.image -%}
+                      {%- liquid
+                        assign height = block.settings.image.width | divided_by: block.settings.image.aspect_ratio | round
+                        assign sizes = '100vw'
+                        assign widths = '375, 550, 750, 1100, 1500, 1780, 2000, 3000, 3840'
+                      -%}
+                      {{
+                        block.settings.image
+                        | image_url: width: 3840
+                        | image_tag: loading: 'lazy', height: height, sizes: sizes, widths: widths
+                      }}
+                    {% else %}
+                      {%- assign placeholder_slide = forloop.index | modulo: 2 -%}
+                      {%- if placeholder_slide == 1 -%}
+                        {{ 'hero-apparel-2' | placeholder_svg_tag: 'placeholder-svg' }}
+                      {%- else -%}
+                        {{ 'hero-apparel-1' | placeholder_svg_tag: 'placeholder-svg' }}
+                      {%- endif -%}
+                    {%- endif -%}
+                  </div>
+                </div>
+
+                <div class="hover-media-text">
+                  {% if block.settings.heading != blank %}
+                    <h2 class="hover-media-title {{ block.settings.heading_size | default: 'h4' }}">{{ block.settings.heading }}</h2>
+                  {% endif %}
+
+                  {% if block.settings.description != blank %}
+                    <div class="hover-media-desc {{ block.settings.description_size | default: 'text-size-large' }} rte">
+                      {%- if block.settings.description contains '<p' -%}
+                        {{ block.settings.description }}
+                      {%- else -%}
+                        <p>{{ block.settings.description }}</p>
+                      {%- endif -%}
+                    </div>
+                  {% endif %}
+
+                  {% if block.settings.button_text != blank and block.settings.button_url != blank %}
+                    <a href="{{ block.settings.button_url }}" class="button" {% unless forloop.first %}tabindex="-1"{% endunless %}>
+                      <span class="button-text">{{ block.settings.button_text }}</span>
+                    </a>
+                  {% endif %}
+                </div>
+              </div>
+            </div>
+
+            <accordion-element
+              class="collapsiable-details {% if forloop.first %}active{% endif %}"
+              aria-expanded="false">
+              <div class="collapsiable-summary" detail-summary>
+                <div class="collapsiable-heading">
+                  <span class="heading-count">0{{ forloop.index }}</span>
+                  <h2 class="hover-media-title">{{ block.settings.title | default: 'Tab heading' }}</h2>
+                </div>
+                <svg class="icon-xsmall" width="20" height="12" viewBox="0 0 20 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path fill-rule="evenodd" clip-rule="evenodd"
+                    d="M1.05849 1.05752C1.57919 0.536817 2.42341 0.536817 2.94411 1.05752L10.0013 8.11471L17.0585 1.05752C17.5792 0.536817 18.4234 0.536817 18.9441 1.05752C19.4648 1.57822 19.4648 2.42244 18.9441 2.94314L10.9441 10.9431C10.4234 11.4638 9.57919 11.4638 9.05849 10.9431L1.05849 2.94314C0.537794 2.42244 0.537794 1.57822 1.05849 1.05752Z"
+                    fill="currentcolor"></path>
+                </svg>
+              </div>
+
+              <div class="collapsiable-content rte"
+                   {% if forloop.first %}style="display:block"{% else %}style="display:none"{% endif %}
+                   detail-expand>
+                <div class="hover-media-image">
+                  <div class="media-wrapper">
+                    {%- if block.settings.image -%}
+                      {%- liquid
+                        assign height = block.settings.image.width | divided_by: block.settings.image.aspect_ratio | round
+                        assign sizes = '100vw'
+                        assign widths = '375, 550, 750, 1100, 1500, 1780, 2000, 3000, 3840'
+                      -%}
+                      {{
+                        block.settings.image
+                        | image_url: width: 3840
+                        | image_tag: loading: 'lazy', height: height, sizes: sizes, widths: widths
+                      }}
+                    {% else %}
+                      {%- assign placeholder_slide = forloop.index | modulo: 2 -%}
+                      {%- if placeholder_slide == 1 -%}
+                        {{ 'hero-apparel-2' | placeholder_svg_tag: 'placeholder-svg' }}
+                      {%- else -%}
+                        {{ 'hero-apparel-1' | placeholder_svg_tag: 'placeholder-svg' }}
+                      {%- endif -%}
+                    {%- endif -%}
+                  </div>
+                </div>
+
+                <div class="hover-media-text">
+                  {% if block.settings.heading != blank %}
+                    <h2 class="hover-media-title {{ block.settings.heading_size | default: 'h4' }}">{{ block.settings.heading }}</h2>
+                  {% endif %}
+
+                  {% if block.settings.description != blank %}
+                    <div class="hover-media-desc {{ block.settings.description_size | default: 'text-size-large' }} rte">
+                      {%- if block.settings.description contains '<p' -%}
+                        {{ block.settings.description }}
+                      {%- else -%}
+                        <p>{{ block.settings.description }}</p>
+                      {%- endif -%}
+                    </div>
+                  {% endif %}
+
+                  {% if block.settings.button_text != blank and block.settings.button_url != blank %}
+                    <a href="{{ block.settings.button_url }}" class="button">
+                      <span class="button-text">{{ block.settings.button_text }}</span>
+                    </a>
+                  {% endif %}
+                </div>
+              </div>
+            </accordion-element>
+          {% endfor %}
+        </hover-media-content>
+      {% endif %}
+    </div><!-- /.hover-media-wapper -->
+  </div><!-- /#shopify-section-{{ section.id }} -->
+</div>
+
+{% schema %}
+{
+  "name": "t:sections.hover_media_content.name",
+  "tag": "section",
+  "max_blocks": 5,
+  "class": "section-hover-media",
+  "disabled_on": { "groups": ["header", "footer"] },
+  "settings": [
+    { "type": "color_scheme", "id": "color_scheme", "default": "primary", "label": "t:global.color_scheme.label" },
+    { "type": "inline_richtext", "id": "heading", "default": "Heading here", "label": "t:global.general_labels.heading" },
+    { "type": "select", "id": "heading_size", "default": "h4", "label": "t:global.heading_size.label",
+      "options": [
+        { "value": "h1", "label": "t:global.heading_size.options.h1.label" },
+        { "value": "h2", "label": "t:global.heading_size.options.h2.label" },
+        { "value": "h3", "label": "t:global.heading_size.options.h3.label" },
+        { "value": "h4", "label": "t:global.heading_size.options.h4.label" },
+        { "value": "h5", "label": "t:global.heading_size.options.h5.label" },
+        { "value": "h6", "label": "t:global.heading_size.options.h6.label" }
+      ]
+    },
+
+    /* ==== COULEURS – DESKTOP ==== */
+    { "type": "header", "content": "Couleurs — Desktop" },
+    { "type": "color", "id": "heading_color_desktop", "label": "Titre de section", "default": "#111111" },
+    { "type": "color", "id": "count_color_desktop", "label": "Compteur (01/02…)", "default": "#111111" },
+    { "type": "color", "id": "tab_title_color_desktop", "label": "Titre d’onglet (en-tête)", "default": "#111111" },
+    { "type": "color", "id": "media_heading_color_desktop", "label": "Titre du contenu", "default": "#111111" },
+    { "type": "color", "id": "description_color_desktop", "label": "Description", "default": "#444444" },
+    { "type": "color", "id": "button_bg_desktop", "label": "Bouton – fond", "default": "#111111" },
+    { "type": "color", "id": "button_text_desktop", "label": "Bouton – texte", "default": "#FFFFFF" },
+    { "type": "color", "id": "accordion_title_color_desktop", "label": "Accordéon – titre", "default": "#111111" },
+    { "type": "color", "id": "accordion_icon_color_desktop", "label": "Accordéon – icône", "default": "#111111" },
+
+    /* ==== COULEURS – MOBILE ==== */
+    { "type": "header", "content": "Couleurs — Mobile" },
+    { "type": "color", "id": "heading_color_mobile", "label": "Titre de section (mobile)", "default": "#111111" },
+    { "type": "color", "id": "count_color_mobile", "label": "Compteur (mobile)", "default": "#111111" },
+    { "type": "color", "id": "tab_title_color_mobile", "label": "Titre d’onglet (mobile)", "default": "#111111" },
+    { "type": "color", "id": "media_heading_color_mobile", "label": "Titre du contenu (mobile)", "default": "#111111" },
+    { "type": "color", "id": "description_color_mobile", "label": "Description (mobile)", "default": "#444444" },
+    { "type": "color", "id": "button_bg_mobile", "label": "Bouton – fond (mobile)", "default": "#111111" },
+    { "type": "color", "id": "button_text_mobile", "label": "Bouton – texte (mobile)", "default": "#FFFFFF" },
+    { "type": "color", "id": "accordion_title_color_mobile", "label": "Accordéon – titre (mobile)", "default": "#111111" },
+    { "type": "color", "id": "accordion_icon_color_mobile", "label": "Accordéon – icône (mobile)", "default": "#111111" },
+
+    /* ==== FONDS : BACKGROUND & SECONDARY ==== */
+    { "type": "header", "content": "Fonds — Primaire" },
+    { "type": "color", "id": "bg1_color", "label": "Couleur du Background", "default": "#ffffff" },
+    { "type": "range", "id": "bg1_opacity", "label": "Opacité de la couleur", "min": 0, "max": 100, "step": 5, "unit": "%", "default": 100 },
+    { "type": "image_picker", "id": "bg1_image", "label": "Image du Background" },
+    { "type": "select", "id": "bg1_size_desktop", "label": "Taille image (Desktop)", "default": "cover",
+      "options": [{ "value": "cover", "label": "Cover" }, { "value": "contain", "label": "Contain" }, { "value": "auto", "label": "Auto" }]
+    },
+    { "type": "select", "id": "bg1_size_mobile", "label": "Taille image (Mobile)", "default": "cover",
+      "options": [{ "value": "cover", "label": "Cover" }, { "value": "contain", "label": "Contain" }, { "value": "auto", "label": "Auto" }]
+    },
+    { "type": "select", "id": "bg1_position", "label": "Position image", "default": "center",
+      "options": [
+        { "value": "center", "label": "Centre" },
+        { "value": "top", "label": "Haut" },
+        { "value": "bottom", "label": "Bas" },
+        { "value": "left", "label": "Gauche" },
+        { "value": "right", "label": "Droite" },
+        { "value": "center top", "label": "Centre haut" },
+        { "value": "center bottom", "label": "Centre bas" }
+      ]
+    },
+
+    { "type": "header", "content": "Fonds — Secondaire" },
+    { "type": "color", "id": "bg2_color", "label": "Couleur du Secondary background", "default": "#000000" },
+    { "type": "range", "id": "bg2_opacity", "label": "Opacité de la couleur", "min": 0, "max": 100, "step": 5, "unit": "%", "default": 0 },
+    { "type": "image_picker", "id": "bg2_image", "label": "Image du Secondary background" },
+    { "type": "select", "id": "bg2_size_desktop", "label": "Taille image (Desktop)", "default": "cover",
+      "options": [{ "value": "cover", "label": "Cover" }, { "value": "contain", "label": "Contain" }, { "value": "auto", "label": "Auto" }]
+    },
+    { "type": "select", "id": "bg2_size_mobile", "label": "Taille image (Mobile)", "default": "cover",
+      "options": [{ "value": "cover", "label": "Cover" }, { "value": "contain", "label": "Contain" }, { "value": "auto", "label": "Auto" }]
+    },
+    { "type": "select", "id": "bg2_position", "label": "Position image", "default": "center",
+      "options": [
+        { "value": "center", "label": "Centre" },
+        { "value": "top", "label": "Haut" },
+        { "value": "bottom", "label": "Bas" },
+        { "value": "left", "label": "Gauche" },
+        { "value": "right", "label": "Droite" },
+        { "value": "center top", "label": "Centre haut" },
+        { "value": "center bottom", "label": "Centre bas" }
+      ]
+    },
+
+    { "type": "header", "content": "Apparence (optionnel)" },
+    { "type": "color", "id": "section_bg_color", "label": "Couleur de fond (fallback)", "default": "#ffffff" },
+    { "type": "image_picker", "id": "section_bg_image", "label": "Image de fond (fallback)" },
+    { "type": "range", "id": "overlay_opacity", "label": "Opacité de l’overlay supérieur", "min": 0, "max": 100, "step": 5, "unit": "%", "default": 30 },
+    { "type": "color", "id": "overlay_color", "label": "Couleur de l’overlay supérieur", "default": "#000000" },
+
+    { "type": "range", "id": "section_border_radius", "label": "Arrondi des coins", "min": 0, "max": 100, "step": 1, "unit": "px", "default": 0 },
+
+    { "type": "select", "id": "media_height", "default": "medium", "label": "t:sections.hover_media_content.settings.media_height.label",
+      "options": [
+        { "value": "small", "label": "t:global.general_labels.small" },
+        { "value": "medium", "label": "t:global.general_labels.medium" },
+        { "value": "large", "label": "t:global.general_labels.large" }
+      ]
+    },
+
+    { "type": "header", "content": "t:global.section_spacing.label" },
+    { "type": "number", "id": "top_space_desktop", "label": "t:global.section_spacing.top_space_desktop.label", "default": 80 },
+    { "type": "number", "id": "bottom_space_desktop", "label": "t:global.section_spacing.bottom_space_desktop.label", "default": 80 },
+    { "type": "number", "id": "top_space_mobile", "label": "t:global.section_spacing.top_space_mobile.label", "default": 40 },
+    { "type": "number", "id": "bottom_space_mobile", "label": "t:global.section_spacing.bottom_space_mobile.label", "default": 40 }
+  ],
+  "blocks": [
+    {
+      "type": "media",
+      "name": "t:sections.hover_media_content.blocks.name",
+      "settings": [
+        { "type": "image_picker", "id": "image", "label": "t:global.general_labels.image" },
+        { "type": "text", "id": "title", "label": "t:sections.hover_media_content.settings.tab_heading.label", "default": "Tab heading here" },
+        { "type": "text", "id": "heading", "label": "t:global.general_labels.heading", "default": "Media heading here" },
+
+        /* textarea -> richtext pour gras/italique/liens */
+        { "type": "richtext", "id": "description", "label": "t:global.general_labels.description", "default": "<p>Media description here</p>" },
+
+        { "type": "select", "id": "heading_size", "default": "h2", "label": "t:global.heading_size.label",
+          "options": [
+            { "value": "h1", "label": "t:global.heading_size.options.h1.label" },
+            { "value": "h2", "label": "t:global.heading_size.options.h2.label" },
+            { "value": "h3", "label": "t:global.heading_size.options.h3.label" },
+            { "value": "h4", "label": "t:global.heading_size.options.h4.label" },
+            { "value": "h5", "label": "t:global.heading_size.options.h5.label" },
+            { "value": "h6", "label": "t:global.heading_size.options.h6.label" }
+          ]
+        },
+        { "type": "select", "id": "description_size", "default": "text-size-large", "label": "t:global.description_size.label",
+          "options": [
+            { "value": "text-size-xlarge", "label": "t:global.description_size.options.xlarge.label" },
+            { "value": "text-size-large", "label": "t:global.description_size.options.large.label" },
+            { "value": "text-size-medium", "label": "t:global.description_size.options.medium.label" },
+            { "value": "text-size-base", "label": "t:global.description_size.options.base.label" },
+            { "value": "text-size-small", "label": "t:global.description_size.options.small.label" },
+            { "value": "text-size-xsmall", "label": "t:global.description_size.options.x-small.label" }
+          ]
+        },
+
+        { "type": "header", "content": "t:global.general_labels.button" },
+        { "type": "text", "id": "button_text", "label": "t:global.general_labels.text", "default": "Shop now" },
+        { "type": "url", "id": "button_url", "label": "t:global.general_labels.link", "default": "/collections/all" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:sections.hover_media_content.presets.name",
+      "blocks": [{ "type": "media" }, { "type": "media" }, { "type": "media" }]
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,323 @@
+{{ 'store-locator.css' | asset_url | stylesheet_tag: preload: true }}
+{{ 'store-locator.css' | asset_url | stylesheet_tag }}
+<div class="section-space color-scheme-{{ section.settings.color_scheme }}">
+  <div class="container">
+    {% if section.settings.heading != blank %}
+      <section-heading class="section-header">
+        <h2 class="heading-main {{  section.settings.heading_size }}">{{ section.settings.heading }}</h2>
+      </section-heading>
+    {% endif %}
+    {% if section.blocks.size > 0 %}
+      <div class="grid-wrapper-flex mobile-scrollbar">
+        {% for block in section.blocks %}
+          {% liquid
+            assign media_aspect_ratio = section.settings.image_ratio
+            if media_aspect_ratio == 'landscape'
+              assign imageratio = 75
+            elsif media_aspect_ratio == 'square'
+              assign imageratio = 100
+            elsif media_aspect_ratio == 'portrait'
+              assign imageratio = 125
+            else
+              if block.settings.store_image != blank
+                assign imageratio = 1 | divided_by: block.settings.store_image.aspect_ratio | times: 100
+              else
+                assign imageratio = 100
+              endif
+            endif
+          %}
+          <div class="grid-item-md-4">
+            <div class="store-locator-item">
+              <div class="media-wrapper" style="--media-ratio:{{ imageratio }}%">
+                {%- if block.settings.store_image != blank -%}
+                  {%- liquid
+                    assign height = block.settings.store_image.width | divided_by: block.settings.store_image.aspect_ratio | round
+                    assign sizes = '100vw'
+                    assign widths = '375, 550, 750, 1100, 1500, 1780, 2000, 3000, 3840'
+                  -%}
+                  {{
+                    block.settings.store_image
+                    | image_url: width: 3840
+                    | image_tag: loading: 'lazy', height: height, sizes: sizes, widths: widths
+                  }}
+                {% else %}
+                  {%- assign placeholder_slide = forloop.index | modulo: 2 -%}
+                  {%- if placeholder_slide == 1 -%}
+                    {{ 'hero-apparel-2' | placeholder_svg_tag: 'placeholder-svg' }}
+                  {%- else -%}
+                    {{ 'hero-apparel-1' | placeholder_svg_tag: 'placeholder-svg' }}
+                  {%- endif -%}
+                {%- endif -%}
+              </div>
+              {% if block.settings.store_name != blank %}
+                <div class="store-locator-info">
+                  <h5 class="store-locator-title">{{ block.settings.store_name }}</h5>
+                </div>
+              {% endif %}
+              {% capture content %}
+                  {% if block.settings.store_name != blank  %}
+                  <h5 class="store-locator-title">{{ block.settings.store_name }}</h5>
+                {% endif %}
+                {% if block.settings.location != blank or block.settings.phone != null or block.settings.time_date  != null %}
+                  <ul class="list-style-none store-locator-cant">
+                    {% if block.settings.location != blank %}
+                      <li>
+                        <span class="store-locatore-icon">
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="11"
+                            height="16"
+                            viewBox="0 0 11 16"
+                            fill="none"
+                          >
+                            <path d="M5.5 0C2.45929 0 0 2.504 0 5.6C0 9.8 5.5 16 5.5 16C5.5 16 11 9.8 11 5.6C11 2.504 8.54071 0 5.5 0ZM5.5 7.6C4.41571 7.6 3.53571 6.704 3.53571 5.6C3.53571 4.496 4.41571 3.6 5.5 3.6C6.58429 3.6 7.46429 4.496 7.46429 5.6C7.46429 6.704 6.58429 7.6 5.5 7.6Z" fill="currentColor"></path>
+                          </svg>
+                        </span>
+                        <p>{{ block.settings.location }}</p>
+                      </li>
+                    {% endif %}
+                    {% if block.settings.phone != null %}
+                      <li>
+                        <span class="store-locatore-icon">
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="14"
+                            height="14"
+                            viewBox="0 0 14 14"
+                            fill="none"
+                          >
+                            <path d="M10.703 13.9001C7.86552 13.8964 5.1453 12.7676 3.1389 10.7612C1.13249 8.75478 0.00367788 6.03456 0 3.19708C0 2.34918 0.336826 1.53601 0.93638 0.936459C1.53593 0.336905 2.3491 7.94349e-05 3.197 7.94349e-05C3.37655 -0.00128819 3.55579 0.0150069 3.73215 0.0487294C3.90264 0.0739582 4.07024 0.115859 4.23255 0.173829C4.3467 0.213882 4.44842 0.283037 4.52765 0.374457C4.60688 0.465876 4.66088 0.576393 4.6843 0.69508L5.63645 4.86508C5.66211 4.97827 5.65902 5.09608 5.62746 5.20777C5.5959 5.31946 5.53686 5.42147 5.45575 5.50448C5.3654 5.60178 5.35845 5.60873 4.5036 6.05353C5.18817 7.55533 6.38927 8.76136 7.88825 9.45208C8.34 8.59028 8.34695 8.58333 8.44425 8.49298C8.52726 8.41187 8.62927 8.35283 8.74096 8.32127C8.85265 8.28971 8.97046 8.28662 9.08365 8.31228L13.2537 9.26443C13.3685 9.29109 13.4748 9.34654 13.5623 9.42557C13.6498 9.5046 13.7158 9.60461 13.7541 9.71618C13.8127 9.88114 13.8569 10.0509 13.8861 10.2235C13.9141 10.3982 13.928 10.5748 13.9278 10.7517C13.915 11.596 13.5687 12.4009 12.9645 12.9908C12.3603 13.5806 11.5473 13.9075 10.703 13.9001Z" fill="currentColor"></path>
+                          </svg>
+                        </span>
+                        <p>{{ block.settings.phone }}</p>
+                      </li>
+                    {% endif %}
+                    {% if block.settings.time_date != null %}
+                      <li>
+                        <span class="store-locatore-icon">
+                          <svg
+                            width="18"
+                            height="18"
+                            viewBox="0 0 18 18"
+                            fill="none"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <path d="M9 1.5C7.51664 1.5 6.0666 1.93987 4.83323 2.76398C3.59986 3.58809 2.63856 4.75943 2.07091 6.12987C1.50325 7.50032 1.35472 9.00832 1.64411 10.4632C1.9335 11.918 2.64781 13.2544 3.6967 14.3033C4.7456 15.3522 6.08197 16.0665 7.53683 16.3559C8.99168 16.6453 10.4997 16.4968 11.8701 15.9291C13.2406 15.3614 14.4119 14.4001 15.236 13.1668C16.0601 11.9334 16.5 10.4834 16.5 9C16.5 8.01509 16.306 7.03982 15.9291 6.12987C15.5522 5.21993 14.9997 4.39314 14.3033 3.6967C13.6069 3.00026 12.7801 2.44781 11.8701 2.0709C10.9602 1.69399 9.98492 1.5 9 1.5ZM12 9.75H9C8.80109 9.75 8.61033 9.67098 8.46967 9.53033C8.32902 9.38968 8.25 9.19891 8.25 9V6C8.25 5.80109 8.32902 5.61032 8.46967 5.46967C8.61033 5.32902 8.80109 5.25 9 5.25C9.19892 5.25 9.38968 5.32902 9.53033 5.46967C9.67099 5.61032 9.75 5.80109 9.75 6V8.25H12C12.1989 8.25 12.3897 8.32902 12.5303 8.46967C12.671 8.61032 12.75 8.80109 12.75 9C12.75 9.19891 12.671 9.38968 12.5303 9.53033C12.3897 9.67098 12.1989 9.75 12 9.75Z" fill="currentColor"></path>
+                          </svg>
+                        </span>
+                        <p>{{ block.settings.time_date }}</p>
+                      </li>
+                    {% endif %}
+                  </ul>
+                {% endif %}
+                {% if block.settings.map_link != blank %}
+                  <a href="{{  block.settings.map_link  }}" class="button" target="_blank">
+                    <span class="button-text">View map</span>
+                  </a>
+                {% endif %}
+              {% endcapture %}
+              {% if content != blank %}
+                <div class="store-locator-hover">
+                  {{ content }}
+                </div>
+              {% endif %}
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+    {% endif %}
+  </div>
+</div>
+<style>
+  #shopify-section-{{ section.id }} {
+    --section-top-space:{{ section.settings.top_space_desktop }}px;
+    --section-bottom-space:{{ section.settings.bottom_space_desktop }}px;
+    --space-column: {{ section.settings.column_gap }}px;
+  }
+
+  @media only screen and (max-width:767px) {
+    #shopify-section-{{ section.id }}.shopify-section{
+      --section-top-space:{{ section.settings.top_space_mobile }}px;
+      --section-bottom-space:{{ section.settings.bottom_space_mobile }}px;
+    }
+
+  }
+</style>
+{% schema %}
+{
+  "name": "t:sections.store_locator.name",
+  "class":"section-store-locator",
+  "tag": "section",
+   "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "settings": [
+    {
+      "type": "inline_richtext",
+      "id": "heading",
+      "default": "Store locator",
+        "label":"t:global.general_labels.heading"
+    },
+    {
+      "type": "select",
+      "id": "heading_size",
+      "default": "h2",
+      "label": "t:global.heading_size.label",
+      "options": [
+         {
+          "value": "h1",
+          "label": "t:global.heading_size.options.h1.label"
+        },
+        {
+          "value": "h2",
+          "label": "t:global.heading_size.options.h2.label"
+        },
+        {
+          "value": "h3",
+            "label": "t:global.heading_size.options.h3.label"
+        },
+        {
+          "value": "h4",
+         "label": "t:global.heading_size.options.h4.label"
+        },
+        {
+          "value": "h5",
+           "label": "t:global.heading_size.options.h5.label"
+        },
+       {
+          "value": "h6",
+          "label": "t:global.heading_size.options.h6.label"
+        }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "image_ratio",
+      "label": "t:global.grid_image_size.label",
+      "default": "adapt",
+      "options": [
+           {
+          "value": "adapt",
+          "label": "t:global.grid_image_size.options.auto.label"
+        },
+        {
+          "value": "landscape",
+          "label": "t:global.grid_image_size.options.landscape.label"
+        },
+        {
+          "value": "portrait",
+          "label": "t:global.grid_image_size.options.portrait.label"
+        },
+        {
+          "value": "square",
+          "label": "t:global.grid_image_size.options.square.label"
+        }
+        ]
+    },
+    {
+      "type": "range",
+      "id":"column_gap",
+      "label":"t:sections.store_locator.settings.column_gap.label",
+      "min":0,
+      "max":50,
+      "default":20,
+      "step": 1,
+      "unit": "px"
+    },
+    {
+        "type": "color_scheme",
+        "id": "color_scheme",
+        "default": "primary",
+      "label": "t:global.color_scheme.label"
+    },
+    {
+      "type": "header",
+       "content": "t:global.section_spacing.label"
+    },
+     {
+      "type": "number",
+      "id": "top_space_desktop",
+      "label": "t:global.section_spacing.top_space_desktop.label",
+      "default": 80,
+
+    },
+    {
+      "type": "number",
+      "id": "bottom_space_desktop",
+       "label": "t:global.section_spacing.bottom_space_desktop.label",
+      "default": 80
+
+    },
+    {
+      "type": "number",
+      "id": "top_space_mobile",
+      "label": "t:global.section_spacing.top_space_mobile.label",
+      "default": 40
+    },
+    {
+      "type": "number",
+      "id": "bottom_space_mobile",
+      "label": "t:global.section_spacing.bottom_space_mobile.label",
+      "default": 40
+    }
+  ],
+  "blocks": [
+    {
+      "type": "store",
+      "name": "t:sections.store_locator.blocks.name",
+      "settings": [
+        {
+          "type": "image_picker",
+           "id": "store_image",
+          "label":"t:global.general_labels.image"
+        },
+        {
+          "type": "text",
+          "id": "store_name",
+         "label": "t:sections.store_locator.blocks.settings.store_name.label",
+          "default":"Store name"
+        },
+        {
+          "type": "text",
+          "id": "location",
+          "label": "t:sections.store_locator.blocks.settings.location.label",
+        },
+        {
+          "type":"text",
+          "id":"phone",
+           "label": "t:sections.store_locator.blocks.settings.phone.label",
+          "default":"(343)-444-343"
+        },
+        {
+          "type":"text",
+          "id":"time_date",
+          "label": "t:sections.store_locator.blocks.settings.time_date.label",
+          "default":"Mon–Sat: 11am–6pm, Sun: 12–6pm"
+        },
+        {
+          "type":"url",
+          "id":"map_link",
+         "label": "t:sections.store_locator.blocks.settings.map_link.label",
+        }
+
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:sections.store_locator.presets.name",
+      "blocks": [
+        {
+          "type": "store"
+        },
+        {
+          "type": "store"
+        },
+        {
+          "type": "store"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

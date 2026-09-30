@@ -1,0 +1,82 @@
+{% if section.settings.enable_language_selector %}
+  <div class="language-selector{% if position == 'header-desktop' %} d-none d-lg-flex{% elsif position == 'header-mobile' %} d-block d-lg-none{% endif %}">
+    {% assign formID = 'localization_form_language_language-' | append: position %}
+    {% form 'localization', id: formID, class: 'shopify-localization-form' %}
+      <dropdown-element class="detail-box custom-select language-selector-inner">
+        <button type="button" class="detail-summary custom-select-button" detail-summary>
+          <span class="language-selector-text">{{- localization.language.endonym_name | capitalize -}}</span>
+          <span class="language-selector-arrow">
+            <svg width="9" height="7" viewBox="0 0 9 7" fill="none">
+              <g clip-path="url(#clip0_1_1441)">
+                  <path d="M6.85144 2L3.85144 5L0.85144 2" stroke="currentcolor" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"></path>
+              </g>
+              <defs>
+                  <clipPath id="clip0_1_1441">
+                      <rect width="8" height="6" fill="white" transform="translate(0.10144 0.5)"></rect>
+                  </clipPath>
+              </defs>
+            </svg>
+          </span>
+        </button>
+        <div class="detail-expand language-selector-content" detail-expand>
+          <ul class="language-selector-list list-style-none">
+            {% for language in localization.available_languages %}
+              <li class="language-selector-item">
+                <button
+                  type="submit"
+                  name="language_code"
+                  id="language-{{ section.id }}-{{ forloop.index }}"
+                  value="{{ language.iso_code }}"
+                  class="custom-select-item"
+                >
+                  {{ language.endonym_name | capitalize }}
+                </button>
+              </li>
+            {% endfor %}
+          </ul>
+        </div>
+      </dropdown-element>
+    {% endform %}
+  </div>
+{% endif %}
+{% if section.settings.enable_currency_selector %}
+  <div class="currency-selector{% if position == 'header-desktop' %} d-none d-lg-flex{% elsif position == 'header-mobile' %} d-block d-lg-none{% endif %}">
+    {% assign formID = 'localization_form_language_currency-' | append: position %}
+    {% form 'localization', id: formID, class: 'shopify-localization-form' %}
+      <dropdown-element class="detail-box custom-select currency-selector">
+        <button type="button" class="detail-summary currency-selected-item" detail-summary>
+          <i class="country-flags country-flags-{{ localization.country.iso_code }}"> </i>
+          <span class="custom-select-text">{{- localization.country.currency.iso_code -}}</span>
+          <span class="dropdown-icon">
+            <svg width="9" height="7" viewBox="0 0 9 7" fill="none">
+              <g clip-path="url(#clip0_1_1441)">
+                  <path d="M6.85144 2L3.85144 5L0.85144 2" stroke="currentcolor" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"></path>
+              </g>
+              <defs>
+                  <clipPath id="clip0_1_1441">
+                      <rect width="8" height="6" fill="white" transform="translate(0.10144 0.5)"></rect>
+                  </clipPath>
+              </defs>
+            </svg>
+          </span>
+        </button>
+        <ul class="detail-expand list-style-none currency-selector-list" detail-expand>
+          {% for country in localization.available_countries %}
+            <li class="currency-selector-item">
+              <button
+                type="submit"
+                name="country_code"
+                id="country-{{ section.id }}-{{ forloop.index }}"
+                value="{{ country.iso_code }}"
+                class="custom-select-item"
+              >
+                <i class="country-flags country-flags-{{ country.iso_code }}"></i> {{ country.currency.iso_code }}
+                {{ country.currency.symbol }}
+              </button>
+            </li>
+          {% endfor %}
+        </ul>
+      </dropdown-element>
+    {% endform %}
+  </div>
+{% endif %}

@@ -1,0 +1,67 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "main-article",
+      "settings": {
+        "show_image": true,
+        "banner_height": "large",
+        "overlay_title": true,
+        "heading_size": "h4",
+        "show_author": true,
+        "show_date": true,
+        "show_tags": true,
+        "enable_comments": true,
+        "show_comments": true,
+        "show_social": true,
+        "color_scheme": "one",
+        "overlay_color": "#000000",
+        "overlay_opacity": 53,
+        "content_max_width": 1200,
+        "accent_color": "#b88a2a",
+        "heading_color": "#1f1f1f",
+        "text_color": "#3f3f3f",
+        "meta_color": "#7a7a7a",
+        "card_bg": "#ffffff",
+        "card_radius": 24,
+        "hero_radius": 28,
+        "top_space_desktop": 0,
+        "bottom_space_desktop": 80,
+        "top_space_mobile": 40,
+        "bottom_space_mobile": 40
+      }
+    },
+    "related-post": {
+      "type": "related-post",
+      "settings": {
+        "heading": "Articles similaires",
+        "heading_size": "h4",
+        "grid_image_size": "adapt",
+        "blog_limit": 3,
+        "column_gap": 20,
+        "enable_card_view": false,
+        "show_date": true,
+        "show_comment": true,
+        "show_author": true,
+        "show_excerpt": true,
+        "color_scheme": "two",
+        "top_space_desktop": 60,
+        "bottom_space_desktop": 50,
+        "top_space_mobile": 40,
+        "bottom_space_mobile": 40
+      }
+    }
+  },
+  "order": [
+    "main",
+    "related-post"
+  ]
+}

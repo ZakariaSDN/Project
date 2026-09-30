@@ -1,0 +1,500 @@
+{{ 'contact.css' | asset_url | stylesheet_tag }}
+
+<style>
+  #shopify-section-{{ section.id }}{
+    --section-top-space:{{ section.settings.top_space_desktop }}px;
+    --section-bottom-space:{{ section.settings.bottom_space_desktop }}px;
+
+    /* --------- Typo par champ (taille + poids) --------- */
+    --fs-company: {{ section.settings.fs_company }}px;
+    --fw-company: {% if section.settings.bold_company %}700{% else %}400{% endif %};
+
+    --fs-firstname: {{ section.settings.fs_firstname }}px;
+    --fw-firstname: {% if section.settings.bold_firstname %}700{% else %}400{% endif %};
+
+    --fs-lastname: {{ section.settings.fs_lastname }}px;
+    --fw-lastname: {% if section.settings.bold_lastname %}700{% else %}400{% endif %};
+
+    --fs-email: {{ section.settings.fs_email }}px;
+    --fw-email: {% if section.settings.bold_email %}700{% else %}400{% endif %};
+
+    --fs-phone: {{ section.settings.fs_phone }}px;
+    --fw-phone: {% if section.settings.bold_phone %}700{% else %}400{% endif %};
+
+    --fs-project-type: {{ section.settings.fs_project_type }}px;
+    --fw-project-type: {% if section.settings.bold_project_type %}700{% else %}400{% endif %};
+
+    --fs-volume: {{ section.settings.fs_volume }}px;
+    --fw-volume: {% if section.settings.bold_volume %}700{% else %}400{% endif %};
+
+    --fs-catalog: {{ section.settings.fs_catalog }}px;
+    --fw-catalog: {% if section.settings.bold_catalog %}700{% else %}400{% endif %};
+
+    --fs-message: {{ section.settings.fs_message }}px;
+    --fw-message: {% if section.settings.bold_message %}700{% else %}400{% endif %};
+
+    /* Contact information – couleurs/gras des labels */
+    --info-email-color: {{ section.settings.info_email_color }};
+    --info-email-weight: {% if section.settings.info_email_bold %}700{% else %}400{% endif %};
+    --info-phone-color: {{ section.settings.info_phone_color }};
+    --info-phone-weight: {% if section.settings.info_phone_bold %}700{% else %}400{% endif %};
+    --info-address-color: {{ section.settings.info_address_color }};
+    --info-address-weight: {% if section.settings.info_address_bold %}700{% else %}400{% endif %};
+  }
+
+  /* Applique la taille/gras aux champs + placeholders */
+  #shopify-section-{{ section.id }} .field-company,
+  #shopify-section-{{ section.id }} .field-company::placeholder{font-size:var(--fs-company);font-weight:var(--fw-company);}
+  #shopify-section-{{ section.id }} .field-firstname,
+  #shopify-section-{{ section.id }} .field-firstname::placeholder{font-size:var(--fs-firstname);font-weight:var(--fw-firstname);}
+  #shopify-section-{{ section.id }} .field-lastname,
+  #shopify-section-{{ section.id }} .field-lastname::placeholder{font-size:var(--fs-lastname);font-weight:var(--fw-lastname);}
+  #shopify-section-{{ section.id }} .field-email,
+  #shopify-section-{{ section.id }} .field-email::placeholder{font-size:var(--fs-email);font-weight:var(--fw-email);}
+  #shopify-section-{{ section.id }} .field-phone,
+  #shopify-section-{{ section.id }} .field-phone::placeholder{font-size:var(--fs-phone);font-weight:var(--fw-phone);}
+  #shopify-section-{{ section.id }} .field-project-type{font-size:var(--fs-project-type);font-weight:var(--fw-project-type);}
+  #shopify-section-{{ section.id }} .field-volume{font-size:var(--fs-volume);font-weight:var(--fw-volume);}
+  #shopify-section-{{ section.id }} .field-catalog-label span{font-size:var(--fs-catalog);font-weight:var(--fw-catalog);}
+  #shopify-section-{{ section.id }} .field-message,
+  #shopify-section-{{ section.id }} .field-message::placeholder{font-size:var(--fs-message);font-weight:var(--fw-message);}
+
+  /* Contact information – style des labels */
+  #shopify-section-{{ section.id }} .contact-info-list li.info-email .contact-label{color:var(--info-email-color);font-weight:var(--info-email-weight);}
+  #shopify-section-{{ section.id }} .contact-info-list li.info-phone .contact-label{color:var(--info-phone-color);font-weight:var(--info-phone-weight);}
+  #shopify-section-{{ section.id }} .contact-info-list li.info-address .contact-label{color:var(--info-address-color);font-weight:var(--info-address-weight);}
+
+  @media only screen and (max-width:767px){
+    #shopify-section-{{ section.id }}.shopify-section{
+      --section-top-space:{{ section.settings.top_space_mobile }}px;
+      --section-bottom-space:{{ section.settings.bottom_space_mobile }}px;
+    }
+  }
+
+  {% if section.settings.form_bg != blank %}
+  #shopify-section-{{ section.id }} .contact-us-form-wrapper{
+    background:url('{{ section.settings.form_bg | image_url: width: 1024 }}') no-repeat center/cover;
+    border-radius: var(--block-card-radius);
+    padding:24px;
+  }
+  {% endif %}
+</style>
+
+<div class="section-space color-scheme-secondary">
+  <div class="container">
+    {% if section.settings.heading != blank %}
+      <section-heading class="section-header">
+        <h2 class="heading-main {{ section.settings.heading_size }}">
+          {{- section.settings.heading -}}
+        </h2>
+      </section-heading>
+    {% endif %}
+
+    {% liquid
+      assign infoStatus = false
+      if section.settings.info_email_label != blank and section.settings.info_email_content != blank
+        assign infoStatus = true
+      endif
+      if section.settings.info_phone_label != blank and section.settings.info_phone_content != blank
+        assign infoStatus = true
+      endif
+      if section.settings.info_address_label != blank and section.settings.info_address_content != blank
+        assign infoStatus = true
+      endif
+      capture socialMediaIcons
+        if section.settings.show_social
+          render 'social-media-icons'
+        endif
+      endcapture
+    %}
+
+    <div class="grid-wrapper-flex content-justify-center contact-form-alignment-{{ section.settings.form_position }}">
+      <div class="grid-item-l-7">
+        <div class="contact-us-form-wrapper text-align-center">
+          <div class="contact-us-form-card">
+            {% if section.settings.form_heading != blank %}
+              <h4 class="contact-us-title">{{ section.settings.form_heading }}</h4>
+            {% endif %}
+
+
+
+            
+            {%- form 'contact', id: 'ContactUsForm', class: 'contact-us-form' -%}
+              <input type="hidden" name="contact[form_name]" value="Formulaire Revendeur">
+
+
+
+              <div class="form-flex-row">
+
+                <!-- Prénom (1er) -->
+                <div class="form-flex-item">
+                  <label class="visually-hidden" for="ContactFirstName-{{ section.id }}">{{ 'templates.contact.form.firstname' | t }}</label>
+                  <input
+                    type="text"
+                    id="ContactFirstName-{{ section.id }}"
+                    name="contact[first_name]"
+                    class="form-control-input field-firstname"
+                    autocomplete="given-name"
+                    autocapitalize="words"
+                    placeholder="{{ 'templates.contact.form.firstname' | t }}"
+                    {% if section.settings.req_firstname %}required aria-required="true"{% endif %}
+                    value="{% if form.first_name %}{{ form.first_name }}{% elsif customer %}{{ customer.first_name }}{% endif %}"
+                  >
+                </div>
+
+                <!-- Nom (2e) -->
+                <div class="form-flex-item">
+                  <label class="visually-hidden" for="ContactLastName-{{ section.id }}">{{ 'templates.contact.form.lastname' | t }}</label>
+                  <input
+                    type="text"
+                    id="ContactLastName-{{ section.id }}"
+                    name="contact[last_name]"
+                    class="form-control-input field-lastname"
+                    autocomplete="family-name"
+                    autocapitalize="words"
+                    placeholder="{{ 'templates.contact.form.lastname' | t }}"
+                    {% if section.settings.req_lastname %}required aria-required="true"{% endif %}
+                    value="{% if form.last_name %}{{ form.last_name }}{% elsif customer %}{{ customer.last_name }}{% endif %}"
+                  >
+                </div>
+
+                {%- if section.settings.show_company -%}
+                <!-- Entreprise (3e) – ancien « Nom / Entreprise » -->
+                <div class="form-flex-item">
+                  <label class="visually-hidden" for="ContactCompany-{{ section.id }}">Entreprise</label>
+                  <input
+                    type="text"
+                    id="ContactCompany-{{ section.id }}"
+                    name="contact[name]"
+                    class="form-control-input field-company"
+                    placeholder="Entreprise"
+                    {% if section.settings.req_company %}required aria-required="true"{% endif %}
+                  >
+                </div>
+                {%- endif -%}
+
+                <!-- Email -->
+                <div class="form-flex-item">
+                  <label class="visually-hidden" for="ContactEmail-{{ section.id }}">{{ 'templates.contact.form.email' | t }}</label>
+                  <input
+                    type="email"
+                    id="ContactEmail-{{ section.id }}"
+                    name="contact[email]"
+                    class="form-control-input field-email"
+                    autocomplete="email"
+                    value="{% if form.email %}{{ form.email }}{% elsif customer %}{{ customer.email }}{% endif %}"
+                    placeholder="{{ 'templates.contact.form.email' | t }}"
+                    {% if section.settings.req_email %}required aria-required="true"{% endif %}
+                    spellcheck="false"
+                  >
+                </div>
+
+                {%- if section.settings.show_phone -%}
+                <!-- Téléphone -->
+                <div class="form-flex-item">
+                  <label class="visually-hidden" for="ContactPhone-{{ section.id }}">{{ 'templates.contact.form.phone' | t }}</label>
+                  <input
+                    type="tel"
+                    id="ContactPhone-{{ section.id }}"
+                    name="contact[phone]"
+                    class="form-control-input field-phone"
+                    autocomplete="tel"
+                    placeholder="{{ 'templates.contact.form.phone' | t }}"
+                    {% if section.settings.req_phone %}required aria-required="true"{% endif %}
+                  >
+                </div>
+                {%- endif -%}
+              </div>
+
+              {%- if section.settings.show_project_type -%}
+              <!-- Type de demande -->
+              <div class="form-flex-item">
+                <label class="visually-hidden" for="ContactProjectType-{{ section.id }}">Type de demande</label>
+                <select name="contact[project_type]" id="ContactProjectType-{{ section.id }}" class="form-control-input field-project-type" {% if section.settings.req_project_type %}required aria-required="true"{% endif %}>
+                  <option value="">{% if section.settings.req_project_type %}Type de demande *{% else %}Type de demande{% endif %}</option>
+                  <option value="Marque blanche">Marque blanche</option>
+                  <option value="Personnalisation">Personnalisation</option>
+                  <option value="Revente">Revente</option>
+                  <option value="Partenariat">Partenariat</option>
+                </select>
+              </div>
+              {%- endif -%}
+
+              {%- if section.settings.show_volume -%}
+              <!-- Volume estimé -->
+              <div class="form-flex-item">
+                <span class="visually-hidden">Volume estimé</span>
+
+                {% if section.settings.volume_input_type == 'radios' %}
+                  <div role="group" aria-labelledby="ContactVolumeLegend-{{ section.id }}">
+                    <label id="ContactVolumeLegend-{{ section.id }}">Volume estimé{% if section.settings.req_volume %} *{% endif %}</label>
+                    <div class="field-volume">
+                      <label><input type="radio" name="contact[volume]" value="10–50" {% if section.settings.req_volume %}required aria-required="true"{% endif %}> 10–50</label><br>
+                      <label><input type="radio" name="contact[volume]" value="50–200"> 50–200</label><br>
+                      <label><input type="radio" name="contact[volume]" value="200–500"> 200–500</label><br>
+                      <label><input type="radio" name="contact[volume]" value="500+"> 500+</label><br>
+                      <label><input type="radio" name="contact[volume]" value="À déterminer"> À déterminer</label>
+                    </div>
+                  </div>
+
+                {% elsif section.settings.volume_input_type == 'checkboxes' %}
+                  <div role="group" aria-labelledby="ContactVolumeLegend-{{ section.id }}">
+                    <label id="ContactVolumeLegend-{{ section.id }}">Volume estimé{% if section.settings.req_volume %} *{% endif %}</label>
+                    <div class="field-volume">
+                      <label><input type="checkbox" name="contact[volume][]" value="10–50" {% if section.settings.req_volume %}required aria-required="true"{% endif %}> 10–50</label><br>
+                      <label><input type="checkbox" name="contact[volume][]" value="50–200"> 50–200</label><br>
+                      <label><input type="checkbox" name="contact[volume][]" value="200–500"> 200–500</label><br>
+                      <label><input type="checkbox" name="contact[volume][]" value="500+"> 500+</label><br>
+                      <label><input type="checkbox" name="contact[volume][]" value="À déterminer"> À déterminer</label>
+                    </div>
+                  </div>
+
+                {% else %}
+                  <label class="visually-hidden" for="ContactVolume-{{ section.id }}">Volume estimé</label>
+                  <select id="ContactVolume-{{ section.id }}" name="contact[volume]" class="form-control-input field-volume" {% if section.settings.req_volume %}required aria-required="true"{% endif %}>
+                    <option value="">{% if section.settings.req_volume %}Volume estimé *{% else %}Volume estimé{% endif %}</option>
+                    <option value="10–50">10–50</option>
+                    <option value="50–200">50–200</option>
+                    <option value="200–500">200–500</option>
+                    <option value="500+">500+</option>
+                    <option value="À déterminer">À déterminer</option>
+                  </select>
+                {% endif %}
+              </div>
+              {%- endif -%}
+
+              {%- if section.settings.show_catalog -%}
+              <!-- Catalogue -->
+              <div class="form-flex-item">
+                <label class="field-catalog-label">
+                  <input type="checkbox" name="contact[catalog]" value="Oui" {% if section.settings.req_catalog %}required aria-required="true"{% endif %}>
+                  <span>Souhaitez-vous recevoir nos tarifs ?{% if section.settings.req_catalog %} *{% endif %}</span>
+                </label>
+              </div>
+              {%- endif -%}
+
+              <!-- Message -->
+              <div class="form-flex-item">
+                <label class="visually-hidden" for="ContactMessage-{{ section.id }}">{{ 'templates.contact.form.comment' | t }}</label>
+                <textarea
+                  rows="6"
+                  cols="8"
+                  id="ContactMessage-{{ section.id }}"
+                  name="contact[message]"
+                  class="form-control-input field-message"
+                  placeholder="{{ 'templates.contact.form.comment' | t }}"
+                  {% if section.settings.req_message %}required aria-required="true"{% endif %}
+                ></textarea>
+              </div>
+
+              {%- if form.posted_successfully? -%}
+                <h2 class="form-status form-status-list form__message" tabindex="-1" autofocus>
+                  {{ 'templates.contact.form.post_success' | t }}
+                </h2>
+              {%- elsif form.errors -%}
+                <div class="form__message">
+                  <h2 class="form-status caption-large text-body" role="alert" tabindex="-1" autofocus>
+                    {{ 'templates.contact.form.error_heading' | t }}
+                  </h2>
+                </div>
+                <ul class="form-status-list caption-large" role="list">
+                  <li>
+                    <a href="#ContactEmail-{{ section.id }}" class="link">
+                      {{ form.errors.translated_fields.email | capitalize }}
+                      {{ form.errors.messages.email }}
+                    </a>
+                  </li>
+                </ul>
+              {%- endif -%}
+
+              <div class="form-flex-item align-left">
+                <button type="submit" class="button button-medium">
+                  <span class="button-text">{{ section.settings.form_button_text | default: 'Envoyer' }}</span>
+                </button>
+              </div>
+            {% endform %}
+          </div>
+        </div>
+      </div>
+
+      {% if section.settings.info_heading != blank or infoStatus or socialMediaIcons != blank %}
+      <div class="grid-item-l-5">
+        <div class="contact-information">
+          {% if section.settings.info_heading != blank %}
+            <h5 class="contact-info-title">{{ section.settings.info_heading }}</h5>
+          {% endif %}
+          {% if infoStatus %}
+            <ul class="list-style-none contact-info-list">
+              {% if section.settings.info_email_label != blank and section.settings.info_email_content != blank %}
+                <li class="info-email">
+                  <span class="contact-icon-wrapper">
+                    <svg class="icon-small" width="19" height="19" viewBox="0 0 19 19" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M16.8631 12.4595C16.2346 11.8747 15.3253 11.6734 14.4896 11.9376L13.3932 12.2772C12.611 12.5224 11.7485 12.4344 11.0933 12.0382C9.50881 11.0823 8.18505 9.83087 7.14877 8.3216C6.72089 7.69273 6.62061 6.8815 6.88135 6.14572L7.24237 5.12068C7.52317 4.33459 7.30923 3.47934 6.68746 2.88821L5.2233 1.51728C4.75531 1.07708 4.11348 0.838107 3.43823 0.882128C2.77635 0.91986 2.16127 1.228 1.75344 1.71852L1.24533 2.33481C-0.432773 4.36604 -0.412716 7.18964 1.29213 9.20201C3.89285 12.2834 6.87466 15.0819 10.144 17.5345C11.227 18.3457 12.5307 18.7482 13.8278 18.7482C15.1047 18.7482 16.3817 18.3583 17.4514 17.5785L18.1066 17.1005C18.6281 16.7169 18.9557 16.1384 18.9958 15.5095C19.0359 14.8869 18.7885 14.2769 18.3205 13.8367L16.8631 12.4595Z" fill="currentcolor"></path><path d="M18.1669 9.73243C18.1977 9.73243 18.2298 9.73054 18.2612 9.72614C18.6269 9.67709 18.8816 9.35951 18.8301 9.01552C18.211 4.90023 14.7231 1.62007 10.348 1.03774C9.98366 0.988064 9.64403 1.22892 9.59255 1.57228C9.54107 1.91627 9.79579 2.23447 10.1615 2.2829C13.9496 2.78662 16.9702 5.62783 17.5057 9.1916C17.5525 9.50603 17.8393 9.73243 18.1669 9.73243Z" fill="currentcolor"></path><path d="M15.5261 10.0865C15.5568 10.0865 15.5889 10.0847 15.6204 10.0802C15.9861 10.0318 16.2408 9.71362 16.1893 9.36963C15.7367 6.35423 13.1821 3.95071 9.97498 3.52434C9.60928 3.4734 9.27098 3.71614 9.2195 4.0595C9.16802 4.40349 9.42275 4.72169 9.78845 4.77012C12.4086 5.11788 14.4958 7.08182 14.8656 9.54571C14.9123 9.86015 15.1985 10.0865 15.5261 10.0865Z" fill="currentcolor"></path><path d="M9.59095 6.00058C9.22391 5.9509 8.88762 6.19427 8.83815 6.53826C8.78867 6.88225 9.04473 7.1992 9.41044 7.24636C10.8719 7.43376 12.0312 8.52421 12.2291 9.89765C12.2746 10.2133 12.5614 10.4423 12.891 10.4423C12.9211 10.4423 12.9512 10.4404 12.9819 10.4366C13.3476 10.3901 13.6044 10.0731 13.5542 9.72912C13.2754 7.79725 11.6468 6.26407 9.59095 6.00058Z" fill="currentcolor"></path></svg>
+                  </span>
+                  <div class="contact-info-text">
+  <span class="contact-label">{{ section.settings.info_email_label }}</span>
+  {% assign emails_raw = section.settings.info_email_content | default: '' | replace: '\r\n', '\n' %}
+  {% assign emails = emails_raw | split: '\n' %}
+  {% for em in emails %}
+    {% assign e = em | strip %}
+    {% if e != '' %}
+      <a href="mailto:{{ e }}">{{ e }}</a>{% unless forloop.last %}<br>{% endunless %}
+    {% endif %}
+  {% endfor %}
+</div>
+                </li>
+              {% endif %}
+
+              {% if section.settings.info_phone_label != blank and section.settings.info_phone_content != blank %}
+                <li class="info-phone">
+                  <span class="contact-icon-wrapper">
+                    <svg class="icon-small" width="22" height="18" viewBox="0 0 22 18" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M19.1254 0.285156H2.87464C1.27502 0.285156 0 1.706 0 3.43145V14.1389C0 15.8896 1.29816 17.2852 2.87464 17.2852H19.1254C20.725 17.2852 22 15.8643 22 14.1389V3.43145C22 1.68067 20.7018 0.285156 19.1254 0.285156ZM18.2908 13.403C18.1517 13.5807 17.9663 13.6568 17.7808 13.6568C17.6184 13.6568 17.4563 13.606 17.3403 13.4791L13.4225 9.77455L11.5214 11.5761C11.22 11.8805 10.7564 11.8805 10.4319 11.5761L8.53085 9.77455L4.63632 13.4791C4.31178 13.7835 3.77862 13.6821 3.56985 13.2253C3.43079 12.9209 3.52344 12.5402 3.75533 12.3372L7.48767 8.78502L3.75533 5.25818C3.50032 5.00438 3.40767 4.59853 3.59298 4.29396C3.82487 3.88795 4.31159 3.81183 4.61304 4.11626L10.8259 10.0028C10.9185 10.0789 11.0345 10.0789 11.1273 10.0028L17.3401 4.11626C17.6415 3.81184 18.1283 3.88795 18.3602 4.29396C18.5457 4.59838 18.4528 5.02969 18.1978 5.25818L14.466 8.78502L18.2215 12.3627C18.5229 12.6163 18.546 13.0731 18.291 13.403L18.2908 13.403Z" fill="currentcolor"></path></svg>
+                  </span>
+                  <div class="contact-info-text">
+                    <span class="contact-label">{{ section.settings.info_phone_label }}</span>
+                    <a href="tel:{{ section.settings.info_phone_content }}">{{- section.settings.info_phone_content -}}</a>
+                  </div>
+                </li>
+              {% endif %}
+
+              {% if section.settings.info_address_label != blank and section.settings.info_address_content != blank %}
+                <li class="info-address">
+                  <span class="contact-icon-wrapper">
+                    <svg width="16" height="21" viewBox="0 0 16 21" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12.803 1.5402C12.5321 1.33207 12.2069 1.12394 11.8818 0.967841C10.4188 0.187354 8.73899 -0.176874 6.89665 0.0832882C3.32033 0.551581 0.502624 3.36134 0.069131 6.79548C0.069131 6.89955 0.0149452 7.05565 0.0149452 7.15971C-0.0934281 8.77272 0.394251 10.3337 1.26124 11.7386L1.58636 12.2589L3.32033 15.0166L7.98038 21L12.6404 15.0166L14.3744 12.2589L14.9163 11.4264C15.133 11.1142 15.2956 10.75 15.4581 10.4378C15.5123 10.3337 15.5123 10.2296 15.5665 10.1256C15.7291 9.7093 15.8374 9.29304 15.8916 8.87678C15.9458 8.51256 16 8.14833 16 7.73207C16 5.13044 14.7537 2.89304 12.803 1.5402ZM8.03457 10.802C6.19222 10.802 4.72918 9.34508 4.72918 7.628C4.72918 5.91093 6.24641 4.45402 8.03457 4.45402C9.87691 4.45402 11.3399 5.91093 11.3399 7.628C11.3399 9.34508 9.87691 10.802 8.03457 10.802Z" fill="black"/></svg>
+                  </span>
+                  <div class="contact-info-text">
+                    <span class="contact-label">{{ section.settings.info_address_label }}</span>
+                    {{ section.settings.info_address_content }}
+                  </div>
+                </li>
+              {% endif %}
+            </ul>
+          {% endif %}
+
+          {% liquid
+            if socialMediaIcons != blank
+              echo socialMediaIcons
+            endif
+          %}
+        </div>
+      </div>
+      {% endif %}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Contact Revendeur",
+  "tag": "section",
+  "class": "section-scrolling-text",
+  "disabled_on": { "groups": ["header", "footer"] },
+  "settings": [
+    { "type": "color_scheme", "id": "color_scheme", "default": "primary", "label": "t:global.color_scheme.label" },
+
+    { "type": "inline_richtext", "id": "heading", "default": "Nous contacter", "label": "t:global.general_labels.heading" },
+    { "type": "select", "id": "heading_size", "default": "h4", "label": "t:global.heading_size.label",
+      "options": [
+        { "value": "h1", "label": "t:global.heading_size.options.h1.label" },
+        { "value": "h2", "label": "t:global.heading_size.options.h2.label" },
+        { "value": "h3", "label": "t:global.heading_size.options.h3.label" },
+        { "value": "h4", "label": "t:global.heading_size.options.h4.label" },
+        { "value": "h5", "label": "t:global.heading_size.options.h5.label" },
+        { "value": "h6", "label": "t:global.heading_size.options.h6.label" }
+      ]
+    },
+
+    { "type": "header", "content": "t:sections.contact.settings.form.label" },
+    { "type": "inline_richtext", "id": "form_heading", "default": "Nous contacter", "label": "t:global.general_labels.heading" },
+    { "type": "text", "id": "form_button_text", "default": "Envoyer", "label": "t:sections.contact.settings.form_button_text.label" },
+    { "type": "image_picker", "id": "form_bg", "label": "t:global.general_labels.background_image" },
+    { "type": "select", "id": "form_position", "default": "left", "label": "t:global.position.label",
+      "options": [
+        { "value": "left", "label": "t:global.position.options.left.label" },
+        { "value": "right", "label": "t:global.position.options.right.label" }
+      ]
+    },
+
+    { "type": "header", "content": "Champs à afficher/masquer" },
+    { "type": "checkbox", "id": "show_company", "default": true,  "label": "Afficher « Entreprise »" },
+    { "type": "checkbox", "id": "show_phone",   "default": true,  "label": "Afficher « Téléphone »" },
+    { "type": "checkbox", "id": "show_project_type", "default": true, "label": "Afficher « Type de demande »" },
+    { "type": "checkbox", "id": "show_volume",  "default": false, "label": "Afficher « Volume estimé »" },
+    { "type": "select", "id": "volume_input_type", "label": "Style du champ « Volume estimé »", "default": "select",
+      "options": [
+        { "value": "select", "label": "Liste déroulante (select)" },
+        { "value": "radios", "label": "Boutons radio" },
+        { "value": "checkboxes", "label": "Cases à cocher (multi)" }
+      ]
+    },
+    { "type": "checkbox", "id": "show_catalog", "default": false, "label": "Afficher « Souhaitez-vous recevoir un catalogue ? »" },
+
+    { "type": "header", "content": "Champs obligatoires" },
+    { "type": "checkbox", "id": "req_company",      "default": true,  "label": "Rendre « Entreprise » obligatoire" },
+    { "type": "checkbox", "id": "req_firstname",    "default": true,  "label": "Rendre « Prénom » obligatoire" },
+    { "type": "checkbox", "id": "req_lastname",     "default": true,  "label": "Rendre « Nom » obligatoire" },
+    { "type": "checkbox", "id": "req_email",        "default": true,  "label": "Rendre « Email » obligatoire" },
+    { "type": "checkbox", "id": "req_phone",        "default": false, "label": "Rendre « Téléphone » obligatoire" },
+    { "type": "checkbox", "id": "req_project_type", "default": true,  "label": "Rendre « Type de demande » obligatoire" },
+    { "type": "checkbox", "id": "req_volume",       "default": false, "label": "Rendre « Volume estimé » obligatoire" },
+    { "type": "checkbox", "id": "req_catalog",      "default": false, "label": "Rendre « Souhaitez-vous recevoir un catalogue ? » obligatoire" },
+    { "type": "checkbox", "id": "req_message",      "default": true,  "label": "Rendre « Message » obligatoire" },
+
+    { "type": "header", "content": "Typo des champs (taille & gras)" },
+    { "type": "range", "id": "fs_company", "min": 12, "max": 28, "step": 1, "unit": "px", "default": 16, "label": "Entreprise — taille" },
+    { "type": "checkbox", "id": "bold_company", "default": false, "label": "Entreprise — gras" },
+
+    { "type": "range", "id": "fs_firstname", "min": 12, "max": 28, "step": 1, "unit": "px", "default": 16, "label": "Prénom — taille" },
+    { "type": "checkbox", "id": "bold_firstname", "default": false, "label": "Prénom — gras" },
+
+    { "type": "range", "id": "fs_lastname", "min": 12, "max": 28, "step": 1, "unit": "px", "default": 16, "label": "Nom — taille" },
+    { "type": "checkbox", "id": "bold_lastname", "default": false, "label": "Nom — gras" },
+
+    { "type": "range", "id": "fs_email", "min": 12, "max": 28, "step": 1, "unit": "px", "default": 16, "label": "Email — taille" },
+    { "type": "checkbox", "id": "bold_email", "default": false, "label": "Email — gras" },
+
+    { "type": "range", "id": "fs_phone", "min": 12, "max": 28, "step": 1, "unit": "px", "default": 16, "label": "Téléphone — taille" },
+    { "type": "checkbox", "id": "bold_phone", "default": false, "label": "Téléphone — gras" },
+
+    { "type": "range", "id": "fs_project_type", "min": 12, "max": 28, "step": 1, "unit": "px", "default": 16, "label": "Type de demande — taille" },
+    { "type": "checkbox", "id": "bold_project_type", "default": false, "label": "Type de demande — gras" },
+
+    { "type": "range", "id": "fs_volume", "min": 12, "max": 28, "step": 1, "unit": "px", "default": 16, "label": "Volume estimé — taille" },
+    { "type": "checkbox", "id": "bold_volume", "default": false, "label": "Volume estimé — gras" },
+
+    { "type": "range", "id": "fs_catalog", "min": 12, "max": 28, "step": 1, "unit": "px", "default": 16, "label": "Catalogue — taille" },
+    { "type": "checkbox", "id": "bold_catalog", "default": false, "label": "Catalogue — gras" },
+
+    { "type": "range", "id": "fs_message", "min": 12, "max": 28, "step": 1, "unit": "px", "default": 16, "label": "Message — taille" },
+    { "type": "checkbox", "id": "bold_message", "default": false, "label": "Message — gras" },
+
+    { "type": "header", "content": "t:sections.contact.settings.contact_info.label" },
+    { "type": "inline_richtext", "id": "info_heading", "default": "Informations", "label": "t:global.general_labels.heading" },
+
+    { "type": "text", "id": "info_email_label", "default": "Email", "label": "Label email (texte)" },
+    { "type": "textarea", "id": "info_email_content", "label": "Adresses email (une par ligne)", "default": "abc@example.com\ncontact@example.com" },
+    { "type": "color", "id": "info_email_color", "default": "#111111", "label": "Label email — couleur" },
+    { "type": "checkbox", "id": "info_email_bold", "default": false, "label": "Label email — gras" },
+
+    { "type": "text", "id": "info_phone_label", "default": "Téléphone", "label": "Label téléphone (texte)" },
+    { "type": "text", "id": "info_phone_content", "default": "1234567890", "label": "Numéro de téléphone" },
+    { "type": "color", "id": "info_phone_color", "default": "#111111", "label": "Label téléphone — couleur" },
+    { "type": "checkbox", "id": "info_phone_bold", "default": false, "label": "Label téléphone — gras" },
+
+    { "type": "text", "id": "info_address_label", "default": "Adresse", "label": "Label adresse (texte)" },
+    { "type": "richtext", "id": "info_address_content", "label": "Contenu adresse" },
+    { "type": "color", "id": "info_address_color", "default": "#111111", "label": "Label adresse — couleur" },
+    { "type": "checkbox", "id": "info_address_bold", "default": false, "label": "Label adresse — gras" },
+
+    { "type": "checkbox", "id": "show_social", "label": "t:sections.contact.settings.show_social.label", "info": "t:sections.contact.settings.show_social.info" },
+
+    { "type": "header", "content": "t:global.section_spacing.label" },
+    { "type": "number", "id": "top_space_desktop", "label": "t:global.section_spacing.top_space_desktop.label", "default": 80 },
+    { "type": "number", "id": "bottom_space_desktop", "label": "t:global.section_spacing.bottom_space_desktop.label", "default": 80 },
+    { "type": "number", "id": "top_space_mobile", "label": "t:global.section_spacing.top_space_mobile.label", "default": 40 },
+    { "type": "number", "id": "bottom_space_mobile", "label": "t:global.section_spacing.bottom_space_mobile.label", "default": 40 }
+  ],
+  "presets": [
+    { "name": "Contact Revendeur" }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,48 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main-cart": {
+      "type": "main-cart",
+      "settings": {
+        "payment_enable": true,
+        "shipping_estimates": true,
+        "color_scheme": "",
+        "top_space_desktop": 60,
+        "bottom_space_desktop": 60,
+        "top_space_mobile": 40,
+        "bottom_space_mobile": 40
+      }
+    },
+    "recommended-products": {
+      "type": "recommended-products",
+      "custom_css": [
+        ".product-actual-price {font-weight: 700 !important;}"
+      ],
+      "settings": {
+        "heading": "Vous aimerez aussi",
+        "heading_size": "h2",
+        "image_size": "square",
+        "products_count": 8,
+        "column_gap": 20,
+        "column_gap_mobile": 20,
+        "color_scheme": "",
+        "top_space_desktop": 80,
+        "bottom_space_desktop": 80,
+        "top_space_mobile": 0,
+        "bottom_space_mobile": 40
+      }
+    }
+  },
+  "order": [
+    "main-cart",
+    "recommended-products"
+  ]
+}

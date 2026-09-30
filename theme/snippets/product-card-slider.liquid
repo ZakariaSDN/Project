@@ -1,0 +1,53 @@
+{% capture random %}{{ 'now' | date: "%09N" }}{% endcapture %}
+<slider-main-component
+    class="hover-slider swiper-container  swiper swiper-slider"
+      data-settings='
+          {
+          "loop": true,
+          "slidesPerView":1,
+          "effect": "fade",
+            "pagination": {
+            "el": ".swiper-pagination-{{product.id}}-{{ random }}-{{ section.id }}",
+            "clickable": true
+            }
+        }
+      '
+  >
+    <div class="swiper-wrapper">
+        {% assign mediaCount = 0 %}
+        {% for media in card_product.media %}
+            {% unless media.id == card_product.featured_media.id %}
+            <div class="swiper-slide">
+                <img
+                    srcset="
+                      {%- if media.preview_image.width >= 165 -%}{{ media.preview_image | image_url: width: 165 }} 165w,{%- endif -%}
+                      {%- if media.preview_image.width >= 360 -%}{{ media.preview_image | image_url: width: 360 }} 360w,{%- endif -%}
+                      {%- if media.preview_image.width >= 533 -%}{{ media.preview_image | image_url: width: 533 }} 533w,{%- endif -%}
+                      {%- if media.preview_image.width >= 720 -%}{{ media.preview_image | image_url: width: 720 }} 720w,{%- endif -%}
+                      {%- if media.preview_image.width >= 940 -%}{{ media.preview_image | image_url: width: 940 }} 940w,{%- endif -%}
+                      {%- if media.preview_image.width >= 1066 -%}{{ media.preview_image | image_url: width: 1066 }} 1066w,{%- endif -%}
+                      {{ media.preview_image | image_url }} {{ media.preview_image.width }}w
+                    "
+                    src="{{ media.preview_image | image_url: width: 533 }}"
+                    sizes="(min-width: 990px) calc((100vw - 130px) / 4), (min-width: 750px) calc((100vw - 120px) / 3), calc((100vw - 35px) / 2)"
+                    alt="{{ media.preview_image.alt | escape }}"
+                    class="motion-reduce"
+                    loading="lazy"
+                    width="{{ media.preview_image.width }}"
+                    height="{{ media.preview_image.height }}"
+                  >
+            </div>
+            {% assign mediaCount = mediaCount | plus: 1 %}
+            {% endunless %}
+            {% if mediaCount == 3 %}
+                {% break %}
+            {% endif %}
+        {% endfor %}
+        </div>
+        <div class="media-hover-pagination" style="--media-size:{{ mediaCount }}">
+            {% for i in (1..mediaCount) %}
+                <hover-slide data-index="{{ forloop.index0 }}"></hover-slide>
+            {% endfor %}
+        </div>
+        <div class="swiper-pagination swiper-pagination-{{product.id}}-{{ random }}-{{ section.id }}"></div>
+    </slider-main-component>

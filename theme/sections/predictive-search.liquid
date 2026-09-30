@@ -1,0 +1,285 @@
+{%- if predictive_search.performed -%}
+  <div class="predictive-search-result-wrapper" data-result-wrapper>
+    {%- if predictive_search.resources.products.size > 0
+      or predictive_search.resources.articles.size > 0
+      or predictive_search.resources.pages.size > 0
+      or predictive_search.resources.queries.size > 0
+      or predictive_search.resources.collections.size > 0
+    -%}
+      {% if predictive_search.resources.queries.size > 0 %}
+        <div class="predictive-search-suggestion">
+          <div class="predictive-search-suggestion-box">
+            <span class="predictive-search-label font-heading text-size-large">
+              {{- 'templates.search.suggestions' | t -}}
+            </span>
+            <ul class="list-style-none predictive-search-suggestion-inner">
+              {%- for query in predictive_search.resources.queries -%}
+                <li>
+                  <a
+                    href="{{ query.url }}"
+                    aria-label="{{ query.text }}"
+                  >
+                    {{- query.styled_text -}}
+                  </a>
+                </li>
+              {%- endfor -%}
+            </ul>
+          </div>
+        </div>
+      {% endif %}
+      {%- if predictive_search.resources.products.size > 0
+        or predictive_search.resources.articles.size > 0
+        or predictive_search.resources.pages.size > 0
+        or predictive_search.resources.collections.size > 0
+      -%}
+        <tabs-wrapper>
+          <ul class="list-style-none tab-nav-wrapper border-enabled">
+            {% if predictive_search.resources.products.size > 0 %}
+              <li class="tab-nav-item">
+                <a class="tab-nav-link" href="#" data-tab="#productsTab"> {{ 'templates.search.product' | t }} </a>
+              </li>
+            {% endif %}
+            {% if predictive_search.resources.collections.size > 0 %}
+              <li class="tab-nav-item">
+                <a class="tab-nav-link" href="#" data-tab="#collectionsTab">
+                  {{ 'templates.search.collections' | t }}
+                </a>
+              </li>
+            {% endif %}
+            {% if predictive_search.resources.articles.size > 0 %}
+              <li class="tab-nav-item">
+                <a class="tab-nav-link" href="#" data-tab="#articlesTab"> {{ 'templates.search.article' | t }} </a>
+              </li>
+            {% endif %}
+            {% if predictive_search.resources.pages.size > 0 %}
+              <li class="tab-nav-item">
+                <a class="tab-nav-link" href="#" data-tab="#pagesTab"> {{ 'templates.search.page' | t }} </a>
+              </li>
+            {% endif %}
+          </ul>
+        </tabs-wrapper>
+        <div class="predictive-search-tabcontent">
+          {% if predictive_search.resources.products.size > 0 %}
+            <div id="productsTab" class="predictive-search-tab-item" style="display: none;">
+              <div class="card-grid-view card-grid-view-3">
+                {% for card_product in predictive_search.resources.products %}
+                {%- capture current -%}{% cycle section.id: 1, 2, 3, 4 %}{%- endcapture -%}
+                {%- assign placeholder_image = 'product-apparel-' | append: current -%}
+                  {% assign current_variant = card_product.selected_or_first_available_variant %}
+                  {% assign aspectRatio = card_product.featured_media.preview_image.aspect_ratio| default:1 %}
+                  <product-card-item class="product-card-item{% if slider %} swiper-slide{% endif %}{% if settings.enable_card_border %} card-border-enabled{% endif %} product-grid-style-{{ settings.card_style }}">
+                    <div class="product-card-wrapper">
+                      <div class="product-card-image">
+                        <div
+                          class="media-wrapper"
+                          style="--media-ratio:{{ 1 | divided_by: aspectRatio | times: 100 }}%"
+                        >
+                          <a
+                            href="{{ card_product.url | within : collection }}"
+                            aria-label="{{ card_product.title }}"
+                            data-main-image
+                            {% if card_product == blank %}
+                              aria-disabled="true"
+                            {% endif %}
+                            tabindex="-1"
+                          >
+                            {%- if card_product.featured_media != blank -%}
+                              <img
+                                srcset="
+                                  {%- if card_product.featured_media.width >= 165 -%}{{ card_product.featured_media | image_url: width: 165 }} 165w,{%- endif -%}
+                                  {%- if card_product.featured_media.width >= 360 -%}{{ card_product.featured_media | image_url: width: 360 }} 360w,{%- endif -%}
+                                  {%- if card_product.featured_media.width >= 533 -%}{{ card_product.featured_media | image_url: width: 533 }} 533w,{%- endif -%}
+                                  {%- if card_product.featured_media.width >= 720 -%}{{ card_product.featured_media | image_url: width: 720 }} 720w,{%- endif -%}
+                                  {%- if card_product.featured_media.width >= 940 -%}{{ card_product.featured_media | image_url: width: 940 }} 940w,{%- endif -%}
+                                  {%- if card_product.featured_media.width >= 1066 -%}{{ card_product.featured_media | image_url: width: 1066 }} 1066w,{%- endif -%}
+                                  {{ card_product.featured_media | image_url }} {{ card_product.featured_media.width }}w
+                                "
+                                src="{{ card_product.featured_media | image_url: width: 533 }}"
+                                sizes="(min-width: 990px) calc((100vw - 130px) / 4), (min-width: 750px) calc((100vw - 120px) / 3), calc((100vw - 35px) / 2)"
+                                alt="{{ card_product.featured_media.alt | escape }}"
+                                class="motion-reduce"
+                                loading="lazy"
+                                width="{{ card_product.featured_media.width }}"
+                                height="{{ card_product.featured_media.height }}"
+                              >
+                              {%- if card_product.media[1] != null -%}
+                                <img
+                                  srcset="
+                                    {%- if card_product.media[1].width >= 165 -%}{{ card_product.media[1] | image_url: width: 165 }} 165w,{%- endif -%}
+                                    {%- if card_product.media[1].width >= 360 -%}{{ card_product.media[1] | image_url: width: 360 }} 360w,{%- endif -%}
+                                    {%- if card_product.media[1].width >= 533 -%}{{ card_product.media[1] | image_url: width: 533 }} 533w,{%- endif -%}
+                                    {%- if card_product.media[1].width >= 720 -%}{{ card_product.media[1] | image_url: width: 720 }} 720w,{%- endif -%}
+                                    {%- if card_product.media[1].width >= 940 -%}{{ card_product.media[1] | image_url: width: 940 }} 940w,{%- endif -%}
+                                    {%- if card_product.media[1].width >= 1066 -%}{{ card_product.media[1] | image_url: width: 1066 }} 1066w,{%- endif -%}
+                                    {{ card_product.media[1] | image_url }} {{ card_product.media[1].width }}w
+                                  "
+                                  src="{{ card_product.media[1] | image_url: width: 533 }}"
+                                  sizes="(min-width: 990px) calc((100vw - 130px) / 4), (min-width: 750px) calc((100vw - 120px) / 3), calc((100vw - 35px) / 2)"
+                                  alt="{{ card_product.media[1].alt | escape }}"
+                                  class="hover-img"
+                                  loading="lazy"
+                                  width="{{ card_product.media[1].width }}"
+                                  height="{{ card_product.media[1].height }}"
+                                >
+                              {%- endif -%}
+                            {% else %}
+                              {{ placeholder_image | placeholder_svg_tag: 'placeholder-svg' }}
+                            {% endif %}
+                          </a>
+                        </div>
+                      </div>
+                      <div class="product-card-content">
+                        <a
+                          href="{{ card_product.url | within : collection }}"
+                          class="collection-title"
+                          {% if card_product == blank %}
+                            aria-disabled="true"
+                          {% endif %}
+                        >
+                          {% if card_product.title %}
+                            {{- card_product.title | strip_html -}}
+                          {% else %}
+                            {{ 'onboarding.product_title' | t }}
+                          {% endif %}
+                        </a>
+                        <price-main class="price-main">
+                          {%- assign price_min = card_product.price_min | default: 1899 | money -%}
+                          <price-sale class="price-sale">
+                            {%- if card_product.price_varies -%}
+                              <span class="product-actual-price varies-price">
+                                {{ 'products.product.price.from_price_html' | t: price: price_min }}
+                              </span>
+                            {%- else -%}
+                              <span class="product-actual-price">{{ price_min }}</span>
+                            {%- endif -%}
+                            {%- if card_product.compare_at_price_min > card_product.price_min -%}
+                              <span class="discount-price">{{ card_product.compare_at_price_min | money }}</span>
+                            {%- endif -%}
+                            {%- if current_variant.unit_price_measurement -%}
+                              <span class="product-unit-price">
+                                {{ current_variant.unit_price | money }} /
+                                {% if current_variant.unit_price_measurement.reference_value != 1 -%}
+                                  {{- current_variant.unit_price_measurement.reference_value -}}
+                                {%- endif %}
+                                {{ current_variant.unit_price_measurement.reference_unit }}
+                              </span>
+                            {%- endif -%}
+                          </price-sale>
+                        </price-main>
+                      </div>
+                    </div>
+                  </product-card-item>
+                {% endfor %}
+              </div>
+            </div>
+          {% endif %}
+          {% if predictive_search.resources.collections.size > 0 %}
+            <div id="collectionsTab" class="predictive-search-tab-item" style="display: none;">
+              <div class="card-grid-view card-grid-view-2">
+                {% for card_collection in predictive_search.resources.collections %}
+                  <a href="{{ card_collection.url }}" class="search-collectin-box">
+                    <figure>
+                      {%- if card_collection.featured_image -%}
+                        <img
+                          srcset="
+                            {%- if card_collection.featured_image.width >= 165 -%}{{ card_collection.featured_image | image_url: width: 165 }} 165w,{%- endif -%}
+                            {%- if card_collection.featured_image.width >= 330 -%}{{ card_collection.featured_image | image_url: width: 330 }} 330w,{%- endif -%}
+                            {%- if card_collection.featured_image.width >= 535 -%}{{ card_collection.featured_image | image_url: width: 535 }} 535w,{%- endif -%}
+                            {%- if card_collection.featured_image.width >= 750 -%}{{ card_collection.featured_image | image_url: width: 750 }} 750w,{%- endif -%}
+                            {%- if card_collection.featured_image.width >= 1000 -%}{{ card_collection.featured_image | image_url: width: 1000 }} 1000w,{%- endif -%}
+                            {%- if card_collection.featured_image.width >= 1500 -%}{{ card_collection.featured_image | image_url: width: 1500 }} 1500w,{%- endif -%}
+                            {%- if card_collection.featured_image.width >= 3000 -%}{{ card_collection.featured_image | image_url: width: 3000 }} 3000w,{%- endif -%}
+                            {{ card_collection.featured_image | image_url }} {{ card_collection.featured_image.width }}w
+                          "
+                          src="{{ card_collection.featured_image | image_url: width: 1500 }}"
+                          sizes="(min-width: 750px) calc(100vw - 10rem),calc(100vw - 3rem)"
+                          alt="{{ card_collection.featured_image.alt | escape }}"
+                          height="{{ card_collection.featured_image.height }}"
+                          width="{{ card_collection.featured_image.width }}"
+                          loading="lazy"
+                        >
+                      {% else %}
+                        {%- assign placeholder_image_index = forloop.index0 | modulo: 4 | plus: 1 -%}
+                        {%- assign placeholder_image = 'collection-apparel-' | append: placeholder_image_index -%}
+                        {{ placeholder_image | placeholder_svg_tag: 'placeholder-svg' }}
+                      {% endif %}
+                    </figure>
+                    <div class="search-blog-content">
+                      <span class="text-size-large font-heading">{{ card_collection.title }}</span>
+                    </div>
+                  </a>
+                {% endfor %}
+              </div>
+            </div>
+          {% endif %}
+          {% if predictive_search.resources.articles.size > 0 %}
+            <div id="articlesTab" class="predictive-search-tab-item" style="display: none;">
+              <div class="predictive-search-blog">
+                {%- for article in predictive_search.resources.articles -%}
+                  <a
+                    href="{{ article.url }}"
+                    aria-label="{{ article.title }}"
+                    class="search-blog-item"
+                  >
+                    <figure>
+                      {% if article.image != blank %}
+                        <img
+                          srcset="
+                            {%- if article.image.src.width >= 165 -%}{{ article.image.src | image_url: width: 165 }} 165w,{%- endif -%}
+                            {%- if article.image.src.width >= 360 -%}{{ article.image.src | image_url: width: 360 }} 360w,{%- endif -%}
+                            {%- if article.image.src.width >= 533 -%}{{ article.image.src | image_url: width: 533 }} 533w,{%- endif -%}
+                            {%- if article.image.src.width >= 720 -%}{{ article.image.src | image_url: width: 720 }} 720w,{%- endif -%}
+                            {%- if article.image.src.width >= 1000 -%}{{ article.image.src | image_url: width: 1000 }} 1000w,{%- endif -%}
+                            {%- if article.image.src.width >= 1500 -%}{{ article.image.src | image_url: width: 1500 }} 1500w,{%- endif -%}
+                            {{ article.image.src | image_url }} {{ article.image.src.width }}w
+                          "
+                          src="{{ article.image.src | image_url: width: 533 }}"
+                          sizes="(min-width: 750px) calc((100vw - 130px) / 2), calc((100vw - 50px) / 2)"
+                          alt="{{ article.image.src.alt | escape }}"
+                          loading="lazy"
+                          width="{{ article.image.width }}"
+                          height="{{ article.image.height }}"
+                        >
+                      {% else %}
+                        {{ 'blog-apparel-1' | placeholder_svg_tag: 'placeholder-svg' }}
+                      {% endif %}
+                    </figure>
+                    <div class="search-blog-content">
+                      <span class="text-size-large font-heading">{{ article.title }}</span>
+                      <p>{{ article.excerpt_or_content | strip_html | truncatewords: 20 }}</p>
+                    </div>
+                  </a>
+                {% endfor %}
+              </div>
+            </div>
+          {% endif %}
+          {% if predictive_search.resources.pages.size > 0 %}
+            <div id="pagesTab" class="predictive-search-tab-item" style="display: none;">
+              <ul class="search-pages-list">
+                {%- for page in predictive_search.resources.pages -%}
+                  <li>
+                    <a
+                      href="{{ page.url }}"
+                      aria-label="{{ page.title }}"
+                    >
+                      {{- page.title -}}
+                    </a>
+                  </li>
+                {% endfor %}
+              </ul>
+            </div>
+          {% endif %}
+        </div>
+      {% endif %}
+    {% else %}
+      <div class="drawer-empty-wrapper">
+        <div class="drawer-empty text-align-center">
+          <h5 class="drawer-empty-heading">
+            {{ 'templates.search.no_results_simple' | t }} “{{ predictive_search.terms }}”.
+          </h5>
+          <p class="drawer-empty-desc text-size-medium">{{ 'templates.search.no_results_sub' | t }}</p>
+        </div>
+      </div>
+    {% endif %}
+  </div>
+{% endif %}

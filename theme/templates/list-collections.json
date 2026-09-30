@@ -1,0 +1,104 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "richtext_QedNGU": {
+      "type": "richtext",
+      "blocks": {
+        "heading_4DDFiH": {
+          "type": "heading",
+          "settings": {
+            "heading": "La Magie des Parfums de Grasse",
+            "heading_size": "h1"
+          }
+        },
+        "description_XjLFdz": {
+          "type": "description",
+          "settings": {
+            "text": "<p>-Parfums de Peau pour une approche sensorielle individualisée permettant d’exprimer les plus subtiles nuance d’une personnalité.<br/></p><p>-La maison est une source d émotions .Sublimez votre univers intimiste alliant élégance et raffinement au gré des saisons et de vos envies …<br/></p>",
+            "description_size": "text-size-medium"
+          }
+        }
+      },
+      "block_order": [
+        "heading_4DDFiH",
+        "description_XjLFdz"
+      ],
+      "custom_css": [
+        "h2 {color: #a48351;}",
+        "h1 {font-size: 38px; font-weight: bold;}",
+        "@media screen and (max-width: 767px) {h1 {font-size: 30px; font-weight: bold; }}"
+      ],
+      "settings": {
+        "color_scheme": "",
+        "content_alignment": "left",
+        "enable_card_view": false,
+        "show_in_columns": false
+      }
+    },
+    "main-list-collections": {
+      "type": "main-list-collections",
+      "disabled": true,
+      "custom_css": [
+        "img {border-top-left-radius: 25px; border-top-right-radius: 25px; border-bottom-left-radius: 25px; border-bottom-right-radius: 0px; border: px solid #fffffff;}",
+        ".card-border-enabled {border-top-left-radius: 25px; border-top-right-radius: 25px; border-bottom-left-radius: 0px; border-bottom-right-radius: 0px; border: 1px solid #fffffff;}"
+      ],
+      "settings": {
+        "collections_per_page": 12,
+        "number_item": 4,
+        "column_gap": 21,
+        "image_ratio": "square",
+        "sort": "date",
+        "color_scheme": "",
+        "top_space_desktop": 50,
+        "bottom_space_desktop": 60,
+        "top_space_mobile": 40,
+        "bottom_space_mobile": 40
+      }
+    },
+    "collection_list_jgPzRB": {
+      "type": "collection-list",
+      "custom_css": [
+        "img {border-top-left-radius: 25px; border-top-right-radius: 25px; border-bottom-left-radius: 25px; border-bottom-right-radius: 0px; border: px solid #fffffff;}",
+        ".card-border-enabled {border-top-left-radius: 25px; border-top-right-radius: 25px; border-bottom-left-radius: 0px; border-bottom-right-radius: 0px; border: 1px solid #fffffff;}"
+      ],
+      "name": "t:sections.collection_list.presets.name",
+      "settings": {
+        "heading": "",
+        "heading_size": "h2",
+        "collection": [
+          "nos-diffuseurs-de-parfum",
+          "recharge-diffuseur-parfum",
+          "👗-douceur-de-linge",
+          "nos-bougies-de-parfum",
+          "eaux-de-toilette",
+          "nos-eaux-de-parfum",
+          "nos-coffrets-cadeaux",
+          "collection-french-riviera",
+          "🎟-bons-cadeaux"
+        ],
+        "number_item": 4,
+        "column_gap": 20,
+        "image_ratio": "square",
+        "collection_style": "curved",
+        "color_scheme": "",
+        "top_space_desktop": 80,
+        "bottom_space_desktop": 80,
+        "top_space_mobile": 40,
+        "bottom_space_mobile": 40
+      }
+    }
+  },
+  "order": [
+    "richtext_QedNGU",
+    "main-list-collections",
+    "collection_list_jgPzRB"
+  ]
+}

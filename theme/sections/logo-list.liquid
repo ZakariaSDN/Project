@@ -1,0 +1,225 @@
+{{ 'logo-list.css' | asset_url | stylesheet_tag: preload: true }}
+{{ 'logo-list.css' | asset_url | stylesheet_tag }}
+
+{% liquid
+  assign limit = 1
+  if section.settings.enable_marquee
+    assign limit = 10
+  endif
+%}
+<div class="section-space color-scheme-{{ section.settings.color_scheme }} overflow-hidden">
+  <div class="container">
+    <div class="logo-list-card marquee-{{ section.settings.enable_marquee }} marquee-direction-{{ section.settings.direction }} {% if section.settings.enable_marquee == false and section.settings.enable_mobile_swipe %} mobile-swipe-enabled{% endif %}">
+      {% for i in (1..limit) %}
+        <div class="logo-list-grid">
+          {% for block in section.blocks %}
+            {% assign image_url = block.settings.image %}
+            {% if image_url != blank %}
+              <div class="logo-list-item image-{{ section.settings.image_size }}">
+                <img
+                  srcset="
+                    {%- if image_url.width >= 50 -%}{{ image_url | image_url: width: 50 }} 50w,{%- endif -%}
+                    {%- if image_url.width >= 75 -%}{{ image_url | image_url: width: 75 }} 75w,{%- endif -%}
+                    {%- if image_url.width >= 100 -%}{{ image_url | image_url: width: 100 }} 100w,{%- endif -%}
+                    {%- if image_url.width >= 125 -%}{{ image_url | image_url: width: 125 }} 125w,{%- endif -%}
+                    {%- if image_url.width >= 150 -%}{{ image_url | image_url: width: 150 }} 150w,{%- endif -%}
+                    {%- if image_url.width >= 200 -%}{{ image_url | image_url: width: 200 }} 200w,{%- endif -%}
+                    {%- if image_url.width >= 300 -%}{{ image_url | image_url: width: 300 }} 300w,{%- endif -%}
+                    {%- if image_url.width >= 500 -%}{{ image_url | image_url: width: 500 }} 500w,{%- endif -%}
+                    {%- if image_url.width >= 700 -%}{{ image_url | image_url: width: 500 }} 700w,{%- endif -%}
+
+                    {{ image_url | image_url }} {{ image_url.width }}w
+                  "
+                  src="{{ image_url | image_url: width: 80 }}"
+                  sizes="calc(100vw - 3rem)"
+                  alt="{{ image_url.alt | escape }}"
+                  height="{{ image_url.height }}"
+                  width="{{ image_url.width }}"
+                  loading="lazy"
+                >
+              </div>
+            {% endif %}
+          {% endfor %}
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+<style>
+  #shopify-section-{{ section.id }} {
+    --section-top-space:{{ section.settings.top_space_desktop }}px;
+    --section-bottom-space:{{ section.settings.bottom_space_desktop }}px;
+    --marquee-duration:{{section.settings.scrolling_speed}}s;
+    --logo-items-perrow:{{section.settings.item_per_view_desktop}};
+  }
+
+  @media only screen and (max-width:767px) {
+    #shopify-section-{{ section.id }}.shopify-section{
+      --section-top-space:{{ section.settings.top_space_mobile }}px;
+      --section-bottom-space:{{ section.settings.bottom_space_mobile }}px;
+    --marquee-duration:{{section.settings.scrolling_speed_mobile}}s;
+    --logo-items-perrow:{{section.settings.item_per_view_mobile}};
+    }
+
+  }
+</style>
+{% schema %}
+{
+  "name": "t:sections.logo_list.name",
+  "tag": "section",
+  "class":"section-logo-list",
+  "disabled_on": {
+    "groups": ["footer"]
+  },
+  "settings": [
+      {
+        "type": "color_scheme",
+        "id": "color_scheme",
+        "default": "primary",
+      "label": "t:global.color_scheme.label"
+    },
+     {
+        "type": "range",
+        "id": "item_per_view_desktop",
+        "label": "t:sections.logo_list.settings.item_per_view_desktop.label",
+        "min": 3,
+        "max": 6,
+        "default": 5
+     },
+     {
+        "type": "range",
+        "id": "item_per_view_mobile",
+        "label": "t:sections.logo_list.settings.item_per_view_mobile.label",
+        "min": 1,
+        "max": 3,
+        "default": 2
+     },
+    {
+      "type": "select",
+      "id": "image_size",
+      "label": "t:sections.logo_list.settings.image_size.label",
+      "default": "medium",
+      "options": [
+        {
+          "value": "small",
+           "label": "t:sections.logo_list.settings.image_size.options.small.label",
+        },
+        {
+          "value": "medium",
+          "label": "t:sections.logo_list.settings.image_size.options.medium.label",
+        },
+        {
+          "value": "large",
+           "label": "t:sections.logo_list.settings.image_size.options.large.label",
+        }
+      ]
+    },
+    {
+        "type": "checkbox",
+        "id": "enable_mobile_swipe",
+        "default": true,
+        "label": "t:sections.logo_list.settings.enable_mobile_swipe.label",
+        "info": "t:sections.logo_list.settings.enable_mobile_swipe.info",
+    },
+    {
+      "type":"header",
+      "content": "t:sections.logo_list.settings.marquee.content"
+    },
+    {
+        "type": "checkbox",
+        "id": "enable_marquee",
+        "default": true,
+         "label": "t:sections.logo_list.settings.enable_marquee.label",
+    },
+     {
+        "type": "range",
+        "id": "scrolling_speed",
+        "label": "t:sections.logo_list.settings.scrolling_speed.label",
+        "min": 1,
+        "max": 100,
+        "unit": "s",
+        "default": 15
+     },
+     {
+        "type": "range",
+        "id": "scrolling_speed_mobile",
+       "label": "t:sections.logo_list.settings.scrolling_speed_mobile.label",
+        "min": 1,
+        "max": 100,
+        "unit": "s",
+        "default": 15
+     },
+    {
+      "type": "select",
+      "id": "direction",
+       "label": "t:sections.logo_list.settings.direction.label",
+      "options": [
+        {
+          "value": "right",
+          "label": "t:sections.logo_list.settings.direction.options.right.label",
+        },
+        {
+          "value": "left",
+           "label": "t:sections.logo_list.settings.direction.options.left.label",
+        }
+      ],
+      "default": "left"
+    },
+      {
+      "type": "header",
+       "content": "t:global.section_spacing.label"
+    },
+     {
+      "type": "number",
+      "id": "top_space_desktop",
+      "label": "t:global.section_spacing.top_space_desktop.label",
+      "default": 80,
+
+    },
+    {
+      "type": "number",
+      "id": "bottom_space_desktop",
+       "label": "t:global.section_spacing.bottom_space_desktop.label",
+      "default": 80
+
+    },
+    {
+      "type": "number",
+      "id": "top_space_mobile",
+      "label": "t:global.section_spacing.top_space_mobile.label",
+      "default": 40
+    },
+    {
+      "type": "number",
+      "id": "bottom_space_mobile",
+      "label": "t:global.section_spacing.bottom_space_mobile.label",
+      "default": 40
+    }
+
+  ],
+  "blocks": [
+    {
+      "type":"image",
+      "name":"t:sections.logo_list.blocks.name",
+      "settings":[
+        {
+          "type":"image_picker",
+          "id":"image",
+          "label":"t:global.general_labels.image"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name":"t:sections.logo_list.presets.name",
+       "blocks": [
+        {
+          "type": "image"
+        }
+
+      ]
+    }
+  ]
+}
+{% endschema %}

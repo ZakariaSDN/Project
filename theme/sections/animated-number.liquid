@@ -1,0 +1,366 @@
+{{ 'animated-number.css' | asset_url | stylesheet_tag: preload: true }}
+{{ 'animated-number.css' | asset_url | stylesheet_tag }}
+<div class="section-space color-scheme-{{ section.settings.color_scheme }} p-relative">
+  <div class="container{% if section.settings.show_bg_in_container %} p-relative animated-number-card-enabled{% endif %}">
+    {% if section.settings.background_image != blank %}
+      <div class="section-background-image">
+        {%- liquid
+          assign height = section.settings.background_image.width | divided_by: section.settings.background_image.aspect_ratio | round
+          assign sizes = '100vw'
+          assign widths = '375, 550, 750, 1100, 1500, 1780, 2000, 3000, 3840'
+        -%}
+        {{
+          section.settings.background_image
+          | image_url: width: 3840
+          | image_tag: loading: 'lazy', height: height, sizes: sizes, widths: widths
+        }}
+      </div>
+    {% endif %}
+    <div class="animated-number-wrapper{% if section.settings.show_in_columns %} heading-left{% endif %} p-relative">
+      {% if section.settings.heading != blank or section.settings.description != blank %}
+        <section-heading class="section-header">
+          {% if section.settings.heading != blank %}
+            <h2 class="heading-main {{ section.settings.heading_size }}">{{ section.settings.heading }}</h2>
+          {% endif %}
+          {% if section.settings.description != blank %}
+            <p class="animated-description {{ section.settings.description_size }}">
+              {{ section.settings.description | newline_to_br }}
+            </p>
+          {% endif %}
+        </section-heading>
+      {% endif %}
+      {% if section.blocks.size > 0 %}
+        <div class="animated-number-grid text-align-{{ section.settings.content_alignment }}">
+          {% for block in section.blocks %}
+            <div
+              class="animated-number-grid-item color-scheme-{{ block.settings.color_scheme }}"
+              {{ block.shopify_attributes }}
+            >
+              {% if block.settings.custom_icon != blank %}
+                <div class="animated-number-icon h4">
+                  <svg
+                    class="icon"
+                    width="85"
+                    height="87"
+                    viewBox="0 0 85 87"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <g clip-path="url(#clip0_149_53)">
+                    <path d="M72.3106 36.1824C72.3184 24.3114 66.502 13.1944 56.7446 6.43236C46.9829 -0.325445 34.5296 -1.86454 23.4206 2.31906C12.3116 6.49875 3.95957 15.8701 1.08057 27.3851C-1.79833 38.9011 1.15479 51.0961 8.99077 60.0141C7.67827 64.6586 5.78377 67.5766 3.60407 68.2641C3.02985 68.4516 1.29157 69.0023 1.05327 70.6508C0.924358 71.6 1.36186 72.5335 2.16657 73.0452C3.29157 73.8148 5.95957 74.2836 9.29157 74.2836V74.2875C14.8932 74.3187 20.4326 73.0922 25.4986 70.7016C36.4636 74.0922 48.3856 72.0766 57.6236 65.2641C66.8616 58.4516 72.3116 47.6591 72.3116 36.1821L72.3106 36.1824ZM36.1656 68.1704C32.7008 68.186 29.2554 67.6352 25.9666 66.5376C25.4041 66.3461 24.7869 66.4086 24.2713 66.7016C19.2518 69.5571 12.5953 70.2328 8.36527 70.1274C10.502 68.0454 12.1661 64.6391 13.3223 60.0024V60.0063C13.4941 59.3188 13.3066 58.5922 12.8223 58.0766C6.07227 50.8618 3.04107 40.9316 4.60347 31.1786C6.16207 21.4247 12.1465 12.9366 20.8105 8.19062C29.4746 3.44452 39.8455 2.96792 48.9085 6.89762C57.9749 10.8312 64.7095 18.7336 67.1585 28.3036C69.6077 37.8739 67.4983 48.0416 61.4397 55.8466C55.3811 63.6474 46.0567 68.2136 36.1777 68.2136L36.1656 68.1704ZM85.2596 53.1934C85.2674 60.9864 82.4471 68.5174 77.3221 74.3884C78.4588 78.3142 80.1033 80.8572 81.9041 81.4314C82.447 81.5993 84.1033 82.1306 84.3299 83.7322H84.3338C84.4744 84.654 84.0682 85.572 83.2908 86.0877C82.2478 86.7869 79.8533 87.2127 76.8338 87.2127C71.8611 87.2478 66.9471 86.1815 62.4358 84.0877C55.8303 86.0994 48.7558 85.951 42.2408 83.6619C41.7017 83.49 41.2525 83.1111 41.0025 82.6033C40.7486 82.0994 40.7134 81.5135 40.9009 80.9822C41.0884 80.447 41.4869 80.0134 41.9986 79.7791C42.5104 79.5447 43.1002 79.5291 43.6236 79.7322C49.5572 81.8142 56.0186 81.8611 61.9786 79.8572C62.5411 79.6697 63.1622 79.7283 63.6778 80.0252C67.7833 82.3572 73.2716 83.0252 77.0018 83.0252H77.1268C75.3768 81.119 74.0018 78.2127 73.0526 74.3377C72.8807 73.6502 73.0682 72.9275 73.5526 72.4119C77.1503 68.5603 79.5956 63.7791 80.6112 58.6069C81.6307 53.4389 81.1815 48.0869 79.3104 43.1619C78.9003 42.0838 79.4393 40.8807 80.5135 40.4666C81.5916 40.0564 82.7947 40.5955 83.2088 41.6697C84.5877 45.3533 85.283 49.2602 85.2596 53.1934ZM53.8536 23.9004C53.8536 24.4511 53.6348 24.9824 53.2442 25.3731C52.8536 25.7638 52.3223 25.9824 51.7715 25.9824H21.5605C20.4121 25.9824 19.4785 25.0527 19.4785 23.9004C19.4785 22.7481 20.4121 21.8184 21.5605 21.8184H51.7715C52.3223 21.8184 52.8535 22.0372 53.2442 22.4278C53.6349 22.8184 53.8536 23.3495 53.8536 23.9004ZM19.4786 32.0879C19.4786 30.9356 20.4122 30.0059 21.5606 30.0059H37.1856C38.3379 30.0059 39.2715 30.9355 39.2715 32.0879C39.2715 33.2402 38.3379 34.1699 37.1856 34.1699H21.5606C21.0059 34.1777 20.4708 33.9589 20.0762 33.5683C19.6816 33.1777 19.459 32.6425 19.459 32.0878L19.4786 32.0879ZM53.8536 40.2754C53.8536 40.8261 53.6348 41.3574 53.2442 41.7481C52.8536 42.1388 52.3223 42.3574 51.7715 42.3574H21.5605C20.4121 42.3574 19.4785 41.4277 19.4785 40.2754C19.4785 39.1231 20.4121 38.1934 21.5605 38.1934H51.7715C52.3223 38.1934 52.8535 38.4122 53.2442 38.8028C53.6349 39.1934 53.8536 39.7245 53.8536 40.2754ZM40.3106 48.4629C40.3106 49.0136 40.0918 49.5449 39.7012 49.9356C39.3106 50.3263 38.7793 50.5449 38.2285 50.5449H21.5605C20.4121 50.5449 19.4785 49.6152 19.4785 48.4629C19.4785 47.3106 20.4121 46.3809 21.5605 46.3809H38.2285C38.7793 46.3809 39.3105 46.5997 39.7012 46.9903C40.0919 47.3809 40.3106 47.912 40.3106 48.4629Z" fill="currentColor"/>
+                    </g>
+                    <defs>
+                    <clipPath id="clip0_149_53">
+                    <rect width="85" height="87" fill="white"/>
+                    </clipPath>
+                    </defs>
+                  </svg>
+                </div>
+              {% endif %}
+              {% if block.settings.number != blank %}
+                <number-counter class="animated-number h2" data-target="{{ block.settings.number -}}">
+                  <span class="animat-counter">0</span>
+                  {{- block.settings.number_label -}}
+                </number-counter>
+              {% endif %}
+              {% if block.settings.heading != blank %}
+                <div class="animated-number-label">{{ block.settings.heading }}</div>
+              {% endif %}
+              {% if block.settings.description != blank %}
+                <div class="animated-number-description">
+                  {{ block.settings.description | newline_to_br }}
+                </div>
+              {% endif %}
+            </div>
+          {% endfor %}
+        </div>
+      {% endif %}
+    </div>
+  </div>
+</div>
+<style>
+  #shopify-section-{{ section.id }} {
+    --section-top-space:{{ section.settings.top_space_desktop }}px;
+    --section-bottom-space:{{ section.settings.bottom_space_desktop }}px;
+  --space-column:{{ section.settings.grid_gap }}px;
+  }
+  {% if section.settings.background_image != blank %}
+    #shopify-section-{{ section.id }} .section-background-image {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      z-index: 0;
+    }
+
+    #shopify-section-{{ section.id }} .section-background-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    #shopify-section-{{ section.id }}  .section-background-image:before {
+        content: '';
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        background: rgb({{ section.settings.overlay_color.rgb }} / {{ section.settings.overlay_opacity }}%);
+    }
+  {% endif %}
+  @media only screen and (max-width:767px) {
+    #shopify-section-{{ section.id }}.shopify-section{
+      --section-top-space:{{ section.settings.top_space_mobile }}px;
+      --section-bottom-space:{{ section.settings.bottom_space_mobile }}px;
+    }
+
+  }
+</style>
+{% schema %}
+{
+  "name": "t:sections.animated_number.name",
+  "class": "section-animated-number",
+  "tag": "section",
+   "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "settings": [
+        {
+        "type": "color_scheme",
+        "id": "color_scheme",
+        "default": "primary",
+        "label": "t:global.color_scheme.label"
+    },
+     {
+        "type": "image_picker",
+        "id": "background_image",
+        "label": "t:global.general_labels.background_image"
+    },
+     {
+        "type": "checkbox",
+        "id": "show_bg_in_container",
+        "default": false,
+        "label": "t:sections.animated_number.settings.show_bg_in_container.label"
+    },
+    {
+        "type": "checkbox",
+        "id": "show_in_columns",
+        "default":false,
+        "label": "t:sections.animated_number.settings.show_in_columns.label"
+    },
+    {
+      "type": "range",
+      "id": "grid_gap",
+     "label": "t:sections.animated_number.settings.grid_gap.label",
+      "default": 12,
+      "min": 0,
+      "max": 50,
+      "step": 1,
+      "unit": "px"
+    },
+{
+      "type": "select",
+      "id": "content_alignment",
+      "label": "t:global.content_alignment.label",
+      "default": "center",
+      "options": [
+        {
+          "value": "left",
+          "label": "t:global.content_alignment.options.left.label"
+        },
+        {
+          "value": "center",
+          "label": "t:global.content_alignment.options.center.label"
+        },
+        {
+          "value": "right",
+          "label": "t:global.content_alignment.options.right.label"
+        }
+      ]
+    },
+
+   {
+     "type":"header",
+     "content": "t:global.general_labels.content"
+   },
+    {
+      "type": "inline_richtext",
+      "id": "heading",
+      "default": "Animated number",
+      "label": "t:global.general_labels.heading"
+    },
+    {
+      "type": "select",
+      "id": "heading_size",
+      "default": "h2",
+       "label": "t:global.heading_size.label",
+      "options": [
+        {
+          "value": "h1",
+          "label": "t:global.heading_size.options.h1.label"
+        },
+        {
+          "value": "h2",
+          "label": "t:global.heading_size.options.h2.label"
+        },
+        {
+          "value": "h3",
+            "label": "t:global.heading_size.options.h3.label"
+        },
+        {
+          "value": "h4",
+         "label": "t:global.heading_size.options.h4.label"
+        },
+        {
+          "value": "h5",
+           "label": "t:global.heading_size.options.h5.label"
+        },
+       {
+          "value": "h6",
+          "label": "t:global.heading_size.options.h6.label"
+        }
+      ]
+    },
+    {
+      "type":"textarea",
+      "id":"description",
+      "label":"t:global.general_labels.description"
+    },
+     {
+      "type": "select",
+      "id": "description_size",
+      "default": "text-size-large",
+       "label": "t:global.description_size.label",
+      "options": [
+        {
+          "value": "text-size-xlarge",
+          "label": "t:global.description_size.options.xlarge.label"
+        },
+        {
+          "value": "text-size-large",
+          "label": "t:global.description_size.options.large.label"
+        },
+        {
+          "value": "text-size-medium",
+           "label": "t:global.description_size.options.medium.label"
+        },
+        {
+          "value": "text-size-base",
+         "label": "t:global.description_size.options.base.label"
+        },
+        {
+          "value": "text-size-small",
+          "label": "t:global.description_size.options.small.label"
+        }
+      ]
+    },
+    {
+        "type": "color",
+        "id": "overlay_color",
+        "default": "#000000",
+        "label": "t:global.general_labels.overlay"
+    },
+     {
+      "type": "range",
+      "id": "overlay_opacity",
+      "label": "t:global.general_labels.overlay_opacity",
+      "default": 50,
+       "min": 0,
+       "max": 100,
+      "step": 1,
+       "unit": "%"
+    },
+    {
+      "type": "header",
+       "content": "t:global.section_spacing.label"
+    },
+     {
+      "type": "number",
+      "id": "top_space_desktop",
+      "label": "t:global.section_spacing.top_space_desktop.label",
+      "default": 80,
+
+    },
+    {
+      "type": "number",
+      "id": "bottom_space_desktop",
+       "label": "t:global.section_spacing.bottom_space_desktop.label",
+      "default": 80
+
+    },
+    {
+      "type": "number",
+      "id": "top_space_mobile",
+      "label": "t:global.section_spacing.top_space_mobile.label",
+      "default": 40
+    },
+    {
+      "type": "number",
+      "id": "bottom_space_mobile",
+      "label": "t:global.section_spacing.bottom_space_mobile.label",
+      "default": 40
+    }
+  ],
+  "blocks":[
+    {
+      "type":"content",
+      "name":"t:sections.animated_number.blocks.name",
+      "limit":4,
+       "settings": [
+         {
+              "type": "color_scheme",
+              "id": "color_scheme",
+              "default": "primary",
+              "label": "t:global.color_scheme.label"
+          },
+         {
+           "type":"html",
+           "id":"custom_icon",
+           "label":"t:sections.animated_number.blocks.settings.custom_icon.label"
+         },
+         {
+           "type":"number",
+           "id":"number",
+           "label":"t:sections.animated_number.blocks.settings.number.label"
+         },
+         {
+           "type":"text",
+           "id":"number_label",
+           "label":"t:sections.animated_number.blocks.settings.number_label.label"
+         },
+         {
+           "type": "text",
+           "id":"heading",
+           "label":"t:global.general_labels.heading",
+           "default":"Heading"
+         },
+         {
+           "type": "textarea",
+           "id":"description",
+           "label":"t:global.general_labels.description",
+           "default":"Add short description here."
+         }
+       ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:sections.animated_number.presets.name",
+      "blocks":[
+        {
+          "type":"content"
+        },
+        {
+          "type":"content"
+        },
+        {
+          "type":"content"
+        },
+        {
+          "type":"content"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

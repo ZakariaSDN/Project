@@ -1,0 +1,283 @@
+{{ 'collage-with-tabs.css' | asset_url | stylesheet_tag: preload: true }}
+{{ 'collage-with-tabs.css' | asset_url | stylesheet_tag }}
+<div class="section-space color-scheme-{{ section.settings.color_scheme }}">
+  <div class="container-full">
+    <collage-with-tabs class="collage-with-tabs">
+      <div class="collage-with-tabs-wrapper">
+        <div class="collage-with-tabs-card items-align-center collage-slider-enabled tab-content-position-{{ section.settings.content_position }}">
+          <div class="collage-with-tabs-item">
+            <div class="collage-with-tabs-cont">
+              {% if section.settings.heading != blank %}
+                <section-heading class="section-header">
+                  <h2 class="heading-main {{ section.settings.heading_size }}">{{ section.settings.heading }}</h2>
+                </section-heading>
+              {% endif %}
+              {% capture content %}
+                  {% if section.blocks.size > 0 %}
+                    {% for block in section.blocks %}
+                      {% if block.settings.heading != blank or block.settings.description !=  blank  %}
+                         <li id="collage-{{ block.id }}" class="collage-tabs-list-item {% if forloop.first %}active{% endif %}" data-index="{{ forloop.index0 }}"  data-tab-head>
+                           {% if block.settings.heading != blank %}
+                            <div class="collage-tabs-list-head">
+                                <span class="collage-tabs-icon">{{ forloop.index | prepend:'0' }}</span>
+                                <p class="collage-tabs-text h4">{{ block.settings.heading }}</p>
+                                 {% if block.settings.link != blank %}
+                                    <a href="{{ block.settings.link }}" class="collage-tabs-arrow" aria-label="{{ block.settings.heading }}"><svg width="13" height="13" viewBox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path fill-rule="evenodd" clip-rule="evenodd" d="M9.69547 1.80979L0.833622 1.80974L0.833615 0.166385L12.5009 0.166382L12.5009 11.8336L10.8576 11.8337L10.8575 2.97182L1.41466 12.4147L0.252629 11.2526L9.69547 1.80979Z" fill="currentcolor"/>
+                                    </svg>
+                                    </a>
+                                 {% endif %}
+                            </div>
+                             {% endif %}
+                            {% if block.settings.description !=  blank  %}
+                              <div class="collage-tabs-list-content rte">
+                                 {{ block.settings.description | replace:"<p></p>","<br>" }}
+                              </div>
+                            {% endif %}
+                        </li>  
+                      {% endif %}
+                    {% endfor %}
+                  {% endif %}
+                {% endcapture %}
+              {% if content != blank %}
+                <ul class="list-style-none collage-tabs-list">
+                  {{ content }}
+                </ul>
+              {% endif %}
+            </div>
+          </div>
+          {% if section.blocks.size > 0 %}
+            <slider-main-component
+              class="collage-with-tabs-item swiper-container swiper swiper-slider"
+              data-settings='
+                {
+                  "centeredSlides":true,
+                  "slidesPerView":1.50,
+                  "loop": true,
+                  "speed": 500,
+                  "direction": "vertical",
+                  "spaceBetween":"70px"
+                }
+              '
+            >
+              <div class="collage-with-tabs-slider swiper-wrapper">
+                {% for block in section.blocks %}
+                  <div class="swiper-slide">
+                    <div
+                      data-id="collage-{{ block.id }}"
+                      class="collage-with-tabs-image {% if forloop.first %}active{% endif %}"
+                      data-tab-content
+                    >
+                      <h2 class="collage-with-tabs-title-stroke">{{ block.settings.heading }}</h2>
+                      <div class="media-wrapper">
+                        {% if block.settings.image != blank %}
+                          {% assign image_url = block.settings.image %}
+                          <img
+                            srcset="
+                              {%- if image_url.width >= 165 -%}{{ image_url | image_url: width: 165 }} 165w,{%- endif -%}
+                              {%- if image_url.width >= 330 -%}{{ image_url | image_url: width: 330 }} 330w,{%- endif -%}
+                              {%- if image_url.width >= 535 -%}{{ image_url | image_url: width: 535 }} 535w,{%- endif -%}
+                              {%- if image_url.width >= 750 -%}{{ image_url | image_url: width: 750 }} 750w,{%- endif -%}
+                              {%- if image_url.width >= 1000 -%}{{ image_url | image_url: width: 1000 }} 1000w,{%- endif -%}
+                              {%- if image_url.width >= 1500 -%}{{ image_url | image_url: width: 1500 }} 1500w,{%- endif -%}
+                              {%- if image_url.width >= 3000 -%}{{ image_url | image_url: width: 3000 }} 3000w,{%- endif -%}
+                              {{ image_url | image_url }} {{ image_url.width }}w
+                            "
+                            src="{{ image_url | image_url: width: 1500 }}"
+                            sizes="calc(100vw - 3rem)"
+                            alt="{{ image_url.alt | escape }}"
+                            height="{{ image_url.height }}"
+                            width="{{ image_url.width }}"
+                            loading="lazy"
+                          >
+
+                        {% else %}
+                          {{ 'detailed-apparel-1' | placeholder_svg_tag: 'placeholder-svg' }}
+                        {% endif %}
+                      </div>
+                      {% if block.settings.heading != blank %}
+                        <div class="collage-with-tabs-image-title-wrapper text-align-center">
+                          <h5 class="collage-with-tabs-image-title">{{ block.settings.heading }}</h5>
+                        </div>
+                      {% endif %}
+                    </div>
+                  </div>
+                {% endfor %}
+              </div>
+              {% if section.settings.navigation %}
+                <div class="swiper-button swiper-button-next swiper-button-next-{{ section.id }}"></div>
+                <div class="swiper-button swiper-button-prev swiper-button-prev-{{ section.id }}"></div>
+              {% endif %}
+              {% if section.settings.slide_count %}
+                <div class="swiper-pagination swiper-pagination-{{ section.id }}"></div>
+              {% endif %}
+            </slider-main-component>
+          {% endif %}
+        </div>
+      </div>
+    </collage-with-tabs>
+  </div>
+</div>
+<style>
+  #shopify-section-{{ section.id }} {
+    --section-top-space:{{ section.settings.top_space_desktop }}px;
+    --section-bottom-space:{{ section.settings.bottom_space_desktop }}px;
+
+  }
+  @media only screen and (max-width:767px) {
+    #shopify-section-{{ section.id }}.shopify-section{
+      --section-top-space:{{ section.settings.top_space_mobile }}px;
+      --section-bottom-space:{{ section.settings.bottom_space_mobile }}px;
+    }
+
+  }
+</style>
+{% schema %}
+{
+  "name": "t:sections.collage_with_tabs.name",
+  "class":"section-collage-with-tabs",
+  "tag": "section",
+  "max_blocks": 6,
+   "disabled_on": {
+    "groups": ["header", "footer"]
+    },
+  "settings": [
+     {
+        "type": "color_scheme",
+        "id": "color_scheme",
+        "default": "primary",
+        "label": "t:global.color_scheme.label"
+    },
+     {
+        "type": "inline_richtext",
+        "id": "heading",
+        "default": "Collage with tab",
+        "label": "t:global.general_labels.heading"
+    },
+    {
+      "type": "select",
+      "id": "heading_size",
+      "default": "h2",
+        "label": "t:global.heading_size.label",
+      "options": [
+         {
+          "value": "h1",
+          "label": "t:global.heading_size.options.h1.label"
+        },
+        {
+          "value": "h2",
+          "label": "t:global.heading_size.options.h2.label"
+        },
+        {
+          "value": "h3",
+            "label": "t:global.heading_size.options.h3.label"
+        },
+        {
+          "value": "h4",
+         "label": "t:global.heading_size.options.h4.label"
+        },
+        {
+          "value": "h5",
+           "label": "t:global.heading_size.options.h5.label"
+        },
+       {
+          "value": "h6",
+          "label": "t:global.heading_size.options.h6.label"
+        }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "content_position",
+      "default": "left",
+      "label": "t:global.content_position.label",
+      "options": [
+        {
+          "value": "left",
+        "label": "t:global.content_position.options.left.label"
+        },
+        {
+          "value": "right",
+           "label": "t:global.content_position.options.right.label"
+        }
+      ]
+    },
+     {
+      "type": "header",
+       "content": "t:global.section_spacing.label"
+    },
+     {
+      "type": "number",
+      "id": "top_space_desktop",
+      "label": "t:global.section_spacing.top_space_desktop.label",
+      "default": 80,
+
+    },
+    {
+      "type": "number",
+      "id": "bottom_space_desktop",
+       "label": "t:global.section_spacing.bottom_space_desktop.label",
+      "default": 80
+
+    },
+    {
+      "type": "number",
+      "id": "top_space_mobile",
+      "label": "t:global.section_spacing.top_space_mobile.label",
+      "default": 40
+    },
+    {
+      "type": "number",
+      "id": "bottom_space_mobile",
+      "label": "t:global.section_spacing.bottom_space_mobile.label",
+      "default": 40
+    }
+  ],
+  "blocks": [
+    {
+      "type": "content",
+      "name":"t:sections.collage_with_tabs.blocks.name",
+      "settings": [
+           {
+              "type": "image_picker",
+              "id": "image",
+              "label": "t:global.general_labels.image"
+            },
+            {
+              "type": "inline_richtext",
+              "id": "heading",
+              "label": "t:global.general_labels.heading",
+              "default": "Heading"
+            },
+            {
+              "type": "richtext",
+              "id":"description",
+              "label": "t:global.general_labels.description",
+              "default":"<p>Add short description here.</p>"
+            },
+            {
+              "type": "url",
+              "id":"link",
+              "label":"t:global.general_labels.link"
+            }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name":"t:sections.collage_with_tabs.presets.name",
+      "blocks": [
+        {
+             "type": "content"
+        },
+        {
+             "type": "content"
+        },
+        {
+             "type": "content"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

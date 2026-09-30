@@ -1,0 +1,106 @@
+
+{%- liquid
+  if media_aspect_ratio == 'landscape'
+    assign imageratio = 75
+  elsif media_aspect_ratio == 'square'
+    assign imageratio = 100
+  elsif media_aspect_ratio == 'portrait'
+    assign imageratio = 125
+  else
+    if article.image != blank
+      assign imageratio = 1 | divided_by: article.image.aspect_ratio | times: 100
+    else
+      assign imageratio = 100
+    endif
+  endif
+-%}
+<div class="blog-item {{ class }}">
+  <{%- if article != blank -%}a href="{{- article.url -}}" aria-label="{{ article.title }}" {% else %}div{% endif %}>
+    <div class="blog-image">
+      <div class="media-wrapper" style="--media-ratio:{{ imageratio }}%">
+        {% if article.image != blank %}
+         <img
+                srcset="
+                  {%- if article.image.src.width >= 165 -%}{{ article.image.src | image_url: width: 165 }} 165w,{%- endif -%}
+                  {%- if article.image.src.width >= 360 -%}{{ article.image.src | image_url: width: 360 }} 360w,{%- endif -%}
+                  {%- if article.image.src.width >= 533 -%}{{ article.image.src | image_url: width: 533 }} 533w,{%- endif -%}
+                  {%- if article.image.src.width >= 720 -%}{{ article.image.src | image_url: width: 720 }} 720w,{%- endif -%}
+                  {%- if article.image.src.width >= 1000 -%}{{ article.image.src | image_url: width: 1000 }} 1000w,{%- endif -%}
+                  {%- if article.image.src.width >= 1500 -%}{{ article.image.src | image_url: width: 1500 }} 1500w,{%- endif -%}
+                  {{ article.image.src | image_url }} {{ article.image.src.width }}w
+                "
+                src="{{ article.image.src | image_url: width: 533 }}"
+                sizes="(min-width: 750px) calc((100vw - 130px) / 2), calc((100vw - 50px) / 2)"
+                alt="{{ article.image.src.alt | escape }}"
+                {% unless lazy_load == false %}
+                  loading="lazy"
+                {% endunless %}
+                width="{{ article.image.width }}"
+                height="{{ article.image.height }}"
+              >
+          {% else %}
+          {% if placeholder_image != blank %}
+            {{ placeholder_image | placeholder_svg_tag: 'placeholder-svg' }}
+          {% endif %}
+        {% endif %}
+      </div>
+    </div>
+  </{%- if article != blank -%}a{% else %}div{% endif %}>
+  <div class="blog-content{% if section.settings.overlay %} overlay-text{% endif %}">
+    {%- if article != blank -%}
+      {% if section.settings.show_date or section.settings.show_comment %}
+        <ul class="list-style-none blog-dates">
+           
+           {% if section.settings.show_date %}
+  {% assign month_number = article.published_at | date: "%m" %}
+  {% case month_number %}
+    {% when '01' %}{% assign month_name = 'janvier' %}
+    {% when '02' %}{% assign month_name = 'février' %}
+    {% when '03' %}{% assign month_name = 'mars' %}
+    {% when '04' %}{% assign month_name = 'avril' %}
+    {% when '05' %}{% assign month_name = 'mai' %}
+    {% when '06' %}{% assign month_name = 'juin' %}
+    {% when '07' %}{% assign month_name = 'juillet' %}
+    {% when '08' %}{% assign month_name = 'août' %}
+    {% when '09' %}{% assign month_name = 'septembre' %}
+    {% when '10' %}{% assign month_name = 'octobre' %}
+    {% when '11' %}{% assign month_name = 'novembre' %}
+    {% when '12' %}{% assign month_name = 'décembre' %}
+  {% endcase %}
+  <li class="publish-date-item">{{ article.published_at | date: '%d' }} {{ month_name }} {{ article.published_at | date: '%Y' }}</li>
+{% endif %}
+
+{% if section.settings.show_comment and article.comments_count != null %}
+  <li class="comments-item">{{ article.comments_count }} commentaire{% if article.comments_count != 1 %}s{% endif %}</li>
+{% endif %}
+
+{%- if section.settings.show_author -%}
+  <li class="author-name">
+    <span class="author">{{ article.author }}</span>
+  </li>
+{%- endif -%}
+        </ul>
+      {% endif %}
+    {% endif %}
+       <{%- if article != blank -%}a href="{{- article.url -}}" aria-label="{{ article.title }}" {% else %}div{% endif %} class="blog-title h5"> 
+              {% if article != blank %}
+                {{ article.title }}
+            {% else %}
+             {{ 'onboarding.article_title' | t }}
+            {% endif %}
+       </{%- if article != blank -%}a{% else %}div{% endif %}>
+    {%- if section.settings.show_excerpt  -%}
+      <p class="blog-desc text-size-medium">{% liquid
+        if article != blank
+          echo article.excerpt_or_content | strip_html | truncatewords: 10
+        else
+          echo 'blogs.article.content' | t
+        endif
+      %}
+      </p>
+    {% endif %}
+    {%- if article != blank -%}
+      <a href="{{- article.url -}}" class="button-underline text-size-medium" >{{ 'blogs.article.read_more' | t }}</a>
+    {% endif %}
+  </div>
+</div>

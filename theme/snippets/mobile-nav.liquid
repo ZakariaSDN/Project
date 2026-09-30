@@ -1,0 +1,197 @@
+{%- capture badgeContent -%}
+    {% for block in section.blocks %} 
+      {% if block.type == 'badge' %}
+        {% if block.settings.title != blank and block.settings.link != blank %}
+          <li>
+              <a href="{{ block.settings.link }}" class="button button-xsmall"><span class="button-text">{{ block.settings.title }}</span> </a>
+          </li>        
+        {% endif %}        
+      {% endif %}
+    {% endfor %}
+  {%- endcapture -%}
+{% if section.settings.menu != blank or badgeContent != blank %}
+  <header-drawer-menu
+    class="header-drawer-menu drawer"
+    id="HeaderDrawerMenu"
+    style=""
+  >
+    <drawer-layer class="overlay" data-close-drawer>
+      <drawer-mouse-cursor class="drawer-mouse-cursor">
+        <svg
+          class="icon"
+          stroke="currentColor"
+          viewBox="0 0 40 40"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path d="M10 30L30 10M10 10L30 30" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"></path>
+        </svg></drawer-mouse-cursor
+    ></drawer-layer>
+    <div class="header-drawer-menu-body">
+      <a href="#" class="drawer-close button-right" aria-label="Close" data-close-drawer>
+        <svg
+          class="drawer-icon"
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          fill="none"
+        >
+          <path d="M18 6L6 18" stroke="currentColor" stroke-width="1.5"></path>
+          <path d="M6 6L18 18" stroke="currentColor" stroke-width="1.5"></path>
+        </svg>
+      </a>
+      <div class="header-drawer-menu-content">
+        <ul class="list-style-none header-drawer-menu-list">
+          {% for link in section.settings.menu.links %}
+            {% liquid
+              assign megaMenuStatus = false
+              assign linkTitle = link.title | downcase
+              for block in section.blocks
+                assign blockLabel = block.settings.title | downcase
+                if blockLabel == linkTitle
+                  capture collectionsMenu
+                    if block.settings.collection_list.count > 0
+                      render 'header-mega-menu', type: 'collection', block: block, location: 'mobile'
+                    endif
+                  endcapture
+                  capture grids
+                    for i in (1..6)
+                      assign headingSetting = 'content_title_' | append: i
+                      assign linkSetting = 'content_link_' | append: i
+                      assign imageSetting = 'content_image_' | append: i
+                      assign subheadingSetting = 'content_subheading_' | append: i
+                      if block.settings[imageSetting] != blank
+                        render 'header-mega-menu', type: 'grid', image: block.settings[imageSetting], heading: block.settings[headingSetting], subheading: block.settings[subheadingSetting], link: block.settings[linkSetting]
+                      endif
+                    endfor
+                  endcapture
+                  if collectionsMenu != blank or grids != blank
+                    assign megaMenuStatus = true
+                    break
+                  endif
+                endif
+              endfor
+            %}
+            <li data-menu-link>
+              <div class="header-drawer-menu-item">
+                <a class="header-drawer-menu-link" href="{{ link.url }}">{{ link.title }}</a>
+                {% if megaMenuStatus or link.levels > 0 %}
+                  <svg
+                    class="header-drawer-menu-icon"
+                    width="13"
+                    height="13"
+                    viewBox="0 0 13 13"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                    data-submenu-open
+                  >
+                    <path fill-rule="evenodd" clip-rule="evenodd" d="M9.69547 1.80979L0.833622 1.80974L0.833615 0.166385L12.5009 0.166382L12.5009 11.8336L10.8576 11.8337L10.8575 2.97182L1.41466 12.4147L0.252629 11.2526L9.69547 1.80979Z" fill="currentColor"></path>
+                  </svg>
+                {% endif %}
+              </div>
+              {% if megaMenuStatus or link.levels > 0 %}
+                <div class="header-drawer-menu-inner" data-submenu-wrapper>
+                  <div class="header-drawer-menu-content">
+                    <div class="header-drawer-menu-inner-list">
+                      <div>
+                        <button class="drawer-menu-parent-link" data-submenu-close>
+                          <svg width="8" height="12" viewBox="0 0 8 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M6.00016 12L7.41016 10.59L2.83016 6L7.41016 1.41L6.00016 0L0.000156403 6L6.00016 12Z" fill="currentColor"/>
+                          </svg>
+                          <span>{{ link.title }}</span>
+                        </button>
+                      </div>
+                      <ul class="list-style-none mega-menu-item-inner">
+                        {{ collectionsMenu }}
+                        {% for childLink in link.links %}
+                          <li data-submenu-link>
+                            <span class="reversed-link mega-menu-link">
+                              <a href="{{ childLink.url }}" class="header-drawer-menu-label">{{ childLink.title }}</a>
+                              {% if childLink.links != blank %}
+                                <svg
+                                  class="header-drawer-menu-icon"
+                                  width="13"
+                                  height="13"
+                                  viewBox="0 0 13 13"
+                                  fill="none"
+                                  xmlns="http://www.w3.org/2000/svg"
+                                  data-grand-submenu-toggle
+                                >
+                                  <path fill-rule="evenodd" clip-rule="evenodd" d="M9.69547 1.80979L0.833622 1.80974L0.833615 0.166385L12.5009 0.166382L12.5009 11.8336L10.8576 11.8337L10.8575 2.97182L1.41466 12.4147L0.252629 11.2526L9.69547 1.80979Z" fill="currentColor"></path>
+                                </svg>
+                              {% endif %}
+                            </span>
+                            {% if childLink.links != blank %}
+                              <ul class="list-style-none mega-menu-item-inner child" data-grand-submenu-wrapper>
+                                {% for grandChildLink in childLink.links %}
+                                  <li>
+                                    <a href="{{ grandChildLink.url }}" class="reversed-link mega-menu-link">
+                                      <span class="header-drawer-menu-label">{{ grandChildLink.title }}</span>
+                                    </a>
+                                  </li>
+                                {% endfor %}
+                              </ul>
+                            {% endif %}
+                          </li>
+                        {% endfor %}
+                      </ul>
+                      {{ grids }}
+                    </div>
+                  </div>
+                </div>
+              {% endif %}
+            </li>
+          {% endfor %}
+          {{ badgeContent }}
+        </ul>
+        <div class="mobile-drawer-btm">
+          {% if section.settings.hide_account_icon == false and shop.customer_accounts_enabled %}
+            <a
+              href="{%- if customer -%}{{- routes.account_url -}}{%-else-%}{{ routes.account_login_url }}{%- endif -%}"
+              class="login-btn button button-medium button-full"
+            >
+              {%- if customer -%}
+                {{ 'customer.account_fallback' | t }}
+              {%- else -%}
+                {{ 'general.login_signup' | t }}
+              {%- endif -%}
+            </a>
+          {% endif %}
+          {% liquid
+            if section.settings.social_media_icons
+              render 'social-media-icons'
+            endif
+          %}
+          {% if section.settings.email_address != blank or section.settings.phone_number != blank %}
+            <div class="mobile-contact-info">
+              {% if section.settings.email_address != blank %}
+                <a href="mailto:{{ section.settings.email_address }}" class="email">
+                  <svg
+                    width="14"
+                    min-width="14"
+                    height="10"
+                    viewBox="0 0 14 10"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path d="M12.1707 0H1.82931C0.811377 0 0 0.83579 0 1.85076V8.14924C0 9.17911 0.826103 10 1.82931 10H12.1707C13.1886 10 14 9.16421 14 8.14924V1.85076C14 0.820891 13.1739 0 12.1707 0ZM11.6396 7.71638C11.5511 7.8209 11.4331 7.86567 11.3151 7.86567C11.2117 7.86567 11.1085 7.83579 11.0347 7.76114L8.54156 5.582L7.33182 6.64175C7.14001 6.82082 6.845 6.82082 6.63846 6.64175L5.42872 5.582L2.95038 7.76114C2.74386 7.94022 2.40458 7.88056 2.27173 7.61185C2.18323 7.43278 2.24219 7.20884 2.38976 7.08941L4.76488 4.99992L2.38976 2.92531C2.22748 2.77601 2.16851 2.53728 2.28644 2.35812C2.43401 2.11929 2.74374 2.07451 2.93557 2.25359L6.88919 5.71626C6.94815 5.76103 7.02194 5.76103 7.081 5.71626L11.0346 2.25359C11.2264 2.07452 11.5362 2.11929 11.6838 2.35812C11.8018 2.53719 11.7427 2.7909 11.5804 2.92531L9.20563 4.99992L11.5955 7.10442C11.7873 7.25361 11.802 7.52232 11.6397 7.71638L11.6396 7.71638Z" fill="currentColor"/>
+                  </svg>
+                  {{ section.settings.email_address }}
+                </a>
+              {% endif %}
+              {% if section.settings.phone_number != blank %}
+                <a href="tel:{{ section.settings.phone_number }}" class="phone">{{ section.settings.phone_number }}</a>
+              {% endif %}
+            </div>
+          {% endif %}
+          {% if section.settings.enable_language_selector or section.settings.enable_currency_selector %}
+            <div class="localization-form-wrapper">
+              {% render 'localization-form', section: section %}
+            </div>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </header-drawer-menu>
+{% endif %}

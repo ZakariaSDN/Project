@@ -1,0 +1,35 @@
+<ul class="list-style-none page-nav">
+  <li class="page-nav-item {% unless paginate.previous %} disabled{% endunless %}">
+    <{% if paginate.previous %}a href="{{ paginate.previous.url }}{{ anchor }}" {% else %}span{% endif %} class="page-nav-link">
+      <svg width="10" height="16" viewBox="0 0 10 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path fill-rule="evenodd" clip-rule="evenodd" d="M9.21103 0.484284C8.7424 0.0156552 7.9826 0.0156552 7.51397 0.484284L1.11397 6.88428C0.645343 7.35291 0.645343 8.11271 1.11397 8.58134L7.51397 14.9813C7.9826 15.45 8.7424 15.45 9.21103 14.9813C9.67966 14.5127 9.67966 13.7529 9.21103 13.2843L3.65956 7.73281L9.21103 2.18134C9.67966 1.71271 9.67966 0.952914 9.21103 0.484284Z" fill="currentColor"/>
+      </svg>
+    </{% if paginate.previous %}a{% else %}span{% endif %}>
+  </li>
+  {% for page in paginate.parts %}
+
+      {% if page.is_link %}
+       <li class="page-nav-item">
+        <a href="{{ page.url }}{{ anchor }}" class="page-nav-link" aria-label="{{ 'general.pagination.page' | t: number: page.title }}">{{page.title}}</a>
+        </li>
+      {%- else -%}
+        {%- if page.title == paginate.current_page -%}
+        <li class="page-nav-item ">
+            <p class="page-nav-link active">{{ page.title }}</p>
+        </li> 
+        {%- else -%}  
+        <li class="page-nav-item">
+            <p class="page-nav-link">{{ page.title }}</p>
+        </li>  
+        {%- endif -%}
+      {% endif %}
+  
+  {% endfor %}
+  <li class="page-nav-item  {% unless paginate.next %} disabled{% endunless %}">
+    <{% if paginate.next %}a href="{{ paginate.next.url }}{{ anchor }}" {% else %}span{% endif %} class="page-nav-link">
+      <svg width="9" height="16" viewBox="0 0 9 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path fill-rule="evenodd" clip-rule="evenodd" d="M0.453034 0.484284C0.921664 0.0156552 1.68146 0.0156552 2.15009 0.484284L8.55009 6.88428C9.01872 7.35291 9.01872 8.11271 8.55009 8.58134L2.15009 14.9813C1.68146 15.45 0.921664 15.45 0.453034 14.9813C-0.0155948 14.5127 -0.0155948 13.7529 0.453034 13.2843L6.00451 7.73281L0.453034 2.18134C-0.0155948 1.71271 -0.0155948 0.952914 0.453034 0.484284Z" fill="currentColor"/>
+      </svg>
+    </{% if paginate.next %}a{% else %}span{% endif %}>
+  </li>
+</ul>

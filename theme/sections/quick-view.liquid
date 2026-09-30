@@ -1,0 +1,140 @@
+{% render 'quick-view', product: product, section: section %}
+{% schema %}
+{
+  "name": "t:sections.quick_view.name",
+  "tag":"section",
+  "blocks": [
+   {
+      "type": "title",
+      "name": "t:global.product_block.title.name",
+      "limit": 1
+    },
+    {
+      "type": "sku",
+      "name": "t:global.product_block.sku.name",
+      "limit": 1
+    },
+    {
+      "type": "text",
+      "name": "t:global.product_block.text.name",
+      "settings": [
+        {
+          "type": "text",
+          "id": "text",
+          "label": "t:global.general_labels.text"
+        }
+      ]
+    },
+    {
+      "type": "price",
+      "name": "t:global.product_block.price.name",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "checkbox",
+          "id": "hide_shipping_content",
+          "label": "t:global.product_block.price.settings.hide_shipping_content.label",
+          "default": false
+        }
+      ]
+    },
+    {
+      "type": "variant",
+     "name": "t:global.product_block.variant_picker.name",
+      "limit": 1
+    },
+    {
+      "type": "quantity",
+       "name": "t:global.product_block.quantity.name",
+      "limit": 1
+    },
+    {
+      "type": "button",
+      "name": "t:global.product_block.buttons.name",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "checkbox",
+          "id":"enable_quantity",
+          "label":"t:global.product_block.buttons.settings.enable_quantity.label",
+          "default":true
+        },
+        {
+          "type": "checkbox",
+          "id": "dynamic_checkout_btn",
+          "default": true,
+         "label":"t:global.product_block.buttons.settings.dynamic_checkout_btn.label"
+        },
+         {
+          "type": "checkbox",
+          "id": "show_recipient_form",
+          "default": false,
+          "label":"t:global.product_block.buttons.settings.show_recipient_form.label",
+          "info": "t:global.product_block.buttons.settings.show_recipient_form.info"
+        }
+      ]
+    },
+    {
+      "type": "share",
+      "name": "t:global.product_block.share.name",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "checkbox",
+          "id":"enable_social_share",
+          "label":"t:global.product_block.share.settings.enable_social_share.label",
+          "default":true
+        }
+      ]
+    },
+
+    {
+      "type": "inventory",
+      "name": "Inventory",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "range",
+          "id": "minimun_inventory",
+          "label": "Minimum inventory",
+           "min": 0,
+          "max": 100,
+          "step": 1,
+          "default":10
+        }
+      ]
+    }
+  ],
+  "default": {
+    "blocks": [
+      {
+        "type": "title"
+      },
+      {
+      "type": "text"
+      },
+      {
+        "type": "sku"
+      },
+       {
+        "type": "inventory"
+      },
+      {
+        "type": "price"
+      },
+      {
+        "type": "variant"
+      },
+      {
+        "type": "button",
+        "settings": {
+          "dynamic_checkout_btn": true
+        }
+      },
+      {
+        "type": "share"
+      }
+    ]
+  }
+}
+{% endschema %}

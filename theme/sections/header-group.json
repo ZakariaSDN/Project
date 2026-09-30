@@ -1,0 +1,150 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "name": "t:sections.header.name",
+  "type": "header",
+  "sections": {
+    "announcement": {
+      "type": "announcement-bar",
+      "blocks": {
+        "announcement_Mpheyq": {
+          "type": "announcement",
+          "settings": {
+            "announcement_text": "• Livraison offerte à partir de 60 euros en France Métropolitaine •"
+          }
+        }
+      },
+      "block_order": [
+        "announcement_Mpheyq"
+      ],
+      "settings": {
+        "home_page_only": false,
+        "auto_rotate": true,
+        "change_slides_speed": 3,
+        "no_of_slides": 1,
+        "show_contact_info": true,
+        "contact_text": "contact@couleursafran.com",
+        "contact_email": "",
+        "enable_language_selector": false,
+        "enable_currency_selector": false,
+        "show_language_flag": true,
+        "mobile_selector_margin_top": 8,
+        "mobile_selector_margin_bottom": 8,
+        "bg_style": "solid",
+        "background": "#a48351",
+        "background_gradient": "",
+        "fontcolor": "#ffffff",
+        "link_color": "#2d97ff",
+        "link_hover_color": "#ffffff"
+      }
+    },
+    "header": {
+      "type": "header",
+      "blocks": {
+        "grid_ebzyJh": {
+          "type": "grid",
+          "settings": {
+            "title": "Boutique",
+            "collection_list": [],
+            "content_image_1": "shopify://shop_images/G7C_5288-Modifier.jpg",
+            "content_title_1": "Diffuseurs de Parfum",
+            "content_subheading_1": "Une ambiance unique, raffinée et durable",
+            "content_link_1": "shopify://collections/nos-diffuseurs-de-parfum",
+            "content_image_2": "shopify://shop_images/9C1C8CC8-193A-4ED3-A434-763247C1A6F5_60a602b9-9a83-49da-9be1-04b0dea5dd04.png",
+            "content_title_2": "Eaux de Parfum",
+            "content_subheading_2": "Un voyage olfactif unique",
+            "content_link_2": "shopify://collections/nos-eaux-de-parfum",
+            "content_image_3": "shopify://shop_images/IMG-20250913-WA0003.jpg",
+            "content_title_3": "Eaux de Toilette",
+            "content_subheading_3": "Fraîcheur délicate au quotidien",
+            "content_link_3": "shopify://collections/eaux-de-toilette",
+            "content_image_4": "shopify://shop_images/WhatsApp_Image_2025-09-13_a_16.22.54_f1763e56.jpg",
+            "content_title_4": "Douceur de Linge",
+            "content_subheading_4": "Parfumez vos tissus avec élégance",
+            "content_link_4": "shopify://collections/👗-douceur-de-linge",
+            "content_image_5": "shopify://shop_images/fdd6f753-06c0-4e71-ba80-8012b8b5f550_d0676dad-c6da-4d2d-a7eb-b95c1414d9ff.jpg",
+            "content_title_5": "French Riviera",
+            "content_subheading_5": "La Côte d’Azur en parfum",
+            "content_link_5": "shopify://collections/collection-french-riviera",
+            "content_image_6": "shopify://shop_images/IMG_0373_5d2a8eb5-b690-4a6f-b0c7-fcd776131c15.jpg",
+            "content_title_6": "Bougies parfumées",
+            "content_subheading_6": "Flamme douce, atmosphère chaleureuse",
+            "content_link_6": "shopify://collections/nos-bougies-de-parfum"
+          }
+        }
+      },
+      "block_order": [
+        "grid_ebzyJh"
+      ],
+      "custom_css": [
+        ".media-wrapper img {border-radius: 50% !important; aspect-ratio: 1 / 1; object-fit: cover;}",
+        ".text-size-large {color: #a48351;}"
+      ],
+      "settings": {
+        "sticky_header": true,
+        "header_header_on_scroll": false,
+        "transparent_header": false,
+        "enlarged_logo": false,
+        "logo": "shopify://shop_images/Coueleur_Safran_Logo.png",
+        "transparent_logo": "shopify://shop_images/Coueleur_Safran_Logo.png",
+        "desktop_logo_width": 80,
+        "mobile_logo_width": 80,
+        "logo_position": "center",
+        "menu": "main-menu",
+        "menu_position": "center",
+        "menu_font_size_desktop": 20,
+        "menu_font_size_mobile": 14,
+        "menu_letter_spacing": 0,
+        "menu_font_weight": "500",
+        "tagline_text": "Couleur Safran Cannes",
+        "tagline_fs_desktop": 22,
+        "tagline_fs_mobile": 17,
+        "tagline_bold": true,
+        "tagline_italic": false,
+        "tagline_color": "#a48351",
+        "tagline_font_family": "heading",
+        "tagline_margin_top_desktop": 0,
+        "tagline_margin_bottom_desktop": 0,
+        "tagline_margin_top_mobile": 20,
+        "tagline_margin_bottom_mobile": 10,
+        "logo_margin_top_desktop": 0,
+        "logo_margin_bottom_desktop": 0,
+        "logo_margin_top_mobile": -25,
+        "logo_margin_bottom_mobile": -6,
+        "logo_shift_desktop": 95,
+        "logo_shift_mobile": 74,
+        "tagline_shift_desktop": -90,
+        "tagline_shift_mobile": -62,
+        "center_logo_desktop": false,
+        "center_logo_mobile": false,
+        "hide_search": false,
+        "hide_account_icon": false,
+        "hide_cart_icon": false,
+        "search_drawer_position": "bottom",
+        "search_suggestion": "Eaux de Parfum , Diffuseurs de Parfum , Bougies parfumées , Nos Douceurs de Linge, Nos Eaux de toilette, Nos Coffrets Cadeaux",
+        "search_products": [],
+        "badge_logo": "shopify://shop_images/Made_in_Fr2_2_-min.png",
+        "badge_logo_alt": "Made in France",
+        "badge_logo_size_desktop": 52,
+        "badge_logo_size_mobile": 45,
+        "badge_right_desktop": 120,
+        "badge_right_mobile": 75,
+        "badge_shift_desktop": 0,
+        "badge_shift_mobile": 0,
+        "badge_vshift_desktop": -15,
+        "badge_vshift_mobile": -3
+      }
+    }
+  },
+  "order": [
+    "announcement",
+    "header"
+  ]
+}

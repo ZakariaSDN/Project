@@ -1,0 +1,391 @@
+{{ 'slideshow.css' | asset_url | stylesheet_tag }}
+
+<div class="slideshow-contain {{ section.settings.container_style }}">
+  <slider-main-component
+    class="slideshow-slider slideshow-style-{{ section.settings.style }} swiper-container p-relative navigation-position-{{ section.settings.navigation_position }}"
+    data-settings='{
+      "loop": true,
+      "slidesPerView": 1,
+      "spaceBetween": 0,
+      {% if section.settings.fade_effect and section.settings.style == "single" %}"effect": "fade",{% endif %}
+      {% if section.settings.autoplay %}"autoplay":{"delay": {{ section.settings.autoplay_interval | times: 1000 }} },{% endif %}
+      "breakpoints": {
+        "769": {
+          {% if section.settings.style == "double" and section.blocks.size > 1 %}
+            "slidesPerView": 2, "spaceBetween":"{{ section.settings.compact_slide_gap }}px"
+          {% elsif section.settings.style == "compact" %}
+            "centeredSlides":true, "slidesPerView": "1.25", "threshold": 2, "effect": "slide",
+            "spaceBetween":"{{ section.settings.compact_slide_gap }}px"
+          {% else %}
+            "slidesPerView": 1
+          {% endif %}
+        }
+      },
+      "navigation": { "nextEl": ".swiper-button-next-{{ section.id }}", "prevEl": ".swiper-button-prev-{{ section.id }}" },
+      "pagination": { "el": ".swiper-pagination-{{ section.id }}", "clickable": true {% if section.settings.controls == "arrows_with_number" %},"type": "fraction"{% endif %} }
+    }'
+  >
+    <div class="swiper-wrapper">
+      {% for block in section.blocks %}
+        <div id="slide-{{ block.id }}" class="swiper-slide" {{ block.shopify_attributes }}>
+          <div class="slideshow-slider-item color-scheme-{{ block.settings.color_scheme }}">
+            <!-- Empilement : MEDIA au-dessus, PANNEAU EN-DESSOUS -->
+            <div class="slide-stack">
+              <!-- ===== MEDIA ===== -->
+              <div class="slideshow-media-grid-box p-relative">
+                <slideshow-image>
+                  {% if block.settings.mobile_slider_video != blank or block.settings.mobile_slide_image != blank %}
+                    <div class="slideshow-img mobile-media">
+                      {% if block.settings.mobile_slider_video != blank %}
+                        {% assign videoclass = 'slider-video' %}
+                        {% assign videoid = 'slideshow-video-' | append: block.id %}
+                        <deferred-media class="deferred-media autoplay-true" data-autoplay="true">
+                          <template style="display:none">
+                            {{ block.settings.mobile_slider_video | video_tag: image_size: '1400x', id: videoid, class: videoclass, autoplay: true, loop: true, controls: false, muted: true }}
+                          </template>
+                          <noscript>
+                            {{ block.settings.mobile_slider_video | video_tag: image_size: '1400x', id: videoid, class: videoclass, autoplay: true, loop: true, controls: false, muted: true }}
+                          </noscript>
+                        </deferred-media>
+                      {% elsif block.settings.mobile_slide_image %}
+                        {%- liquid
+                          assign height = block.settings.mobile_slide_image.width | divided_by: block.settings.mobile_slide_image.aspect_ratio | round
+                          assign sizes = '100vw'
+                          assign widths = '375, 550, 750, 1100, 1500, 1780, 2000, 3000, 3840'
+                          assign fetch_priority = 'auto'
+                          if section.index == 1
+                            assign fetch_priority = 'high'
+                          endif
+                        -%}
+                        {{ block.settings.mobile_slide_image
+                          | image_url: width: 3840
+                          | image_tag: height: height, sizes: sizes, widths: widths, fetchpriority: fetch_priority, class: 'slideshow-image' }}
+                      {% else %}
+                        {{ 'hero-apparel-1' | placeholder_svg_tag: 'placeholder-svg' }}
+                      {% endif %}
+                      {% if block.settings.overlay_opacity > 0 %}
+                        <div class="media-overlay" style="background-color: rgba({{ block.settings.overlay_color | color_to_rgb }}, {{ block.settings.overlay_opacity | divided_by: 100.0 }});"></div>
+                      {% endif %}
+                    </div>
+                  {% endif %}
+
+                  <div class="slideshow-img{% if block.settings.mobile_slider_video != blank or block.settings.mobile_slide_image != blank %} desktop-media{% endif %}">
+                    {% if block.settings.slider_video != blank %}
+                      {% assign videoclass = 'slider-video' %}
+                      {% assign videoid = 'slideshow-video-' | append: block.id %}
+                      <deferred-media class="deferred-media autoplay-true" data-autoplay="true">
+                        <template style="display:none">
+                          {{ block.settings.slider_video | video_tag: image_size: '1400x', id: videoid, class: videoclass, autoplay: true, loop: true, controls: false, muted: true }}
+                        </template>
+                        <noscript>
+                          {{ block.settings.slider_video | video_tag: image_size: '1400x', id: videoid, class: videoclass, autoplay: true, loop: true, controls: false, muted: true }}
+                        </noscript>
+                      </deferred-media>
+                    {% elsif block.settings.slide_image %}
+                      {%- liquid
+                        assign height = block.settings.slide_image.width | divided_by: block.settings.slide_image.aspect_ratio | round
+                        assign sizes = '100vw'
+                        assign widths = '375, 550, 750, 1100, 1500, 1780, 2000, 3000, 3840'
+                        assign fetch_priority = 'auto'
+                        if section.index == 1
+                          assign fetch_priority = 'high'
+                        endif
+                      -%}
+                      {{ block.settings.slide_image
+                        | image_url: width: 3840
+                        | image_tag: height: height, sizes: sizes, widths: widths, fetchpriority: fetch_priority, class: 'slideshow-image' }}
+                    {% else %}
+                      {{ 'hero-apparel-2' | placeholder_svg_tag: 'placeholder-svg' }}
+                    {% endif %}
+                    {% if block.settings.overlay_opacity > 0 %}
+                      <div class="media-overlay" style="background-color: rgba({{ block.settings.overlay_color | color_to_rgb }}, {{ block.settings.overlay_opacity | divided_by: 100.0 }});"></div>
+                    {% endif %}
+                  </div>
+                </slideshow-image>
+
+                {% if block.settings.show_mobile_top_heading %}
+                  {% assign mth_text = block.settings.mobile_top_heading_text %}
+                  {% if block.settings.mobile_top_heading_source == 'inherit' and block.settings.heading != blank %}
+                    {% assign mth_text = block.settings.heading %}
+                  {% endif %}
+                  {% if mth_text != blank %}
+                    <div class="mobile-top-heading m-only"
+                         style="--mth-top: {{ block.settings.mobile_top_heading_offset | default: 0 }}px; --mth-color: {{ block.settings.mobile_top_heading_color | default: '#ffffff' }}; text-align: {{ block.settings.mobile_top_heading_align | default: 'center' }};">
+                      <h2 class="mobile-top-heading__h2">{{ mth_text }}</h2>
+                    </div>
+                  {% endif %}
+                {% endif %}
+              </div>
+              <!-- ===== /MEDIA ===== -->
+
+              <!-- ===== PANNEAU TEXTE EN-DESSOUS (fond appliqué au WRAPPER) ===== -->
+              {%- capture slideContent -%}
+                {% if block.settings.subheading != blank %}
+                  <span class="slideshow-subtitle text-size-large font-family-heading">{{ block.settings.subheading }}</span>
+                {% endif %}
+                {% if block.settings.heading != blank %}
+                  <h1 class="slideshow-heading {{ block.settings.heading_size }}">{{ block.settings.heading }}</h1>
+                {% endif %}
+                {% if block.settings.description != blank %}
+                  <p class="slideshow-desc {{ block.settings.description_size }}">{{ block.settings.description | newline_to_br }}</p>
+                {% endif %}
+                {% if block.settings.button_text != blank and block.settings.button_url != blank %}
+                  <a href="{{ block.settings.button_url }}" class="slideshow-button button button-{{ block.settings.btn_size }}">
+                    <span class="button-text">{{ block.settings.button_text }}</span>
+                  </a>
+                {% endif %}
+              {%- endcapture -%}
+
+              {% if slideContent != blank %}
+                <div class="slide-caption-wrapper"
+                     style="
+                       background-color: rgba({{ block.settings.caption_bg_color | color_to_rgb }}, {{ block.settings.caption_bg_opacity | divided_by: 100.0 }}) !important;
+                       border-bottom-left-radius: {{ block.settings.caption_radius }}px;
+                       border-bottom-right-radius: {{ block.settings.caption_radius }}px;
+                     ">
+                  <div class="container" style="background: transparent !important;">
+                    <div class="slide-caption inner-{{ block.settings.caption_align }}"
+                         style="background: transparent !important; padding: {{ block.settings.caption_py }}px {{ block.settings.caption_px }}px;">
+                      <div class="slide-caption__body text-align-{{ block.settings.desktop_text_alignment }} m-text-align-{{ block.settings.mobile_text_alignment }}"
+                           style="background: transparent !important; max-width: {{ block.settings.caption_max_width }}px;">
+                        {{ slideContent }}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              {% endif %}
+              <!-- ===== /PANNEAU ===== -->
+            </div><!-- /slide-stack -->
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+
+    {% if section.settings.style == 'double' and section.blocks.size > 2 %}
+      {% assign slider_arrow = true %}
+    {% endif %}
+    {% if slider_arrow or section.blocks.size > 1 and section.settings.style != 'double' %}
+      <div class="slideshow-navigator text-align-{{ section.settings.desktop_navigation_alignment }} controls-style-{{ section.settings.controls }}">
+        {% if section.settings.controls == 'arrows' or section.settings.controls == 'arrows_with_number' %}
+          <div class="swiper-button swiper-button-prev swiper-button-prev-{{ section.id }}"></div>
+        {% endif %}
+        {% if section.settings.controls == 'dots' or section.settings.controls == 'arrows_with_number' %}
+          <div class="swiper-pagination swiper-pagination-{{ section.id }}"></div>
+        {% endif %}
+        {% if section.settings.controls == 'arrows' or section.settings.controls == 'arrows_with_number' %}
+          <div class="swiper-button swiper-button-next swiper-button-next-{{ section.id }}"></div>
+        {% endif %}
+      </div>
+    {% endif %}
+  </slider-main-component>
+</div>
+
+<style>
+  /* Hauteur contrôlable (Desktop/Mobile) */
+  #shopify-section-{{ section.id }}{
+    --media-h-desktop: {{ section.settings.desktop_media_height | default: 640 }}px;
+    --media-h-mobile:  {{ section.settings.mobile_media_height  | default: 420 }}px;
+  }
+  #shopify-section-{{ section.id }} .slideshow-media-grid-box{ height: var(--media-h-desktop); position:relative; overflow:hidden; }
+  @media (max-width: 767px){
+    #shopify-section-{{ section.id }} .slideshow-media-grid-box{ height: var(--media-h-mobile); }
+  }
+
+  /* N’afficher qu’un média selon le viewport */
+  @media (min-width: 768px){ #shopify-section-{{ section.id }} .mobile-media{ display:none !important; } }
+  @media (max-width: 767px){ #shopify-section-{{ section.id }} .desktop-media{ display:none !important; } }
+
+  /* Image/vidéo couvrante + overlay */
+  #shopify-section-{{ section.id }} .slideshow-img{ position:absolute; inset:0; }
+  #shopify-section-{{ section.id }} .slideshow-image,
+  #shopify-section-{{ section.id }} .slider-video{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; z-index:1; display:block; }
+  #shopify-section-{{ section.id }} .media-overlay{ position:absolute; inset:0; z-index:2; pointer-events:none; background:transparent; }
+
+  /* Empilement */
+  #shopify-section-{{ section.id }} .slide-stack{ display:flex; flex-direction:column; }
+  #shopify-section-{{ section.id }} .slideshow-media-grid-box{ order:1; z-index:2; }
+  #shopify-section-{{ section.id }} .slide-caption-wrapper{
+    order:2; z-index:1; position:relative; width:100%;
+    /* le fond est défini en inline via les réglages du bloc */
+  }
+  #shopify-section-{{ section.id }} .slide-caption{ display:flex; justify-content:center; }
+  #shopify-section-{{ section.id }} .inner-left{ justify-content:flex-start; }
+  #shopify-section-{{ section.id }} .inner-center{ justify-content:center; }
+  #shopify-section-{{ section.id }} .inner-right{ justify-content:flex-end; }
+
+  /* éviter que le thème repeigne en blanc */
+  #shopify-section-{{ section.id }} .slide-caption-wrapper .container{ background:transparent !important; }
+  #shopify-section-{{ section.id }} .slide-caption,
+  #shopify-section-{{ section.id }} .slide-caption__body{ background:transparent !important; }
+
+  /* Typo */
+  #shopify-section-{{ section.id }} .slideshow-subtitle{ display:block; margin-bottom:.35rem; font-weight:700; opacity:.95; }
+  #shopify-section-{{ section.id }} .slideshow-heading{ margin:0 0 .35rem 0; }
+  #shopify-section-{{ section.id }} .slideshow-desc{ margin:0 0 .75rem 0; }
+
+  /* Bouton */
+  #shopify-section-{{ section.id }} .button{ border:2px solid #a48351; border-radius:25px; background-color:#a48351; color:#fff; }
+</style>
+
+{%- schema -%}
+{
+  "name": "Diaporama (panneau",
+  "class": "section-slideshow overflow-hidden",
+  "disabled_on": { "groups": ["header", "footer", "custom.Overlay"] },
+
+  "settings": [
+    { "type": "color_scheme", "id": "color_scheme", "default": "tertiary", "label": "t:global.color_scheme.label" },
+    { "type": "header", "content": "t:global.general_labels.general" },
+
+    { "type": "select", "id": "container_style", "label": "Largeur du contenu", "default": "full-container",
+      "options": [
+        { "label": "Pleine largeur", "value": "full-container" },
+        { "label": "Conteneur", "value": "container" }
+      ]
+    },
+
+    { "type": "select", "id": "style", "label": "Style du slider", "default": "single",
+      "options": [
+        { "label": "Simple", "value": "single" },
+        { "label": "Compact", "value": "compact" },
+        { "label": "Double", "value": "double" }
+      ]
+    },
+
+    { "type": "number", "id": "desktop_media_height", "label": "Hauteur image Desktop (px)", "default": 640 },
+    { "type": "number", "id": "mobile_media_height",  "label": "Hauteur image Mobile (px)",  "default": 420 },
+
+    { "type": "range", "id": "compact_slide_gap", "label": "Ecart (style compact)", "default": 10, "min": 0, "max": 30, "step": 1, "unit": "px" },
+    { "type": "checkbox", "id": "fade_effect", "label": "Effet fondu (style simple)", "default": false },
+    { "type": "checkbox", "id": "autoplay", "label": "Lecture auto", "default": false },
+    { "type": "range", "id": "autoplay_interval", "label": "Intervalle lecture auto", "default": 3, "min": 1, "max": 9, "step": 1, "unit": "s" },
+
+    { "type": "select", "id": "controls", "label": "Contrôles", "default": "arrows_with_number",
+      "options": [
+        { "label": "Flèches + fraction", "value": "arrows_with_number" },
+        { "label": "Flèches", "value": "arrows" },
+        { "label": "Points", "value": "dots" }
+      ]
+    },
+
+    { "type": "select", "id": "navigation_position", "label": "Position des contrôles", "default": "inside",
+      "options": [
+        { "label": "Intérieur", "value": "inside" },
+        { "label": "Extérieur", "value": "outside" }
+      ]
+    },
+    { "type": "text_alignment", "id": "desktop_navigation_alignment", "label": "Alignement des contrôles (desktop)", "default": "left" }
+  ],
+
+  "blocks": [
+    {
+      "type": "slide",
+      "name": "Slide",
+      "limit": 6,
+      "settings": [
+        { "type": "color_scheme", "id": "color_scheme", "default": "primary", "label": "Palette" },
+
+        { "type": "image_picker", "id": "slide_image", "label": "Image desktop" },
+        { "type": "image_picker", "id": "mobile_slide_image", "label": "Image mobile" },
+        { "type": "video", "id": "slider_video", "label": "Vidéo desktop" },
+        { "type": "video", "id": "mobile_slider_video", "label": "Vidéo mobile" },
+
+        { "type": "header", "content": "Contenus" },
+        { "type": "text", "id": "subheading", "label": "Sous-titre", "default": "Subheading here" },
+        { "type": "text", "id": "heading", "label": "Titre", "default": "Heading here" },
+        {
+          "type": "select",
+          "id": "heading_size",
+          "default": "h1",
+          "label": "Taille du titre",
+          "options": [
+            { "value": "h1", "label": "H1" },
+            { "value": "h2", "label": "H2" },
+            { "value": "h3", "label": "H3" },
+            { "value": "h4", "label": "H4" },
+            { "value": "h5", "label": "H5" },
+            { "value": "h6", "label": "H6" }
+          ]
+        },
+        { "type": "textarea", "id": "description", "label": "Description", "default": "Add short description for this slide" },
+        {
+          "type": "select",
+          "id": "description_size",
+          "default": "text-size-large",
+          "label": "Taille description",
+          "options": [
+            { "value": "text-size-xlarge", "label": "XL" },
+            { "value": "text-size-large", "label": "L" },
+            { "value": "text-size-medium", "label": "M" },
+            { "value": "text-size-base", "label": "Base" },
+            { "value": "text-size-small", "label": "S" }
+          ]
+        },
+
+        { "type": "header", "content": "Bouton" },
+        { "type": "text", "id": "button_text", "label": "Texte du bouton" },
+        { "type": "url", "id": "button_url", "label": "Lien du bouton" },
+        {
+          "type": "select",
+          "id": "btn_size",
+          "label": "Taille du bouton",
+          "default": "small",
+          "options": [
+            { "value": "xsmall", "label": "XS" },
+            { "value": "small", "label": "S" },
+            { "value": "medium", "label": "M" },
+            { "value": "large", "label": "L" }
+          ]
+        },
+
+        { "type": "header", "content": "Largeur & Alignements du texte" },
+        { "type": "number", "id": "caption_max_width", "label": "Largeur max du texte (px)", "default": 920 },
+        { "type": "select", "id": "caption_align", "label": "Alignement du bloc", "default": "center",
+          "options": [
+            { "value": "left", "label": "Gauche" },
+            { "value": "center", "label": "Centré" },
+            { "value": "right", "label": "Droite" }
+          ]
+        },
+        { "type": "text_alignment", "id": "desktop_text_alignment", "label": "Alignement texte (desktop)", "default": "left" },
+        { "type": "text_alignment", "id": "mobile_text_alignment", "label": "Alignement texte (mobile)", "default": "center" },
+
+        { "type": "header", "content": "Overlay SUR l’image" },
+        { "type": "color", "id": "overlay_color", "default": "#000000", "label": "Couleur overlay image" },
+        { "type": "range", "id": "overlay_opacity", "label": "Opacité overlay image (%)", "default": 0, "min": 0, "max": 100, "step": 1, "unit": "%" },
+
+        /* Fond du panneau texte (SOUS l’image) */
+        { "type": "color", "id": "caption_bg_color", "label": "Couleur du fond du panneau", "default": "#FF0000" },
+        { "type": "range", "id": "caption_bg_opacity", "label": "Opacité du fond du panneau (%)", "default": 100, "min": 0, "max": 100, "step": 1, "unit": "%" },
+        { "type": "range", "id": "caption_radius", "label": "Arrondi bas (px)", "default": 24, "min": 0, "max": 60, "step": 1, "unit": "px" },
+        { "type": "range", "id": "caption_px", "label": "Padding horizontal (px)", "default": 20, "min": 0, "max": 60, "step": 1, "unit": "px" },
+        { "type": "range", "id": "caption_py", "label": "Padding vertical (px)", "default": 20, "min": 0, "max": 60, "step": 1, "unit": "px" },
+
+        { "type": "header", "content": "Mobile — Top heading (H2)" },
+        { "type": "checkbox", "id": "show_mobile_top_heading", "label": "Afficher le H2 en haut (mobile uniquement)", "default": false },
+        { "type": "select", "id": "mobile_top_heading_source", "label": "Source du texte", "default": "inherit",
+          "options": [
+            { "value": "inherit", "label": "Reprendre le Heading du bloc" },
+            { "value": "custom", "label": "Texte personnalisé ci-dessous" }
+          ]
+        },
+        { "type": "text", "id": "mobile_top_heading_text", "label": "Texte personnalisé (si sélectionné)", "default": "Titre mobile" },
+        { "type": "number", "id": "mobile_top_heading_offset", "label": "Décalage depuis le haut (px)", "default": 0 },
+        { "type": "select", "id": "mobile_top_heading_align", "label": "Alignement", "default": "center",
+          "options": [
+            { "value": "left", "label": "Gauche" },
+            { "value": "center", "label": "Centre" },
+            { "value": "right", "label": "Droite" }
+          ]
+        },
+        { "type": "color", "id": "mobile_top_heading_color", "label": "Couleur du H2 mobile", "default": "#FFFFFF" },
+        { "type": "checkbox", "id": "hide_default_heading_on_mobile", "label": "Masquer le heading normal sur mobile", "default": false }
+      ]
+    }
+  ],
+
+  "presets": [
+    { "name": "Diaporama (panneau ", "blocks": [ { "type": "slide" }, { "type": "slide" } ] }
+  ]
+}
+{%- endschema -%}

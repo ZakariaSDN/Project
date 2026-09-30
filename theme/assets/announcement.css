@@ -1,0 +1,118 @@
+.announcementbar-wrapper {
+  background: rgba(var(--color-background-foreground));
+  color: rgba(var(--color-text));
+  padding: 4px 0;
+}
+
+announcementbar-box {
+  display: block;
+  align-self: center;
+  padding: 2px 0;
+}
+
+.announcementbar-slider {
+  overflow: hidden;
+  margin: 0 auto;
+  width: calc(100% - 80px);
+}
+
+.announcementbar-slider .swiper-wrapper {
+  align-items: center;
+}
+
+.announcementbar-slider .swiper-button {
+  width: 26px;
+  height: 26px;
+  margin: 0;
+  transform: translateY(-50%);
+  background: transparent;
+  border: 0;
+  color: rgba(var(--color-text));
+}
+
+.announcementbar-slider .swiper-button-next:after,
+.announcementbar-slider .swiper-button-prev:after {
+  font-size: var(--text-size-small);
+  font-weight: var(--font-weight-heading);
+}
+
+.announcementbar-content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.announcementbar-icon {
+  margin-right: 10px;
+}
+
+.announcementbar-text {
+  font-size: var(--text-size-base);
+  margin: 0;
+  max-height: 60px;
+  overflow-y: auto;
+  text-align: center;
+}
+
+.announcementbar-wrapper a:hover {
+  color: rgba(var(--link-hover-color));
+}
+
+.contact-number {
+  padding: 2px 30px;
+  margin-left: 24px;
+}
+
+.contact-number:hover {
+  color: rgba(var(--link-hover-color));
+}
+
+.language-selector,
+.email-wrapper {
+  padding: 0 17px;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.email-wrapper + .language-selector {
+  border-left: 1px solid rgb(var(--color-divider));
+}
+
+.localization-main-wrapper.text-align-right {
+  justify-content: flex-end;
+}
+
+@media screen and (min-width: 1025px) {
+  .topbar-wrapper {
+    display: grid;
+    grid-template:
+      "social-icons announcementbar localization" / minmax(0, 1fr) minmax(
+        0,
+        1fr
+      )
+      minmax(0, 1fr);
+  }
+  .announcementbar-slider {
+    max-width: 410px;
+  }
+  .email-wrapper {
+    max-width: 280px;
+  }
+}
+
+@media (max-width: 1024px) {
+  .topbar-wrapper {
+    text-align: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .contact-number {
+    padding: 6px 14px;
+    margin-left: 0;
+  }
+}

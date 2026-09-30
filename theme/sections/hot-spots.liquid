@@ -1,0 +1,528 @@
+{{ 'hot-spots.css' | asset_url | stylesheet_tag: preload: true }}
+{{ 'hot-spots.css' | asset_url | stylesheet_tag }}
+<style>
+  #shopify-section-{{ section.id }} {
+    --section-top-space:{{ section.settings.top_space_desktop }}px;
+    --section-bottom-space:{{ section.settings.bottom_space_desktop }}px;
+    --media-ratio: {%- if section.settings.image != blank -%}{{ 1 | divided_by:section.settings.image.aspect_ratio | times: 100 }}{% else %}40{% endif %}%;
+  }
+    {% for block in section.blocks %}
+    #spot-{{ block.id }}{
+      --hotspot-vertical: calc({{ block.settings.vertical }}% - 15px);
+      --hotspot-horizotal: calc({{ block.settings.horizontal }}% - 15px);
+      --color-background-hotspot: {{ block.settings.spot_color_bg.rgb }};
+      --color-text-hotspot: {{ block.settings.spot_color.rgb  }};
+       --hotspot-size:{{  block.settings.spot_size }}px;
+    }
+  {% endfor %}
+   #shopify-section-{{ section.id }} .mobile-img{
+     display:none !important;
+   }
+  @media only screen and (max-width:767px) {
+    #shopify-section-{{ section.id }}.shopify-section{
+      --section-top-space:{{ section.settings.top_space_mobile }}px;
+      --section-bottom-space:{{ section.settings.bottom_space_mobile }}px;
+      {%- if section.settings.image_mobile != blank -%}
+        --media-ratio: {{ 1 | divided_by:section.settings.image_mobile.aspect_ratio | times: 100 }}%;
+      {% endif %}
+    }
+   #shopify-section-{{ section.id }} .desktop-img{
+     display:none !important;
+   }
+   #shopify-section-{{ section.id }} .mobile-img{
+     display:block !important;
+   }
+    {% for block in section.blocks %}
+      #spot-{{ block.id }}{
+        --hotspot-vertical: calc({{ block.settings.mobile_vertical }}% - 15px);
+        --hotspot-horizotal: calc({{ block.settings.mobile_horizontal }}% - 15px);
+        --color-background-hotspot: {{ block.settings.mobile_spot_color_bg.rgb }};
+        --color-text-hotspot: {{ block.settings.mobile_spot_color.rgb  }};
+         --hotspot-size:{{ block.settings.mobile_spot_size }}px;
+      }
+    {% endfor %}
+
+  }
+</style>
+{% liquid
+  assign viewAllButton = false
+  for block in section.blocks
+    if block.settings.product != blank
+      assign viewAllButton = true
+    endif
+  endfor
+%}
+
+<div class="section-space color-scheme-{{ section.settings.color_scheme }}">
+  <div class="container">
+    {% if section.settings.heading != blank %}
+      <section-heading class="section-header">
+        <h2 class="heading-main {{ section.settings.heading_size }}">
+          {{- section.settings.heading -}}
+        </h2>
+      </section-heading>
+    {% endif %}
+  </div>
+  <div class="hot-spots-grid">
+    <div class="hot-spot-wrapper round-enabled" data-hotspot-wrapper>
+      <div class="media-wrapper">
+         {% if section.settings.image_mobile != blank %}
+            {% assign mobile_img = true %}
+             {%- liquid
+              assign height = image_mobile | divided_by: section.settings.image_mobile.aspect_ratio | round
+              assign sizes = '100vw'
+              assign widths = '375, 550, 750, 1100, 1500, 1780, 2000'
+            %}
+          {{
+            section.settings.image_mobile
+            | image_url: width: 3840
+            | image_tag: loading: 'lazy', class:'mobile-img', height: height, sizes: sizes, widths: widths
+          }}
+                  
+          {% endif %}
+        {% assign  desktop_class = '' %}
+        {% if section.settings.image != blank %}
+          {%- liquid
+             if mobile_img
+                  assign desktop_class = 'desktop-img' 
+              endif
+            assign height = section.settings.image.width | divided_by: section.settings.image.aspect_ratio | round
+            assign sizes = '100vw'
+            assign widths = '375, 550, 750, 1100, 1500, 1780, 2000, 3000, 3840'
+
+           
+          %}
+          {{
+            section.settings.image
+            | image_url: width: 3840
+            | image_tag: loading: 'lazy', class:desktop_class ,height: height, sizes: sizes, widths: widths
+          }}
+        {% elsif section.settings.image == blank and mobile_img %}
+          {{ 'hero-apparel-1' | placeholder_svg_tag: 'placeholder-svg desktop-img' }}
+        {% else %}
+            {{ 'hero-apparel-1' | placeholder_svg_tag: 'placeholder-svg' }}
+        {% endif %}
+      </div>
+       {% if section.blocks.size > 0 %}
+          {% for block in section.blocks %}
+             <hot-spot-hover class="hot-spot-hover {% if forloop.first %}active{% endif %}"  id="spot-{{ block.id }}"
+                  {{ block.shopify_attributes }} tabindex="0"> 
+                <button type="button" class="hot-spot-button"
+                     data-index="{{ forloop.index0 }}"
+                    data-hotspot-button
+                    role="button"
+                    aria-label="spot" tabindex="-1">
+                  <span>
+                    <svg stroke-width="2" width="6" height="6" class="icon-xxsmall icon-hot-spot" viewBox="0 0 12 12">
+                      <path d="M6 0V12" fill="none" stroke="currentColor"></path>
+                      <path d="M0 6L12 6" fill="none" stroke="currentColor"></path>
+                    </svg>
+                  </span>
+                </button>
+               {% assign card_product = block.settings.product %}
+               {% assign current_variant = card_product.selected_or_first_available_variant  %}
+                <div class="hot-spot-content-box{% if block.settings.vertical > 50 %} bottom{% else %} top{% endif %}{% if block.settings.horizontal > 50 %} right{% else %} left{% endif %}">
+                    <div class="hot-spot-image">
+                    {%- if card_product.featured_media != blank -%}
+                     <img
+                          srcset="
+                            {%- if card_product.featured_media.width >= 165 -%}{{ card_product.featured_media | image_url: width: 165 }} 165w,{%- endif -%}
+                            {%- if card_product.featured_media.width >= 360 -%}{{ card_product.featured_media | image_url: width: 360 }} 360w,{%- endif -%}
+                            {%- if card_product.featured_media.width >= 533 -%}{{ card_product.featured_media | image_url: width: 533 }} 533w,{%- endif -%}
+                            {%- if card_product.featured_media.width >= 720 -%}{{ card_product.featured_media | image_url: width: 720 }} 720w,{%- endif -%}
+                            {%- if card_product.featured_media.width >= 940 -%}{{ card_product.featured_media | image_url: width: 940 }} 940w,{%- endif -%}
+                            {%- if card_product.featured_media.width >= 1066 -%}{{ card_product.featured_media | image_url: width: 1066 }} 1066w,{%- endif -%}
+                            {{ card_product.featured_media | image_url }} {{ card_product.featured_media.width }}w
+                          "
+                          src="{{ card_product.featured_media | image_url: width: 533 }}"
+                          sizes="(min-width: 990px) calc((100vw - 130px) / 4), (min-width: 750px) calc((100vw - 120px) / 3), calc((100vw - 35px) / 2)"
+                          alt="{{ card_product.featured_media.alt | escape }}"
+                          loading="lazy"
+                          width="{{ card_product.featured_media.width }}"
+                          height="{{ card_product.featured_media.height }}"
+                        >
+                  {% else %}
+                    {{ 'product-apparel-1' | placeholder_svg_tag: 'placeholder-svg' }}
+                  {% endif %}
+                  </div>
+                  <div class="hot-spot-textbox rte">
+                      <{% if  card_product != blank  %}a href="{{ card_product.url | within : collection }}"{% else %}span{% endif %} class="text-size-medium" >
+                      {% if  card_product.title  %}
+                          {{- card_product.title | strip_html -}}
+                        {% else %}
+                           {{ 'onboarding.product_title' | t }}
+                        {% endif %}
+                      </{% if  card_product.url != blank  %}a{% else %}span{% endif %}>
+                    <price-main class="price-main">
+                      {%- assign price_min = card_product.price_min | default: 1899 | money -%}
+                        <price-sale class="price-sale"> 
+                           {%- if card_product.price_varies -%}
+                            <span class="product-actual-price varies-price">
+                              {{ 'products.product.price.from_price_html' | t: price: price_min }}
+                            </span>
+                          {%- else -%}
+                            <span class="product-actual-price">{{ price_min }}</span>
+                          {%- endif -%}
+                            {%- if card_product.compare_at_price_min > card_product.price_min -%}
+                              <span class="discount-price">{{ card_product.compare_at_price_min | money }}</span>
+                            {%- endif -%}
+                        {%- if current_variant.unit_price_measurement -%}
+                          <span class="product-unit-price">
+                            {{ current_variant.unit_price | money }} /
+                            {% if current_variant.unit_price_measurement.reference_value != 1 -%}
+                              {{- current_variant.unit_price_measurement.reference_value -}}
+                            {%- endif %}
+                            {{ current_variant.unit_price_measurement.reference_unit }}
+                          </span>
+                        {%- endif -%}
+                        </price-sale>
+                      </price-main>
+                  </div>
+                </div>
+          </hot-spot-hover>
+            {% endfor %}
+      {% endif %}
+
+      {% if viewAllButton and section.settings.btn_text != blank %}
+        <view-products class="hotspot-view-products button button-{{ section.settings.btn_size }}" tabindex="0" aria-label="{{ section.settings.btn_text }}">
+            <svg width="14" height="15" viewBox="0 0 14 15" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M1 4.75532V12.5264C1 13.5226 1.81534 14.3333 2.81724 14.3333H11.1828C12.1847 14.3333 13 13.5226 13 12.5264V4.75532C13 4.58908 12.8643 4.45417 12.6971 4.45417H9.71768V3.62451C9.71768 2.17749 8.53345 1 7.07784 1C5.62223 1 4.43799 2.17749 4.43799 3.62451V4.45417H1.30287C1.13569 4.45417 1 4.58908 1 4.75532ZM5.04374 3.62451C5.04374 2.50935 5.9563 1.6023 7.07784 1.6023C8.19938 1.6023 9.11163 2.50966 9.11163 3.62451V4.45417H5.04374V3.62451ZM1.60575 5.05646H4.43799V6.69049C4.43799 6.85673 4.57368 6.99164 4.74087 6.99164C4.90805 6.99164 5.04374 6.85673 5.04374 6.69049V5.05646H9.11194V6.69049C9.11194 6.85673 9.24762 6.99164 9.41481 6.99164C9.582 6.99164 9.71768 6.85673 9.71768 6.69049V5.05646H12.3943V12.5264C12.3943 13.1908 11.8509 13.731 11.1828 13.731H2.81724C2.1491 13.731 1.60575 13.1908 1.60575 12.5264V5.05646Z" fill="currentColor" stroke="currentColor" stroke-width="0.2"></path>
+            </svg>
+            <span>{{ section.settings.btn_text }}</span>
+        </view-products>
+      {% endif %}
+    </div>
+  </div>
+</div>
+{% if viewAllButton and section.settings.btn_text != blank %}
+<hotspot-drawer class="hotspot-drawer drawer right" id="hotspot-drawer" role="dialog" aria-modal="true" style="display:none;">
+        <drawer-layer class="overlay">
+          <drawer-mouse-cursor class="drawer-mouse-cursor">
+            <svg class="icon" stroke="currentColor" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M10 30L30 10M10 10L30 30" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"></path>
+            </svg>
+          </drawer-mouse-cursor>
+        </drawer-layer>
+        <div class="drawer-inner-card">
+            <div class="drawer-container">
+                <div class="drawer-head">
+                    <drawer-header>
+                        <a href="javascript:void(0);" class="drawer-close button-right" aria-label="Close">
+                            <svg class="drawer-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                              <path d="M18 6L6 18" stroke="currentColor" stroke-width="1.5"></path>
+                              <path d="M6 6L18 18" stroke="currentColor" stroke-width="1.5"></path>
+                            </svg>
+                        </a>
+                        <h3 class="drawer-heading h5">Shopping Bag</h3>
+                    </drawer-header>
+                    
+                </div>
+                <div class="drawer-body">
+                    <div class="drawer-content-contain">
+                      <div class="card-grid-view card-grid-view-2">
+                      {% for block in section.blocks %}
+                        {% if block.settings.product != blank %}
+                      {% assign product_form_id = 'product-form-'
+                        | append: section.id
+                        | append: forloop.index
+                        | append: '-'
+                        | append: collection.handle
+                      %}
+                      {%- capture current -%}{% cycle section.id: 1, 2, 3, 4 %}{%- endcapture -%}
+                      {%- assign placeholder_image = 'product-apparel-' | append: current -%}
+                      {% render 'product-card',
+                        card_product: block.settings.product,
+                        section: section,
+                        slider: false,
+                        product_form_id: product_form_id,
+                        placeholder_image: placeholder_image
+                      %}
+                          {% endif %}
+                      {% endfor %}
+                      </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+</hotspot-drawer>
+{%endif %}
+{% schema %}
+{
+  "name": "t:sections.hot_spots.name",
+  "class": "section-hot-spots",
+   "tag": "section",
+   "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "settings": [
+    {
+        "type":"image_picker",
+        "id":"image",
+        "label":"t:global.general_labels.image"
+    },
+    {
+       "type":"image_picker",
+        "id":"image_mobile",
+        "label":"t:global.general_labels.mobile_image"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "heading",
+      "default": "Shop the look",
+       "label":"t:global.general_labels.heading"
+    },
+    {
+      "type": "select",
+      "id": "heading_size",
+      "default": "h2",
+        "label": "t:global.heading_size.label",
+      "options": [
+      {
+          "value": "h1",
+          "label": "t:global.heading_size.options.h1.label"
+        },
+        {
+          "value": "h2",
+          "label": "t:global.heading_size.options.h2.label"
+        },
+        {
+          "value": "h3",
+            "label": "t:global.heading_size.options.h3.label"
+        },
+        {
+          "value": "h4",
+         "label": "t:global.heading_size.options.h4.label"
+        },
+        {
+          "value": "h5",
+           "label": "t:global.heading_size.options.h5.label"
+        },
+       {
+          "value": "h6",
+          "label": "t:global.heading_size.options.h6.label"
+        }
+      ]
+    },
+    {
+        "type": "header",
+        "content": "t:global.general_labels.button"
+    },
+    {
+        "type": "text",
+        "id": "btn_text",
+        "default": "Shop the look",
+        "label": "t:global.general_labels.text"
+    },
+    {
+          "type": "select",
+          "id": "btn_size",
+          "label": "t:global.btn_size.label",
+          "default": "small",
+          "options": [
+          {
+            "value": "xsmall",
+            "label": "t:global.btn_size.options.xsmall.label"
+          },
+          {
+            "value": "small",
+            "label": "t:global.btn_size.options.small.label"
+          },
+          {
+            "value": "medium",
+            "label": "t:global.btn_size.options.medium.label"
+          },
+          {
+            "value": "large",
+            "label": "t:global.btn_size.options.large.label"
+          }
+
+          ]
+    },
+    {
+        "type": "color_scheme",
+        "id": "color_scheme",
+        "default": "primary",
+       "label": "t:global.color_scheme.label"
+    },
+     {
+      "type": "header",
+       "content": "t:global.section_spacing.label"
+    },
+     {
+      "type": "number",
+      "id": "top_space_desktop",
+      "label": "t:global.section_spacing.top_space_desktop.label",
+      "default": 80,
+
+    },
+    {
+      "type": "number",
+      "id": "bottom_space_desktop",
+       "label": "t:global.section_spacing.bottom_space_desktop.label",
+      "default": 80
+
+    },
+    {
+      "type": "number",
+      "id": "top_space_mobile",
+      "label": "t:global.section_spacing.top_space_mobile.label",
+      "default": 40
+    },
+    {
+      "type": "number",
+      "id": "bottom_space_mobile",
+      "label": "t:global.section_spacing.bottom_space_mobile.label",
+      "default": 40
+    }
+
+  ],
+    "blocks":
+    [
+      {
+        "type": "spot",
+        "name": "t:sections.hot_spots.blocks.name",
+        "limit":6,
+        "settings": [
+            {
+                "type":"product",
+                "id":"product",
+                "label":"t:global.general_labels.product" 
+            },
+            {
+              "type":"header",
+              "content":"t:global.general_labels.desktop"
+            },
+             {
+                "type":"range",
+               "label": "t:sections.hot_spots.blocks.settings.spot_size.label",
+                "id":"spot_size",
+                "min":10,
+                "max":100,
+                "step":1,
+                "unit":"px",
+                "default":40
+            },
+            {
+                "type":"range",
+                 "label": "t:sections.hot_spots.blocks.settings.horizontal.label",
+                "id":"horizontal",
+                "min":10,
+                "max":100,
+                "step":1,
+                "unit":"%",
+                "default":10
+            },
+            {
+                "type":"range",
+                "label": "t:sections.hot_spots.blocks.settings.vertical.label",
+                "id":"vertical",
+                "min":10,
+                "max":100,
+                "step":1,
+                "unit":"%",
+                "default":10
+            },
+           {
+              "type":"header",
+              "content":"t:global.general_labels.mobile"
+            },
+             {
+                "type":"range",
+               "label": "t:sections.hot_spots.blocks.settings.spot_size.label",
+                "id":"mobile_spot_size",
+                "min":10,
+                "max":100,
+                "step":1,
+                "unit":"px",
+                "default":40
+            },
+            {
+                "type":"range",
+                 "label": "t:sections.hot_spots.blocks.settings.horizontal.label",
+                "id":"mobile_horizontal",
+                "min":10,
+                "max":100,
+                "step":1,
+                "unit":"%",
+                "default":10
+            },
+            {
+                "type":"range",
+                "label": "t:sections.hot_spots.blocks.settings.vertical.label",
+                "id":"mobile_vertical",
+                "min":10,
+                "max":100,
+                "step":1,
+                "unit":"%",
+                "default":10
+            },
+            {
+              "type":"header",
+              "content":"t:global.general_labels.colors"
+            },
+             {
+              "type":"paragraph",
+              "content":"t:global.general_labels.desktop"
+            },
+            {
+                "type":"color",
+                "label": "t:sections.hot_spots.blocks.settings.spot_color_bg.label",
+                "id":"spot_color_bg",
+                "default":"#282828"
+            },
+            {
+                "type":"color",
+                "label": "t:sections.hot_spots.blocks.settings.spot_color.label",
+                "id":"spot_color",
+                "default":"#FFFFFF"
+            },
+            {
+              "type":"paragraph",
+              "content":"t:global.general_labels.mobile"
+            },
+            {
+                "type":"color",
+                "label": "t:sections.hot_spots.blocks.settings.spot_color_bg.label",
+                "id":"mobile_spot_color_bg",
+                "default":"#282828"
+            },
+            {
+                "type":"color",
+                "label": "t:sections.hot_spots.blocks.settings.spot_color.label",
+                "id":"mobile_spot_color",
+                "default":"#FFFFFF"
+            }
+        ]
+      }
+  ],
+  "presets": [
+    {
+       "name": "t:sections.hot_spots.presets.name",
+      "blocks":[
+        {
+          "type": "spot",
+          "settings": {
+          "horizontal":10,
+          "vertical":65
+          }
+        },
+        {
+          "type": "spot",
+          "settings": {
+          "horizontal":45,
+          "vertical":65
+          }
+        },
+         {
+          "type": "spot",
+          "settings": {
+          "horizontal":15,
+          "vertical":65
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
+
