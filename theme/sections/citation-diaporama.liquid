@@ -77,7 +77,7 @@
       transition: opacity var(--qs-fade) ease, visibility var(--qs-fade) step-end;
     }
     #shopify-section-{{ section.id }} .quote-slide.is-active{
-      opacity: 1; visibility: visible; transition: opacity var(--qs-fade) ease, visibility 0s linear;
+      opacity: 1; visibility: visible; transition: opacity var(--qs-fade) ease var(--qs-fade), visibility 0s linear var(--qs-fade);
     }
 
     /* Typo */
