@@ -159,8 +159,6 @@
   @media (max-width: 749px){ .tabs-{{ section.id }} .only-d{display:none!important;} }
 {%- endstyle -%}
 
-{%- assign global_key = 'TC_' | append: section.id -%}
-
 <div class="tabs-{{ section.id }}" data-tabs="{{ section.id }}">
   {% if section.settings.section_title != blank %}
     <div class="sec-title">{{ section.settings.section_title }}</div>
@@ -168,8 +166,7 @@
 
   <div class="tabs-nav-wrap">
     {% if section.settings.show_nav_arrows %}
-      <button class="tabs-arrow prev" type="button" aria-label="Précédent"
-        onclick="window['{{ global_key }}'] && window['{{ global_key }}']('prev')">‹</button>
+      <button class="tabs-arrow prev" type="button" aria-label="Précédent">‹</button>
     {% endif %}
 
     <div class="tabs-nav {% if section.settings.center_tabs %}is-centered{% endif %}" role="tablist" aria-label="Navigation des onglets">
@@ -184,7 +181,6 @@
             role="tab"
             aria-selected="{% if tab_i == 0 %}true{% else %}false{% endif %}"
             aria-controls="tab-{{ section.id }}-{{ tab_i }}"
-            onclick="window['{{ global_key }}'] && window['{{ global_key }}']({{ tab_i }})"
             {{ block.shopify_attributes }}>
             {{ block.settings.tab_title | escape }}
           </button>
@@ -194,8 +190,7 @@
     </div>
 
     {% if section.settings.show_nav_arrows %}
-      <button class="tabs-arrow next" type="button" aria-label="Suivant"
-        onclick="window['{{ global_key }}'] && window['{{ global_key }}']('next')">›</button>
+      <button class="tabs-arrow next" type="button" aria-label="Suivant">›</button>
     {% endif %}
   </div>
 
