@@ -74,3 +74,26 @@ Correctif : les 7 fichiers ont été renvoyés sur le thème `#189740810620`, re
 Le thème `#189740908924` a été renommé « ⚠️ ancien – contient le bug (ne pas utiliser) ».
 
 Test local (Chromium, vrai Liquid rendu, vrais JS/CSS, Swiper 11.0.7 identique à celui du thème, produit à 100 variantes, images 1600 px, processeur ralenti ×4) : ancienne version → navigateur figé ; version corrigée → page réactive au chargement, au défilement et aux changements de variante.
+
+---
+
+# Page d'accueil – audit du 01/10/2026
+
+Méthode : rendu local de `templates/index.json` (13 sections + en-tête, pied de page, overlays) avec le vrai Liquid/JS/CSS du thème, dans Chromium, en reproduisant les contenus réellement absents de la boutique (vérifiés via l'API Admin). Tests : chargement, défilement complet, CPU ralenti ×4, clics sur onglets et flèches.
+
+**Résultat performance** : pas de blocage ; chargement ~2 s (CPU ×4), défilement fluide.
+
+## Bug corrigé dans le code
+| Problème | Effet | Fichier | Statut |
+|---|---|---|---|
+| Flèches et onglets de « Choisissez un art de vivre » branchés deux fois (`onclick` + écouteur JS) | Un clic sur « › » sautait de « Parfum d'intérieur » à « Coffrets & bons cadeaux » ; l'onglet **« Parfums de Peau » était inaccessible** via les flèches | `sections/tabs-collections.liquid` | ✅ Corrigé (testé : 1 → 2 → 3 → 2) |
+
+## Contenu manquant (à faire dans l'admin – aucune modification du code nécessaire)
+- **Images** : sur les 37 images utilisées par l'accueil, l'en-tête, le pied de page et les réglages, **36 n'existent pas** dans *Contenu → Fichiers* (seule une photo produit existe). Effets : **diaporama d'accueil vide** (grande zone blanche), **logo absent** (le nom de la boutique s'affiche en texte), **favicon absent**, bannières « Explorez notre univers parfumé », « Offrez un moment d'exception », « Espace professionnel », « L'ADN Couleur Safran », tuiles « Nos collections » sans image.
+- **Collections** : la section « Nouveautés / Coup de ❤️ / Coffrets & idées cadeaux / Nos promotions » affiche **16 faux produits « Example product – €18.99 »** car les collections `nouveautes`, `coups-de-coeur`, `nos-coffrets-et-bons-cadeaux`, `nos-offres-speciales` n'existent pas. Même cause pour les cartes des onglets « Parfum d'intérieur / Parfums de Peau / Coffrets » (8 collections manquantes).
+- **Blog** : la section « Suivez l'actualité Couleur Safran » pointe vers le blog `news`, qui a **0 article** → section vide.
+- **Menus du pied de page** (« Liens utiles », « Notre sélection ») : vides, menus inexistants.
+
+## Points mineurs (non modifiés)
+- `ss-counter` charge `flip.min.js` depuis un CDN externe (unpkg.com) : dépendance tierce, à rapatrier dans les assets du thème si possible.
+- `slideshow` : un `MutationObserver` recalcule la position des flèches à chaque changement de style des slides (léger coût pendant les transitions, sans blocage).
