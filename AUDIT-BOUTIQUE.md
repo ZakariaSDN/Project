@@ -89,7 +89,7 @@ Méthode : rendu local de `templates/index.json` (13 sections + en-tête, pied d
 | Flèches et onglets de « Choisissez un art de vivre » branchés deux fois (`onclick` + écouteur JS) | Un clic sur « › » sautait de « Parfum d'intérieur » à « Coffrets & bons cadeaux » ; l'onglet **« Parfums de Peau » était inaccessible** via les flèches | `sections/tabs-collections.liquid` | ✅ Corrigé (testé : 1 → 2 → 3 → 2) |
 
 ## Contenu manquant (à faire dans l'admin – aucune modification du code nécessaire)
-- **Images** : sur les 37 images utilisées par l'accueil, l'en-tête, le pied de page et les réglages, **36 n'existent pas** dans *Contenu → Fichiers* (seule une photo produit existe). Effets : **diaporama d'accueil vide** (grande zone blanche), **logo absent** (le nom de la boutique s'affiche en texte), **favicon absent**, bannières « Explorez notre univers parfumé », « Offrez un moment d'exception », « Espace professionnel », « L'ADN Couleur Safran », tuiles « Nos collections » sans image.
+- ~~**Images** : 36 des 37 images semblaient absentes~~ — **constat retiré le 01/10** : l'API Fichiers ne les liste pas, mais une capture de la boutique montre le logo et les visuels bien affichés. Ce contrôle n'était pas fiable.
 - **Collections** : la section « Nouveautés / Coup de ❤️ / Coffrets & idées cadeaux / Nos promotions » affiche **16 faux produits « Example product – €18.99 »** car les collections `nouveautes`, `coups-de-coeur`, `nos-coffrets-et-bons-cadeaux`, `nos-offres-speciales` n'existent pas. Même cause pour les cartes des onglets « Parfum d'intérieur / Parfums de Peau / Coffrets » (8 collections manquantes).
 - **Blog** : la section « Suivez l'actualité Couleur Safran » pointe vers le blog `news`, qui a **0 article** → section vide.
 - **Menus du pied de page** (« Liens utiles », « Notre sélection ») : vides, menus inexistants.
@@ -97,3 +97,9 @@ Méthode : rendu local de `templates/index.json` (13 sections + en-tête, pied d
 ## Points mineurs (non modifiés)
 - `ss-counter` charge `flip.min.js` depuis un CDN externe (unpkg.com) : dépendance tierce, à rapatrier dans les assets du thème si possible.
 - `slideshow` : un `MutationObserver` recalcule la position des flèches à chaque changement de style des slides (léger coût pendant les transitions, sans blocage).
+
+## Corrections du 01/10 (suite à une capture mobile)
+| Problème | Effet | Fichier | Statut |
+|---|---|---|---|
+| Section « Hot spots » : le 2e point n'était relié à aucun produit | La bulle affichait « Produit exemple – €18,99 » | `templates/product.json` | ✅ Relié à « Coffrets Diffuseurs de Parfums Artisanaux » |
+| Diaporama de citations : fondu croisé, les deux citations visibles en même temps | Textes superposés pendant le changement (jusqu'à 41 % d'opacité chacune) | `sections/citation-diaporama.liquid` | ✅ La nouvelle citation n'apparaît qu'après la disparition de l'ancienne (chevauchement mesuré : 0) |
